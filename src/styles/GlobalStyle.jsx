@@ -63,6 +63,23 @@ export const GlobalStyle = css`
     padding: 0;
     font-family: 'Noto Sans', sans-serif;
     box-sizing: border-box;
+    overflow-y: auto;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+
+    /* 중앙 정렬 및 고정 너비 적용 */
+    position: relative;
+    transform: translateX(-50%);
+    left: 50%;
+
+    // 모바일 너비 적용
+    @media (min-width: 768px) {
+      width: 480px;
+    }
+
+    /* position: fixed; */
+    /* left: 50%; */
   }
 
   img {
