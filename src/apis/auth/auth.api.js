@@ -22,6 +22,7 @@ export const authApi = (code) => {
           // 로컬 스토리지에 토큰 저장
           localStorage.setItem('accessToken', accessToken);
 
+          // 페이지 이동
           navigate(-2);
         })
         .catch((error) => {
