@@ -1,10 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import { createRoot } from 'react-dom/client';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+import App from './App.tsx';
+import { globalStyle } from './styles/globalStyles.ts';
+import { Global } from '@emotion/react';
+
+const root = createRoot(document.getElementById('root')!);
+
+root.render(
+  <>
+    <Global styles={globalStyle} />
     <App />
-  </React.StrictMode>,
-)
+  </>
+);
