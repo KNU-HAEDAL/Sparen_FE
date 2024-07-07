@@ -1,5 +1,5 @@
-import { MainBar } from './components/MainBar';
-import PageBar from './components/PageBar';
+import MainBar from './components/main-bar';
+import PageBar from './components/page-bar';
 
 // 이 곳에서 다 처리해야함
 // 1. Main 페이지에서의 Top - Bar
@@ -8,13 +8,20 @@ import PageBar from './components/PageBar';
 // 2-1. 이전 버튼 - 흰색바탕, 민트색 화살표
 // 2-2. 이전 버튼 - 색 바탕, 흰색 화살표,
 
-const TopBar: React.FC<TopBarPropsType> = ({ type, ...props }) => {
+interface TopBarProps {
+  type: string;
+  title: string;
+  backgroundColor: string;
+}
+
+const TopBar: React.FC<TopBarProps> = ({ type, ...props }) => {
   if (type === 'Main') {
     // const { title } = props;
+
     return <MainBar />;
   } else if (type === 'Page') {
     const { title, backgroundColor } = props;
-    return <PageBar title={title} BackgroundColor={backgroundColor} />;
+    return <PageBar title={title} backgroundColor={backgroundColor} />;
   }
   return null;
 };
