@@ -9,7 +9,7 @@ import PageBar from './components/page-bar';
 // 2-2. 이전 버튼 - 색 바탕, 흰색 화살표,
 
 interface TopBarProps {
-  type: string;
+  type: 'Main' | 'Page';
   title: string;
   backgroundColor: string;
 }

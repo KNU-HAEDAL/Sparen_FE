@@ -12,7 +12,7 @@ import styled from '@emotion/styled';
 //     props.BackgroundColor || 'var(--color-green-06)'};
 // `;
 
-export const LoginBtn = styled.div`
+export const LoginBtn = styled.section`
   display: flex;
   border: 1.5px solid var(--color-green-01);
 `;
