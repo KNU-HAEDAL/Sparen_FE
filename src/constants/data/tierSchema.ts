@@ -1,4 +1,15 @@
-export const tierGroups = [
+interface TierGroupTypes {
+  group: string;
+  color: string;
+  tiers: TierTypes[];
+}
+
+interface TierTypes {
+  tier: string;
+  totalExp: number;
+}
+
+export const tierGroups: TierGroupTypes[] = [
   {
     group: '노비',
     color: 'var(--color-class-01)',
@@ -150,7 +161,7 @@ export const tierGroups = [
   },
 ];
 
-export function getTierDetails(tierName) {
+export function getTierDetails(tierName: string) {
   for (const group of tierGroups) {
     for (const tier of group.tiers) {
       if (tier.tier === tierName) {
