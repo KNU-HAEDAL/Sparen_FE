@@ -23,6 +23,7 @@ interface ITypography {
 
 export interface IText extends IStyle, IMargin, ITypography {
   maxWidth?: string;
+  textAlign?: string;
 }
 
 export interface IButton extends IStyle {
