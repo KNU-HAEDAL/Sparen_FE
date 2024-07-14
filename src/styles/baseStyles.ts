@@ -46,6 +46,10 @@ export const Container = styled.div<Type.IContainer>`
   flex-direction: ${(props) => props.flexDirection};
   background-color: ${(props) => props.bgColor};
   margin: ${(props) => props.mgColumn} ${(props) => props.mgRow};
+  /* border-color: ${(props) => props.borderColor}; */
+  border-radius: ${(props) => props.radius};
+  border: ${(props) => props.border} ${(props) => props.borderType};
+  ${(props) => props.borderColor}
 `;
 
 export const TotalTierGraph = styled.div<Type.ITierGraph>`
