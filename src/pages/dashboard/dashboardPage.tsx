@@ -1,4 +1,4 @@
-import Strick from '../main/components/Strick';
+import Strick from '../main/components/strick';
 import Record from './components/challenge-record';
 import UserInfo from './components/user-info';
 import * as S from './styles';
