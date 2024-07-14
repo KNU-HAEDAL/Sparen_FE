@@ -1,10 +1,10 @@
 import { axiosClient } from '../AxiosClient';
-import { UserRankingRequest } from './rank.request';
+import { UserRankingResponse } from './rank.response';
 
 export async function getUserRanking(
   page: number,
   size: number
-): Promise<UserRankingRequest> {
+): Promise<UserRankingResponse> {
   try {
     const response = await axiosClient.get('/api/users/ranking', {
       params: { page, size },
