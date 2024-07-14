@@ -1,11 +1,11 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import NavBar from '@/components/nav-bar/NavBar';
-import Challenge from '@/pages/challenge/ChallengePage';
-import Dashboard from '@/pages/dashboard/DashboardPage';
+import DashboardPage from '@/pages/dashboard/dashboardPage';
 import MainPage from '@/pages/main/MainPage';
-import Rank from '@/pages/rank/RankPage';
-import Shorts from '@/pages/shorts/ShortsPage';
+import MyChallengePage from '@/pages/my-challenge/MyChallengePage';
+import RankPage from '@/pages/rank/RankPage';
+import ShortsPage from '@/pages/shorts/ShortsPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,19 +24,24 @@ export const router = createBrowserRouter([
       },
       {
         path: 'challenge',
-        element: <Challenge />,
+        children: [
+          {
+            index: true,
+            element: <MyChallengePage />,
+          },
+        ],
       },
       {
         path: 'shorts',
-        element: <Shorts />,
+        element: <ShortsPage />,
       },
       {
         path: 'rank',
-        element: <Rank />,
+        element: <RankPage />,
       },
       {
         path: 'dashboard',
-        element: <Dashboard />,
+        element: <DashboardPage />,
       },
     ],
   },
