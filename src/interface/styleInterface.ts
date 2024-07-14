@@ -38,6 +38,10 @@ export interface IContainer extends IStyle, IMargin {
   alignItems?: string;
   justifyContent?: string;
   flexDirection?: string;
+  borderColor?: string;
+  borderType?: string;
+  border?: string;
+  radius?: string;
 }
 
 export interface ITierGraph extends IStyle, IMargin {
