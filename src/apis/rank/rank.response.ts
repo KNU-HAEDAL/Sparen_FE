@@ -1,6 +1,6 @@
 import { UserData } from '@/interface/apis/user';
 
-interface PageData {
+export interface PageData {
   totalPage: number;
   hasNext: boolean;
   data: UserData[];

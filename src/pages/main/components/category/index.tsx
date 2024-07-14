@@ -8,7 +8,14 @@ import * as Base from '@/styles/baseStyles';
 const Category = () => {
   return (
     <>
-      <Base.Text fontSize='1.25rem' color='#000' mgLeft='1rem' mgBottom='1rem'>
+      <Base.Text
+        fontSize='var(--font-size-xl)'
+        fontWeight='700'
+        color='#000'
+        mgTop='1rem'
+        mgLeft='1rem'
+        mgBottom='1rem'
+      >
         챌린지 카테고리
       </Base.Text>
       <S.CategoryLayout>

@@ -4,11 +4,11 @@ import * as S from './styles';
 import { getUserInfo } from '@/apis/user/user.api';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
-import { useInfoStore } from '@/store/useInfoStore';
+import { InfoState, useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
 
 const Tier = () => {
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState<InfoState>('');
   const {
     setUserId,
     setUserNickname,
@@ -27,7 +27,7 @@ const Tier = () => {
       const response = await getUserInfo();
       const data = response.data;
       setUserInfo(data);
-      setUserId(data.id);
+      setUserId(data.userId);
       setUserNickname(data.nickname);
       setUserProfileImageUrl(data.profileImageUrl);
       setUserEmail(data.email);
@@ -115,3 +115,6 @@ const Tier = () => {
 };
 
 export default Tier;
+function InfoState(arg0: never[]) {
+  throw new Error('Function not implemented.');
+}

@@ -4,10 +4,12 @@ import DownArrow from '@/assets/main/Down-Arrow.svg';
 import * as Base from '@/styles/baseStyles';
 
 const Strick = () => {
+  const currentDay = 3;
   return (
     <>
       <Base.Text
         fontSize='var(--font-size-xl)'
+        fontWeight='700'
         color='#000'
         mgLeft='1rem'
         mgBottom='1rem'
@@ -17,11 +19,7 @@ const Strick = () => {
       <S.StrickLayout>
         <S.StrickInfo>
           <Base.Text fontSize='var(--font-size-xl)' fontWeight='700'>
-            현재
-            <Base.Text fontSize='var(--font-size-xl)' fontWeight='700'>
-              &nbsp;8&nbsp;
-            </Base.Text>
-            일
+            현재 {currentDay}일
           </Base.Text>
           <S.StrickMonthBox>
             <Base.Text fontSize='1rem' fontWeight='1.25rem'>

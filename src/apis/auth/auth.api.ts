@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { BASE_URI } from '@/constants/URI.ts';
 
-export const AuthApi = (code: string | null) => {
+const AuthApi = (code: string | null) => {
   const navigate = useNavigate();
 
   // 인가코드 받아서 토큰 요청
@@ -31,6 +31,8 @@ export const AuthApi = (code: string | null) => {
     }
   }, [code, navigate]);
 };
+
+export default AuthApi;
 // export async function login(provider, code, state) {
 // const resp = await axiosClient.post(
 //   '/api/auth/oauth2',

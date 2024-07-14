@@ -1,4 +1,3 @@
-import { CurrentTierGraph, TierGraph } from '../../styles';
 import * as S from './styles';
 import Profile from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
@@ -11,10 +10,11 @@ type UserRankProps = {
 };
 
 const UserRank: React.FC<UserRankProps> = ({ user, index }) => {
-  const { nickname, profileImageUrl, tierInfo, currentExp } = user;
+  // const { nickname, profileImageUrl, tierInfo, currentExp } = user;
+  const { nickname, tierInfo, currentExp } = user;
 
   const tierDetails = tierInfo
-    ? getTierDetails(tierInfo.tier)
+    ? getTierDetails(tierInfo)
     : { color: 'var(--color-class-02)' };
 
   const tierColor = tierDetails?.color;
@@ -53,10 +53,10 @@ const UserRank: React.FC<UserRankProps> = ({ user, index }) => {
               fontSize='0.8rem'
               color={tierColor}
             >
-              {tierInfo.tier}
+              {tierInfo}
             </Base.Text>
             <Base.Text maxWidth='150px' fontSize='0.8rem' color={tierColor}>
-              {tierInfo.currentExp}
+              {currentExp}
             </Base.Text>
           </Base.Container>
           <Base.Container

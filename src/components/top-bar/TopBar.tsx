@@ -14,6 +14,12 @@ interface TopBarProps {
   backgroundColor: string;
 }
 
+/**
+ * type : Main | Page
+ * title : Page Title
+ * backgroundColor : 배경색
+ * var(--color-green-06) or #fff
+ */
 const TopBar: React.FC<TopBarProps> = ({ type, ...props }) => {
   if (type === 'Main') {
     // const { title } = props;
