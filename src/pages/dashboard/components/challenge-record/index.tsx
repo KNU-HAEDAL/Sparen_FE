@@ -1,10 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-
+// import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import * as Base from '@/styles/baseStyles';
 
 const ChallengeRecord = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handlerPage = () => {
     // navigate('/challenge/record-list');
     console.log('click');
