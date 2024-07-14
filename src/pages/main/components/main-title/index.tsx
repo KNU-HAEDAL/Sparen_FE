@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as Styles from './styles';
+import * as S from './styles';
 import TitleLogo from '@/assets/main/ZZAN-Default.png';
+import * as Base from '@/styles/baseStyles';
 
 const MainTitle = () => {
   const navigate = useNavigate();
@@ -11,14 +12,19 @@ const MainTitle = () => {
 
   return (
     <>
-      <Styles.TitleLayout onClick={handlerNavigate}>
-        <Styles.LogoContainer>
-          <Styles.TitleLogo src={TitleLogo} alt='ZZAN Logo' />
-        </Styles.LogoContainer>
-        <Styles.TitleText fs='1.75rem' color='var(--color-green-01)'>
-          ZZANSUZI
-        </Styles.TitleText>
-      </Styles.TitleLayout>
+      <S.TitleLayout onClick={handlerNavigate}>
+        <S.LogoBox>
+          <Base.Img
+            width='2rem'
+            color='var(--color-green-01)'
+            src={TitleLogo}
+            alt='ZZAN Logo'
+          />
+        </S.LogoBox>
+        <Base.Text fontSize='1.75rem' color='var(--color-green-01)'>
+          ZZANSUNI
+        </Base.Text>
+      </S.TitleLayout>
     </>
   );
 };

@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { TierInfo } from '../../../components/userInfo/TierInfo';
-import * as Styles from './styles';
+import * as S from './styles';
 import { getUserInfo } from '@/apis/user/user.api';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
-import { getTierDetails } from '@/constants/TierSchema';
-import { useUserInfoStore } from '@/store/useUserInfoStore';
+import { getTierDetails } from '@/constants/data/tierSchema';
+import { useInfoStore } from '@/store/useInfoStore';
+import * as Base from '@/styles/baseStyles';
 
-const Teer = () => {
+const Tier = () => {
   const [userInfo, setUserInfo] = useState([]);
   const {
     setUserId,
@@ -20,14 +20,13 @@ const Teer = () => {
     userNickname,
     userTier,
     userCurrentExp,
-  } = useUserInfoStore();
+  } = useInfoStore();
 
   const fetchUserInfo = useCallback(async () => {
     try {
       const response = await getUserInfo();
       const data = response.data;
       setUserInfo(data);
-      // Assuming setting store state is necessary here
       setUserId(data.id);
       setUserNickname(data.nickname);
       setUserProfileImageUrl(data.profileImageUrl);
@@ -59,32 +58,60 @@ const Teer = () => {
   console.log(userTier);
   return (
     <>
-      <Styles.TitleText mgLF='1rem' mgBT='0.5rem'>
+      <Base.Text
+        fontSize='1.25rem'
+        fontWeight='700'
+        mgLeft='1rem'
+        mgBottom='0.5rem'
+      >
         내 티어
-      </Styles.TitleText>
-      <Styles.TeerLayout height='9.3125rem' width='21rem'>
-        <Styles.InfoContainer>
-          <Styles.ImgContainer>
-            <Styles.ProfileImg src={ProfileImg} />
-          </Styles.ImgContainer>
-          <Styles.NameContainer>
-            <Styles.TitleText>{userNickname}</Styles.TitleText>
-            <Styles.TextContainer>
-              <Styles.TextItem color={tierDetails.color} fw='700'>
+      </Base.Text>
+      <S.TierLayout>
+        <S.InfoContainer>
+          <S.ImgContainer>
+            <S.ProfileImg src={ProfileImg} />
+          </S.ImgContainer>
+          <Base.Container
+            flexDirection='column'
+            justifyContent='center'
+            alignItems='flex-start'
+            gap='0.625rem'
+          >
+            <Base.Text fontSize='1.25rem' fontWeight='700' color='#000'>
+              {userNickname}
+            </Base.Text>
+            <Base.Container
+              justifyContent='space-between'
+              width='5rem'
+              mgColumn='0.5rem'
+              mgRow='1rem'
+            >
+              <Base.Text color={tierDetails?.color} fontWeight='700'>
                 {userTier}
-              </Styles.TextItem>
-              <Styles.TextItem color={tierDetails.color}>
+              </Base.Text>
+              <Base.Text color={tierDetails?.color} fontWeight='1rem'>
                 {userCurrentExp}
-              </Styles.TextItem>
-            </Styles.TextContainer>
-          </Styles.NameContainer>
-        </Styles.InfoContainer>
-        <Styles.TeerTotal>
-          <Styles.TeerCurrent background={tierDetails.color} />
-        </Styles.TeerTotal>
-      </Styles.TeerLayout>
+              </Base.Text>
+            </Base.Container>
+          </Base.Container>
+        </S.InfoContainer>
+        <Base.TotalTierGraph
+          width='100%'
+          mgColumn='1rem'
+          mgRow='0'
+          height='0.3125rem'
+          radius='0.125rem'
+        >
+          <Base.CurrentTierGraph
+            width='1rem'
+            height='0.3125rem'
+            radius='0.125rem'
+            bgColor={tierDetails?.color}
+          />
+        </Base.TotalTierGraph>
+      </S.TierLayout>
     </>
   );
 };
 
-export default Teer;
+export default Tier;

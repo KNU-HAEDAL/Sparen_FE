@@ -129,44 +129,6 @@ export const TextContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const TextItem = styled.div`
-  color: ${(props) => props.color || 'var(--color-class-02)'};
-  font-family: 'Noto Sans';
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: ${(props) => props.fw || '400'};
-  line-height: normal;
-`;
-
-export const TeerTotal = styled.div`
-  display: flex;
-  /* width: 21.125rem; */
-  margin: 0 1rem;
-  /* width: 19rem; */
-  height: 0.9375rem;
-  /* padding-right: 11.8125rem; */
-  /* padding: 0 1rem; */
-  /* margin: 0 5rem; */
-  align-items: center;
-  flex-shrink: 0;
-
-  border-radius: 0.3125rem;
-  background: #000;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
-
-export const TeerCurrent = styled.div`
-  width: 10.3125rem;
-  height: 0.9375rem;
-  flex-shrink: 0;
-  padding-left: 0.3125rem;
-  border-radius: 0.3125rem;
-  /* background: linear-gradient(90deg, #81633e 0%, #b28854 50%); */
-  background: ${(props) =>
-    `linear-gradient(45deg, #4e4e4e 0%, ${props.background} 50%)` ||
-    'linear-gradient(90deg, #81633e 0%, #b28854 50%)'};
-`;
-
 export const StrickLayout = styled.div`
   height: 17.5rem;
   flex-shrink: 0;
