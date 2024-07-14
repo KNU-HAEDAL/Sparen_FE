@@ -7,3 +7,12 @@ export interface UserData {
   email: string;
   tierInfo: TierInfo;
 }
+
+export interface User {
+  id: number;
+  nickname: string;
+  profileImageUrl: string;
+  email: string;
+  tierInfo: string;
+  currentExp: number;
+}
