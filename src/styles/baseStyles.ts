@@ -12,6 +12,7 @@ export const Text = styled.div<Type.IText>`
   font-weight: ${(props) => props.fontWeight};
   font-style: ${(props) => props.fontStyle};
 
+  text-align: ${(props) => props.textAlign};
   max-width: ${(props) => props.maxWidth};
   line-height: ${(props) => props.lineHeight};
   margin-top: ${(props) => props.mgTop};
