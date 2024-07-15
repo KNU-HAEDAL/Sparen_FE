@@ -1,7 +1,9 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import RedirectPage from './pages/login/components/redirect';
 import NavBar from '@/components/nav-bar/NavBar';
 import DashboardPage from '@/pages/dashboard/dashboardPage';
+import LoginPage from '@/pages/login/LoginPage';
 import MainPage from '@/pages/main/MainPage';
 import MyChallengePage from '@/pages/my-challenge/MyChallengePage';
 import RankPage from '@/pages/rank/RankPage';
@@ -11,11 +13,9 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <>
-        <NavBar>
-          <Outlet />
-        </NavBar>
-      </>
+      <NavBar>
+        <Outlet />
+      </NavBar>
     ),
     children: [
       {
@@ -44,5 +44,13 @@ export const router = createBrowserRouter([
         element: <DashboardPage />,
       },
     ],
+  },
+  {
+    path: 'login',
+    element: <LoginPage />,
+  },
+  {
+    path: 'redirect',
+    element: <RedirectPage />,
   },
 ]);
