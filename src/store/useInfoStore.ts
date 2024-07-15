@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface InfoState {
+export interface InfoState {
   userId: number;
   userNickname: string;
   userProfileImageUrl: string;
@@ -11,7 +11,7 @@ interface InfoState {
   updateNickname: string;
 }
 
-interface InfoAction extends InfoState {
+export interface InfoAction extends InfoState {
   setUserId: (userId: number) => void;
   setUserNickname: (userNickname: string) => void;
   setUserProfileImageUrl: (userProfileImageUrl: string) => void;

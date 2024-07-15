@@ -4,10 +4,16 @@ import ChallengeList from './components/challenge-list';
 import * as S from './styles';
 import { getCurrentChallengeList } from '@/apis/challenge/my-challenge/my.challenge.api';
 import TopBar from '@/components/top-bar/TopBar';
+import { ChallengeData } from '@/interface/apis/challenge';
 import * as Base from '@/styles/baseStyles';
 
+// interface ChallengeDataType {
+//   id: number;
+//   title: string;
+// }
+
 const MyChallenge = () => {
-  const [listChallenges, setListChallenges] = useState([]);
+  const [listChallenges, setListChallenges] = useState<ChallengeData[]>([]);
 
   useEffect(() => {
     const fetchCurrentChallenges = async () => {
@@ -40,7 +46,7 @@ const MyChallenge = () => {
           BackgroundColor='#fff'
           color='#c0c0c0'
           BorderColor='#c0c0c0'
-          challenges={listChallenges} // Pass the listChallenges state as props
+          challenges={listChallenges}
         />
       </S.MyChallengeLayout>
     </>

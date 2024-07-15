@@ -2,13 +2,15 @@ import { useCallback, useEffect, useState } from 'react';
 
 import * as S from './styles';
 import { getUserInfo } from '@/apis/user/user.api';
+import { UserInfoResponse } from '@/apis/user/user.response';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
+import { UserData } from '@/interface/apis/user';
 import { InfoState, useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
 
 const Tier = () => {
-  const [userInfo, setUserInfo] = useState<InfoState>('');
+  const [userInfo, setUserInfo] = useState<UserData | null>(null);
   const {
     setUserId,
     setUserNickname,
@@ -25,9 +27,9 @@ const Tier = () => {
   const fetchUserInfo = useCallback(async () => {
     try {
       const response = await getUserInfo();
-      const data = response.data;
+      const data: UserInfoResponse['data']['data'][0] = response.data.data[0];
       setUserInfo(data);
-      setUserId(data.userId);
+      setUserId(data.id);
       setUserNickname(data.nickname);
       setUserProfileImageUrl(data.profileImageUrl);
       setUserEmail(data.email);
@@ -55,7 +57,6 @@ const Tier = () => {
     ? getTierDetails(userTier)
     : { color: 'var(--color-class-02)' };
 
-  console.log(userTier);
   return (
     <>
       <Base.Text
@@ -115,6 +116,3 @@ const Tier = () => {
 };
 
 export default Tier;
-function InfoState(arg0: never[]) {
-  throw new Error('Function not implemented.');
-}
