@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import RedirectPage from './pages/login/components/redirect';
+import RegisterPage from './pages/login/components/register';
 import NavBar from '@/components/nav-bar/NavBar';
 import DashboardPage from '@/pages/dashboard/dashboardPage';
 import LoginPage from '@/pages/login/LoginPage';
@@ -52,5 +53,18 @@ export const router = createBrowserRouter([
   {
     path: 'redirect',
     element: <RedirectPage />,
+  },
+  {
+    path: 'auth',
+    children: [
+      {
+        index: true,
+        element: <LoginPage />,
+      },
+      {
+        path: 'register',
+        element: <RegisterPage />,
+      },
+    ],
   },
 ]);
