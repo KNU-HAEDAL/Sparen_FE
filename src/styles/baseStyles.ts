@@ -1,9 +1,16 @@
 import * as Type from '@/interface/styleInterface';
 import styled from '@emotion/styled';
 
-export const Img = styled.img`
+export const Img = styled.img<Type.IImg>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
+
+  text-align: ${(props) => props.textAlign};
+  margin-top: ${(props) => props.mgTop};
+  margin-bottom: ${(props) => props.mgBottom};
+  margin-left: ${(props) => props.mgLeft};
+  margin-right: ${(props) => props.mgRight};
+  border-radius: ${(props) => props.radius};
   flex-shrink: 0;
 `;
 
@@ -11,7 +18,7 @@ export const Text = styled.div<Type.IText>`
   font-size: ${(props) => props.fontSize};
   font-weight: ${(props) => props.fontWeight};
   font-style: ${(props) => props.fontStyle};
-
+  cursor: ${(props) => props.cursor};
   text-align: ${(props) => props.textAlign};
   max-width: ${(props) => props.maxWidth};
   line-height: ${(props) => props.lineHeight};
@@ -30,9 +37,12 @@ export const button = styled.div<Type.IButton>`
   height: ${(props) => props.height};
   border-radius: ${(props) => props.radius};
   background-color: ${(props) => props.bgColor};
+  padding: ${(props) => props.pdColumn} ${(props) => props.pdRow};
   color: ${(props) => props.color};
-  border: 1.5px solid ${(props) => props.borderColor};
-  padding: 0.25rem 0.5rem;
+  border: ${(props) => props.border};
+  ${(props) => props.borderType};
+  ${(props) => props.borderColor};
+  padding: ${(props) => props.pdColumn} ${(props) => props.pdRow};
 `;
 
 export const Container = styled.div<Type.IContainer>`
@@ -47,9 +57,14 @@ export const Container = styled.div<Type.IContainer>`
   background-color: ${(props) => props.bgColor};
   margin: ${(props) => props.mgColumn} ${(props) => props.mgRow};
   /* border-color: ${(props) => props.borderColor}; */
+  margin-top: ${(props) => props.mgTop};
+  margin-bottom: ${(props) => props.mgBottom};
+  margin-left: ${(props) => props.mgLeft};
+  margin-right: ${(props) => props.mgRight};
   border-radius: ${(props) => props.radius};
   border: ${(props) => props.border} ${(props) => props.borderType};
   ${(props) => props.borderColor}
+  cursor: ${(props) => props.cursor};
 `;
 
 export const TotalTierGraph = styled.div<Type.ITierGraph>`
