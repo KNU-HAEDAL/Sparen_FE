@@ -15,9 +15,9 @@ interface TopBarProps {
 }
 
 /**
- * type : Main | Page
- * title : Page Title
- * backgroundColor : 배경색
+ * type : Main | Page,
+ * title : Page Title,
+ * backgroundColor : 배경색,
  * var(--color-green-06) or #fff
  */
 const TopBar: React.FC<TopBarProps> = ({ type, ...props }) => {
