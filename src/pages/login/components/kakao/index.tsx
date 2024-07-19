@@ -1,6 +1,5 @@
-import * as S from '../../styles';
 import Logo from '@/assets/login/kakao.svg';
-import { KAKAO_AUTH_URL } from '@/constants/URI';
+import { KAKAO_AUTH_URL } from '@/constants/URI.ts';
 import * as Base from '@/styles/baseStyles';
 
 const KakaoLogin = () => {
@@ -24,24 +23,8 @@ const KakaoLogin = () => {
         textAlign='center'
         src={Logo}
         alt='Social-symbol'
-        // radius='1rem'
       />
     </Base.Container>
-    // <S.SocialLoginButton
-    //   borderColor='#fee500'
-    //   bgColor='#fee500'
-    //   onClick={handlerLogin}
-    // >
-    //   <Base.Img
-    //     width='2rem'
-    //     height='2rem'
-    //     mgRight='2rem'
-    //     mgLeft='1rem'
-    //     textAlign='center'
-    //     src={Logo}
-    //     alt='Social-symbol'
-    //   />
-    // </S.SocialLoginButton>
   );
 };
 

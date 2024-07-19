@@ -1,6 +1,5 @@
-import * as S from '../../styles';
 import Logo from '@/assets/login/naver.png';
-import { KAKAO_AUTH_URL } from '@/constants/URI';
+import { KAKAO_AUTH_URL } from '@/constants/URI.ts';
 import * as Base from '@/styles/baseStyles';
 
 const NaverLogin = () => {
