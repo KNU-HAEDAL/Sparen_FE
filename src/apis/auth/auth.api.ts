@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-import { BASE_URI } from '@/constants/URL.ts';
+import { axiosClient } from '../AxiosClient';
+import { BASE_URI } from '@/constants/URI.ts';
 
 const AuthApi = (code: string | null) => {
   const navigate = useNavigate();
@@ -42,3 +43,22 @@ export default AuthApi;
 // );
 // return resp.data;
 // }
+
+type loginParams = {
+  email: string;
+  password: string;
+  nickname: string;
+};
+export async function setRegister({ email, password, nickname }: loginParams) {
+  try {
+    const response = await axiosClient.post('/api/auth/signup', {
+      email,
+      password,
+      nickname,
+    });
+    console.log(response.data);
+    return response.data;
+  } catch {
+    throw new Error('register error');
+  }
+}
