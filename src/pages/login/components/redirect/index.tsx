@@ -1,5 +1,5 @@
 import AuthAPI from '@/apis/auth/auth.api';
-import { BASE_URI } from '@/constants/URI.ts';
+import { BASE_URI } from '@/constants/URL.ts';
 
 const RedirectPage = () => {
   const code = new URLSearchParams(window.location.search).get('code');
