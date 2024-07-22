@@ -2,11 +2,20 @@ import * as S from '../../styles';
 import * as Base from '@/styles/baseStyles';
 
 const EmailLogin = () => {
+  // test123@test.test / 123
   return (
     <>
       <Base.Container flexDirection='column' gap='2px' mgTop='2rem'>
-        <S.LoginInput type='text' placeholder='이메일을 입력해주세요.' />
-        <S.LoginInput type='password' placeholder='비밀번호를 입력해주세요.' />
+        <S.LoginInput
+          type='text'
+          id='email'
+          placeholder='이메일을 입력해주세요.'
+        />
+        <S.LoginInput
+          type='password'
+          id='password'
+          placeholder='비밀번호를 입력해주세요.'
+        />
       </Base.Container>
       <Base.Container
         textAlign='center'
