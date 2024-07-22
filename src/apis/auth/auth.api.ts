@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
-import { BASE_URI } from '@/constants/URI.ts';
+import { BASE_URI } from '@/constants/URL.ts';
 
 const AuthApi = (code: string | null) => {
   const navigate = useNavigate();

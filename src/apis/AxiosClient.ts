@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { BASE_URI } from '@/constants/URI.ts';
+import { BASE_URI } from '@/constants/URL.ts';
 
 export const axiosClient = axios.create({
   baseURL: BASE_URI,
