@@ -1,14 +1,44 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-import { BASE_URI } from '@/constants/URL.ts';
+import { BASE_URL } from '@/constants/URI';
+import { QueryClient } from '@tanstack/react-query';
 
-export const axiosClient = axios.create({
-  baseURL: BASE_URI,
-  headers: {
-    'Content-Type': 'application/json',
-    'Cross-Control-Allow-Origin': '*',
+const initInstance = (config: AxiosRequestConfig): AxiosInstance => {
+  const instance = axios.create({
+    timeout: 10000,
+    ...config,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Cross-Control-Allow-Origin': '*',
+      ...config.headers,
+    },
+  });
+
+  return instance;
+};
+
+export const axiosClient = initInstance({
+  baseURL: BASE_URL,
+});
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+    },
   },
 });
+// export const axiosClient = axios.create({
+//   baseURL: BASE_URI,
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Cross-Control-Allow-Origin': '*',
+//   },
+// });
 
 axiosClient.interceptors.request.use(
   (config) => {
