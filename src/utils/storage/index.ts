@@ -7,7 +7,6 @@ const initStorage = <T extends keyof StorageKey>(key: T, storage: Storage) => {
     const value = storage.getItem(storageKey);
 
     return value as StorageKey[T];
-    // return JSON.parse(value as string);
   };
   const set = (value: StorageKey[T]) => {
     if (value == undefined || value == null) {
@@ -21,10 +20,6 @@ const initStorage = <T extends keyof StorageKey>(key: T, storage: Storage) => {
 };
 
 export const authLocalStorage = initStorage('accessToken', localStorage);
-// export const orderHistorySessionStorage = initStorage(
-//   'orderHistory',
-//   sessionStorage
-// );
 
 interface StorageKey {
   accessToken?: string;
