@@ -4,7 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { axiosClient } from '../AxiosClient';
-import { BASE_URI } from '@/constants/URI.ts';
+import { AuthResponse } from './auth.response';
+import { BASE_URL } from '@/constants/URI';
+import { authLocalStorage } from '@/utils/storage';
+
+interface loginParams {
+  email: string;
+  password: string;
+}
+
+interface RegisterParams extends loginParams {
+  nickname: string;
+}
 
 const AuthApi = (code: string | null) => {
   const navigate = useNavigate();
@@ -13,7 +24,7 @@ const AuthApi = (code: string | null) => {
   useEffect(() => {
     if (code) {
       axios
-        .get(`${BASE_URI}/oauth2?code=${code}`, {
+        .get(`${BASE_URL}/oauth2?code=${code}`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -44,12 +55,14 @@ export default AuthApi;
 // return resp.data;
 // }
 
-type loginParams = {
-  email: string;
-  password: string;
-  nickname: string;
-};
-export async function setRegister({ email, password, nickname }: loginParams) {
+/**
+ * email, password, nickname을 받아 회원가입 요청
+ */
+export async function setRegister({
+  email,
+  password,
+  nickname,
+}: RegisterParams): Promise<AuthResponse> {
   try {
     const response = await axiosClient.post('/api/auth/signup', {
       email,
@@ -61,4 +74,20 @@ export async function setRegister({ email, password, nickname }: loginParams) {
   } catch {
     throw new Error('register error');
   }
+}
+
+/**
+ * email, password를 받아 로그인 요청
+ */
+export async function setLogin({
+  email,
+  password,
+}: loginParams): Promise<AuthResponse> {
+  const response = await axiosClient.post('/api/auth/login', {
+    email,
+    password,
+  });
+  const { accessToken } = response.data.data;
+  authLocalStorage.set(accessToken);
+  return response.data;
 }
