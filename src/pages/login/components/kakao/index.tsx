@@ -1,5 +1,5 @@
 import Logo from '@/assets/login/kakao.svg';
-import { KAKAO_AUTH_URL } from '@/constants/URL.ts';
+import { KAKAO_AUTH_URL } from '@/constants/URI.ts';
 import * as Base from '@/styles/baseStyles';
 
 const KakaoLogin = () => {
