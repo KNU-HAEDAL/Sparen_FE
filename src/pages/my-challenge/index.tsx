@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import ChallengeList from './components/challenge-list';
 import * as S from './styles';
 import { getCurrentChallengeList } from '@/apis/challenge/my-challenge/my.challenge.api';
-import TopBar from '@/components/top-bar/TopBar';
+import TopBar from '@/components/features/layout/top-bar';
 import { ChallengeData } from '@/interface/apis/challenge';
 import * as Base from '@/styles/baseStyles';
 
@@ -12,7 +12,7 @@ import * as Base from '@/styles/baseStyles';
 //   title: string;
 // }
 
-const MyChallenge = () => {
+const MyChallengePage = () => {
   const [listChallenges, setListChallenges] = useState<ChallengeData[]>([]);
 
   useEffect(() => {
@@ -53,4 +53,4 @@ const MyChallenge = () => {
   );
 };
 
-export default MyChallenge;
+export default MyChallengePage;

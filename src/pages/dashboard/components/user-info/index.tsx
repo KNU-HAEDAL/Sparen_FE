@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import * as S from './styles';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
-import UpdateNicknameModal from '@/components/modal';
+import UpdateNicknameModal from '@/components/features/modal';
 import { getTierDetails } from '@/constants/data/tierSchema';
 import { useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';

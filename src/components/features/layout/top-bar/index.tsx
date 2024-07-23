@@ -1,5 +1,5 @@
-import MainBar from './components/main-bar';
-import PageBar from './components/page-bar';
+import MainBar from './main';
+import PageBar from './page';
 
 // 이 곳에서 다 처리해야함
 // 1. Main 페이지에서의 Top - Bar
