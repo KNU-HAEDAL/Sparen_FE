@@ -6,7 +6,7 @@ export const LoginLayout = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 4rem;
-  background-color: 'var(--color-green-06)';
+  background-color: #fff;
   /* height: 100vh; */
 `;
 
@@ -14,7 +14,6 @@ export const ButtonBox = styled.div`
   display: flex;
 
   text-align: center;
-  margin-top: 2rem;
   justify-content: center;
   align-items: center;
   flex-direction: row;

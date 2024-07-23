@@ -1,7 +1,7 @@
 import AllRank from './components/all';
 import MyRank from './components/my';
 import * as S from './styles';
-import TopBar from '@/components/top-bar/TopBar';
+import TopBar from '@/components/features/layout/top-bar';
 
 const RankPage = () => {
   return (
@@ -9,7 +9,7 @@ const RankPage = () => {
       <TopBar
         type='Page'
         title='랭킹'
-        backgroundColor='var(--color--green-06)'
+        backgroundColor='var(--color-green-06)'
       />
       <S.RankLayout>
         <S.PageLayout>

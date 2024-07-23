@@ -4,7 +4,7 @@ import EmailLogin from './components/email';
 import GoogleLogin from './components/google';
 import NaverLogin from './components/naver';
 import * as S from './styles';
-import TopBar from '@/components/top-bar/TopBar';
+import TopBar from '@/components/features/layout/top-bar';
 import KakaoLogin from '@/pages/login/components/kakao';
 import * as Base from '@/styles/baseStyles';
 

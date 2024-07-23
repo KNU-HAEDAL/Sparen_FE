@@ -2,9 +2,9 @@ import ShortsContents from './components/contents';
 import ShortsImage from './components/image';
 import ShortsInfo from './components/info';
 import * as S from './styles';
-import TopBar from '@/components/top-bar/TopBar';
+import TopBar from '@/components/features/layout/top-bar';
 
-const ShortsPage = () => {
+const Index = () => {
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='var(--color--green-06)' />
@@ -17,4 +17,4 @@ const ShortsPage = () => {
   );
 };
 
-export default ShortsPage;
+export default Index;

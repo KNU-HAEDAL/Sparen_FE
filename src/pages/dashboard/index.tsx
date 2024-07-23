@@ -1,10 +1,10 @@
 import Strick from '../main/components/strick';
 import Record from './components/challenge-record';
 import UserInfo from './components/user-info';
-import * as S from './styles';
-import TopBar from '@/components/top-bar/TopBar';
+import TopBar from '@/components/features/layout/top-bar';
+import styled from '@emotion/styled';
 
-const DashboardPage = () => {
+const DashBoardPage = () => {
   return (
     <>
       <TopBar
@@ -12,13 +12,17 @@ const DashboardPage = () => {
         title='대시보드'
         backgroundColor='var(--color-green-06)'
       />
-      <S.DashBoardLayout>
+      <DashBoardLayout>
         <UserInfo />
         <Record />
         <Strick />
-      </S.DashBoardLayout>
+      </DashBoardLayout>
     </>
   );
 };
 
-export default DashboardPage;
+export default DashBoardPage;
+
+const DashBoardLayout = styled.section`
+  height: 52.625rem;
+`;
