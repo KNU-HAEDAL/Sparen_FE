@@ -4,7 +4,7 @@ import MainIcon from '@/assets/nav-icon/Home.svg';
 import ChallengeIcon from '@/assets/nav-icon/My-Challenge.svg';
 import RankIcon from '@/assets/nav-icon/Ranking.svg';
 
-export const NavBarData = [
+export const navBarData = [
   {
     title: 'challenge',
     icon: ChallengeIcon,
