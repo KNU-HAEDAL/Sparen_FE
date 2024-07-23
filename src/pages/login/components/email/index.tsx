@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from '../../styles';
 import { setLogin } from '@/apis/auth/auth.api';
@@ -8,6 +9,7 @@ import * as Base from '@/styles/baseStyles';
 const EmailLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handlerEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -20,6 +22,7 @@ const EmailLogin = () => {
     try {
       const response = setLogin({ email, password });
       console.log('로그인 성공:', response);
+      navigate(-1);
     } catch (error) {
       console.error('로그인 실패:', error);
     }

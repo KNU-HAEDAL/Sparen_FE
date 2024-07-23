@@ -5,7 +5,7 @@ import { authLocalStorage } from '@/utils/storage';
 
 type AuthInfo = {
   id: string;
-  name: string;
+  nickname: string;
   token: string;
 };
 
@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (currentAuthToken) {
       setAuthInfo({
         id: currentAuthToken,
-        name: currentAuthToken,
+        nickname: currentAuthToken,
         token: currentAuthToken,
       });
       setIsReady(true);

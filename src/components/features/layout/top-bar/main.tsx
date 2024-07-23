@@ -1,13 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/assets/top-bar/ZZAN-Default.png';
+import { useAuth } from '@/provider/auth';
+import { getDynamicPath, RouterPath } from '@/routes/path.ts';
+import { authLocalStorage } from '@/utils/storage';
 import { Box, Image, Text, Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MainBar = () => {
   const navigate = useNavigate();
+  const authInfo = useAuth();
   const handleLogin = () => {
-    navigate('/auth');
+    navigate(getDynamicPath.login());
+  };
+
+  const handleLogout = () => {
+    authLocalStorage.set(undefined);
+
+    const redirectURL = `${window.location.origin}${RouterPath.main}`;
+    window.location.replace(redirectURL);
   };
 
   return (
@@ -28,24 +39,53 @@ const MainBar = () => {
           ZZANSUNI
         </Text>
       </Box>
-      <Button
-        borderRadius='0.5rem'
-        border='1.2px solid var(--color-green-01)'
-        width='3.5rem'
-        paddingX='5px'
-        textAlign='center'
-        alignItems='center'
-        onClick={handleLogin}
-        backgroundColor='#fff'
-      >
-        <Text
-          fontSize='var(--font-size-md)'
-          fontWeight='bold'
-          color='var(--color-green-01)'
+
+      {authInfo ? (
+        <Button
+          borderRadius='0.5rem'
+          border='1.2px solid var(--color-green-01)'
+          width='3.5rem'
+          paddingX='5px'
+          textAlign='center'
+          alignItems='center'
+          onClick={handleLogout}
+          backgroundColor='#fff'
         >
-          로그인
-        </Text>
-      </Button>
+          <Text
+            fontSize='var(--font-size-md)'
+            fontWeight='bold'
+            color='var(--color-green-01)'
+          >
+            나가기
+          </Text>
+        </Button>
+      ) : (
+        <Button
+          borderRadius='0.5rem'
+          border='1.2px solid var(--color-green-01)'
+          width='3.5rem'
+          paddingX='5px'
+          textAlign='center'
+          alignItems='center'
+          onClick={handleLogin}
+          backgroundColor='#fff'
+        >
+          <Text
+            fontSize='var(--font-size-md)'
+            fontWeight='bold'
+            color='var(--color-green-01)'
+          >
+            로그인
+          </Text>
+        </Button>
+      )}
+      {/*<Text*/}
+      {/*  fontSize='var(--font-size-md)'*/}
+      {/*  fontWeight='bold'*/}
+      {/*  color='var(--color-green-01)'*/}
+      {/*>*/}
+      {/*  로그인*/}
+      {/*</Text>*/}
     </PageBarLayout>
   );
 };

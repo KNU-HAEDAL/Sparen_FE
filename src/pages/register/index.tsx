@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Input } from 'antd';
-
 import { setRegister } from '@/apis/auth/auth.api.ts';
 import TopBar from '@/components/features/layout/top-bar';
+import { RouterPath } from '@/routes/path.ts';
 import * as Base from '@/styles/baseStyles.ts';
-import { Text } from '@chakra-ui/react';
+import { Text, Input } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const RegisterPage = () => {
@@ -32,6 +31,7 @@ const RegisterPage = () => {
       const response = await setRegister({ email, password, nickname });
       console.log('회원가입 성공:', response);
       alert('회원가입이 완료되었습니다.');
+      navigate(RouterPath.root);
     } catch (error) {
       console.error('회원가입 실패:', error);
       alert('회원가입에 실패했습니다.');
@@ -45,26 +45,26 @@ const RegisterPage = () => {
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='#fff' />
-      <LoginLayout>
+      <RegisterLayout>
         <Text fontSize='var(--font-size-xl)' fontWeight='700'>
           짠수니에 오신것을 환영합니다!
         </Text>
         <Base.Container flexDirection='column' gap='2px' mgTop='2rem'>
-          <Input
+          <RegisterInput
             type='text'
             name='email'
             placeholder='이메일을 입력해주세요.'
             onChange={handleInputChange}
             value={formValues.email}
           />
-          <Input
+          <RegisterInput
             type='password'
             name='password'
             placeholder='비밀번호를 입력해주세요.'
             onChange={handleInputChange}
             value={formValues.password}
           />
-          <Input
+          <RegisterInput
             type='text'
             name='nickname'
             placeholder='사용할 닉네임을 입력해주세요.'
@@ -106,14 +106,14 @@ const RegisterPage = () => {
             로그인하기
           </Text>
         </Base.Container>
-      </LoginLayout>
+      </RegisterLayout>
     </>
   );
 };
 
 export default RegisterPage;
 
-const LoginLayout = styled.div`
+const RegisterLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,4 +121,16 @@ const LoginLayout = styled.div`
   margin-top: 4rem;
   background-color: #fff;
   /* height: 100vh; */
+`;
+
+const RegisterInput = styled(Input)`
+  width: 15rem;
+  height: 2.5rem;
+  border: 1px solid #d2d2d2;
+  //padding: 0 0.5rem;
+
+  margin-bottom: 1rem;
+  ::placeholder {
+    font-size: 13px;
+  }
 `;
