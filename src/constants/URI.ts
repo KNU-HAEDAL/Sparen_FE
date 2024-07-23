@@ -1,4 +1,4 @@
-export const BASE_URI = import.meta.env.VITE_APP_BASE_URL;
+export const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 
 export const KAKAO_REST_API_KEY = import.meta.env.VITE_APP_KAKAO_API_KEY;
 export const NAVER_REST_API_KEY = import.meta.env.VITE_APP_NAVER_API_KEY;
