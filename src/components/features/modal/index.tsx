@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 import { Button, Input, Space } from 'antd';
@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 type BiddingModalProps = {
   isOpen: boolean;
   onRequestClose: () => void;
-  currentNickname: string;
+  currentNickname: string | undefined;
 };
 
 Modal.setAppElement('#root');
@@ -20,29 +20,29 @@ const NicknameModal: React.FC<BiddingModalProps> = ({
   onRequestClose,
   currentNickname,
 }) => {
-  const { setUserNickname, setUpdateNickname } = useInfoStore();
+  const { userInfo, setUserInfo } = useInfoStore();
   const [nickname, setNickname] = useState(currentNickname);
+
+  useEffect(() => {
+    setNickname(currentNickname);
+  }, [currentNickname]);
 
   const fetchFixNickname = useCallback(async () => {
     try {
-      const data = await fixUserInfo(nickname);
-      return data;
+      return await fixUserInfo(nickname);
     } catch (error) {
       console.error('Error fixing user info:', error);
       throw error;
     }
   }, [nickname]);
 
-  useEffect(() => {
-    setNickname(currentNickname);
-  }, [currentNickname]);
-
   const handleSubmit = async () => {
     try {
       if (nickname.trim() !== '') {
-        await fetchFixNickname(); // Call fetchFixNickname
-        setUpdateNickname(nickname); // Set the nickname in the store
-        setUserNickname(nickname); // Set the nickname in the store
+        await fetchFixNickname();
+        if (userInfo) {
+          setUserInfo({ ...userInfo, nickname });
+        }
         alert('닉네임이 성공적으로 수정되었습니다.');
         onRequestClose();
       } else {
