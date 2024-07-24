@@ -1,60 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import * as S from './styles';
 import { getUserInfo } from '@/apis/user/user.api';
-import { UserInfoResponse } from '@/apis/user/user.response';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
-import { UserData } from '@/interface/apis/user';
-import { InfoState, useInfoStore } from '@/store/useInfoStore';
+import { useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
 
 const Tier = () => {
-  const [userInfo, setUserInfo] = useState<UserData | null>(null);
-  const {
-    setUserId,
-    setUserNickname,
-    setUserProfileImageUrl,
-    setUserEmail,
-    setUserTier,
-    setUserTotalExp,
-    setUserCurrentExp,
-    userNickname,
-    userTier,
-    userCurrentExp,
-  } = useInfoStore();
-
-  const fetchUserInfo = useCallback(async () => {
-    try {
-      const response = await getUserInfo();
-      const data: UserInfoResponse['data']['data'][0] = response.data.data[0];
-      setUserInfo(data);
-      setUserId(data.id);
-      setUserNickname(data.nickname);
-      setUserProfileImageUrl(data.profileImageUrl);
-      setUserEmail(data.email);
-      setUserTier(data.tierInfo.tier);
-      setUserTotalExp(data.tierInfo.totalExp);
-      setUserCurrentExp(data.tierInfo.currentExp);
-    } catch (error) {
-      console.error('fetchUserInfo error: ', error);
-    }
-  }, [
-    setUserId,
-    setUserNickname,
-    setUserProfileImageUrl,
-    setUserEmail,
-    setUserTier,
-    setUserTotalExp,
-    setUserCurrentExp,
-  ]);
+  // const [userInfo, setUserInfo] = useState<UserData | null>(null);
+  const { userInfo, setUserInfo } = useInfoStore();
 
   useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await getUserInfo();
+        const userData = response.data;
+        setUserInfo(userData);
+      } catch (error) {
+        console.error('fetchUserInfo error: ', error);
+      }
+    };
     fetchUserInfo();
-  }, [fetchUserInfo]);
+  }, [setUserInfo]);
 
-  const tierDetails = userTier
-    ? getTierDetails(userTier)
+  const tierDetails = userInfo?.tierInfo
+    ? getTierDetails(userInfo?.tierInfo.tier)
     : { color: 'var(--color-class-02)' };
 
   return (
@@ -79,7 +50,7 @@ const Tier = () => {
             gap='0.625rem'
           >
             <Base.Text fontSize='1.25rem' fontWeight='700' color='#000'>
-              {userNickname}
+              {userInfo?.nickname}
             </Base.Text>
             <Base.Container
               justifyContent='space-between'
@@ -88,10 +59,10 @@ const Tier = () => {
               mgRow='1rem'
             >
               <Base.Text color={tierDetails?.color} fontWeight='700'>
-                {userTier}
+                {userInfo?.tierInfo.tier}
               </Base.Text>
               <Base.Text color={tierDetails?.color} fontWeight='1rem'>
-                {userCurrentExp}
+                {userInfo?.tierInfo.currentExp}
               </Base.Text>
             </Base.Container>
           </Base.Container>
