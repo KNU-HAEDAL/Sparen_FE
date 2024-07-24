@@ -24,16 +24,11 @@ export const LeaveBtn = styled.div`
   padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 
   border-radius: 0.5rem;
-  background-color: var(--green--03);
+  background-color: var(--color-green-03);
   box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.25);
-
-  color: #fff;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
 `;
 
 export const ProfileInfoBox = styled.div`
@@ -45,6 +40,7 @@ export const ProfileInfoBox = styled.div`
   width: 100%;
   border-bottom: 1px solid #dadada;
   gap: 1rem;
+  align-items: center;
 `;
 
 export const Bar = styled.hr`
@@ -57,16 +53,9 @@ export const editBtnBox = styled.div`
   padding: 0.1875rem 0.5625rem 0.1875rem 0.5rem;
   justify-content: center;
   align-items: center;
-  height: 1.5rem;
+  height: 2rem;
   border-radius: 0.5rem;
-  background-color: var(--green--05);
-  box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.25);
-`;
-
-export const EditBtn = styled.div`
-  color: #fff;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
+  background-color: var(--color-green-05);
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
