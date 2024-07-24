@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { UserData } from '@/interface/apis/user';
+
 export interface UserInfo {
   id: number;
   nickname: string;
@@ -19,10 +21,9 @@ export interface InfoState {
 export interface InfoAction extends InfoState {
   setUserInfo: (userInfo: {
     nickname: string;
-    tierInfo: { tier: string; totalExp: number; currentExp: number };
-    id: number;
-    profileImageUrl: string;
-    email: string;
+    totalPage: number;
+    hasNext: boolean;
+    data: UserData[];
   }) => void;
 }
 
