@@ -21,7 +21,7 @@ const NicknameModal: React.FC<BiddingModalProps> = ({
   currentNickname,
 }) => {
   const { userInfo, setUserInfo } = useInfoStore();
-  const [nickname, setNickname] = useState(currentNickname);
+  const [nickname, setNickname] = useState<string | undefined>(currentNickname);
 
   useEffect(() => {
     setNickname(currentNickname);
