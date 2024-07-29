@@ -6,12 +6,11 @@ import { useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
 
 const MyRank = () => {
-  const { userNickname, userTier } = useInfoStore();
+  const { userInfo } = useInfoStore();
 
-  const tierDetails = userTier
-    ? getTierDetails(userTier)
+  const tierDetails = userInfo?.tierInfo
+    ? getTierDetails(userInfo?.tierInfo.tier)
     : { color: 'var(--color-class-02)' };
-  console.log(tierDetails?.color);
   return (
     <>
       <S.MyRankLayout>
@@ -27,18 +26,18 @@ const MyRank = () => {
             <Base.Text fontWeight='700'>1위</Base.Text>
           </S.RankPosition>
           <S.RankProfile>
-            <S.RankProfileImg src={Profile} />
+            <S.RankProfileImg width='4.5rem' src={Profile} />
           </S.RankProfile>
           <TextContainer>
             <Base.Text fontSize='var(--font-size-xl)' fontWeight='650'>
-              {userNickname}
+              {userInfo?.nickname}
             </Base.Text>
             <Base.Text
               color={tierDetails?.color}
               fontWeight='700'
               fontSize='1.2rem'
             >
-              {userTier}
+              {userInfo?.tierInfo.tier}
             </Base.Text>
           </TextContainer>
         </S.RankInfoContainer>
