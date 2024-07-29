@@ -4,29 +4,28 @@ import HighRank from '../high';
 import UserRank from '../user';
 import * as S from './styles';
 import { getUserRanking } from '@/apis/rank/rank.api';
-import { PageData, UserRankingResponse } from '@/apis/rank/rank.response';
+import { UserRankingResponse } from '@/apis/rank/rank.response';
+import { UserData } from '@/interface/apis/user';
 import { User } from '@/interface/userInterface';
 import * as Base from '@/styles/baseStyles';
 
 const AllRank = () => {
   const [userRanks, setUserRanks] = useState<User[]>([]);
-  const [, setLoading] = useState<boolean>(true);
+
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUserRanking = async () => {
-      const data: UserRankingResponse = await getUserRanking(1, 10);
-      const pageData = data.data;
-
-      const allUserData: User[] = pageData.flatMap((page: PageData) =>
-        page.data.map((user) => ({
-          ...user,
-          currentExp: Math.floor(Math.random() * 1000), // Example logic for currentExp
-          tierInfo: user.tierInfo.toString(), // Convert tierInfo to string
-        }))
-      );
+      const response: UserRankingResponse = await getUserRanking(1, 10);
+      const pageData = response.data;
+      const allUserData: User[] = pageData.data.map((user: UserData) => ({
+        ...user,
+        currentExp: Math.floor(Math.random() * 1000),
+        tierInfo: user.tierInfo.tier,
+      }));
       setUserRanks(allUserData);
       setLoading(false);
-      console.log(data);
+      // console.log('rank data: ', allUserData);
     };
 
     fetchUserRanking();
