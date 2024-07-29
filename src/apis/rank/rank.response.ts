@@ -6,9 +6,27 @@ export interface PageData {
   data: UserData[];
 }
 
+export interface tierInfo {
+  tier: string;
+  totalExp: number;
+  currentExp: number;
+}
+
 export interface UserRankingResponse {
-  result: string;
-  data: PageData[];
-  message: string;
-  errorCode: string;
+  result: 'SUCCESS' | 'FAIL';
+  data: {
+    totalPage: number;
+    hasNext: boolean;
+    data: [
+      {
+        id: number;
+        nickname: 'string';
+        profileImageUrl: 'string';
+        email: 'string';
+        tierInfo: tierInfo;
+      },
+    ];
+  };
+  message: 'string';
+  errorCode: 'string';
 }
