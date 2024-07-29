@@ -8,7 +8,7 @@ import { getTierDetails } from '@/constants/data/tierSchema';
 import { User } from '@/interface/userInterface';
 import * as Base from '@/styles/baseStyles';
 
-const gradeToTrophy = {
+const gradeToTrophy: { [key: number]: string } = {
   1: First,
   2: Second,
   3: Third,
@@ -24,9 +24,15 @@ const HighRank = ({ grade, user }: HighRankProps) => {
   const { nickname, profileImageUrl, tierInfo } = user;
 
   const tierDetails = tierInfo
-    ? getTierDetails(tierInfo.tier)
+    ? getTierDetails(tierInfo)
     : { color: 'var(--color-class-02)' };
 
+  console.log(tierDetails);
+  const truncateNickname = (nickname: string, maxLength: number) => {
+    return nickname.length > maxLength
+      ? `${nickname.slice(0, maxLength)}...`
+      : nickname;
+  };
   return (
     <S.HighRankLayout>
       <S.TrophyContainer>
@@ -38,7 +44,7 @@ const HighRank = ({ grade, user }: HighRankProps) => {
         height='1.5rem'
       />
       <Base.Text fontSize='1.2rem' fontWeight='700'>
-        {nickname}
+        {truncateNickname(nickname, 6)}
       </Base.Text>
       <TextContainer marginRight='1rem' direction='column'>
         <Base.Text
@@ -46,11 +52,11 @@ const HighRank = ({ grade, user }: HighRankProps) => {
           fontWeight='700'
           fontSize='0.8rem'
         >
-          {tierInfo.tier}
+          {tierInfo}
         </Base.Text>
-        <Base.TierGraph>
-          <Base.CurrentTierGraph background={tierDetails?.color} />
-        </Base.TierGraph>
+        <Base.TotalTierGraph>
+          <Base.CurrentTierGraph bgColor={tierDetails?.color} />
+        </Base.TotalTierGraph>
       </TextContainer>
     </S.HighRankLayout>
   );
