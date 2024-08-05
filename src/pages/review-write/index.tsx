@@ -182,6 +182,7 @@ export const CheckButton = styled.button`
   height: 25px;
   border-radius: 20px;
   margin-left: 5px;
+  width: 4rem;
   border: var(--color-grey-02) 1px solid;
   background-color: var(--color-white);
   color: var(--color-grey-02);
