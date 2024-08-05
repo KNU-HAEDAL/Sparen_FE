@@ -10,6 +10,9 @@ export const RouterPath = {
   redirect: 'redirect',
   auth: 'auth',
   register: 'register',
+  review: 'review',
+  reviewList: 'list',
+  reviewWrite: 'write',
 };
 
 export const getDynamicPath = {
