@@ -2,6 +2,7 @@ export const RouterPath = {
   root: '/',
   main: '/',
   challenge: 'challenge',
+  myRecord: 'my-record',
   shorts: 'shorts',
   rank: 'rank',
   dashboard: 'dashboard',
@@ -9,6 +10,9 @@ export const RouterPath = {
   redirect: 'redirect',
   auth: 'auth',
   register: 'register',
+  review: 'review',
+  reviewList: 'list',
+  reviewWrite: 'write',
 };
 
 export const getDynamicPath = {

@@ -6,8 +6,11 @@ import LoginPage from '@/pages/login';
 import RedirectPage from '@/pages/login/components/redirect';
 import MainPage from '@/pages/main';
 import MyChallengePage from '@/pages/my-challenge';
+import MyChallengeRecord from '@/pages/my-challenge-record';
 import RankPage from '@/pages/rank';
 import RegisterPage from '@/pages/register';
+import ReviewList from '@/pages/review-list';
+import ReviewWrite from '@/pages/review-write';
 import ShortsPage from '@/pages/shorts';
 import { RouterPath } from '@/routes/path.ts';
 
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
             index: true,
             element: <MyChallengePage />,
           },
+          {
+            path: RouterPath.myRecord,
+            element: <MyChallengeRecord />,
+          },
         ],
       },
       {
@@ -44,6 +51,19 @@ const router = createBrowserRouter([
       {
         path: RouterPath.dashboard,
         element: <DashBoardPage />,
+      },
+      {
+        path: RouterPath.review,
+        children: [
+          {
+            path: RouterPath.reviewWrite,
+            element: <ReviewWrite />,
+          },
+          {
+            path: RouterPath.reviewList,
+            element: <ReviewList />,
+          },
+        ],
       },
     ],
   },
