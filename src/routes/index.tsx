@@ -6,6 +6,7 @@ import LoginPage from '@/pages/login';
 import RedirectPage from '@/pages/login/components/redirect';
 import MainPage from '@/pages/main';
 import MyChallengePage from '@/pages/my-challenge';
+import MyChallengeRecord from '@/pages/my-challenge-record';
 import RankPage from '@/pages/rank';
 import RegisterPage from '@/pages/register';
 import ShortsPage from '@/pages/shorts';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <MyChallengePage />,
+          },
+          {
+            path: RouterPath.myRecord,
+            element: <MyChallengeRecord />,
           },
         ],
       },
