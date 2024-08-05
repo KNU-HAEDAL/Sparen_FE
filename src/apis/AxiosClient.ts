@@ -32,13 +32,15 @@ export const queryClient = new QueryClient({
     },
   },
 });
-// export const axiosClient = axios.create({
-//   baseURL: BASE_URI,
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'Cross-Control-Allow-Origin': '*',
-//   },
-// });
+
+export const multiPartClient = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+    'Cross-Control-Allow-Origin': '*',
+    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+  },
+});
 
 axiosClient.interceptors.request.use(
   (config) => {
