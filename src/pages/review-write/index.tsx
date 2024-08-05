@@ -147,13 +147,13 @@ const Wrapper = styled(Box)`
   flex-direction: row;
 `;
 
-export const Star = styled.div`
+const Star = styled.div`
   font-size: var(--font-size-xxl);
   font-weight: bold;
   margin-left: 10px;
 `;
 
-export const InputArea = styled.textarea`
+const InputArea = styled.textarea`
   font-size: var(--font-size-sm);
   border-radius: 20px;
   border: var(--color-green-01) 1px solid;
@@ -163,7 +163,7 @@ export const InputArea = styled.textarea`
   margin-top: 10px;
 `;
 
-export const SubmitButton = styled(Button)`
+const SubmitButton = styled(Button)`
   position: fixed;
   display: block;
   bottom: 60px;
@@ -178,7 +178,7 @@ export const SubmitButton = styled(Button)`
   border: none;
 `;
 
-export const CheckButton = styled.button`
+const CheckButton = styled.button`
   height: 25px;
   border-radius: 20px;
   margin-left: 5px;

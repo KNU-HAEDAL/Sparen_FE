@@ -43,7 +43,7 @@ const ReviewList = () => {
 
 export default ReviewList;
 
-export const ReviewListLayout = styled.div`
+const ReviewListLayout = styled.div`
   position: relative;
   margin: 30px;
   margin-top: 60px;
@@ -51,13 +51,13 @@ export const ReviewListLayout = styled.div`
   flex-direction: column;
 `;
 
-export const Title = styled.div`
+const Title = styled.div`
   font-size: var(--font-size-lg);
   font-weight: bold;
   margin-bottom: 15px;
 `;
 
-export const List = styled.div`
+const List = styled.div`
   position: relative;
   margin-top: 50px;
   display: flex;
@@ -65,7 +65,7 @@ export const List = styled.div`
   gap: 3rem;
 `;
 
-export const VLine = styled.div`
+const VLine = styled.div`
   position: absolute;
   border: #d7d7d7 solid 0.5px;
   height: calc(100% - 20px);
