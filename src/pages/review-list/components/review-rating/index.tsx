@@ -91,14 +91,14 @@ const StarBox = styled(Box)`
   justify-content: center;
 `;
 
-export const VLine = styled.div`
+const VLine = styled.div`
   border: #d7d7d7 solid 0.5px;
   height: 100px;
   border-radius: 10px;
   margin: 10px;
 `;
 
-export const RWrapper = styled.div`
+const RWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
@@ -107,19 +107,19 @@ export const RWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const CWrapper = styled.div`
+const CWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
 `;
 
-export const SubText = styled(Text)`
+const SubText = styled(Text)`
   font-size: var(--font-size-xs);
   color: var(--color-grey-01);
   margin: 0.2px;
 `;
 
-export const StarRating = styled.div`
+const StarRating = styled.div`
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
@@ -127,7 +127,7 @@ export const StarRating = styled.div`
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
 `;
-export const StarFill = styled.div`
+const StarFill = styled.div`
   padding: 0;
   position: absolute;
   z-index: 1;
@@ -137,12 +137,12 @@ export const StarFill = styled.div`
   overflow: hidden;
   -webkit-text-fill-color: var(--color-green-01);
 `;
-export const StarBase = styled.div`
+const StarBase = styled.div`
   z-index: 0;
   padding: 0;
 `;
 
-export const Bar = styled.div`
+const Bar = styled.div`
   border-radius: 10px;
   height: 5px;
   --percentage: ${(props) => `${props.percentage}`};

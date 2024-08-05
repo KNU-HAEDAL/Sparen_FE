@@ -51,7 +51,7 @@ const ReviewItemBox = styled(Box)`
   text-align: left;
 `;
 
-export const SmallText = styled.div`
+const SmallText = styled.div`
   font-size: 0.8rem;
   margin-left: 35px;
   margin-bottom: 5px;
@@ -67,26 +67,26 @@ const Wrapper = styled(Box)`
   flex-direction: row;
 `;
 
-export const RowWrapper = styled(Wrapper)`
+const RowWrapper = styled(Wrapper)`
   gap: 5px;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const UserWrapper = styled(Wrapper)`
+const UserWrapper = styled(Wrapper)`
   gap: 5px;
   align-items: start;
   justify-content: space-between;
 `;
 
-export const StarWrapper = styled(Wrapper)`
+const StarWrapper = styled(Wrapper)`
     position: absolute
     top: 0px;
     right: 0px;
     margin: 5px;
 `;
 
-export const ImageBox = styled.div`
+const ImageBox = styled.div`
   height: 30px;
   width: 30px;
   border-radius: 70%;

@@ -2,6 +2,7 @@ export const RouterPath = {
   root: '/',
   main: '/',
   challenge: 'challenge',
+  record: 'record',
   myRecord: 'my-record',
   shorts: 'shorts',
   rank: 'rank',
