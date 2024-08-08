@@ -5,7 +5,7 @@ import * as S from './styles';
 import { getCurrentChallengeList } from '@/apis/challenge/my-challenge/my.challenge.api';
 import TopBar from '@/components/features/layout/top-bar';
 import { ChallengeData } from '@/interface/apis/challenge';
-import * as Base from '@/styles/baseStyles';
+import { Text } from '@chakra-ui/react';
 
 // interface ChallengeDataType {
 //   id: number;
@@ -32,15 +32,15 @@ const MyChallengePage = () => {
   return (
     <>
       <TopBar type='Page' title='내 챌린지' backgroundColor='#fff' />
-      <Base.Text
+      <Text
         fontSize='var(--font-size-xxl)'
         fontWeight='700'
-        mgLeft='1rem'
-        mgBottom='1rem'
-        mgTop='1rem'
+        marginLeft='1rem'
+        marginBottom='1rem'
+        marginTop='1rem'
       >
         참여중인 챌린지
-      </Base.Text>
+      </Text>
       <S.MyChallengeLayout>
         <ChallengeList
           BackgroundColor='#fff'
