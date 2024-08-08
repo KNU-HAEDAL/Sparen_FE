@@ -4,7 +4,6 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ChallengeListProps = {
-type ChallengeListProps = {
   BackgroundColor: string;
   color: string;
   BorderColor: string;
@@ -19,7 +18,6 @@ const ChallengeList = ({
   color,
   BorderColor,
   challenges,
-}: ChallengeListProps) => {
 }: ChallengeListProps) => {
   return (
     <>
@@ -57,7 +55,6 @@ const ChallengeList = ({
               borderColor={BorderColor}
               border='1px solid'
             >
-              <Text
               <Text
                 fontSize='0.875rem'
                 fontStyle='normal'
