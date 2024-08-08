@@ -1,8 +1,8 @@
 import * as S from './styles';
 import FinishStamp from '@/assets/challenge/ZZAN-Black.png';
-import * as Base from '@/styles/baseStyles';
+import { Text } from '@chakra-ui/react';
 
-interface ChallengeListProps {
+type ChallengeListProps = {
   BackgroundColor: string;
   color: string;
   BorderColor: string;
@@ -10,14 +10,14 @@ interface ChallengeListProps {
     id: number;
     title: string;
   }[];
-}
+};
 
-const ChallengeList: React.FC<ChallengeListProps> = ({
+const ChallengeList = ({
   BackgroundColor,
   color,
   BorderColor,
   challenges,
-}) => {
+}: ChallengeListProps) => {
   return (
     <>
       <S.ChallengeListLayout>
@@ -28,21 +28,21 @@ const ChallengeList: React.FC<ChallengeListProps> = ({
             </S.ChallengeImgContainer>
 
             <S.ChallengeInfoContainer>
-              <Base.Text
+              <Text
                 fontSize='1.125rem'
                 fontStyle='normal'
                 fontWeight='700'
                 lineHeight='normal'
               >
                 {challenge.title}
-              </Base.Text>
+              </Text>
             </S.ChallengeInfoContainer>
 
             <S.ReviewContainer
               bgColor={BackgroundColor}
               borderColor={BorderColor}
             >
-              <Base.Text
+              <Text
                 fontSize='0.875rem'
                 fontStyle='normal'
                 fontWeight='700'
@@ -50,7 +50,7 @@ const ChallengeList: React.FC<ChallengeListProps> = ({
                 color={color}
               >
                 리뷰 쓰기
-              </Base.Text>
+              </Text>
             </S.ReviewContainer>
           </S.ChallengeContainer>
         ))}
