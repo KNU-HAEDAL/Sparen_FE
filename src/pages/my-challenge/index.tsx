@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
 import ChallengeList from './components/challenge-list';
-import * as S from './styles';
 import { getCurrentChallengeList } from '@/apis/challenge/my-challenge/my.challenge.api';
 import TopBar from '@/components/features/layout/top-bar';
 import { ChallengeData } from '@/interface/apis/challenge';
-import { Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 
 // interface ChallengeDataType {
 //   id: number;
@@ -38,19 +38,29 @@ const MyChallengePage = () => {
         marginLeft='1rem'
         marginBottom='1rem'
         marginTop='1rem'
+        width='100%'
       >
         참여중인 챌린지
       </Text>
-      <S.MyChallengeLayout>
+      <ChallengeListBox>
         <ChallengeList
           BackgroundColor='#fff'
           color='#c0c0c0'
           BorderColor='#c0c0c0'
           challenges={listChallenges}
         />
-      </S.MyChallengeLayout>
+      </ChallengeListBox>
     </>
   );
 };
 
 export default MyChallengePage;
+
+const ChallengeListBox = styled(Box)`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 1rem;
+  background-color: #fff;
+`;
