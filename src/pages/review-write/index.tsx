@@ -6,10 +6,13 @@ import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
 import TopBar from '@/components/features/layout/top-bar';
+import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewWrite = () => {
+  const { challengeTitle } = useChallengeStore();
+
   const Item1 = ['어려워요', '적당해요', '쉬워요'];
   const Item2 = ['뿌듯해요', '유익해요', '애매해요'];
   const navigate = useNavigate();
@@ -44,7 +47,7 @@ const ReviewWrite = () => {
       <TopBar title='챌린지 리뷰' backgroundColor='#fff' type='Page' />
       <ReviewWriteLayout>
         <Text fontSize='var(--font-size-lg)' fontWeight='700'>
-          길에 떨어진 쓰레기 줍기 챌린지
+          {challengeTitle}
         </Text>
         <Wrapper margin='20px 0' alignItems='end' alignSelf='center'>
           {[...Array(rating)].map((a, i) => (
