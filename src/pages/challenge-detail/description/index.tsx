@@ -1,9 +1,8 @@
 import { ReactNode } from 'react';
 
-import { type ChallengeDetailData } from '..';
-
 import Difficulty from '../components/difficulty';
 import * as S from './styles';
+import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 
 type DescriptionProps = {
   data: ChallengeDetailData;

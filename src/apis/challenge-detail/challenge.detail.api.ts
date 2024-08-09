@@ -1,8 +1,11 @@
 import { AxiosError } from 'axios';
 
 import { axiosClient } from '../AxiosClient';
+import { type ChallengeDetailData } from './challenge.detail.response';
 
-export async function getChallengeDetail(id: number) {
+export async function getChallengeDetail(
+  id: number
+): Promise<ChallengeDetailData> {
   try {
     const response = await axiosClient.get(`api/challengeGroups/${id}`);
     console.log('getChallengeDetail response: ', response.data);

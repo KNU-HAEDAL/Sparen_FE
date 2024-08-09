@@ -27,7 +27,7 @@ type TabsProps = {
 };
 
 type TabPanelProps = {
-  children: ReactElement;
+  children?: ReactElement;
   value: number;
   selectedIndex: number;
 };
