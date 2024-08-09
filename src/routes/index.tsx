@@ -43,6 +43,14 @@ const router = createBrowserRouter([
             path: RouterPath.record,
             element: <ChallengeRecord />,
           },
+          {
+            path: RouterPath.reviewWrite,
+            element: <ReviewWrite />,
+          },
+          {
+            path: RouterPath.reviewList,
+            element: <ReviewList />,
+          },
         ],
       },
       {
@@ -56,19 +64,6 @@ const router = createBrowserRouter([
       {
         path: RouterPath.dashboard,
         element: <DashBoardPage />,
-      },
-      {
-        path: RouterPath.review,
-        children: [
-          {
-            path: RouterPath.reviewWrite,
-            element: <ReviewWrite />,
-          },
-          {
-            path: RouterPath.reviewList,
-            element: <ReviewList />,
-          },
-        ],
       },
     ],
   },
