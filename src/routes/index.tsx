@@ -1,6 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import NavBar from '@/components/features/layout/nav-bar';
+import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeRecord from '@/pages/challenge-record';
 import DashBoardPage from '@/pages/dashboard';
 import LoginPage from '@/pages/login';
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: RouterPath.record,
             element: <ChallengeRecord />,
+          },
+          {
+            path: RouterPath.detail,
+            element: <ChallengeDetailPage />,
           },
         ],
       },

@@ -15,7 +15,7 @@ import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import { TopBar } from '@/components/common/top-bar';
 
-export const ChallengeDetailPage = () => {
+const ChallengeDetailPage = () => {
   const tabsList = [
     { label: '챌린지', value: 0 },
     { label: '랭킹', value: 1 },
@@ -74,3 +74,5 @@ export const ChallengeDetailPage = () => {
     </Wrapper>
   );
 };
+
+export default ChallengeDetailPage;
