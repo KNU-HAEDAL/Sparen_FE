@@ -11,12 +11,13 @@ import * as S from './styles';
 
 type TabProps = {
   label: string;
-  active: boolean;
-  onClick: () => void;
+  value: number;
+  active?: boolean;
+  onClick?: () => void;
 };
 
 type TabsProps = {
-  selectedTab: 0 | 1;
+  selectedTab: number;
   onChange: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     value: number

@@ -1,15 +1,15 @@
+import { ReactNode } from 'react';
+
 import { type ChallengeDetailData } from '..';
 
 import Difficulty from '../components/difficulty';
 import * as S from './styles';
 
-// type DescriptionProps = ChallengeDetailData;
-
 type DescriptionProps = {
   data: ChallengeDetailData;
 };
 
-const Description = ({ data }: DescriptionProps) => {
+const Description = ({ data }: DescriptionProps): ReactNode => {
   const challenges = data.challenges;
 
   return (
