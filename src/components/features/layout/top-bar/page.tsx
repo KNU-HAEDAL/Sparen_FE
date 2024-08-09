@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
 import PrevIcon from '@/assets/top-bar/Prev-Icon.svg';
-import { RouterPath } from '@/routes/path.ts';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -14,7 +13,7 @@ const PageBar = ({
 }) => {
   const navigate = useNavigate();
   const handlerNavigate = () => {
-    navigate(RouterPath.root);
+    navigate(-1);
   };
   return (
     <PageBarLayout backgroundColor={backgroundColor}>
