@@ -1,30 +1,12 @@
+import { type ChallengeDetailData } from '..';
+
 import Difficulty from '../components/difficulty';
 import * as S from './styles';
 
+// type DescriptionProps = ChallengeDetailData;
+
 type DescriptionProps = {
-  data: {
-    id: 0;
-    title: 'string';
-    content: 'string';
-    participantCount: 0;
-    startDate: '2024-08-09';
-    endDate: '2024-08-09';
-    category: 'HEALTH';
-    guide: 'string';
-    maxDifficulty: 0;
-    imageUrls: ['string'];
-    challenges: [
-      {
-        id: 0;
-        participantCount: 0;
-        difficulty: 0;
-        onceExp: 0;
-        successExp: 0;
-        dayType: 'DAY';
-        dayCount: 0;
-      },
-    ];
-  };
+  data: ChallengeDetailData;
 };
 
 const Description = ({ data }: DescriptionProps) => {
