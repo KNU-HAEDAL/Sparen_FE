@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
-import { Tabs, Tab, TabPanel } from '../../components/tab/slide-Tab';
 import TopBar from '../../components/top-bar/top-Bar';
 import Description from './description/';
 import Ranking from './ranking/';
@@ -13,6 +12,7 @@ import {
   Wrapper,
 } from './styles';
 import DefaultImage from '@/assets/Default-Image.svg';
+import { Tab, Tabs, TabPanel } from '@/components/common/tab';
 
 type Challenge = {
   id: number;
