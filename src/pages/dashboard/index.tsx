@@ -2,6 +2,7 @@ import Strick from '../main/components/strick';
 import Record from './components/challenge-record';
 import UserInfo from './components/user-info';
 import TopBar from '@/components/features/layout/top-bar';
+import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const DashBoardPage = () => {
@@ -23,6 +24,6 @@ const DashBoardPage = () => {
 
 export default DashBoardPage;
 
-const DashBoardLayout = styled.section`
-  height: 52.625rem;
+const DashBoardLayout = styled(Box)`
+  height: 100%;
 `;
