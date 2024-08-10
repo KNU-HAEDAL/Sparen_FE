@@ -3,7 +3,7 @@ export interface Token {
   refreshToken: string;
 }
 
-export interface AuthResponse {
+export type UserResponseData = {
   result?: 'SUCCESS' | 'FAIL';
   data: {
     accessToken: string;
@@ -22,4 +22,4 @@ export interface AuthResponse {
   };
   message: string;
   errorCode: string;
-}
+};
