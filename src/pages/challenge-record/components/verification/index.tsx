@@ -1,41 +1,43 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { postVerification } from '@/apis/challenge-record/challenge.record.api';
+import { RouterPath } from '@/routes/path';
 import { Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Verification = () => {
-  const fileInput = useRef(null);
-  const [previewImg, setPreviewImg] = useState();
+  const fileInput = useRef<HTMLInputElement | null>(null);
+  const [previewImg, setPreviewImg] = useState<string | ArrayBuffer | null>();
   const [text, setText] = useState('');
   const navigate = useNavigate();
 
-  const saveHandler = () => {
-    postVerification(18, previewImg, text)
-      .then((res) => {
-        console.log('응답: ', res);
+  const saveHandler = async () => {
+    try {
+      const response = await postVerification(18, previewImg, text);
+      if (response.status === 200) {
+        console.log('응답: ', response);
         alert('성공적으로 저장했습니다.');
-        navigate('/');
-      })
-      .catch(() => {
-        alert('저장에 실패했습니다.');
-        navigate('/');
-      });
+        navigate(RouterPath.root);
+      }
+    } catch (error) {
+      alert('저장에 실패했습니다.');
+    }
   };
 
   const handleButtonClick = () => {
-    fileInput.current.click();
+    fileInput.current?.click();
   };
 
-  const imageHandler = (fileBlob) => {
+  const imageHandler = (fileBlob: File) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
+    return (resolve: () => void) => {
       reader.onload = () => {
         setPreviewImg(reader.result);
         resolve();
       };
-    });
+    };
   };
 
   return (
@@ -44,7 +46,6 @@ const Verification = () => {
         길에 떨어진 쓰레기 줍기 챌린지
       </Text>
       <InputArea
-        type='text'
         placeholder='어떻게 챌린지를 수행했는지 글로 남겨보세요'
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -57,13 +58,15 @@ const Verification = () => {
             accept='image/*'
             style={{ display: 'none' }}
             onChange={(e) => {
-              imageHandler(e.target.files[0]);
+              if (e.target.files) {
+                imageHandler(e.target.files[0]);
+              }
             }}
           />
           사진추가
         </AddImageBtn>
       )}
-      {previewImg && <PreviewImage src={previewImg} />}
+      {previewImg && <PreviewImage src={previewImg.toString()} />}
       <SummitButton onClick={saveHandler}>참여하기</SummitButton>
     </VerificationBox>
   );
