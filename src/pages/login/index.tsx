@@ -25,6 +25,7 @@ const LoginPage = () => {
         <EmailLogin />
         <Container
           display='flex'
+          justifyContent='center'
           alignItems='center'
           flexDirection='row'
           gap='10px'
