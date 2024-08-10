@@ -4,6 +4,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { authLocalStorage } from '@/utils/storage';
 
 type AuthInfo = {
+  id: string;
+  nickname: string;
   token: string;
 };
 
@@ -30,6 +32,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (currentAuthToken) {
       setAuthInfo({
+        id: currentAuthToken,
+        nickname: currentAuthToken,
         token: currentAuthToken,
       });
       setIsReady(true);
