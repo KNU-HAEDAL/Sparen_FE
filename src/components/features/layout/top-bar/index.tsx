@@ -8,11 +8,11 @@ import PageBar from './page';
 // 2-1. 이전 버튼 - 흰색바탕, 민트색 화살표
 // 2-2. 이전 버튼 - 색 바탕, 흰색 화살표,
 
-interface TopBarProps {
+type TopBarProps = {
   type: 'Main' | 'Page';
   title: string;
   backgroundColor: string;
-}
+};
 
 /**
  * type : Main | Page,
@@ -20,10 +20,8 @@ interface TopBarProps {
  * backgroundColor : 배경색,
  * var(--color-green-06) or #fff
  */
-const TopBar: React.FC<TopBarProps> = ({ type, ...props }) => {
+const TopBar = ({ type, ...props }: TopBarProps) => {
   if (type === 'Main') {
-    // const { title } = props;
-
     return <MainBar />;
   } else if (type === 'Page') {
     const { title, backgroundColor } = props;
