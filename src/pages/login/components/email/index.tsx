@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from '../../styles';
 import { setLogin } from '@/apis/auth/auth.api';
+import { RouterPath } from '@/routes/path';
 import * as Base from '@/styles/baseStyles';
+import { Container, Text } from '@chakra-ui/react';
 
 // test123@test.test / 123
 const EmailLogin = () => {
@@ -22,14 +24,19 @@ const EmailLogin = () => {
     try {
       const response = setLogin({ email, password });
       console.log('로그인 성공:', response);
-      navigate(-1);
+      navigate(RouterPath.root);
     } catch (error) {
       console.error('로그인 실패:', error);
     }
   };
   return (
     <>
-      <Base.Container flexDirection='column' gap='2px' mgTop='2rem'>
+      <Container
+        display='flex'
+        flexDirection='column'
+        gap='2px'
+        marginTop='2rem'
+      >
         <S.LoginInput
           type='text'
           id='email'
@@ -44,15 +51,16 @@ const EmailLogin = () => {
           onChange={handlerPassword}
           value={password}
         />
-      </Base.Container>
-      <Base.Container
+      </Container>
+      <Container
+        display='flex'
         textAlign='center'
-        mgTop='1rem'
+        marginTop='1rem'
         justifyContent='center'
         alignItems='center'
         flexDirection='column'
-        mgRow='auto'
-        mgColumn='2rem'
+        marginX='auto'
+        marginY='2rem'
       >
         <Base.button
           bgColor='var(--color-green-01)'
@@ -63,11 +71,11 @@ const EmailLogin = () => {
           pdRow='0.5rem'
           onClick={handlerLogin}
         >
-          <Base.Text textAlign='center' color='#fff' fontWeight='700'>
+          <Text textAlign='center' color='#fff' fontWeight='700'>
             로그인
-          </Base.Text>
+          </Text>
         </Base.button>
-      </Base.Container>
+      </Container>
     </>
   );
 };
