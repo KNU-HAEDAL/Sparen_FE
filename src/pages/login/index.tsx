@@ -6,10 +6,11 @@ import NaverLogin from './components/naver';
 import * as S from './styles';
 import TopBar from '@/components/features/layout/top-bar';
 import KakaoLogin from '@/pages/login/components/kakao';
-import * as Base from '@/styles/baseStyles';
+import { Container, Text } from '@chakra-ui/react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const handleRegister = () => {
     navigate('/auth/register');
   };
@@ -17,27 +18,28 @@ const LoginPage = () => {
     <>
       <TopBar type='Page' title='' backgroundColor='#fff' />
       <S.LoginLayout>
-        <Base.Text fontSize='var(--font-size-xl)' fontWeight='700'>
+        <Text fontSize='var(--font-size-xl)' fontWeight='700'>
           짠수니와 함께 챌린지를 시작해보세요!
-        </Base.Text>
+        </Text>
 
         <EmailLogin />
-        <Base.Container
+        <Container
+          display='flex'
           alignItems='center'
           flexDirection='row'
           gap='10px'
-          mgBottom='2rem'
+          marginBottom='2rem'
         >
-          <Base.Text fontSize='14px'>아직 가입안했다면?</Base.Text>
-          <Base.Text
+          <Text fontSize='14px'>아직 가입안했다면?</Text>
+          <Text
             onClick={handleRegister}
             cursor='pointer'
             fontWeight='700'
             color='var(--color-green-01)'
           >
             회원가입하기
-          </Base.Text>
-        </Base.Container>
+          </Text>
+        </Container>
         <S.socialLoginBar />
         <S.socialLoginText>소셜로그인</S.socialLoginText>
         <S.ButtonBox>
