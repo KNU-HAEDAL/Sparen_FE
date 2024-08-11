@@ -12,7 +12,7 @@ type RankingProps = {
 };
 
 const Ranking = ({ title, category }: RankingProps) => {
-  const [users, setUsers] = useState<ChallengeRankingData[]>([]);
+  const [dataList, setDataList] = useState<ChallengeRankingData[]>([]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
 
@@ -20,7 +20,7 @@ const Ranking = ({ title, category }: RankingProps) => {
     if (inView) {
       getChallengeRanking({ id: 1, page })
         .then((response) => {
-          setUsers((prevUsers) => [...prevUsers, ...response]);
+          setDataList((prevDataList) => [...prevDataList, ...response]);
           setPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
@@ -36,8 +36,8 @@ const Ranking = ({ title, category }: RankingProps) => {
         <S.Title>{title}</S.Title>
       </S.Wrapper>
       <S.RankingWrapper>
-        {users.map((data) => (
-          <UserItem key={data.ranking} user={data.user} />
+        {dataList.map((item) => (
+          <UserItem key={item.ranking} data={item} />
         ))}
         <div style={{ margin: '55px' }}></div>
         <div ref={ref}>로딩..</div>
