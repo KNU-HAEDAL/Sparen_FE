@@ -1,41 +1,55 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { postVerification } from '@/apis/challenge-record/challenge.record.api';
+import { RouterPath } from '@/routes/path';
 import { Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Verification = () => {
-  const fileInput = useRef(null);
-  const [previewImg, setPreviewImg] = useState();
+  const fileInput = useRef<HTMLInputElement | null>(null);
+  const [previewImg, setPreviewImg] = useState<File | null>(null);
   const [text, setText] = useState('');
   const navigate = useNavigate();
 
-  const saveHandler = () => {
-    postVerification(18, previewImg, text)
-      .then((res) => {
-        console.log('응답: ', res);
-        alert('성공적으로 저장했습니다.');
-        navigate('/');
-      })
-      .catch(() => {
-        alert('저장에 실패했습니다.');
-        navigate('/');
-      });
+  const saveHandler = async () => {
+    try {
+      if (previewImg) {
+        const response = await postVerification(18, previewImg, text);
+        if (response.status === 200) {
+          console.log('응답: ', response);
+          alert('성공적으로 저장했습니다.');
+          navigate(RouterPath.root);
+        }
+      } else {
+        alert('이미지를 선택하세요.');
+      }
+    } catch (error) {
+      alert('저장에 실패했습니다.');
+    }
   };
 
   const handleButtonClick = () => {
-    fileInput.current.click();
+    fileInput.current?.click();
   };
 
-  const imageHandler = (fileBlob) => {
+  const imageHandler = (fileBlob: File) => {
+    setPreviewImg(fileBlob); // File 객체를 직접 설정합니다.
+
+    // 미리보기를 위해 FileReader를 사용합니다.
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    return new Promise((resolve) => {
-      reader.onload = () => {
-        setPreviewImg(reader.result);
-        resolve();
-      };
-    });
+    reader.onload = () => {
+      if (reader.result && typeof reader.result === 'string') {
+        // 여기서 미리보기 이미지 URL을 설정합니다.
+        const imgElement = document.querySelector(
+          '#previewImage'
+        ) as HTMLImageElement;
+        if (imgElement) {
+          imgElement.src = reader.result;
+        }
+      }
+    };
   };
 
   return (
@@ -44,7 +58,6 @@ const Verification = () => {
         길에 떨어진 쓰레기 줍기 챌린지
       </Text>
       <InputArea
-        type='text'
         placeholder='어떻게 챌린지를 수행했는지 글로 남겨보세요'
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -57,13 +70,16 @@ const Verification = () => {
             accept='image/*'
             style={{ display: 'none' }}
             onChange={(e) => {
-              imageHandler(e.target.files[0]);
+              if (e.target.files) {
+                imageHandler(e.target.files[0]);
+              }
             }}
           />
           사진추가
         </AddImageBtn>
       )}
-      {previewImg && <PreviewImage src={previewImg} />}
+      {previewImg && <PreviewImage id='previewImage' src='' />}{' '}
+      {/* 미리보기 이미지 */}
       <SummitButton onClick={saveHandler}>참여하기</SummitButton>
     </VerificationBox>
   );
@@ -71,11 +87,10 @@ const Verification = () => {
 
 export default Verification;
 
+// Styled components
 const VerificationBox = styled.div`
-  position: relative;
-  margin: 30px;
-  margin-bottom: 60px;
   display: flex;
+  margin: 2.5rem 0;
   flex-direction: column;
   text-align: left;
 
@@ -93,14 +108,17 @@ const InputArea = styled.textarea`
   padding: 10px;
   height: 30vh;
   resize: none;
+  :focus {
+    outline: none;
+  }
 `;
 
 const AddImageBtn = styled.div`
   border-radius: 20px;
-  background-color: var(--color-white);
+  background-color: #fff;
   font-size: var(--font-size-md);
   color: var(--color-green-01);
-  width: 99.5%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,15 +128,15 @@ const AddImageBtn = styled.div`
 `;
 
 const SummitButton = styled.button`
-  position: fixed;
-  display: block;
-  bottom: 60px;
-  width: calc(100% - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
   height: 50px;
   margin-top: 30px;
   border-radius: 20px;
   background-color: var(--color-green-01);
-  color: var(--color-white);
+  color: #fff;
   font-size: var(--font-size-md);
   font-weight: bold;
   border: none;

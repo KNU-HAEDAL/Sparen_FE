@@ -1,26 +1,42 @@
+import { useState } from 'react';
+
 import StampBoard from './components/stamp-board';
 import Verification from './components/verification';
+import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
+type TabsContainerProps = {
+  position?: string;
+};
+
 const ChallengeRecord = () => {
+  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+
+  const handleTab = (value: number) => {
+    setActiveTab(value as 0 | 1);
+  };
+
   return (
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
       <ChallengeRecordLayout>
         <TabsContainer>
-          <div id='Tabs'>
-            <div id='Tab'>인증하기</div>
-            <div id='Tab'>기록보기</div>
-          </div>
+          <Tabs
+            selectedTab={activeTab}
+            onChange={(_, value) => handleTab(value)}
+          >
+            <Tab label='인증하기' value={0} />
+            <Tab label='기록보기' value={1} />
+          </Tabs>
         </TabsContainer>
         <TabPanelContainer>
-          <div id='TabPanel'>
+          <TabPanel value={0} selectedIndex={activeTab}>
             <Verification />
-          </div>
-          <div id='TabPanel'>
+          </TabPanel>
+          <TabPanel value={1} selectedIndex={activeTab}>
             <StampBoard />
-          </div>
+          </TabPanel>
         </TabPanelContainer>
       </ChallengeRecordLayout>
     </>
@@ -29,24 +45,29 @@ const ChallengeRecord = () => {
 
 export default ChallengeRecord;
 
-const ChallengeRecordLayout = styled.div``;
-
-const TabsContainer = styled.div`
+const ChallengeRecordLayout = styled.div`
   display: flex;
-  position: ${(props) => props.position || 'relative'};
-  top: 50px;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  margin: 0 1.5rem;
+`;
+
+const TabsContainer = styled.div<TabsContainerProps>`
+  display: flex;
   align-self: center;
-  width: 90%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 1rem auto;
   height: 55px;
   border-radius: 20px;
   background-color: var(--color-green-06);
 `;
 
 const TabPanelContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
   width: 100%;
-  position: relative;
-  top: 50px;
   text-align: center;
 `;
