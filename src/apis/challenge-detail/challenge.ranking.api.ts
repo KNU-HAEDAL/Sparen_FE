@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 
 import { axiosClient } from '../AxiosClient';
+import { ChallengeRankingData } from './challenge.ranking.response';
 
 type ChallengeRankingParams = {
   id: number;
@@ -10,7 +11,7 @@ type ChallengeRankingParams = {
 export async function getChallengeRanking({
   id,
   page,
-}: ChallengeRankingParams) {
+}: ChallengeRankingParams): Promise<ChallengeRankingData[]> {
   try {
     const response = await axiosClient.get(
       `api/challengeGroups/${id}/rankings?page=${page}&size=4`
