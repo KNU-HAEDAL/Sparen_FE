@@ -16,10 +16,7 @@ import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
 const ChallengeDetailPage = () => {
-  const tabsList = [
-    { label: '챌린지', value: 0 },
-    { label: '랭킹', value: 1 },
-  ];
+  const tabsList = ['챌린지', '랭킹'];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
@@ -58,8 +55,8 @@ const ChallengeDetailPage = () => {
           selectedTab={activeTab}
           onChange={(e, value) => handleSelectedTab(value)}
         >
-          {tabsList.map((t) => (
-            <Tab key={t.value} label={t.label} value={t.value} />
+          {tabsList.map((t, index) => (
+            <Tab key={t} label={t} value={index} />
           ))}
         </Tabs>
       </TabsContainer>
