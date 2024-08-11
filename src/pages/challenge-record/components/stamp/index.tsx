@@ -3,7 +3,11 @@ import StampInActive from '@/assets/StampInactive.svg';
 import { Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const Stamp = ({ data }) => {
+type StampProps = {
+  data: number;
+};
+
+const Stamp = ({ data }: StampProps) => {
   return (
     <>
       {data === -1 ? (

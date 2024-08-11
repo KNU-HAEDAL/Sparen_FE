@@ -6,16 +6,22 @@ import {
   getChallengeRecord,
   getChallengeRecordDetail,
 } from '@/apis/challenge-record/challenge.record.api';
+import {
+  ChallengeRecordData,
+  ChallengeRecordDetailData,
+} from '@/apis/challenge-record/challenge.record.response';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const StampBoard = () => {
-  const [isBottomSheetOpen, setBottomSheetOpen] = useState(false);
-  const [data, setData] = useState(null);
-  const [items, setItems] = useState([]);
-  const [record, setRecord] = useState([]);
+  const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
+  const [data, setData] = useState<ChallengeRecordData['data'] | null>(null);
+  const [items, setItems] = useState<number[]>([]);
+  const [record, setRecord] = useState<
+    ChallengeRecordDetailData['data'] | null
+  >(null);
 
-  const setArray = (length, values) => {
+  const setArray = (length: number, values: number[]) => {
     const array = new Array(length).fill(-1);
     for (let i = 0; i < values.length; i++) {
       array[i] = values[i];
@@ -23,9 +29,9 @@ const StampBoard = () => {
     setItems(array);
   };
 
-  const chunkItems = (arr, chunkSize) => {
+  const chunkItems = (arr: number[], chunkSize: number): number[][] => {
     const chunks = [];
-    const last = arr.length % chunkSize == 1 ? chunkSize + 1 : 0;
+    const last = arr.length % chunkSize === 1 ? chunkSize + 1 : 0;
     for (let i = 0; i < arr.length - last; i += chunkSize)
       chunks.push(arr.slice(i, i + chunkSize));
 
@@ -36,31 +42,39 @@ const StampBoard = () => {
 
   const rows = chunkItems(items, 3);
 
-  const toggleBottomSheet = (idx: number) => {
-    console.log(isBottomSheetOpen);
-    console.log(idx);
+  const toggleBottomSheet = async (idx: number) => {
     if (idx === -1) {
       setBottomSheetOpen(false);
-      console.log('ddd');
+      console.log('Closing BottomSheet');
     } else {
-      getChallengeRecordDetail(idx).then((res) => {
-        setRecord(res);
+      try {
+        const response = await getChallengeRecordDetail(idx);
+        setRecord(response.data); // `response.data`로 설정해야 타입이 맞습니다.
         setBottomSheetOpen(true);
-      });
+      } catch (error) {
+        console.error('Failed to fetch challenge record detail:', error);
+      }
     }
   };
 
-  const handleDragEnd = (info) => {
+  const handleDragEnd = (info: { offset: { y: number } }) => {
     if (info.offset.y > 100) {
       setBottomSheetOpen(false);
     }
   };
 
   useEffect(() => {
-    getChallengeRecord(18).then((res) => {
-      setData(res);
-      setArray(res.totalCount, res.recordIds);
-    });
+    const fetchChallengeRecord = async () => {
+      try {
+        const response = await getChallengeRecord(18);
+        setData(response.data);
+        setArray(response.data.totalCount, response.data.recordIds);
+      } catch (error) {
+        console.error('Failed to fetch challenge record:', error);
+      }
+    };
+
+    fetchChallengeRecord();
   }, []);
 
   return (
@@ -171,7 +185,7 @@ const CautionWrapper = styled.div`
   text-align: left;
 `;
 
-const Item = styled.div`
+const Item = styled.div<{ rowLength: number }>`
   width: 100%;
   flex: 1;
   text-align: center;
