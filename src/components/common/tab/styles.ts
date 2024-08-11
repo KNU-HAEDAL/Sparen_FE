@@ -64,7 +64,6 @@ export const StylizedTab = styled.div<StylizedTabProps>`
     p.active &&
     css`
       color: var(--color-white);
-      background-color: #5cc6ba; // 색상 변경
       font-weight: bold;
       border-radius: 20px;
       animation: ${inset} 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
