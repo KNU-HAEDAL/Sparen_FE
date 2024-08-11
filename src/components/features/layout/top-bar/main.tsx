@@ -9,7 +9,8 @@ import styled from '@emotion/styled';
 
 const MainBar = () => {
   const navigate = useNavigate();
-  const authInfo = useAuth();
+  const { authInfo } = useAuth();
+
   const handleLogin = () => {
     navigate(getDynamicPath.login());
   };
@@ -79,13 +80,6 @@ const MainBar = () => {
           </Text>
         </Button>
       )}
-      {/*<Text*/}
-      {/*  fontSize='var(--font-size-md)'*/}
-      {/*  fontWeight='bold'*/}
-      {/*  color='var(--color-green-01)'*/}
-      {/*>*/}
-      {/*  로그인*/}
-      {/*</Text>*/}
     </PageBarLayout>
   );
 };
@@ -102,15 +96,3 @@ const PageBarLayout = styled(Box)`
   cursor: pointer;
   gap: 1rem;
 `;
-
-//  const Container = styled.div`
-//   display: flex;
-//   gap: 1rem;
-//   align-items: center;
-// `;
-
-// const LogoBox = styled.div`
-//   border: 1.5px solid var(--color-green-01);
-//   padding: 0.25rem;
-//   border-radius: 50%;
-// `;
