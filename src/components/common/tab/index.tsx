@@ -11,12 +11,13 @@ import * as S from './styles';
 
 type TabProps = {
   label: string;
-  active: boolean;
-  onClick: () => void;
+  value: number;
+  active?: boolean;
+  onClick?: () => void;
 };
 
 type TabsProps = {
-  selectedTab: 0 | 1;
+  selectedTab: number;
   onChange: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     value: number
@@ -26,18 +27,14 @@ type TabsProps = {
 };
 
 type TabPanelProps = {
-  children: ReactElement;
+  children?: ReactElement;
   value: number;
   selectedIndex: number;
 };
 
 export const Tab = ({ label, active, onClick }: TabProps) => {
   return (
-    <S.StylizedTab
-      active={active}
-      onClick={onClick}
-      // inactiveStyle={inactiveTab} // styles에 있어야 하는데 없길래 / 뭔지 모르겠음
-    >
+    <S.StylizedTab active={active} onClick={onClick}>
       {label}
     </S.StylizedTab>
   );
@@ -73,13 +70,10 @@ export const Tabs = ({
   });
 
   return (
-    <div className={`tab-header-container ${position}`} ref={containerRef}>
-      <div className='tabs-holder'>{tabs}</div>
-      <div
-        className='tab-slider'
-        style={{ width: sliderWidth, left: sliderWidth * selectedTab }}
-      />
-    </div>
+    <S.TabHeaderContainer position={position} ref={containerRef}>
+      <S.TabsHolder>{tabs}</S.TabsHolder>
+      <S.TabSlider width={sliderWidth} index={selectedTab} />
+    </S.TabHeaderContainer>
   );
 };
 

@@ -3,6 +3,7 @@ export const RouterPath = {
   main: '/',
   challenge: 'challenge',
   record: 'record',
+  detail: 'detail',
   myRecord: 'my-record',
   shorts: 'shorts',
   rank: 'rank',
