@@ -34,11 +34,7 @@ type TabPanelProps = {
 
 export const Tab = ({ label, active, onClick }: TabProps) => {
   return (
-    <S.StylizedTab
-      active={active}
-      onClick={onClick}
-      // inactiveStyle={inactiveTab} // styles에 있어야 하는데 없길래 / 뭔지 모르겠음
-    >
+    <S.StylizedTab active={active} onClick={onClick}>
       {label}
     </S.StylizedTab>
   );
@@ -74,13 +70,10 @@ export const Tabs = ({
   });
 
   return (
-    <div className={`tab-header-container ${position}`} ref={containerRef}>
-      <div className='tabs-holder'>{tabs}</div>
-      <div
-        className='tab-slider'
-        style={{ width: sliderWidth, left: sliderWidth * selectedTab }}
-      />
-    </div>
+    <S.TabHeaderContainer position={position} ref={containerRef}>
+      <S.TabsHolder>{tabs}</S.TabsHolder>
+      <S.TabSlider width={sliderWidth} index={selectedTab} />
+    </S.TabHeaderContainer>
   );
 };
 
