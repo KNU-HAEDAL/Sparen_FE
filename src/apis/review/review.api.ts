@@ -1,6 +1,11 @@
 import { AxiosError } from 'axios';
 
 import { axiosClient } from '../AxiosClient';
+import type {
+  ReviewData,
+  PostReviewData,
+  ChallengeAvgScoreData,
+} from './review.response';
 
 type GetReviewParams = {
   challengeGroupId: number;
@@ -14,7 +19,7 @@ type PostReviewParams = {
   rating: number;
 };
 
-type GetChallengeAvgScoreParams = {
+type ChallengeAvgScoreParams = {
   challengeGroupId: number;
 };
 
@@ -22,7 +27,7 @@ export async function getReview({
   challengeGroupId,
   page,
   size = 5,
-}: GetReviewParams) {
+}: GetReviewParams): Promise<ReviewData[]> {
   try {
     const response = await axiosClient.get(
       `api/challengeGroups/${challengeGroupId}/reviews`,
@@ -48,7 +53,7 @@ export async function postReview({
   challengeId,
   content,
   rating,
-}: PostReviewParams) {
+}: PostReviewParams): Promise<PostReviewData> {
   const body = { content, rating };
   console.log('json : ', JSON.stringify(body));
   try {
@@ -72,7 +77,7 @@ export async function postReview({
 
 export async function getChallegeAvgScore({
   challengeGroupId,
-}: GetChallengeAvgScoreParams) {
+}: ChallengeAvgScoreParams): Promise<ChallengeAvgScoreData> {
   try {
     const response = await axiosClient.get(
       `api/challengeGroups/${challengeGroupId}/reviews/score`
