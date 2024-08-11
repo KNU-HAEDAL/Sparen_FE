@@ -3,27 +3,16 @@ import { useInView } from 'react-intersection-observer';
 
 import UserItem from '../components/user-item/';
 import * as S from './styles';
-import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api.js';
+import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
+import { ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
 
 type RankingProps = {
   title: string;
   category: string;
 };
 
-type User = {
-  ranking: number;
-  user: {
-    profileImageUrl: string;
-    nickname: string;
-    tierInfo: {
-      tier: number;
-    };
-  };
-  acquiredPoint: number;
-};
-
 const Ranking = ({ title, category }: RankingProps) => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<ChallengeRankingData[]>([]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
 
@@ -31,7 +20,7 @@ const Ranking = ({ title, category }: RankingProps) => {
     if (inView) {
       getChallengeRanking({ id: 1, page })
         .then((response) => {
-          setUsers((prevUsers) => [...prevUsers, ...response.data]);
+          setUsers((prevUsers) => [...prevUsers, ...response]);
           setPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
@@ -47,8 +36,8 @@ const Ranking = ({ title, category }: RankingProps) => {
         <S.Title>{title}</S.Title>
       </S.Wrapper>
       <S.RankingWrapper>
-        {users.map((user) => (
-          <UserItem key={user.ranking} user={user} />
+        {users.map((data) => (
+          <UserItem key={data.ranking} user={data.user} />
         ))}
         <div style={{ margin: '55px' }}></div>
         <div ref={ref}>로딩..</div>

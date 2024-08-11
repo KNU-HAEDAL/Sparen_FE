@@ -1,18 +1,11 @@
 // import DefaultImage from '../../../../assets/UserImage.svg';
 import * as S from './styles';
+import type {
+  ChallengeRankingData, // UserData,
+} from '@/apis/challenge-detail/challenge.ranking.response';
 
 type UserItemProps = {
-  user: {
-    ranking: number;
-    user: {
-      profileImageUrl: string;
-      nickname: string;
-      tierInfo: {
-        tier: number;
-      };
-    };
-    acquiredPoint: number;
-  };
+  user: ChallengeRankingData;
 };
 
 const UserItem = ({ user }: UserItemProps) => {
