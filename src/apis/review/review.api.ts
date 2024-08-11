@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { axiosClient } from '../AxiosClient';
 
 type GetReviewParams = {
@@ -29,9 +31,16 @@ export async function getReview({
       }
     );
     console.log('getReview response: ', response.data);
+
     return response.data.data;
   } catch (error) {
-    throw new Error(`getReview error: ${error}`);
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getReview error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getReview error: unexpected');
+    }
   }
 }
 
@@ -48,9 +57,16 @@ export async function postReview({
       JSON.stringify(body)
     );
     console.log('postReview response: ', response.data);
+
     return response.data.data;
   } catch (error) {
-    throw new Error(`postReview error: ${error}`);
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `postReview error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('postReview error: unexpected');
+    }
   }
 }
 
@@ -62,8 +78,15 @@ export async function getChallegeAvgScore({
       `api/challengeGroups/${challengeGroupId}/reviews/score`
     );
     console.log('getChallegeAvgScore response: ', response.data);
+
     return response.data.data;
   } catch (error) {
-    throw new Error(`getChallegeAvgScore error: ${error}`);
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallegeAvgScore error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallegeAvgScore error: unexpected');
+    }
   }
 }
