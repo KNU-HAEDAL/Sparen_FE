@@ -13,7 +13,7 @@ import {
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
-import { TopBar } from '@/components/common/top-bar';
+import TopBar from '@/components/features/layout/top-bar';
 
 const ChallengeDetailPage = () => {
   const tabsList = [
@@ -43,7 +43,7 @@ const ChallengeDetailPage = () => {
 
   return (
     <Wrapper>
-      <TopBar title={'챌린지 상세정보'} />
+      <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
       <ImageMask>
         {data ? (
           <Image src={data.imageUrls[0]} />
