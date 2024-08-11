@@ -16,7 +16,7 @@ import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
 const ChallengeDetailPage = () => {
-  const tabsList = ['챌린지', '랭킹'];
+  const tabsList = ['설명', '랭킹'];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
