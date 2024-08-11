@@ -10,7 +10,7 @@ import type {
 type GetReviewParams = {
   challengeGroupId: number;
   page: number;
-  size: number;
+  size?: number;
 };
 
 type PostReviewParams = {

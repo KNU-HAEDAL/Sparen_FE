@@ -4,22 +4,27 @@ import { useInView } from 'react-intersection-observer';
 import ReviewItem from './components/review-item';
 import ReviewRating from './components/review-rating';
 import { getReview } from '@/apis/review/review.api';
+import type { ReviewData } from '@/apis/review/review.response';
 import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
 const ReviewList = () => {
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [page, setPage] = useState(0);
   const [ref, inView] = useInView({ threshold: 0.5 });
   const [hasNext, setHasNext] = useState(true);
 
   useEffect(() => {
     if (hasNext) {
-      getReview({ challengeGroupId: 1, page }).then((res) => {
-        setReviews([...reviews, ...res.data]);
-        setPage((page) => page + 1);
-        setHasNext(res.hasNext);
-      });
+      getReview({ challengeGroupId: 1, page })
+        .then((res) => {
+          setReviews((prevReviews) => [...prevReviews, ...res.data]);
+          setPage((prevPage) => prevPage + 1);
+          setHasNext(res.hasNext);
+        })
+        .catch((error) => {
+          console.error('Error fetching reviews:', error);
+        });
     }
   }, [inView]);
 
@@ -31,8 +36,9 @@ const ReviewList = () => {
         <ReviewRating />
         <List>
           <VLine />
-          {reviews.map((item) => (
-            <ReviewItem key={item.ranking} data={item} />
+          {reviews.map((review) => (
+            <ReviewItem key={review.rating} data={review} />
+            // 키가 원래 ranking으로 되어있었는데 ReviewData에는 해당 키가 없어서 임의로 변경해둠
           ))}
           {hasNext ? <div ref={ref}>로딩..</div> : <div />}
         </List>
