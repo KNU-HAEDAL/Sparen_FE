@@ -15,7 +15,7 @@ const ReviewList = () => {
 
   useEffect(() => {
     if (hasNext) {
-      getReview(1, page).then((res) => {
+      getReview({ challengeGroupId: 1, page }).then((res) => {
         setReviews([...reviews, ...res.data]);
         setPage((page) => page + 1);
         setHasNext(res.hasNext);

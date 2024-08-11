@@ -16,6 +16,12 @@ export type ReviewData = {
   rating: number;
 };
 
+export type GetReviewResponse = {
+  totalPage: 0;
+  hasNext: true;
+  data: ReviewData[];
+};
+
 export type PostReviewData = number;
 
 export type ChallengeAvgScoreData = {

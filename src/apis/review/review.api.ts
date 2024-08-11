@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { axiosClient } from '../AxiosClient';
 import type {
-  ReviewData,
+  GetReviewResponse,
   PostReviewData,
   ChallengeAvgScoreData,
 } from './review.response';
@@ -27,7 +27,7 @@ export async function getReview({
   challengeGroupId,
   page,
   size = 5,
-}: GetReviewParams): Promise<ReviewData[]> {
+}: GetReviewParams): Promise<GetReviewResponse> {
   try {
     const response = await axiosClient.get(
       `api/challengeGroups/${challengeGroupId}/reviews`,
@@ -37,7 +37,7 @@ export async function getReview({
     );
     console.log('getReview response: ', response.data);
 
-    return response.data.data;
+    return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       throw new Error(
