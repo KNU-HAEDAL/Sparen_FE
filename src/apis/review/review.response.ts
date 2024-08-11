@@ -17,8 +17,8 @@ export type ReviewData = {
 };
 
 export type GetReviewResponse = {
-  totalPage: 0;
-  hasNext: true;
+  totalPage: number;
+  hasNext: boolean;
   data: ReviewData[];
 };
 
