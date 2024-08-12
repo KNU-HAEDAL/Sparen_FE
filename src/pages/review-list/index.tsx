@@ -18,9 +18,14 @@ const ReviewList = () => {
     if (hasNext) {
       getReview({ challengeGroupId: 1, page })
         .then((res) => {
-          setReviews((prevReviews) => [...prevReviews, ...res.data]);
-          setPage((prevPage) => prevPage + 1);
-          setHasNext(res.hasNext);
+          if (Array.isArray(res.data) && res.data.length > 0) {
+            setReviews((prevReviews) => [...prevReviews, ...res.data]);
+            setPage((prevPage) => prevPage + 1);
+            setHasNext(res.hasNext);
+          } else {
+            console.log('리뷰 데이터 없음');
+            // 리뷰 없을 때 UI
+          }
         })
         .catch((error) => {
           console.error('Error fetching reviews:', error);
