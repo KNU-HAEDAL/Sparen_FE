@@ -39,6 +39,31 @@ export async function getReview({
   }
 }
 
+type ChallengeAvgScoreParams = {
+  challengeGroupId: number;
+};
+
+export async function getChallegeAvgScore({
+  challengeGroupId,
+}: ChallengeAvgScoreParams): Promise<ChallengeAvgScoreData> {
+  try {
+    const response = await axiosClient.get(
+      `api/challengeGroups/${challengeGroupId}/reviews/score`
+    );
+    console.log('getChallegeAvgScore response: ', response.data);
+
+    return response.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallegeAvgScore error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallegeAvgScore error: unexpected');
+    }
+  }
+}
+
 type PostReviewParams = {
   challengeId: number;
   content: string;
@@ -67,31 +92,6 @@ export async function postReview({
       );
     } else {
       throw new Error('postReview error: unexpected');
-    }
-  }
-}
-
-type ChallengeAvgScoreParams = {
-  challengeGroupId: number;
-};
-
-export async function getChallegeAvgScore({
-  challengeGroupId,
-}: ChallengeAvgScoreParams): Promise<ChallengeAvgScoreData> {
-  try {
-    const response = await axiosClient.get(
-      `api/challengeGroups/${challengeGroupId}/reviews/score`
-    );
-    console.log('getChallegeAvgScore response: ', response.data);
-
-    return response.data.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(
-        `getChallegeAvgScore error: ${error.response?.data.message || error.message}`
-      );
-    } else {
-      throw new Error('getChallegeAvgScore error: unexpected');
     }
   }
 }
