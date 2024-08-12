@@ -76,11 +76,12 @@ export async function postReview({
   rating,
 }: PostReviewParams): Promise<PostReviewData> {
   const body = { content, rating };
-  console.log('json : ', JSON.stringify(body));
+  // console.log('json : ', JSON.stringify(body));
+
   try {
     const response = await axiosClient.post(
-      `api/challenges/${challengeId}/reviews`,
-      JSON.stringify(body)
+      `/api/challenges/${challengeId}/reviews`,
+      body
     );
     console.log('postReview response: ', response.data);
 
