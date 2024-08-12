@@ -1,24 +1,28 @@
 import { useState, useEffect } from 'react';
 
 import { getChallegeAvgScore } from '@/apis/review/review.api';
+import type { RatingCount } from '@/apis/review/review.response';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ReviewRating = ({ props }) => {
-  const [datas, setDatas] = useState(null);
+const ReviewRating = () => {
+  const [datas, setDatas] = useState<RatingCount | null>(null);
   const [starAvg, setStarAvg] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState({
     width: `${(starAvg / 5) * 100}%`,
   });
 
   useEffect(() => {
-    getChallegeAvgScore(1).then((res) => {
+    getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
       setDatas(res.ratingCount);
-      console.log('ddd', res.ratingCount);
+      console.log('rating count: ', res.ratingCount);
       setStarAvg(res.averageRating);
       setRatingToPercent({ width: `${(res.averageRating / 5) * 100}%` });
     });
   }, []);
+
+  // data 객체를 [key, value] 형태의 배열로 변환
+  const ratings = datas ? Object.entries(datas) : [];
 
   return (
     <>
@@ -30,43 +34,43 @@ const ReviewRating = ({ props }) => {
             </Text>
             <StarRating>
               <StarFill style={ratingToPercent}>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`fill-${index}`}>★</span>
+                ))}
               </StarFill>
               <StarBase>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`base-${index}`}>★</span>
+                ))}
               </StarBase>
             </StarRating>
           </CWrapper>
           <VLine />
           <RWrapper>
             <CWrapper>
-              <SubText>매우 만족</SubText>
-              <SubText>만족</SubText>
-              <SubText>보통</SubText>
-              <SubText>별로</SubText>
-              <SubText>매우 별로</SubText>
+              {ratings.map(([key]) => (
+                <SubText key={key}>
+                  {key === '5'
+                    ? '매우 만족'
+                    : key === '4'
+                      ? '만족'
+                      : key === '3'
+                        ? '보통'
+                        : key === '2'
+                          ? '별로'
+                          : '매우 별로'}
+                </SubText>
+              ))}
             </CWrapper>
             <CWrapper>
-              <Bar percentage={`${datas[1] * 100}%`} />
-              <Bar percentage={`${datas[2] * 100}%`} />
-              <Bar percentage={`${datas[3] * 100}%`} />
-              <Bar percentage={`${datas[4] * 100}%`} />
-              <Bar percentage={`${datas[5] * 100}%`} />
+              {ratings.map(([key, data]) => (
+                <Bar key={key} percentage={`${data * 100}%`} />
+              ))}
             </CWrapper>
             <CWrapper>
-              <SubText>{datas[1]}</SubText>
-              <SubText>{datas[2]}</SubText>
-              <SubText>{datas[3]}</SubText>
-              <SubText>{datas[4]}</SubText>
-              <SubText>{datas[5]}</SubText>
+              {ratings.map(([key, data]) => (
+                <SubText key={key}>{data}</SubText>
+              ))}
             </CWrapper>
           </RWrapper>
         </StarBox>
@@ -127,6 +131,7 @@ const StarRating = styled.div`
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
 `;
+
 const StarFill = styled.div`
   padding: 0;
   position: absolute;
@@ -137,19 +142,19 @@ const StarFill = styled.div`
   overflow: hidden;
   -webkit-text-fill-color: var(--color-green-01);
 `;
+
 const StarBase = styled.div`
   z-index: 0;
   padding: 0;
 `;
 
-const Bar = styled.div`
+const Bar = styled.div<{ percentage: string }>`
   border-radius: 10px;
   height: 5px;
-  --percentage: ${(props) => `${props.percentage}`};
   background: linear-gradient(
     to right,
-    var(--color-green-01) var(--percentage),
-    #d7d7d7 var(--percentage)
+    var(--color-green-01) ${(props) => props.percentage},
+    #d7d7d7 ${(props) => props.percentage}
   );
   width: 80px;
   flex-shrink: 0;

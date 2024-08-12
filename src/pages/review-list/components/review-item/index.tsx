@@ -1,10 +1,17 @@
 import { PiStarFill, PiStarLight } from 'react-icons/pi';
 
+import type { ReviewData } from '@/apis/review/review.response';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ReviewItem = ({ data }) => {
-  const rating = 2;
+type ReviewItemProps = {
+  data: ReviewData;
+};
+
+const ReviewItem = ({ data }: ReviewItemProps) => {
+  // const rating = 2;
+  const rating = data.rating;
+
   return (
     <ReviewItemBox>
       <UserWrapper>
@@ -22,7 +29,7 @@ const ReviewItem = ({ data }) => {
               {data.user.nickname}
             </Text>
             <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
-              {data.user.tierinfo}
+              {data.user.tierInfo.tier}
             </Text>
           </RowWrapper>
           <SmallText>참여난이도 {data.challengeDifficulty}</SmallText>
@@ -80,10 +87,10 @@ const UserWrapper = styled(Wrapper)`
 `;
 
 const StarWrapper = styled(Wrapper)`
-    position: absolute
-    top: 0px;
-    right: 0px;
-    margin: 5px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin: 5px;
 `;
 
 const ImageBox = styled.div`
