@@ -4,7 +4,7 @@ import { getChallegeAvgScore } from '@/apis/review/review.api';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ReviewRating = ({ props }) => {
+const ReviewRating = () => {
   const [datas, setDatas] = useState(null);
   const [starAvg, setStarAvg] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState({
