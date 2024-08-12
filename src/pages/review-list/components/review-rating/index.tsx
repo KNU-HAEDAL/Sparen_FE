@@ -20,6 +20,9 @@ const ReviewRating = () => {
     });
   }, []);
 
+  // data 객체를 [key, value] 형태의 배열로 변환
+  const ratings = datas ? Object.entries(datas) : [];
+
   return (
     <>
       {datas ? (
@@ -48,25 +51,29 @@ const ReviewRating = () => {
           <VLine />
           <RWrapper>
             <CWrapper>
-              <SubText>매우 만족</SubText>
-              <SubText>만족</SubText>
-              <SubText>보통</SubText>
-              <SubText>별로</SubText>
-              <SubText>매우 별로</SubText>
+              {ratings.map(([key]) => (
+                <SubText key={key}>
+                  {key === '5'
+                    ? '매우 만족'
+                    : key === '4'
+                      ? '만족'
+                      : key === '3'
+                        ? '보통'
+                        : key === '2'
+                          ? '별로'
+                          : '매우 별로'}
+                </SubText>
+              ))}
             </CWrapper>
             <CWrapper>
-              <Bar percentage={`${datas[1] * 100}%`} />
-              <Bar percentage={`${datas[2] * 100}%`} />
-              <Bar percentage={`${datas[3] * 100}%`} />
-              <Bar percentage={`${datas[4] * 100}%`} />
-              <Bar percentage={`${datas[5] * 100}%`} />
+              {ratings.map(([key, data]) => (
+                <Bar key={key} percentage={`${data * 100}%`} />
+              ))}
             </CWrapper>
             <CWrapper>
-              <SubText>{datas[1]}</SubText>
-              <SubText>{datas[2]}</SubText>
-              <SubText>{datas[3]}</SubText>
-              <SubText>{datas[4]}</SubText>
-              <SubText>{datas[5]}</SubText>
+              {ratings.map(([key, data]) => (
+                <SubText key={key}>{data}</SubText>
+              ))}
             </CWrapper>
           </RWrapper>
         </StarBox>
