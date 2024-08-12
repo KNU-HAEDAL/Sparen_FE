@@ -10,36 +10,57 @@ import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
+const SAMPLE_CHALLENGE_ID = 1;
+
 const ReviewWrite = () => {
   const { challengeTitle } = useChallengeStore();
 
-  const Item1 = ['어려워요', '적당해요', '쉬워요'];
-  const Item2 = ['뿌듯해요', '유익해요', '애매해요'];
+  const difficultyList = ['쉬워요', '적당해요', '어려워요'];
+  const feelingList = ['뿌듯해요', '유익해요', '애매해요'];
+
   const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
-  const [selectedItem1, setSelectedItem1] = useState(null);
-  const [selectedItem2, setSelectedItem2] = useState(null);
-  const [text, setText] = useState('');
+  const [selectedDifficulty, setSelectedDifficulty] = useState<
+    string | undefined
+  >();
+  const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
+  const [content, setContent] = useState('');
 
-  const handleItem1Click = (item) => {
-    setSelectedItem1(item);
-  };
-  const handleItem2Click = (item) => {
-    setSelectedItem2(item);
+  const handleDifficultyClick = (difficulty: string) => {
+    setSelectedDifficulty(difficulty);
   };
 
-  const saveHandler = () => {
-    postReview(9, text, rating)
-      .then((res) => {
-        console.log('응답: ', res);
-        alert('성공적으로 저장했습니다.');
-        navigate('/');
+  const handleFeelingClick = (feeling: string) => {
+    setSelectedFeeling(feeling);
+  };
+
+  const handleSaveReview = () => {
+    if (rating === 0) {
+      alert('별점을 선택해주세요.');
+      return;
+    } else if (
+      selectedDifficulty === undefined ||
+      selectedFeeling === undefined
+    ) {
+      alert('난이도와 성취감을 선택해주세요.');
+      return;
+    } else if (!content.trim()) {
+      alert('리뷰 내용을 입력해주세요.');
+      return;
+    } else
+      postReview({
+        challengeId: SAMPLE_CHALLENGE_ID,
+        content,
+        rating,
       })
-      .catch(() => {
-        alert('저장에 실패했습니다.');
-        navigate('/');
-      });
+        .then(() => {
+          alert('성공적으로 저장했습니다.');
+          navigate('/');
+        })
+        .catch(() => {
+          alert('저장에 실패했습니다.');
+        });
   };
 
   return (
@@ -50,7 +71,7 @@ const ReviewWrite = () => {
           {challengeTitle}
         </Text>
         <Wrapper margin='20px 0' alignItems='end' alignSelf='center'>
-          {[...Array(rating)].map((a, i) => (
+          {[...Array(rating)].map((_, i) => (
             <PiStarFill
               size='35'
               key={i}
@@ -58,7 +79,7 @@ const ReviewWrite = () => {
               color='var(--color-green-01)'
             />
           ))}
-          {[...Array(5 - rating)].map((a, i) => (
+          {[...Array(5 - rating)].map((_, i) => (
             <PiStarLight
               size='35'
               key={i}
@@ -84,11 +105,11 @@ const ReviewWrite = () => {
           >
             난이도
           </Text>
-          {Item1.map((item) => (
+          {difficultyList.map((item) => (
             <CheckButton
               key={item}
-              onClick={() => handleItem1Click(item)}
-              isSelected={selectedItem1 === item}
+              onClick={() => handleDifficultyClick(item)}
+              isSelected={selectedDifficulty === item}
             >
               {item}
             </CheckButton>
@@ -103,13 +124,12 @@ const ReviewWrite = () => {
           >
             성취감
           </Text>
-          {Item2.map((item) => (
+          {feelingList.map((item) => (
             <CheckButton
               key={item}
-              onClick={() => handleItem2Click(item)}
-              isSelected={selectedItem2 === item}
+              onClick={() => handleFeelingClick(item)}
+              isSelected={selectedFeeling === item}
             >
-              {' '}
               {item}
             </CheckButton>
           ))}
@@ -125,10 +145,10 @@ const ReviewWrite = () => {
         </Text>
         <InputArea
           placeholder='챌린지 후 느낀점을 적어주세요'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <SubmitButton onClick={saveHandler}>등록하기</SubmitButton>
+        <SubmitButton onClick={handleSaveReview}>등록하기</SubmitButton>
       </ReviewWriteLayout>
     </>
   );
@@ -181,7 +201,7 @@ const SubmitButton = styled(Button)`
   border: none;
 `;
 
-const CheckButton = styled.button`
+const CheckButton = styled.button<{ isSelected: boolean }>`
   height: 25px;
   border-radius: 20px;
   margin-left: 5px;

@@ -24,13 +24,13 @@ export type GetReviewResponse = {
 
 //
 
-export type PostReviewData = number;
-
-//
-
 export type RatingCount = { [key: string | number]: number };
 
 export type ChallengeAvgScoreData = {
   averageRating: number;
   ratingCount: RatingCount;
 };
+
+//
+
+export type PostReviewData = number;
