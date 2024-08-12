@@ -5,7 +5,7 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewRating = () => {
-  const [datas, setDatas] = useState(null);
+  const [datas, setDatas] = useState<{ [key: string]: number } | null>(null);
   const [starAvg, setStarAvg] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState({
     width: `${(starAvg / 5) * 100}%`,
@@ -14,7 +14,7 @@ const ReviewRating = () => {
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
       setDatas(res.ratingCount);
-      console.log('ddd', res.ratingCount);
+      console.log('rating count: ', res.ratingCount);
       setStarAvg(res.averageRating);
       setRatingToPercent({ width: `${(res.averageRating / 5) * 100}%` });
     });
