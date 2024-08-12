@@ -13,16 +13,6 @@ type GetReviewParams = {
   size?: number;
 };
 
-type PostReviewParams = {
-  challengeId: number;
-  content: string;
-  rating: number;
-};
-
-type ChallengeAvgScoreParams = {
-  challengeGroupId: number;
-};
-
 export async function getReview({
   challengeGroupId,
   page,
@@ -49,6 +39,12 @@ export async function getReview({
   }
 }
 
+type PostReviewParams = {
+  challengeId: number;
+  content: string;
+  rating: number;
+};
+
 export async function postReview({
   challengeId,
   content,
@@ -74,6 +70,10 @@ export async function postReview({
     }
   }
 }
+
+type ChallengeAvgScoreParams = {
+  challengeGroupId: number;
+};
 
 export async function getChallegeAvgScore({
   challengeGroupId,
