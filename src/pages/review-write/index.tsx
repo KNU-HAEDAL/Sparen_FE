@@ -25,7 +25,7 @@ const ReviewWrite = () => {
     string | undefined
   >();
   const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
-  const [text, setText] = useState('');
+  const [content, setContent] = useState('');
 
   const handleDifficultyClick = (difficulty: string) => {
     setSelectedDifficulty(difficulty);
@@ -35,15 +35,32 @@ const ReviewWrite = () => {
     setSelectedFeeling(feeling);
   };
 
-  const saveHandler = () => {
-    postReview({ challengeId: SAMPLE_CHALLENGE_ID, content: text, rating })
-      .then(() => {
-        alert('성공적으로 저장했습니다.');
-        navigate('/');
+  const handleSaveReview = () => {
+    if (rating === 0) {
+      alert('별점을 선택해주세요.');
+      return;
+    } else if (
+      selectedDifficulty === undefined ||
+      selectedFeeling === undefined
+    ) {
+      alert('난이도와 성취감을 선택해주세요.');
+      return;
+    } else if (!content.trim()) {
+      alert('리뷰 내용을 입력해주세요.');
+      return;
+    } else
+      postReview({
+        challengeId: SAMPLE_CHALLENGE_ID,
+        content,
+        rating,
       })
-      .catch(() => {
-        alert('저장에 실패했습니다.');
-      });
+        .then(() => {
+          alert('성공적으로 저장했습니다.');
+          navigate('/');
+        })
+        .catch(() => {
+          alert('저장에 실패했습니다.');
+        });
   };
 
   return (
@@ -128,10 +145,10 @@ const ReviewWrite = () => {
         </Text>
         <InputArea
           placeholder='챌린지 후 느낀점을 적어주세요'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
-        <SubmitButton onClick={saveHandler}>등록하기</SubmitButton>
+        <SubmitButton onClick={handleSaveReview}>등록하기</SubmitButton>
       </ReviewWriteLayout>
     </>
   );
