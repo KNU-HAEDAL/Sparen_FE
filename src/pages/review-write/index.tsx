@@ -10,6 +10,8 @@ import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
+const SAMPLE_CHALLENGE_ID = 1;
+
 const ReviewWrite = () => {
   const { challengeTitle } = useChallengeStore();
 
@@ -34,7 +36,7 @@ const ReviewWrite = () => {
   };
 
   const saveHandler = () => {
-    postReview({ challengeId: 9, content: text, rating })
+    postReview({ challengeId: SAMPLE_CHALLENGE_ID, content: text, rating })
       .then((res) => {
         console.log('응답: ', res);
         alert('성공적으로 저장했습니다.');
@@ -42,7 +44,6 @@ const ReviewWrite = () => {
       })
       .catch(() => {
         alert('저장에 실패했습니다.');
-        navigate('/');
       });
   };
 
