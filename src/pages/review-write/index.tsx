@@ -30,7 +30,7 @@ const ReviewWrite = () => {
   };
 
   const saveHandler = () => {
-    postReview(9, text, rating)
+    postReview({ challengeId: 9, content: text, rating })
       .then((res) => {
         console.log('응답: ', res);
         alert('성공적으로 저장했습니다.');
