@@ -12,7 +12,7 @@ const ReviewRating = () => {
   });
 
   useEffect(() => {
-    getChallegeAvgScore(1).then((res) => {
+    getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
       setDatas(res.ratingCount);
       console.log('ddd', res.ratingCount);
       setStarAvg(res.averageRating);
