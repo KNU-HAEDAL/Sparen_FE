@@ -184,7 +184,7 @@ const SubmitButton = styled(Button)`
   border: none;
 `;
 
-const CheckButton = styled.button`
+const CheckButton = styled.button<{ isSelected: boolean }>`
   height: 25px;
   border-radius: 20px;
   margin-left: 5px;
