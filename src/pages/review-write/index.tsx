@@ -15,17 +15,18 @@ const ReviewWrite = () => {
 
   const Item1 = ['어려워요', '적당해요', '쉬워요'];
   const Item2 = ['뿌듯해요', '유익해요', '애매해요'];
+
   const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
-  const [selectedItem1, setSelectedItem1] = useState(null);
-  const [selectedItem2, setSelectedItem2] = useState(null);
+  const [selectedItem1, setSelectedItem1] = useState<string | undefined>(); // 버튼
+  const [selectedItem2, setSelectedItem2] = useState<string | undefined>(); // 버튼
   const [text, setText] = useState('');
 
-  const handleItem1Click = (item) => {
+  const handleItem1Click = (item: string) => {
     setSelectedItem1(item);
   };
-  const handleItem2Click = (item) => {
+  const handleItem2Click = (item: string) => {
     setSelectedItem2(item);
   };
 
