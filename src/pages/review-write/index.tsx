@@ -50,7 +50,7 @@ const ReviewWrite = () => {
           {challengeTitle}
         </Text>
         <Wrapper margin='20px 0' alignItems='end' alignSelf='center'>
-          {[...Array(rating)].map((a, i) => (
+          {[...Array(rating)].map((_, i) => (
             <PiStarFill
               size='35'
               key={i}
@@ -58,7 +58,7 @@ const ReviewWrite = () => {
               color='var(--color-green-01)'
             />
           ))}
-          {[...Array(5 - rating)].map((a, i) => (
+          {[...Array(5 - rating)].map((_, i) => (
             <PiStarLight
               size='35'
               key={i}
