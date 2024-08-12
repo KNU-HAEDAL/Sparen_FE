@@ -127,6 +127,7 @@ const StarRating = styled.div`
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
 `;
+
 const StarFill = styled.div`
   padding: 0;
   position: absolute;
@@ -137,19 +138,19 @@ const StarFill = styled.div`
   overflow: hidden;
   -webkit-text-fill-color: var(--color-green-01);
 `;
+
 const StarBase = styled.div`
   z-index: 0;
   padding: 0;
 `;
 
-const Bar = styled.div`
+const Bar = styled.div<{ percentage: string }>`
   border-radius: 10px;
   height: 5px;
-  --percentage: ${(props) => `${props.percentage}`};
   background: linear-gradient(
     to right,
-    var(--color-green-01) var(--percentage),
-    #d7d7d7 var(--percentage)
+    var(--color-green-01) ${(props) => props.percentage},
+    #d7d7d7 ${(props) => props.percentage}
   );
   width: 80px;
   flex-shrink: 0;
