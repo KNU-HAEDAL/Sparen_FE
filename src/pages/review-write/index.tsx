@@ -13,21 +13,24 @@ import styled from '@emotion/styled';
 const ReviewWrite = () => {
   const { challengeTitle } = useChallengeStore();
 
-  const Item1 = ['어려워요', '적당해요', '쉬워요'];
-  const Item2 = ['뿌듯해요', '유익해요', '애매해요'];
+  const difficultyList = ['쉬워요', '적당해요', '어려워요'];
+  const feelingList = ['뿌듯해요', '유익해요', '애매해요'];
 
   const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
-  const [selectedItem1, setSelectedItem1] = useState<string | undefined>(); // 버튼
-  const [selectedItem2, setSelectedItem2] = useState<string | undefined>(); // 버튼
+  const [selectedDifficulty, setSelectedDifficulty] = useState<
+    string | undefined
+  >();
+  const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
   const [text, setText] = useState('');
 
-  const handleItem1Click = (item: string) => {
-    setSelectedItem1(item);
+  const handleDifficultyClick = (difficulty: string) => {
+    setSelectedDifficulty(difficulty);
   };
-  const handleItem2Click = (item: string) => {
-    setSelectedItem2(item);
+
+  const handleFeelingClick = (feeling: string) => {
+    setSelectedFeeling(feeling);
   };
 
   const saveHandler = () => {
@@ -85,11 +88,11 @@ const ReviewWrite = () => {
           >
             난이도
           </Text>
-          {Item1.map((item) => (
+          {difficultyList.map((item) => (
             <CheckButton
               key={item}
-              onClick={() => handleItem1Click(item)}
-              isSelected={selectedItem1 === item}
+              onClick={() => handleDifficultyClick(item)}
+              isSelected={selectedDifficulty === item}
             >
               {item}
             </CheckButton>
@@ -104,13 +107,12 @@ const ReviewWrite = () => {
           >
             성취감
           </Text>
-          {Item2.map((item) => (
+          {feelingList.map((item) => (
             <CheckButton
               key={item}
-              onClick={() => handleItem2Click(item)}
-              isSelected={selectedItem2 === item}
+              onClick={() => handleFeelingClick(item)}
+              isSelected={selectedFeeling === item}
             >
-              {' '}
               {item}
             </CheckButton>
           ))}
