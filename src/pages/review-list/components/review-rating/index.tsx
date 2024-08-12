@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import { getChallegeAvgScore } from '@/apis/review/review.api';
+import type { RatingCount } from '@/apis/review/review.response';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewRating = () => {
-  const [datas, setDatas] = useState<{ [key: string]: number } | null>(null);
+  const [datas, setDatas] = useState<RatingCount | null>(null);
   const [starAvg, setStarAvg] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState({
     width: `${(starAvg / 5) * 100}%`,
