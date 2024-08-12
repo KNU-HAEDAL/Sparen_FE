@@ -3,7 +3,7 @@ interface ApiErrorProps {
   message: string;
 }
 
-export class ApiError extends Error {
+export default class ApiError extends Error {
   errorCode: string;
   message: string;
   constructor({errorCode, message}: ApiErrorProps) {

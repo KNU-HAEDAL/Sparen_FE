@@ -1,6 +1,6 @@
-export interface ApiResponse<T> {
+export default interface ApiResponse<T> {
   result: 'SUCCESS' | 'FAIL';
   data: T;
   message?: string;
-  errorCodes?: string;
+  errorCode?: string;
 }
