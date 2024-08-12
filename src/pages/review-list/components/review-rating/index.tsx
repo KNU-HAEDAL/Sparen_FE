@@ -34,18 +34,14 @@ const ReviewRating = () => {
             </Text>
             <StarRating>
               <StarFill style={ratingToPercent}>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`fill-${index}`}>★</span>
+                ))}
               </StarFill>
               <StarBase>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
-                <span>★</span>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`base-${index}`}>★</span>
+                ))}
               </StarBase>
             </StarRating>
           </CWrapper>
