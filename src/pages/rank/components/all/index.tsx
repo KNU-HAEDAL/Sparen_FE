@@ -12,7 +12,7 @@ import * as Base from '@/styles/baseStyles';
 const AllRank = () => {
   const [userRanks, setUserRanks] = useState<User[]>([]);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUserRanking = async () => {

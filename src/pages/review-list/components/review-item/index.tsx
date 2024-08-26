@@ -35,10 +35,10 @@ const ReviewItem = ({ data }: ReviewItemProps) => {
           <SmallText>참여난이도 {data.challengeDifficulty}</SmallText>
         </Wrapper>
         <StarWrapper>
-          {[...Array(rating)].map((a, i) => (
+          {[...Array(rating)].map((i) => (
             <PiStarFill size='15' key={i} color='var(--color-green-01)' />
           ))}
-          {[...Array(5 - rating)].map((a, i) => (
+          {[...Array(5 - rating)].map((i) => (
             <PiStarLight size='15' key={i} color='var(--color-green-01)' />
           ))}
         </StarWrapper>

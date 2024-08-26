@@ -10,7 +10,7 @@ import styled from '@emotion/styled';
 type BiddingModalProps = {
   isOpen: boolean;
   onRequestClose: () => void;
-  currentNickname: string | undefined;
+  currentNickname: string;
 };
 
 Modal.setAppElement('#root');
@@ -21,7 +21,7 @@ const NicknameModal: React.FC<BiddingModalProps> = ({
   currentNickname,
 }) => {
   const { userInfo, setUserInfo } = useInfoStore();
-  const [nickname, setNickname] = useState<string | undefined>(currentNickname);
+  const [nickname, setNickname] = useState<string>(currentNickname);
 
   useEffect(() => {
     setNickname(currentNickname);
@@ -41,7 +41,13 @@ const NicknameModal: React.FC<BiddingModalProps> = ({
       if (nickname.trim() !== '') {
         await fetchFixNickname();
         if (userInfo) {
-          setUserInfo({ ...userInfo, nickname });
+          setUserInfo({
+            ...userInfo,
+            nickname,
+            totalPage: 0,
+            hasNext: false,
+            data: [],
+          });
         }
         alert('닉네임이 성공적으로 수정되었습니다.');
         onRequestClose();
