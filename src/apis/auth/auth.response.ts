@@ -23,3 +23,12 @@ export type UserResponseData = {
   message: string;
   errorCode: string;
 };
+
+export type RefreshTokenResponse = {
+  result?: 'SUCCESS' | 'FAIL';
+  data: {
+    accessToken: string;
+  };
+  message: string;
+  errorCode: string;
+};

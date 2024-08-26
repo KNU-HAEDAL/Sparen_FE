@@ -57,13 +57,3 @@ export const socialLoginText = styled.span`
   z-index: 1;
   background-color: #fff;
 `;
-
-export const LoginInput = styled.input`
-  width: 15rem;
-  height: 2.5rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d2d2d2;
-  padding: 0 0.5rem;
-
-  margin-bottom: 1rem;
-`;

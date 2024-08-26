@@ -1,5 +1,5 @@
-import { axiosClient } from '../AxiosClient';
-import { UserResponseData } from './auth.response';
+import { RefreshTokenResponse, UserResponseData } from './auth.response';
+import { axiosClient } from '@/apis/AxiosClient';
 import { BASE_URL } from '@/constants/URI';
 import { authLocalStorage } from '@/utils/storage';
 import { useMutation } from '@tanstack/react-query';
@@ -73,5 +73,11 @@ export async function setLogin({
   });
   const { accessToken } = response.data.data;
   authLocalStorage.set(accessToken);
+  return response.data;
+}
+
+export async function postRefreshToken(): Promise<RefreshTokenResponse> {
+  const response = await axiosClient.post(`${BASE_URL}/api/auth/refresh`);
+  console.log('postRefreshToken response: ', response.data);
   return response.data;
 }
