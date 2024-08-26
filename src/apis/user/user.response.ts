@@ -4,6 +4,7 @@ import { UserData } from '@/interface/apis/user';
 export interface UserInfoResponse {
   result: string;
   data: {
+    nickname: string;
     totalPage: number;
     hasNext: boolean;
     data: UserData[];

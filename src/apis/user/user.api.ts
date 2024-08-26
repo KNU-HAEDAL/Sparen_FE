@@ -1,4 +1,3 @@
-// import { axiosClient } from '../AxiosClient';
 import { axiosClient } from '../AxiosClient';
 import {
   FixUserInfoResponse,
@@ -17,7 +16,7 @@ export async function getUserInfo(): Promise<UserInfoResponse> {
 }
 
 export async function fixUserInfo(
-  nickname: string
+  nickname: string | undefined
 ): Promise<FixUserInfoResponse> {
   try {
     const response = await axiosClient.put('/api/user', {
