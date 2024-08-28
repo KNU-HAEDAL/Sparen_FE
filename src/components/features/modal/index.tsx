@@ -10,17 +10,19 @@ import styled from '@emotion/styled';
 type Props = {
   isOpen: boolean;
   onRequestClose: () => void;
-  currentNickname: string;
+  currentNickname?: string;
 };
 
 Modal.setAppElement('#root');
 
 const NicknameModal = ({ isOpen, onRequestClose, currentNickname }: Props) => {
   const { userInfo, setUserInfo } = useInfoStore();
-  const [nickname, setNickname] = useState<string>(currentNickname);
+  const [nickname, setNickname] = useState<string>(currentNickname || '');
 
   useEffect(() => {
-    setNickname(currentNickname);
+    if (currentNickname) {
+      setNickname(currentNickname);
+    }
   }, [currentNickname]);
 
   const fetchFixNickname = useCallback(async () => {

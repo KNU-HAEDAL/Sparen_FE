@@ -4,7 +4,7 @@ import * as S from './styles';
 import { getUserInfo } from '@/apis/user/user.api';
 import ProfileImg from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
-import { useInfoStore, UserInfo } from '@/store/useInfoStore';
+import { useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
 
 const Tier = () => {
@@ -16,20 +16,7 @@ const Tier = () => {
       try {
         const response = await getUserInfo();
         const userData = response.data;
-
-        const transformedUserInfo: UserInfo = {
-          id: userData.id,
-          nickname: userData.nickname,
-          profileImageUrl: userData.profileImageUrl ?? '',
-          email: userData.email ?? '',
-          tierInfo: userData.tierInfo ?? {
-            tier: '',
-            totalExp: 0,
-            currentExp: 0,
-          },
-        };
-
-        setUserInfo(transformedUserInfo);
+        setUserInfo(userData);
       } catch (error) {
         console.error('fetchUserInfo error: ', error);
       }
