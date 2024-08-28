@@ -16,7 +16,6 @@ const MyChallengeRecord = () => {
           <ListItem />
           <ListItem />
           <ListItem />
-          <ListItem />
         </ChallengeList>
       </MyChallengeRecordLayout>
     </>
