@@ -1,12 +1,27 @@
-import { motion } from 'framer-motion';
+import { motion, PanInfo } from 'framer-motion';
 
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const BottomSheet = ({ data, isOpen, onDragEnd }) => {
+type Props = {
+  data: {
+    id: 0;
+    createdAt: string;
+    content: string;
+    imageUrl: string;
+  } | null;
+  isOpen: boolean;
+  onDragEnd: (
+    event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => void;
+};
+
+const BottomSheet = ({ data, isOpen, onDragEnd }: Props) => {
   const { controls } = useBottomSheet(isOpen);
-  if (!isOpen) {
+
+  if (!isOpen || !data) {
     return null;
   }
 
@@ -40,6 +55,7 @@ const BottomSheet = ({ data, isOpen, onDragEnd }) => {
             borderRadius='20px'
             alignSelf='center'
             src={data.imageUrl}
+            alt='Detail'
           />
         </ContentWrapper>
       </Wrapper>
@@ -66,7 +82,6 @@ const Wrapper = styled(motion.div)`
   z-index: 101;
   flex-direction: column;
   position: fixed;
-  z-index: 10;
   left: 0;
   right: 0;
   bottom: -50px;
@@ -76,7 +91,6 @@ const Wrapper = styled(motion.div)`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
   height: 70%;
   width: 100%;
-
   transition: transform 150ms ease-out;
   margin: 0 auto;
   overflow: auto;

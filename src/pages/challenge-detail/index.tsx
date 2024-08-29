@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, SetStateAction, useEffect, useState } from 'react';
 
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
 import Description from './description/';
@@ -20,8 +20,10 @@ const ChallengeDetailPage = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
-  const handleSelectedTab = (value: number) => {
-    setActiveTab(value);
+  const handleSelectedTab = (
+    e: SetStateAction<number> | MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    setActiveTab(e as SetStateAction<number>);
   };
 
   useEffect(() => {
@@ -52,10 +54,7 @@ const ChallengeDetailPage = () => {
         )}
       </ImageMask>
       <TabsContainer>
-        <Tabs
-          selectedTab={activeTab}
-          onChange={(e, value) => handleSelectedTab(value)}
-        >
+        <Tabs selectedTab={activeTab} onChange={(e) => handleSelectedTab(e)}>
           {tabsList.map((t, index) => (
             <Tab key={t} label={t} value={index} />
           ))}

@@ -1,7 +1,5 @@
 import { create } from 'zustand';
 
-import { UserData } from '@/interface/apis/user';
-
 export interface UserInfo {
   id: number;
   nickname: string;
@@ -19,12 +17,7 @@ export interface InfoState {
 }
 
 export interface InfoAction extends InfoState {
-  setUserInfo: (userInfo: {
-    nickname: string;
-    totalPage: number;
-    hasNext: boolean;
-    data: UserData[];
-  }) => void;
+  setUserInfo: (userInfo: UserInfo) => void;
 }
 
 export const useInfoStore = create<InfoState & InfoAction>((set) => ({

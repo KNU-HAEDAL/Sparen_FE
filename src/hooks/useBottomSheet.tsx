@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { useAnimation } from 'framer-motion';
 
-const useBottomSheet = (isClick) => {
+const useBottomSheet = (isClick: unknown) => {
   const controls = useAnimation();
 
   useEffect(() => {

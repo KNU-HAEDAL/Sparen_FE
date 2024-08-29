@@ -49,7 +49,7 @@ const StampBoard = () => {
     } else {
       try {
         const response = await getChallengeRecordDetail(idx);
-        setRecord(response.data); // `response.data`로 설정해야 타입이 맞습니다.
+        setRecord(response.data);
         setBottomSheetOpen(true);
       } catch (error) {
         console.error('Failed to fetch challenge record detail:', error);
@@ -57,7 +57,10 @@ const StampBoard = () => {
     }
   };
 
-  const handleDragEnd = (info: { offset: { y: number } }) => {
+  const handleDragEnd = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: { offset: { x: number; y: number } }
+  ) => {
     if (info.offset.y > 100) {
       setBottomSheetOpen(false);
     }
@@ -161,7 +164,6 @@ const StampBoardBox = styled(Box)`
   display: flex;
   flex-direction: column;
   text-align: left;
-
   overflow-y: auto;
   scrollbar-color: transparent transparent;
   &::-webkit-scrollbar {
