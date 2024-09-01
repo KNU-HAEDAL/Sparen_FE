@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# 짠순이 (ZZANSUNI)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/user-attachments/assets/ba64e28c-e191-4377-8a5d-8d6a8ed4fcee)
 
-Currently, two official plugins are available:
+## 🚢 배포 주소
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+배포는 Vercel을 이용하여 HTTPS로 배포하였습니다. <br />
+https://zzansuni-fe-vercel.vercel.app/
 
-## Expanding the ESLint configuration
+## 🤔 짠순이는 어떤 서비스인가요?
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 서비스 소개
 
-- Configure the top-level `parserOptions` property like this:
+짠순이는 사용자의 참여를 통해 다양한 주제의 절약과 봉사를 실천하고 기록할 수
+있는 챌린지 서비스입니다. 챌린지를 진행한 이후 리뷰 작성을 통해 다른
+사용자들에게 챌린지에 대해 공유 할 수 있으며, 랭킹을 통해 서로 경쟁할 수
+있습니다.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### 개발 동기
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+기획 단계에서 팀원들과 다양한 아이디어에 대해 생각을 해 보았고, 공통적으로
+아래와 같은 의견이 나오게 되었습니다.
+
+- 사회에 긍정적인 영향을 전하기 위해 노력하는 사람들을 위한 서비스 개발.
+- 사용자에게 재미를 주면서도, 사회에 긍정적인 영향을 줄 수 있는 서비스 개발.
+
+그 결과 다양한 주제의 챌린지를 진행할 수 있는 '짠순이' 라는 서비스를 기획하게
+되었습니다.
+
+## 😇 현재 개발 상황
+
+현재 개발하는 인원은 백엔드 3명, 프론트엔드 2명으로 총 5명이 짠순이를 개발하고
+있습니다. <br /> 지금까지 개발 상황은 GLOW 해커톤에서 개발했던 Javascript 코드를
+Typescript로 마이그레이션을 진행하고, Type 관련 오류와 CSS 관련 오류만 해결한
+상황입니다. <br /> 백엔드에서는 대부분의 기능이 구현되었으나, 프론트엔드 2명
+모두 방학기간에 카카오 테크 캠퍼스 부트캠프와 병행하여 개발을 진행하다 보니
+프론트엔드에서는 구현되지 못한 기능이 일부 존재합니다. 이 부분은 학기중에
+시간나는대로 개발을 진행할 예정입니다.
