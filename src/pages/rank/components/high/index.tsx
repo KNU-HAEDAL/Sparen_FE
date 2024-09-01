@@ -1,9 +1,9 @@
 import { TextContainer } from '../../styles';
 import * as S from './styles';
 import Profile from '@/assets/main/ZZAN-Profile.png';
-import First from '@/assets/rank/1st-Trophy.svg';
-import Second from '@/assets/rank/2nd-Trophy.svg';
-import Third from '@/assets/rank/3rd-Trophy.svg';
+import First from '@/assets/rank/First-Trophy.svg';
+import Second from '@/assets/rank/Second-Trophy.svg';
+import Third from '@/assets/rank/Third-Trophy.svg';
 import { getTierDetails } from '@/constants/data/tierSchema';
 import { User } from '@/interface/userInterface';
 import * as Base from '@/styles/baseStyles';
