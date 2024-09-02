@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import { useNavigate, useSearchParams } from 'react-router-dom';
-import { setLogin } from '@/apis/auth/auth.api';
+import { useLogin } from '@/apis/auth/auth.api';
 import { RouterPath } from '@/routes/path';
-// import { setLogin, useLogin } from '@/apis/auth/auth.api';
-// import { useAuth } from '@/provider/auth';
-// import { getDynamicPath, RouterPath } from '@/routes/path';
 import { Button, Container, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -14,46 +10,29 @@ import styled from '@emotion/styled';
 const EmailLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [queryParams] = useSearchParams();
-  // const { setAuthInfo } = useAuth();
-  // const loginMutation = useLogin();
+  const loginMutation = useLogin();
+
   const navigate = useNavigate();
 
-  const handlerLoginOrigin = () => {
+  const handleLogin = async () => {
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.');
+      return;
+    }
     try {
-      const response = setLogin({ email, password });
-      console.log('로그인 성공:', response);
+      const data = await loginMutation.mutateAsync({ email, password });
+
+      const accessToken = data.data.accessToken;
+      const refreshToken = data.data.refreshToken;
+
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       navigate(RouterPath.main);
     } catch (error) {
       console.error('로그인 실패:', error);
+      alert('로그인 실패: ' + (error as Error).message);
     }
   };
-
-  // // refresh token test용
-  // const handleLogin = async () => {
-  //   if (!email || !password) {
-  //     alert('이메일과 비밀번호를 입력해주세요.');
-  //     return;
-  //   }
-  //   try {
-  //     const data = await loginMutation.mutateAsync({ email, password });
-  //     const accessToken = data.data.accessToken;
-  //     const refreshToken = data.data.refreshToken;
-
-  //     setAuthInfo({
-  //       id: data.data.user.id, // 필요 시 수정
-  //       nickname: data.data.user.nickname, // 필요 시 수정
-  //       accessToken,
-  //       refreshToken,
-  //     });
-
-  //     const redirectURL =
-  //       queryParams.get('redirect') ?? `${window.location.origin}`;
-  //     window.location.replace(redirectURL);
-  //   } catch (error: unknown) {
-  //     alert('로그인 실패: ' + (error as Error).message);
-  //   }
-  // };
 
   return (
     <>
@@ -95,7 +74,7 @@ const EmailLogin = () => {
           width='15rem'
           height='2.5rem'
           paddingX='0.1rem'
-          onClick={handlerLoginOrigin}
+          onClick={handleLogin}
         >
           <Text textAlign='center' color='#fff' fontWeight='700'>
             로그인
