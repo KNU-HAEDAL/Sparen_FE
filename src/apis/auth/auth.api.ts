@@ -1,7 +1,6 @@
 import { RefreshTokenResponse, UserResponseData } from './auth.response';
 import { axiosClient } from '@/apis/AxiosClient';
 import { BASE_URL } from '@/constants/URI';
-import { authLocalStorage } from '@/utils/storage';
 import { useMutation } from '@tanstack/react-query';
 
 type UserRequestData = {
@@ -58,22 +57,6 @@ export async function setRegister({
   } catch {
     throw new Error('register error');
   }
-}
-
-/**
- * email, password를 받아 로그인 요청
- */
-export async function setLogin({
-  email,
-  password,
-}: UserRequestData): Promise<UserResponseData> {
-  const response = await axiosClient.post('/api/auth/login', {
-    email,
-    password,
-  });
-  const { accessToken } = response.data.data;
-  authLocalStorage.set(accessToken);
-  return response.data;
 }
 
 export async function postRefreshToken(): Promise<RefreshTokenResponse> {
