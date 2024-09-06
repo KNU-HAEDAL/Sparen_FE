@@ -64,7 +64,7 @@ const MainBar = () => {
           alignItems='center'
           backgroundColor='#fff'
         >
-          <NavLink to={RouterPath.login}>
+          <NavLink to={RouterPath.auth}>
             <Text
               fontSize='var(--font-size-md)'
               fontWeight='bold'
