@@ -1,11 +1,4 @@
-import {
-  cloneElement,
-  MouseEvent,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { cloneElement, ReactElement, useEffect, useRef, useState } from 'react';
 
 import * as S from './styles';
 
@@ -18,10 +11,7 @@ type TabProps = {
 
 type TabsProps = {
   selectedTab: number;
-  onChange: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    value: number
-  ) => void;
+  onChange: (value: number) => void;
   children: ReactElement[];
   position?: string;
 };
@@ -58,8 +48,8 @@ export const Tabs = ({
   const sliderWidth = containerWidth / children.length;
 
   const tabs = children.map((child) => {
-    const handleClick = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
-      onChange(e, child.props.value);
+    const handleClick = () => {
+      onChange(child.props.value);
     };
 
     return cloneElement(child, {
