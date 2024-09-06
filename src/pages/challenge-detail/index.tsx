@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
 import Description from './description/';
@@ -20,10 +20,7 @@ const ChallengeDetailPage = () => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
-  const handleSelectedTab = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    value: number
-  ) => {
+  const handleSelectedTab = (value: number) => {
     setActiveTab(value);
   };
 
