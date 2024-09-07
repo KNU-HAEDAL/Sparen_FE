@@ -22,10 +22,7 @@ const ChallengeRecord = () => {
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
       <ChallengeRecordLayout>
         <TabsContainer>
-          <Tabs
-            selectedTab={activeTab}
-            onChange={(_, value) => handleTab(value)}
-          >
+          <Tabs selectedTab={activeTab} onChange={(value) => handleTab(value)}>
             <Tab label='인증하기' value={0} />
             <Tab label='기록보기' value={1} />
           </Tabs>
