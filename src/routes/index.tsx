@@ -77,7 +77,7 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: RouterPath.redirect,
+    path: '/oauth/:provider/redirect',
     element: <RedirectPage />,
   },
   {
