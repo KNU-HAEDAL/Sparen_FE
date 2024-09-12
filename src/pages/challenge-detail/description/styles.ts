@@ -7,8 +7,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Category = styled.div`
-  margin: 30px;
-  margin-bottom: 0px;
+  margin: 20px 30px 0;
   font-size: var(--font-size-xs);
   color: var(--color-green-01);
 `;
@@ -47,7 +46,7 @@ export const Line = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const RowList = styled.div`
@@ -59,6 +58,6 @@ export const RowList = styled.div`
     background-color: transparent;
     display: none;
   }
-  gap: 20px;
-  margin: 30px 0;
+  gap: 16px;
+  margin: 0 0 3.44rem;
 `;

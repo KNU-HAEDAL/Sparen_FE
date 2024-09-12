@@ -28,7 +28,7 @@ const ChallengeDetailPage = () => {
     // 디폴트로 "설명" 탭 선택되어 있음
     const fetchChallengeDetail = async () => {
       try {
-        const res = await getChallengeDetail(1);
+        const res = await getChallengeDetail(20);
         setData(res);
         // console.log('challenge detail data: ', res);
       } catch (error) {
@@ -43,14 +43,13 @@ const ChallengeDetailPage = () => {
     <Wrapper>
       <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
       <ImageMask>
-        {data ? (
-          <Image src={data.imageUrls[0]} />
+        {data?.imageUrls?.length ? (
+          data.imageUrls.map((img, index) => <Image key={index} src={img} />)
         ) : (
-          <div>
-            <Image src={DefaultImage} />
-          </div>
+          <Image src={DefaultImage} />
         )}
       </ImageMask>
+
       <TabsContainer>
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (

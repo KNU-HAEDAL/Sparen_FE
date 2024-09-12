@@ -1,11 +1,10 @@
-type Challenge = {
+export type Challenge = {
   id: number;
-  participantCount: number;
   difficulty: number;
   onceExp: number;
   successExp: number;
-  dayType: 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
-  dayCount: number;
+  count: number;
+  period: number;
 };
 
 export type ChallengeDetailData = {

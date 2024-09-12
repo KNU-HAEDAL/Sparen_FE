@@ -3,25 +3,21 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
+import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
 
-type DifficultyProps = {
-  props: {
-    // 임시 / 비동기 getChallengeDetail 함수의 응답 data 확인 필요
-    difficulty: number;
-    dayType: string;
-    participantCount: number;
-    onceExp: number;
-    successExp: number;
-  };
-  max: number;
+type Props = {
+  challenge: Challenge;
+  maxDifficulty: number;
 };
 
-const Difficulty = ({ props, max }: DifficultyProps) => {
+const Challenge = ({ challenge, maxDifficulty }: Props) => {
   const [data, setData] = useState<number | null>(null);
   const navigate = useNavigate();
 
+  const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
+
   const saveHandler = () => {
-    joinChallenge(4)
+    joinChallenge(challenge.id)
       .then((res) => {
         setData(res);
         alert(`성공적으로 참여했습니다. 데이터: ${res}`);
@@ -42,36 +38,35 @@ const Difficulty = ({ props, max }: DifficultyProps) => {
         </S.Wrapper>
         <S.Wrapper>
           <S.RowWrapper>
-            <S.Bar></S.Bar>
-            <S.Text>{props.difficulty}</S.Text>
+            <S.Bar width={difficultyRate}></S.Bar>
+            <S.Text>{challenge.difficulty}</S.Text>
           </S.RowWrapper>
           <S.RowWrapper>
             <S.MaxBar></S.MaxBar>
-            <S.SubText>{max}</S.SubText>
+            <S.SubText>{maxDifficulty}</S.SubText>
           </S.RowWrapper>
         </S.Wrapper>
       </S.RowWrapper>
-      <S.BigMargin />
-      <S.Text>
-        1{props.dayType} / {props.participantCount}번 참여하기
-      </S.Text>
-      <S.BigMargin />
       <S.Wrapper>
         <S.RowWrapper>
-          <S.BoldText>참여 경험치</S.BoldText>
-          <S.ExpContent>{props.onceExp} 포인트</S.ExpContent>
+          <S.BoldText>참여 횟수 및 기간</S.BoldText>
+          <S.Text>
+            {challenge.count}회/{challenge.period}일
+          </S.Text>
         </S.RowWrapper>
-        <S.Margin />
+        <S.RowWrapper>
+          <S.BoldText>참여 경험치</S.BoldText>
+          <S.ExpContent>{challenge.onceExp} 포인트</S.ExpContent>
+        </S.RowWrapper>
         <S.RowWrapper>
           <S.BoldText>완료 경험치</S.BoldText>
-          <S.ExpContent>{props.successExp} 포인트</S.ExpContent>
+          <S.ExpContent>{challenge.successExp} 포인트</S.ExpContent>
         </S.RowWrapper>
       </S.Wrapper>
-      <S.BigMargin />
       <S.Btn onClick={saveHandler}>참여하기</S.Btn>
       {data && null}
     </S.Outer>
   );
 };
 
-export default Difficulty;
+export default Challenge;
