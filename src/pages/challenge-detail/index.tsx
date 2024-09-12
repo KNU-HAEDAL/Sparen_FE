@@ -62,7 +62,9 @@ const ChallengeDetailPage = () => {
           {data && <Description data={data} />}
         </TabPanel>
         <TabPanel value={activeTab} selectedIndex={1}>
-          {data && <Ranking title={data.title} category={data.category} />}
+          {data && (
+            <Ranking title={data.title} id={data.id} category={data.category} />
+          )}
         </TabPanel>
       </TabPanelContainer>
     </Wrapper>

@@ -8,17 +8,18 @@ import { ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.
 
 type RankingProps = {
   title: string;
+  id: number;
   category: string;
 };
 
-const Ranking = ({ title, category }: RankingProps) => {
+const Ranking = ({ title, id, category }: RankingProps) => {
   const [dataList, setDataList] = useState<ChallengeRankingData[]>([]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
 
   useEffect(() => {
     if (inView) {
-      getChallengeRanking({ id: 1, page })
+      getChallengeRanking({ id, page })
         .then((response) => {
           setDataList((prevDataList) => [...prevDataList, ...response]);
           setPage((prevPage) => prevPage + 1);
@@ -27,7 +28,7 @@ const Ranking = ({ title, category }: RankingProps) => {
           console.error('Error fetching rankings:', error);
         });
     }
-  }, [inView, page]);
+  }, [inView, id, page]);
 
   return (
     <>
