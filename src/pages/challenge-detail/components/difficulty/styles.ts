@@ -6,7 +6,7 @@ export const Outer = styled.div`
   padding: 10px;
   width: 230px;
   flex-shrink: 0;
-  margin-bottom: 50px;
+  margin: 0 30px 20px;
 `;
 
 export const Wrapper = styled.div`
