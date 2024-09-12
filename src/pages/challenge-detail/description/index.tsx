@@ -33,7 +33,7 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
         {challenges.map((item) => (
           <Challenge
             key={item.id}
-            props={item}
+            challenge={item}
             maxDifficulty={data.maxDifficulty}
           />
         ))}

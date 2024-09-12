@@ -5,7 +5,7 @@ import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 
 type Props = {
-  props: {
+  challenge: {
     id: number;
     difficulty: number;
     onceExp: number;
@@ -16,12 +16,12 @@ type Props = {
   maxDifficulty: number;
 };
 
-const Challenge = ({ props, maxDifficulty }: Props) => {
+const Challenge = ({ challenge, maxDifficulty }: Props) => {
   const [data, setData] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const saveHandler = () => {
-    joinChallenge(4)
+    joinChallenge(challenge.id)
       .then((res) => {
         setData(res);
         alert(`성공적으로 참여했습니다. 데이터: ${res}`);
@@ -43,7 +43,7 @@ const Challenge = ({ props, maxDifficulty }: Props) => {
         <S.Wrapper>
           <S.RowWrapper>
             <S.Bar></S.Bar>
-            <S.Text>{props.difficulty}</S.Text>
+            <S.Text>{challenge.difficulty}</S.Text>
           </S.RowWrapper>
           <S.RowWrapper>
             <S.MaxBar></S.MaxBar>
@@ -55,16 +55,16 @@ const Challenge = ({ props, maxDifficulty }: Props) => {
         <S.RowWrapper>
           <S.BoldText>참여 횟수 및 기간</S.BoldText>
           <S.Text>
-            {props.count}회/{props.period}일
+            {challenge.count}회/{challenge.period}일
           </S.Text>
         </S.RowWrapper>
         <S.RowWrapper>
           <S.BoldText>참여 경험치</S.BoldText>
-          <S.ExpContent>{props.onceExp} 포인트</S.ExpContent>
+          <S.ExpContent>{challenge.onceExp} 포인트</S.ExpContent>
         </S.RowWrapper>
         <S.RowWrapper>
           <S.BoldText>완료 경험치</S.BoldText>
-          <S.ExpContent>{props.successExp} 포인트</S.ExpContent>
+          <S.ExpContent>{challenge.successExp} 포인트</S.ExpContent>
         </S.RowWrapper>
       </S.Wrapper>
       <S.Btn onClick={saveHandler}>참여하기</S.Btn>
