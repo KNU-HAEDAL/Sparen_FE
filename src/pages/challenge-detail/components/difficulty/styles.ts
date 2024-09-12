@@ -62,8 +62,7 @@ export const ExpContent = styled.div`
   border-radius: 20px;
   border: var(--color-green-01) 1px solid;
   flex-shrink: 0;
-  min-width: 80px;
-  height: 18px;
+  padding: 2px 6px;
 `;
 
 export const Btn = styled.button`
@@ -71,7 +70,7 @@ export const Btn = styled.button`
   background-color: var(--color-green-01);
   color: var(--color-white);
   font-weight: bold;
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   width: 100%;
   height: 45px;
   border: none;
