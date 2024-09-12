@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const TabsContainer = styled.div`
   display: flex;
   position: relative;
-  top: 50px;
   align-self: center;
   width: 90%;
   margin: 0 auto;
@@ -16,7 +15,6 @@ export const TabPanelContainer = styled.div`
   height: 100%;
   width: 100%;
   position: relative;
-  top: 50px;
   text-align: center;
 `;
 
@@ -34,7 +32,6 @@ export const Image = styled.img`
 export const ImageMask = styled.div`
   background-color: var(--color-green-06);
   position: relative;
-  top: 50px;
 `;
 
 export const Wrapper = styled.div``;
