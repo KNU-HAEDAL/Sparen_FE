@@ -13,7 +13,78 @@ type RankingProps = {
 };
 
 const Ranking = ({ title, id, category }: RankingProps) => {
-  const [dataList, setDataList] = useState<ChallengeRankingData[]>([]);
+  const [dataList, setDataList] = useState<ChallengeRankingData[]>([
+    {
+      ranking: 1,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: '주주',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: '노비IV',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 1,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: 'string',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: 'string',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 1,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: 'string',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: 'string',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 1,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: 'string',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: 'string',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 1,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: 'string',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: 'string',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+  ]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
 
@@ -42,7 +113,6 @@ const Ranking = ({ title, id, category }: RankingProps) => {
         {dataList.map((item) => (
           <UserItem key={item.ranking} data={item} />
         ))}
-        <div style={{ margin: '55px' }}></div>
         <div ref={ref}>로딩..</div>
       </S.RankingWrapper>
     </>
