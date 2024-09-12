@@ -6,17 +6,17 @@ import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 
 type DifficultyProps = {
   props: {
-    // 임시 / 비동기 getChallengeDetail 함수의 응답 data 확인 필요
+    id: number;
     difficulty: number;
-    dayType: string;
-    participantCount: number;
     onceExp: number;
     successExp: number;
+    count: number;
+    period: number;
   };
-  max: number;
+  maxDifficulty: number;
 };
 
-const Difficulty = ({ props, max }: DifficultyProps) => {
+const Difficulty = ({ props, maxDifficulty }: DifficultyProps) => {
   const [data, setData] = useState<number | null>(null);
   const navigate = useNavigate();
 
@@ -47,27 +47,26 @@ const Difficulty = ({ props, max }: DifficultyProps) => {
           </S.RowWrapper>
           <S.RowWrapper>
             <S.MaxBar></S.MaxBar>
-            <S.SubText>{max}</S.SubText>
+            <S.SubText>{maxDifficulty}</S.SubText>
           </S.RowWrapper>
         </S.Wrapper>
       </S.RowWrapper>
-      <S.BigMargin />
-      <S.Text>
-        1{props.dayType} / {props.participantCount}번 참여하기
-      </S.Text>
-      <S.BigMargin />
       <S.Wrapper>
+        <S.RowWrapper>
+          <S.BoldText>참여 횟수 및 기간</S.BoldText>
+          <S.Text>
+            {props.count}회/{props.period}일
+          </S.Text>
+        </S.RowWrapper>
         <S.RowWrapper>
           <S.BoldText>참여 경험치</S.BoldText>
           <S.ExpContent>{props.onceExp} 포인트</S.ExpContent>
         </S.RowWrapper>
-        <S.Margin />
         <S.RowWrapper>
           <S.BoldText>완료 경험치</S.BoldText>
           <S.ExpContent>{props.successExp} 포인트</S.ExpContent>
         </S.RowWrapper>
       </S.Wrapper>
-      <S.BigMargin />
       <S.Btn onClick={saveHandler}>참여하기</S.Btn>
       {data && null}
     </S.Outer>

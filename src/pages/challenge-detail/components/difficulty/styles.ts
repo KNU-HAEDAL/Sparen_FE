@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 export const Outer = styled.div`
   border-radius: 20px;
   border: var(--color-grey-02) 1px solid;
-  padding: 10px;
-  width: 230px;
+  padding: 16px;
   flex-shrink: 0;
   margin: 0 30px 20px;
 `;
@@ -12,14 +11,15 @@ export const Outer = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
+  gap: 4px;
+  padding-bottom: 16px;
 `;
 
 export const RowWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 `;
 
 export const SubText = styled.div`
@@ -54,7 +54,7 @@ export const BoldText = styled.div`
 `;
 
 export const ExpContent = styled.div`
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   background-size: contain;
   text-align: center;
   color: var(--color-green-01);

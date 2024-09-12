@@ -31,7 +31,11 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
       <S.Line />
       <S.RowList>
         {challenges.map((item) => (
-          <Difficulty key={item.id} props={item} max={data.maxDifficulty} />
+          <Difficulty
+            key={item.id}
+            props={item}
+            maxDifficulty={data.maxDifficulty}
+          />
         ))}
       </S.RowList>
     </S.Wrapper>
