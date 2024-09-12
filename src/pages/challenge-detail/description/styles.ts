@@ -47,7 +47,7 @@ export const Line = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const RowList = styled.div`
