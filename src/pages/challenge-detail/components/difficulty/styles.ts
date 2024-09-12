@@ -29,7 +29,7 @@ export const SubText = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
 `;
 
 export const Bar = styled.div`
@@ -48,7 +48,7 @@ export const MaxBar = styled.div`
 `;
 
 export const BoldText = styled.div`
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   font-weight: bold;
   flex-shrink: 0;
 `;
@@ -71,6 +71,7 @@ export const Btn = styled.button`
   background-color: var(--color-green-01);
   color: var(--color-white);
   font-weight: bold;
+  font-size: var(--font-size-lg);
   width: 100%;
   height: 45px;
   border: none;
