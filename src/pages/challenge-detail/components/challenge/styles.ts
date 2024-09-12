@@ -22,14 +22,20 @@ export const RowWrapper = styled.div`
   gap: 8px;
 `;
 
-export const SubText = styled.div`
+export const BoldText = styled.div`
   font-size: var(--font-size-sm);
-  color: var(--color-grey-02);
+  font-weight: bold;
   flex-shrink: 0;
 `;
 
 export const Text = styled.div`
   font-size: var(--font-size-sm);
+`;
+
+export const SubText = styled.div`
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-02);
+  flex-shrink: 0;
 `;
 
 export const Bar = styled.div<{ width: number }>`
@@ -45,12 +51,6 @@ export const MaxBar = styled.div`
   height: 10px;
   background: var(--color-grey-02);
   width: 100px;
-  flex-shrink: 0;
-`;
-
-export const BoldText = styled.div`
-  font-size: var(--font-size-sm);
-  font-weight: bold;
   flex-shrink: 0;
 `;
 
@@ -75,12 +75,4 @@ export const Btn = styled.button`
   width: 100%;
   height: 45px;
   border: none;
-`;
-
-export const Margin = styled.div`
-  margin: 2px;
-`;
-
-export const BigMargin = styled.div`
-  margin: 20px;
 `;
