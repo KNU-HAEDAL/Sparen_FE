@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const Outer = styled.div`
   border-radius: 20px;
-  border: var(--color-grey-02) 1px solid;
+  border: var(--color-grey-02) 0.5px solid;
   padding: 16px;
   flex-shrink: 0;
   margin: 0 30px 20px;

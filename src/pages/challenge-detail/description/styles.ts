@@ -58,6 +58,6 @@ export const RowList = styled.div`
     background-color: transparent;
     display: none;
   }
-  gap: 12px;
+  gap: 16px;
   margin: 0 0 3.44rem;
 `;
