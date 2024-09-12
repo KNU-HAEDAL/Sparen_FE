@@ -23,9 +23,12 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
           {data.startDate} ~ {data.endDate}
         </S.Text>
       </S.ContentWrapper>
+      <div style={{ margin: '5px' }} />
+      <S.ContentWrapper>
+        <S.BoldText>참여방법</S.BoldText>
+        <S.Text>{data.guide}</S.Text>
+      </S.ContentWrapper>
       <S.Line />
-      <S.BoldText>참여방법</S.BoldText>
-      <S.Text>{data.guide}</S.Text>
       <S.RowList>
         <div style={{ margin: '5px' }} />
         {challenges.map((item) => (

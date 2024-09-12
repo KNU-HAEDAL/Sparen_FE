@@ -60,5 +60,5 @@ export const RowList = styled.div`
     display: none;
   }
   gap: 20px;
-  margin: 30px 0;
+  margin: 0 0 30px;
 `;
