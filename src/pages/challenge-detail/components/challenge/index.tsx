@@ -14,6 +14,8 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
   const [data, setData] = useState<number | null>(null);
   const navigate = useNavigate();
 
+  const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
+
   const saveHandler = () => {
     joinChallenge(challenge.id)
       .then((res) => {
@@ -36,7 +38,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
         </S.Wrapper>
         <S.Wrapper>
           <S.RowWrapper>
-            <S.Bar></S.Bar>
+            <S.Bar width={difficultyRate}></S.Bar>
             <S.Text>{challenge.difficulty}</S.Text>
           </S.RowWrapper>
           <S.RowWrapper>

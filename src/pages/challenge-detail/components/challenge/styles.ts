@@ -32,11 +32,11 @@ export const Text = styled.div`
   font-size: var(--font-size-sm);
 `;
 
-export const Bar = styled.div`
+export const Bar = styled.div<{ width: number }>`
   border-radius: 10px;
   height: 10px;
   background: linear-gradient(90deg, #457a82, #5cc6ba);
-  width: 80px;
+  width: ${({ width }) => `${width}px`};
   flex-shrink: 0;
 `;
 
@@ -44,7 +44,8 @@ export const MaxBar = styled.div`
   border-radius: 10px;
   height: 10px;
   background: var(--color-grey-02);
-  width: 115px;
+  width: 100px;
+  flex-shrink: 0;
 `;
 
 export const BoldText = styled.div`
