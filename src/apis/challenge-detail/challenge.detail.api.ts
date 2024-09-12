@@ -8,7 +8,7 @@ export async function getChallengeDetail(
 ): Promise<ChallengeDetailData> {
   try {
     const response = await axiosClient.get(`api/challengeGroups/${id}`);
-    console.log('getChallengeDetail response: ', response.data);
+    // console.log('getChallengeDetail response: ', response.data);
 
     // status 따라 예외 처리 필요
 

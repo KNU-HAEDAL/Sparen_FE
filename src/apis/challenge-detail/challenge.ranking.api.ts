@@ -16,7 +16,7 @@ export async function getChallengeRanking({
     const response = await axiosClient.get(
       `api/challengeGroups/${id}/rankings?page=${page}&size=4`
     );
-    console.log('getChallengeRanking response: ', response.data);
+    // console.log('getChallengeRanking response: ', response.data);
     return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
