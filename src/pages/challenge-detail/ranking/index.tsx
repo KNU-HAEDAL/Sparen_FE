@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import UserItem from '../components/user-item/';
 import * as S from './styles';
 import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
-import { ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
+import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
 
 type RankingProps = {
   title: string;
@@ -21,7 +21,9 @@ const Ranking = ({ title, id, category }: RankingProps) => {
     if (inView) {
       getChallengeRanking({ id, page })
         .then((response) => {
-          setDataList((prevDataList) => [...prevDataList, ...response]);
+          if (Array.isArray(response)) {
+            setDataList((prevDataList) => [...prevDataList, ...response]);
+          } // not iterable 오류 방지 위해 배열인지 검사하는 조건문 추가
           setPage((prevPage) => prevPage + 1);
         })
         .catch((error) => {
