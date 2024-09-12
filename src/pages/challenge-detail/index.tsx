@@ -28,7 +28,7 @@ const ChallengeDetailPage = () => {
     // 디폴트로 "설명" 탭 선택되어 있음
     const fetchChallengeDetail = async () => {
       try {
-        const res = await getChallengeDetail(1);
+        const res = await getChallengeDetail(20);
         setData(res);
         // console.log('challenge detail data: ', res);
       } catch (error) {
