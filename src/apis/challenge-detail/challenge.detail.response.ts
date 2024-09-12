@@ -1,4 +1,4 @@
-type Challenge = {
+export type Challenge = {
   id: number;
   difficulty: number;
   onceExp: number;

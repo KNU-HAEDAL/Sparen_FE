@@ -3,16 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
+import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
 
 type Props = {
-  challenge: {
-    id: number;
-    difficulty: number;
-    onceExp: number;
-    successExp: number;
-    count: number;
-    period: number;
-  };
+  challenge: Challenge;
   maxDifficulty: number;
 };
 
