@@ -4,6 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
+  margin: 16px 0 0;
 `;
 
 export const Category = styled.div`
@@ -21,16 +22,12 @@ export const Title = styled.div`
 
 export const Text = styled.div`
   font-size: var(--font-size-sm);
-  margin: 5px 0;
-  margin: 0 30px;
 `;
 
 export const BoldText = styled.div`
   font-size: var(--font-size-sm);
   font-weight: bold;
   flex-shrink: 0;
-  margin: 5px 0;
-  margin: 0 30px;
 `;
 
 export const SubText = styled.div`
@@ -41,12 +38,14 @@ export const SubText = styled.div`
 
 export const Line = styled.div`
   border-top: 1px solid var(--color-green-06);
-  margin: 20px;
+  margin: 16px;
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 16px;
+  gap: 4px;
 `;
 
 export const RowList = styled.div`
@@ -60,4 +59,5 @@ export const RowList = styled.div`
   }
   gap: 16px;
   margin: 0 0 3.44rem;
+  padding: 0 16px 16px;
 `;

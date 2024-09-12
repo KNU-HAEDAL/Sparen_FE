@@ -7,78 +7,76 @@ import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.a
 import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
 
 type RankingProps = {
-  title: string;
   id: number;
-  category: string;
 };
 
-const Ranking = ({ title, id, category }: RankingProps) => {
+const Ranking = ({ id }: RankingProps) => {
   const [dataList, setDataList] = useState<ChallengeRankingData[]>([
     {
       ranking: 1,
       acquiredPoint: 800,
       user: {
         id: 0,
-        nickname: '주주',
+        nickname: '뽀로로가 뽀롱뽀롱 노는 게 젤 좋아',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: '양반IV',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 2,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: '하츄핑',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: '평민I',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 3,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: '파산핑',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: '상민II',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 4,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: '유재석',
+        profileImageUrl: 'string',
+        tierInfo: {
+          tier: '상민III',
+          totalExp: 0,
+          currentExp: 0,
+        },
+      },
+    },
+    {
+      ranking: 5,
+      acquiredPoint: 800,
+      user: {
+        id: 0,
+        nickname: '조셉',
         profileImageUrl: 'string',
         tierInfo: {
           tier: '노비IV',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 1,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: 'string',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: 'string',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 1,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: 'string',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: 'string',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 1,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: 'string',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: 'string',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 1,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: 'string',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: 'string',
           totalExp: 0,
           currentExp: 0,
         },
@@ -104,18 +102,16 @@ const Ranking = ({ title, id, category }: RankingProps) => {
   }, [inView, id, page]);
 
   return (
-    <>
-      <S.Wrapper>
-        <S.Category>{category}</S.Category>
-        <S.Title>{title}</S.Title>
-      </S.Wrapper>
-      <S.RankingWrapper>
-        {dataList.map((item) => (
-          <UserItem key={item.ranking} data={item} />
-        ))}
-        <div ref={ref}>로딩..</div>
-      </S.RankingWrapper>
-    </>
+    <S.RankingWrapper>
+      {dataList.map((item, index) => (
+        <div key={item.ranking}>
+          <UserItem data={item} />
+          {index < dataList.length - 1 && <S.Line />}
+          {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+        </div>
+      ))}
+      <div ref={ref}>로딩..</div>
+    </S.RankingWrapper>
   );
 };
 
