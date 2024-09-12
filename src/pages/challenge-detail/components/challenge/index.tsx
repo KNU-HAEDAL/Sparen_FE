@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 
-type DifficultyProps = {
+type Props = {
   props: {
     id: number;
     difficulty: number;
@@ -16,7 +16,7 @@ type DifficultyProps = {
   maxDifficulty: number;
 };
 
-const Difficulty = ({ props, maxDifficulty }: DifficultyProps) => {
+const Challenge = ({ props, maxDifficulty }: Props) => {
   const [data, setData] = useState<number | null>(null);
   const navigate = useNavigate();
 
@@ -73,4 +73,4 @@ const Difficulty = ({ props, maxDifficulty }: DifficultyProps) => {
   );
 };
 
-export default Difficulty;
+export default Challenge;

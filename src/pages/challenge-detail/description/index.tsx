@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import Difficulty from '../components/difficulty';
+import Challenge from '../components/challenge';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 
@@ -31,7 +31,7 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
       <S.Line />
       <S.RowList>
         {challenges.map((item) => (
-          <Difficulty
+          <Challenge
             key={item.id}
             props={item}
             maxDifficulty={data.maxDifficulty}
