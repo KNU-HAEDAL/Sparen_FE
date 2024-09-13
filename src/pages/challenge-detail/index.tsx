@@ -11,8 +11,13 @@ import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
 const ChallengeDetailPage = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<number>(() => {
+    // 세션 스토리지에 저장된 값 | 기본값 0
+    const savedTab = sessionStorage.getItem('activeTab');
+    return savedTab ? Number(savedTab) : 0;
+  });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
+
   const tabsList = [
     {
       label: '설명',
@@ -24,15 +29,14 @@ const ChallengeDetailPage = () => {
 
   const handleSelectedTab = (value: number) => {
     setActiveTab(value);
+    sessionStorage.setItem('activeTab', String(value));
   };
 
   useEffect(() => {
-    // 디폴트로 "설명" 탭 선택되어 있음
     const fetchChallengeDetail = async () => {
       try {
         const res = await getChallengeDetail(20);
         setData(res);
-        // console.log('challenge detail data: ', res);
       } catch (error) {
         console.error(error);
       }
