@@ -2,24 +2,29 @@ import { useState, useEffect } from 'react';
 
 import { getChallegeAvgScore } from '@/apis/review/review.api';
 import type { RatingCount } from '@/apis/review/review.response';
+import { StarRating } from '@/components/common/star-rating';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewRating = () => {
   const [datas, setDatas] = useState<RatingCount | null>(null);
   const [avgRating, setAvgRating] = useState(0);
-  const [ratingToPercent, setRatingToPercent] = useState({
-    width: `${(avgRating / 5) * 100}%`,
-  });
+  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
       setDatas(res.ratingCount);
       console.log('rating count: ', res.ratingCount);
+
       setAvgRating(res.averageRating);
-      setRatingToPercent({ width: `${(res.averageRating / 5) * 100}%` });
     });
   }, []);
+
+  useEffect(() => {
+    if (avgRating !== undefined) {
+      setRatingToPercent(`${(avgRating / 5) * 100}%`);
+    }
+  }, [avgRating]);
 
   // data 객체를 [key, value] 형태의 배열로 변환
   const ratings = datas ? Object.entries(datas) : [];
@@ -32,18 +37,7 @@ const ReviewRating = () => {
             <Text fontSize='var(--font-size-xl)' fontWeight='700'>
               {avgRating}
             </Text>
-            <StarRating>
-              <StarFill style={ratingToPercent}>
-                {[...Array(5)].map((_, index) => (
-                  <span key={`fill-${index}`}>★</span>
-                ))}
-              </StarFill>
-              <StarBase>
-                {[...Array(5)].map((_, index) => (
-                  <span key={`base-${index}`}>★</span>
-                ))}
-              </StarBase>
-            </StarRating>
+            <StarRating ratingToPercent={ratingToPercent} />
           </CWrapper>
           <VLine />
           <RWrapper>
@@ -120,31 +114,6 @@ const SubText = styled(Text)`
   font-size: var(--font-size-xs);
   color: var(--color-grey-01);
   margin: 0.2px;
-`;
-
-const StarRating = styled.div`
-  position: relative;
-  unicode-bidi: bidi-override;
-  width: max-content;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke-width: 0.8px;
-  -webkit-text-stroke-color: var(--color-green-01);
-`;
-
-const StarFill = styled.div`
-  padding: 0;
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  -webkit-text-fill-color: var(--color-green-01);
-`;
-
-const StarBase = styled.div`
-  z-index: 0;
-  padding: 0;
 `;
 
 const Bar = styled.div<{ percentage: string }>`

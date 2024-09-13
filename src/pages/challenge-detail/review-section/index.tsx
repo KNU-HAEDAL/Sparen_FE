@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
+import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review-list/components/review-item';
 
 interface Props {
@@ -70,18 +71,7 @@ export const ReviewSection = ({ id }: Props) => {
         <>
           <S.RatingContainer className='RatingContainer'>
             <S.AvgRating>{avgRating}</S.AvgRating>
-            <S.StarRating>
-              <S.StarFill style={{ width: ratingToPercent }}>
-                {[...Array(5)].map((_, index) => (
-                  <span key={`fill-${index}`}>★</span>
-                ))}
-              </S.StarFill>
-              <S.StarBase>
-                {[...Array(5)].map((_, index) => (
-                  <span key={`base-${index}`}>★</span>
-                ))}
-              </S.StarBase>
-            </S.StarRating>
+            <StarRating ratingToPercent={ratingToPercent} />
             <S.AllReviewButton onClick={() => navigate('/challenge/list')}>
               모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
