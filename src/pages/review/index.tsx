@@ -41,25 +41,25 @@ const Review = () => {
   return (
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
-      <ReviewListLayout>
+      <Wrapper>
         <Title>{challengeGroupId}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
-        <List>
+        <ReviewList>
           <VLine />
           {reviews.map((review) => (
             <ReviewItem key={review.rating} data={review} />
             // 키가 원래 ranking으로 되어있었는데 ReviewData에는 해당 키가 없어서 임의로 변경해둠
           ))}
           {hasNext ? <div ref={ref}>로딩..</div> : <div />}
-        </List>
-      </ReviewListLayout>
+        </ReviewList>
+      </Wrapper>
     </>
   );
 };
 
 export default Review;
 
-const ReviewListLayout = styled.div`
+const Wrapper = styled.div`
   position: relative;
   margin: 16px;
   display: flex;
@@ -72,7 +72,7 @@ const Title = styled.div`
   margin-bottom: 16px;
 `;
 
-const List = styled.div`
+const ReviewList = styled.div`
   position: relative;
   margin-top: 50px;
   display: flex;
