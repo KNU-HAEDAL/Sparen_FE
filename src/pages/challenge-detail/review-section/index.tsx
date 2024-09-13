@@ -50,7 +50,6 @@ export const ReviewSection = ({ id }: Props) => {
           setPage((prevPage) => prevPage + 1);
         } else {
           console.log('리뷰 데이터 없음');
-          // 리뷰 없을 때 UI
         }
       })
       .catch((error) => {

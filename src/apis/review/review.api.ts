@@ -25,7 +25,7 @@ export async function getReview({
         params: { page, size },
       }
     );
-    console.log('getReview response: ', response.data);
+    // console.log('getReview response: ', response.data);
 
     return response.data;
   } catch (error) {
@@ -50,7 +50,7 @@ export async function getChallegeAvgScore({
     const response = await axiosClient.get(
       `api/challengeGroups/${challengeGroupId}/reviews/score`
     );
-    console.log('getChallegeAvgScore response: ', response.data);
+    // console.log('getChallegeAvgScore response: ', response.data);
 
     return response.data.data;
   } catch (error) {
