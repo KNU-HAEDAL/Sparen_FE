@@ -115,14 +115,29 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
 
   return (
     <S.RankingWrapper>
-      {rankingList.map((item, index) => (
-        <div key={item.ranking}>
-          <UserItem data={item} />
-          {index < rankingList.length - 1 && <S.Line />}
-          {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
-        </div>
-      ))}
-      <S.Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</S.Text>
+      {rankingList.length > 0 ? (
+        // 랭킹 있을 때
+        <>
+          {rankingList.map((item, index) => (
+            <div key={item.ranking}>
+              <UserItem data={item} />
+              {index < rankingList.length - 1 && <S.Line />}
+              {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+            </div>
+          ))}
+          <S.Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</S.Text>
+        </>
+      ) : (
+        // 랭킹 없을 때
+        <S.Text>
+          아직 챌린지를 성공한 유저가 없습니다. <br />
+          챌린지에 참여해{' '}
+          <S.Text fontWeight='600' color={`var(--color-green-01)`}>
+            첫 번째 완료자
+          </S.Text>
+          가 되어보세요!
+        </S.Text>
+      )}
     </S.RankingWrapper>
   );
 };
