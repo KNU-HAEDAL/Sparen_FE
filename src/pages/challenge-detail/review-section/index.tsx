@@ -13,7 +13,7 @@ interface Props {
 
 export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
-  const [reviews, setReviews] = useState<ReviewData[]>([
+  const [reviewList, setReviewList] = useState<ReviewData[]>([
     {
       challengeId: 1,
       challengeTitle: '쓰레기 줍기 챌린지',
@@ -46,7 +46,7 @@ export const ReviewSection = ({ id }: Props) => {
     getReview({ challengeGroupId: id, page, size: DATA_SIZE })
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length > 0) {
-          setReviews((prevReviews) => [...prevReviews, ...res.data]);
+          setReviewList((prevReviewList) => [...prevReviewList, ...res.data]);
           setPage((prevPage) => prevPage + 1);
         } else {
           console.log('리뷰 데이터 없음');
@@ -66,30 +66,44 @@ export const ReviewSection = ({ id }: Props) => {
 
   return (
     <S.Wrapper>
-      {avgRating && (
-        <S.RatingContainer>
-          <S.AvgRating>{avgRating}</S.AvgRating>
-          <S.StarRating>
-            <S.StarFill style={{ width: ratingToPercent }}>
-              {[...Array(5)].map((_, index) => (
-                <span key={`fill-${index}`}>★</span>
-              ))}
-            </S.StarFill>
-            <S.StarBase>
-              {[...Array(5)].map((_, index) => (
-                <span key={`base-${index}`}>★</span>
-              ))}
-            </S.StarBase>
-          </S.StarRating>
-          <S.AllReviewButton onClick={() => navigate('/challenge/list')}>
-            모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
-          </S.AllReviewButton>
-        </S.RatingContainer>
+      {reviewList.length > 0 ? (
+        // 리뷰 있을 때
+        <>
+          <S.RatingContainer className='RatingContainer'>
+            <S.AvgRating>{avgRating}</S.AvgRating>
+            <S.StarRating>
+              <S.StarFill style={{ width: ratingToPercent }}>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`fill-${index}`}>★</span>
+                ))}
+              </S.StarFill>
+              <S.StarBase>
+                {[...Array(5)].map((_, index) => (
+                  <span key={`base-${index}`}>★</span>
+                ))}
+              </S.StarBase>
+            </S.StarRating>
+            <S.AllReviewButton onClick={() => navigate('/challenge/list')}>
+              모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
+            </S.AllReviewButton>
+          </S.RatingContainer>
+          {reviewList.map((review) => (
+            <ReviewItem key={review.rating} data={review} />
+            // 키가 원래 ranking으로 되어있었는데 ReviewData에는 해당 키가 없어서 임의로 변경해둠
+          ))}
+        </>
+      ) : (
+        // 리뷰 없을 때
+        <S.Text>
+          아직 리뷰가 없습니다.
+          <br />
+          챌린지를 완료하고{' '}
+          <S.Text fontWeight='600' color={`var(--color-green-01)`}>
+            첫 번째 리뷰어
+          </S.Text>
+          가 되어보세요!
+        </S.Text>
       )}
-      {reviews.map((review) => (
-        <ReviewItem key={review.rating} data={review} />
-        // 키가 원래 ranking으로 되어있었는데 ReviewData에는 해당 키가 없어서 임의로 변경해둠
-      ))}
     </S.Wrapper>
   );
 };

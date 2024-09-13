@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
 
-// export const Nickname = styled.div`
+// export const Nickname = styled(Text)`
 //   font-size: var(--font-size-sm);
 // `;
 
-// export const Tier = styled.div`
+// export const Tier = styled(Text)`
 //   font-size: var(--font-size-xs);
 //   color: var() (--color-grey--02);
 // `;
+
+export const Text = styled.span<{ fontWeight?: string; color?: string }>`
+  font-size: var(--font-size-md);
+  font-weight: ${(props) => props.fontWeight || null};
+  color: ${(props) => props.color || null};
+`;
 
 export const Wrapper = styled.div`
   padding: 16px 16px;
@@ -15,6 +21,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: auto;
 `;
 
 export const RatingContainer = styled.div`
