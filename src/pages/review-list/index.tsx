@@ -43,7 +43,7 @@ const ReviewList = () => {
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
       <ReviewListLayout>
         <Title>{challengeGroupId}</Title>
-        <ReviewRating />
+        <ReviewRating challengeGroupId={challengeGroupId} />
         <List>
           <VLine />
           {reviews.map((review) => (

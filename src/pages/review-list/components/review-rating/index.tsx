@@ -6,19 +6,23 @@ import { StarRating } from '@/components/common/star-rating';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ReviewRating = () => {
+type ReviewDataProps = {
+  challengeGroupId: number;
+};
+
+const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
   const [ratingCount, setRatingCount] = useState<RatingCount | null>(null);
   const [avgRating, setAvgRating] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
   useEffect(() => {
-    getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
+    getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
       setRatingCount(res.ratingCount);
       // console.log('rating count: ', res.ratingCount);
 
       setAvgRating(res.averageRating);
     });
-  }, []);
+  }, [challengeGroupId]);
 
   useEffect(() => {
     if (avgRating !== undefined) {
