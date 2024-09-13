@@ -9,7 +9,7 @@ import type { ReviewData } from '@/apis/review/review.response';
 import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
-const ReviewList = () => {
+const Review = () => {
   const { id } = useParams();
   const challengeGroupId = Number(id);
 
@@ -57,7 +57,7 @@ const ReviewList = () => {
   );
 };
 
-export default ReviewList;
+export default Review;
 
 const ReviewListLayout = styled.div`
   position: relative;

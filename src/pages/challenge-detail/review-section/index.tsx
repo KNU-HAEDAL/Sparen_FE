@@ -6,7 +6,7 @@ import * as S from './styles';
 import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
-import ReviewItem from '@/pages/review-list/components/review-item';
+import ReviewItem from '@/pages/review/components/review-item';
 
 interface Props {
   id: number;
@@ -73,7 +73,7 @@ export const ReviewSection = ({ id }: Props) => {
             <S.AvgRating>{avgRating}</S.AvgRating>
             <StarRating ratingToPercent={ratingToPercent} />
             <S.AllReviewButton
-              onClick={() => navigate(`/challenge/list/${id}`)}
+              onClick={() => navigate(`/challenge/review/${id}`)}
             >
               모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
