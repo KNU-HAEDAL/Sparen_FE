@@ -11,7 +11,8 @@ type RankingProps = {
 };
 
 const Ranking = ({ id }: RankingProps) => {
-  const [dataList, setDataList] = useState<ChallengeRankingData[]>([
+  const DATA_SIZE = 10;
+  const [rankingList, setRankingList] = useState<ChallengeRankingData[]>([
     {
       ranking: 1,
       acquiredPoint: 800,
@@ -85,32 +86,40 @@ const Ranking = ({ id }: RankingProps) => {
   ]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
+  const [isFetching, setIsFetching] = useState<boolean>(false); // 로딩 중일 때 호출 방지
+  const [hasMore, setHasMore] = useState<boolean>(true); // 데이터 더 없을 때 호출 방지
 
   useEffect(() => {
-    if (inView) {
-      getChallengeRanking({ id, page })
-        .then((response) => {
-          if (Array.isArray(response)) {
-            setDataList((prevDataList) => [...prevDataList, ...response]);
-          } // not iterable 오류 방지 위해 배열인지 검사하는 조건문 추가
-          setPage((prevPage) => prevPage + 1);
+    if (inView && hasMore && !isFetching) {
+      setIsFetching(true);
+      getChallengeRanking({ id, page, size: DATA_SIZE })
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setRankingList((prevRankingList) => [...prevRankingList, ...data]);
+            setPage((prevPage) => prevPage + 1);
+          } else {
+            setHasMore(false);
+          }
         })
         .catch((error) => {
           console.error('Error fetching rankings:', error);
+        })
+        .finally(() => {
+          setIsFetching(false);
         });
     }
-  }, [inView, id, page]);
+  }, [inView, id, page, hasMore, isFetching]);
 
   return (
     <S.RankingWrapper>
-      {dataList.map((item, index) => (
+      {rankingList.map((item, index) => (
         <div key={item.ranking}>
           <UserItem data={item} />
-          {index < dataList.length - 1 && <S.Line />}
+          {index < rankingList.length - 1 && <S.Line />}
           {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
         </div>
       ))}
-      <div ref={ref}>로딩..</div>
+      <S.Text ref={ref}>{isFetching && '로딩 중...'}</S.Text>
     </S.RankingWrapper>
   );
 };
