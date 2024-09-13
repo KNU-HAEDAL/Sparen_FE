@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 const Review = () => {
   const { id } = useParams();
   const challengeGroupId = Number(id);
+  const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
 
   const DATA_SIZE = 10; // 한번에 가져올 리뷰 개수
   const [reviews, setReviews] = useState<ReviewData[]>([]);
@@ -42,7 +43,7 @@ const Review = () => {
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
       <Wrapper>
-        <Title>{challengeGroupId}</Title>
+        <Title>{challengeGrouptitle}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
         <ReviewList>
           <VLine />
