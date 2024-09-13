@@ -86,8 +86,8 @@ const Ranking = ({ id }: RankingProps) => {
   ]);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
-  const [isFetching, setIsFetching] = useState<boolean>(false); // 로딩 중일 때 호출 방지
-  const [hasMore, setHasMore] = useState<boolean>(true); // 데이터 더 없을 때 호출 방지
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [hasMore, setHasMore] = useState<boolean>(true); // 데이터 없을 때 호출 방지
 
   useEffect(() => {
     if (inView && hasMore && !isFetching) {
@@ -95,10 +95,13 @@ const Ranking = ({ id }: RankingProps) => {
       getChallengeRanking({ id, page, size: DATA_SIZE })
         .then((data) => {
           if (Array.isArray(data) && data.length > 0) {
+            // 데이터가 있을 때
             setRankingList((prevRankingList) => [...prevRankingList, ...data]);
             setPage((prevPage) => prevPage + 1);
           } else {
+            // 데이터가 없을 때
             setHasMore(false);
+            console.log('더 이상 데이터가 없습니다.');
           }
         })
         .catch((error) => {
@@ -108,7 +111,7 @@ const Ranking = ({ id }: RankingProps) => {
           setIsFetching(false);
         });
     }
-  }, [inView, id, page, hasMore, isFetching]);
+  }, [inView, isFetching, hasMore, id, page]);
 
   return (
     <S.RankingWrapper>
@@ -119,7 +122,7 @@ const Ranking = ({ id }: RankingProps) => {
           {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
         </div>
       ))}
-      <S.Text ref={ref}>{isFetching && '로딩 중...'}</S.Text>
+      <S.Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</S.Text>
     </S.RankingWrapper>
   );
 };
