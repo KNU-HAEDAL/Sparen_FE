@@ -11,7 +11,13 @@ type ReviewDataProps = {
 };
 
 const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
-  const [ratingCount, setRatingCount] = useState<RatingCount | null>(null);
+  const [ratingCount, setRatingCount] = useState<RatingCount | null>({
+    5: 0,
+    4: 0,
+    3: 0,
+    2: 0,
+    1: 0,
+  });
   const [avgRating, setAvgRating] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
@@ -33,46 +39,42 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
 
   return (
     <>
-      {ratingCount ? (
-        <Wrapper>
-          <CWrapper style={{ alignItems: 'center' }}>
-            <Text fontSize='var(--font-size-xl)' fontWeight='700'>
-              {avgRating}
-            </Text>
-            <StarRating ratingToPercent={ratingToPercent} />
+      <Wrapper>
+        <CWrapper style={{ alignItems: 'center' }}>
+          <Text fontSize='var(--font-size-xl)' fontWeight='700'>
+            {avgRating}
+          </Text>
+          <StarRating ratingToPercent={ratingToPercent} />
+        </CWrapper>
+        <VLine />
+        <RWrapper>
+          <CWrapper>
+            {newRatingCount.map(([key]) => (
+              <SubText key={key}>
+                {key === '5'
+                  ? '매우 만족'
+                  : key === '4'
+                    ? '만족'
+                    : key === '3'
+                      ? '보통'
+                      : key === '2'
+                        ? '별로'
+                        : '매우 별로'}
+              </SubText>
+            ))}
           </CWrapper>
-          <VLine />
-          <RWrapper>
-            <CWrapper>
-              {newRatingCount.map(([key]) => (
-                <SubText key={key}>
-                  {key === '5'
-                    ? '매우 만족'
-                    : key === '4'
-                      ? '만족'
-                      : key === '3'
-                        ? '보통'
-                        : key === '2'
-                          ? '별로'
-                          : '매우 별로'}
-                </SubText>
-              ))}
-            </CWrapper>
-            <CWrapper>
-              {newRatingCount.map(([key, data]) => (
-                <Bar key={key} percentage={`${data * 100}%`} />
-              ))}
-            </CWrapper>
-            <CWrapper>
-              {newRatingCount.map(([key, data]) => (
-                <SubText key={key}>{data}</SubText>
-              ))}
-            </CWrapper>
-          </RWrapper>
-        </Wrapper>
-      ) : (
-        <div />
-      )}
+          <CWrapper>
+            {newRatingCount.map(([key, data]) => (
+              <Bar key={key} percentage={`${data * 100}%`} />
+            ))}
+          </CWrapper>
+          <CWrapper>
+            {newRatingCount.map(([key, data]) => (
+              <SubText key={key}>{data}</SubText>
+            ))}
+          </CWrapper>
+        </RWrapper>
+      </Wrapper>
     </>
   );
 };
