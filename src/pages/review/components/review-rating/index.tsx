@@ -18,9 +18,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
       setRatingCount(res.ratingCount);
-      // console.log('rating count: ', res.ratingCount);
-
-      setAvgRating(res.averageRating);
+      setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
     });
   }, [challengeGroupId]);
 

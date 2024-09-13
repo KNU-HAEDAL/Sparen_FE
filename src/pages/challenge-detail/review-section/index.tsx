@@ -41,7 +41,7 @@ export const ReviewSection = ({ id }: Props) => {
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: id }).then((res) => {
-      setAvgRating(res.averageRating); // 평균 별점만 필요함
+      setAvgRating(Number(res.averageRating.toFixed(1))); // 평균 별점만 필요함 / 소수점 아래 한 자리
     });
 
     getReview({ challengeGroupId: id, page, size: DATA_SIZE })
