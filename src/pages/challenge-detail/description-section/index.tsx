@@ -4,11 +4,13 @@ import Challenge from '../components/challenge';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 
-type DescriptionProps = {
+type DescriptionSectionProps = {
   data: ChallengeDetailData;
 };
 
-const Description = ({ data }: DescriptionProps): ReactNode => {
+export const DescriptionSection = ({
+  data,
+}: DescriptionSectionProps): ReactNode => {
   const challenges = data.challenges;
 
   return (
@@ -43,5 +45,3 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
     </S.Wrapper>
   );
 };
-
-export default Description;

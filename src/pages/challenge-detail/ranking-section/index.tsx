@@ -6,11 +6,11 @@ import * as S from './styles';
 import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
 import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
 
-type RankingProps = {
+type RankingSectionProps = {
   id: number;
 };
 
-const Ranking = ({ id }: RankingProps) => {
+export const RankingSection = ({ id }: RankingSectionProps) => {
   const DATA_SIZE = 10;
   const [rankingList, setRankingList] = useState<ChallengeRankingData[]>([
     {
@@ -126,5 +126,3 @@ const Ranking = ({ id }: RankingProps) => {
     </S.RankingWrapper>
   );
 };
-
-export default Ranking;
