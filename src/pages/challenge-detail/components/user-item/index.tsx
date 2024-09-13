@@ -8,22 +8,19 @@ type UserItemProps = {
 
 const UserItem = ({ data }: UserItemProps) => {
   return (
-    <>
-      <S.Wrapper>
-        <S.Content>
-          <S.Rank>{data.ranking}위</S.Rank>
-          <S.ImageBox>
-            <S.Image src={data.user.profileImageUrl} />
-          </S.ImageBox>
-          <S.UserWrapper>
-            <S.BoldText>{data.user.nickname}</S.BoldText>
-            <S.SubText>{data.user.tierInfo.tier}</S.SubText>
-          </S.UserWrapper>
-        </S.Content>
-        <S.Point>+ {data.acquiredPoint}포인트</S.Point>
-      </S.Wrapper>
-      <S.Line />
-    </>
+    <S.Wrapper>
+      <S.Content>
+        <S.Rank ranking={data.ranking}>{data.ranking}위</S.Rank>
+        <S.ImageBox>
+          <S.Image src={data.user.profileImageUrl} />
+        </S.ImageBox>
+        <S.UserWrapper>
+          <S.Nickname>{data.user.nickname}</S.Nickname>
+          <S.Tier>{data.user.tierInfo.tier}</S.Tier>
+        </S.UserWrapper>
+      </S.Content>
+      <S.Point>+ {data.acquiredPoint} 포인트</S.Point>
+    </S.Wrapper>
   );
 };
 

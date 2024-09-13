@@ -5,7 +5,6 @@ export const Outer = styled.div`
   border: var(--color-grey-02) 0.5px solid;
   padding: 16px;
   flex-shrink: 0;
-  margin: 0 30px 20px;
 `;
 
 export const Wrapper = styled.div`

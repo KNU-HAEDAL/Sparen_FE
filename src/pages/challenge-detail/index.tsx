@@ -3,13 +3,7 @@ import { useEffect, useState } from 'react';
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
 import Description from './description/';
 import Ranking from './ranking/';
-import {
-  Image,
-  ImageMask,
-  TabPanelContainer,
-  TabsContainer,
-  Wrapper,
-} from './styles';
+import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
@@ -40,32 +34,35 @@ const ChallengeDetailPage = () => {
   }, []);
 
   return (
-    <Wrapper>
+    <S.Wrapper>
       <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
-      <ImageMask>
+      <S.ImageMask>
         {data?.imageUrls?.length ? (
-          data.imageUrls.map((img, index) => <Image key={index} src={img} />)
+          data.imageUrls.map((img, index) => <S.Image key={index} src={img} />)
         ) : (
-          <Image src={DefaultImage} />
+          <S.Image src={DefaultImage} />
         )}
-      </ImageMask>
-
-      <TabsContainer>
+      </S.ImageMask>
+      <S.ChallengeTitleWrapper>
+        <S.Category>{data?.category}</S.Category>
+        <S.Title>{data?.title}</S.Title>
+      </S.ChallengeTitleWrapper>
+      <S.TabsContainer>
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (
             <Tab key={t} label={t} value={index} />
           ))}
         </Tabs>
-      </TabsContainer>
-      <TabPanelContainer>
+      </S.TabsContainer>
+      <S.TabPanelContainer>
         <TabPanel value={activeTab} selectedIndex={0}>
           {data && <Description data={data} />}
         </TabPanel>
         <TabPanel value={activeTab} selectedIndex={1}>
-          {data && <Ranking title={data.title} category={data.category} />}
+          {data && <Ranking id={data.id} />}
         </TabPanel>
-      </TabPanelContainer>
-    </Wrapper>
+      </S.TabPanelContainer>
+    </S.Wrapper>
   );
 };
 

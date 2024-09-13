@@ -6,17 +6,19 @@ import { ChallengeRankingData } from './challenge.ranking.response';
 type ChallengeRankingParams = {
   id: number;
   page: number;
+  size: number;
 };
 
 export async function getChallengeRanking({
   id,
   page,
+  size,
 }: ChallengeRankingParams): Promise<ChallengeRankingData[]> {
   try {
     const response = await axiosClient.get(
-      `api/challengeGroups/${id}/rankings?page=${page}&size=4`
+      `api/challengeGroups/${id}/rankings?page=${page}&size=${size}`
     );
-    console.log('getChallengeRanking response: ', response.data);
+    // console.log('getChallengeRanking response: ', response.data);
     return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {

@@ -13,22 +13,24 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
 
   return (
     <S.Wrapper>
-      <S.Category>{data.category}</S.Category>
-      <S.Title>{data.title}</S.Title>
-      <S.Text>{data.content}</S.Text>
-      <div style={{ margin: '5px' }} />
+      <S.ContentWrapper>
+        <S.Text>{data.content}</S.Text>
+      </S.ContentWrapper>
+      <div style={{ height: '12px' }} />
       <S.ContentWrapper>
         <S.BoldText>챌린지 신청 가능 기간</S.BoldText>
         <S.Text>
           {data.startDate} ~ {data.endDate}
         </S.Text>
       </S.ContentWrapper>
-      <div style={{ margin: '5px' }} />
+      <div style={{ height: '12px' }} />
       <S.ContentWrapper>
         <S.BoldText>참여방법</S.BoldText>
         <S.Text>{data.guide}</S.Text>
       </S.ContentWrapper>
+
       <S.Line />
+
       <S.RowList>
         {challenges.map((item) => (
           <Challenge
