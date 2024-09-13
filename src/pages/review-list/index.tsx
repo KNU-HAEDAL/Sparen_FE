@@ -9,6 +9,7 @@ import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
 const ReviewList = () => {
+  const DATA_SIZE = 10; // 한번에 가져올 리뷰 개수
   const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [page, setPage] = useState(0);
   const [ref, inView] = useInView({ threshold: 0.5 });
@@ -16,7 +17,7 @@ const ReviewList = () => {
 
   useEffect(() => {
     if (hasNext) {
-      getReview({ challengeGroupId: 1, page })
+      getReview({ challengeGroupId: 1, page, size: DATA_SIZE })
         .then((res) => {
           if (Array.isArray(res.data) && res.data.length > 0) {
             setReviews((prevReviews) => [...prevReviews, ...res.data]);

@@ -17,11 +17,51 @@ export const Wrapper = styled.div`
   gap: 16px;
 `;
 
-export const ScoreContainer = styled.div`
+export const RatingContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: var() (--font-size-md);
+  gap: 12px;
+  flex: 1;
+  width: 100%;
+`;
+
+export const AvgRating = styled.p`
+  font-size: var(--font-size-md);
+  font-weight: 600;
+`;
+
+export const StarRating = styled.div`
+  position: relative;
+  unicode-bidi: bidi-override;
+  width: max-content;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: var(--color-green-01);
+`;
+
+export const AllReviewButton = styled.button`
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 auto;
+  cursor: pointer;
+`;
+
+export const StarFill = styled.div`
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-text-fill-color: var(--color-green-01);
+`;
+
+export const StarBase = styled.div`
+  z-index: 0;
+  padding: 0;
 `;
 
 export const Line = styled.div`

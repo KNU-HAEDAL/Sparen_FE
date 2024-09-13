@@ -10,13 +10,13 @@ import type {
 type GetReviewParams = {
   challengeGroupId: number;
   page: number;
-  size?: number;
+  size: number;
 };
 
 export async function getReview({
   challengeGroupId,
   page,
-  size = 5,
+  size,
 }: GetReviewParams): Promise<GetReviewResponse> {
   try {
     const response = await axiosClient.get(
