@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
 import Description from './description/';
 import Ranking from './ranking/';
+import { ReviewSection } from './review-section/';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
@@ -10,7 +11,7 @@ import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
 const ChallengeDetailPage = () => {
-  const tabsList = ['설명', '랭킹'];
+  const tabsList = ['설명', '랭킹', '리뷰'];
   const [activeTab, setActiveTab] = useState<number>(0);
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
@@ -60,6 +61,9 @@ const ChallengeDetailPage = () => {
         </TabPanel>
         <TabPanel value={activeTab} selectedIndex={1}>
           {data && <Ranking id={data.id} />}
+        </TabPanel>
+        <TabPanel value={activeTab} selectedIndex={2}>
+          {data && <ReviewSection id={data.id} />}
         </TabPanel>
       </S.TabPanelContainer>
     </S.Wrapper>
