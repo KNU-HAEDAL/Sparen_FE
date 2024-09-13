@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
-import type { ReviewData, RatingCount } from '@/apis/review/review.response';
+import type { ReviewData } from '@/apis/review/review.response';
 import ReviewItem from '@/pages/review-list/components/review-item';
 
 interface Props {
@@ -34,21 +34,13 @@ export const ReviewSection = ({ id }: Props) => {
     },
   ]);
   const [page, setPage] = useState(0);
-
-  const [datas, setDatas] = useState<RatingCount | null>(null);
-  const [avgRating, setAvgRating] = useState(0);
-  const [ratingToPercent, setRatingToPercent] = useState({
-    width: `${(avgRating / 5) * 100}%`,
-  });
-
+  const [avgRating, setAvgRating] = useState<number | undefined>();
+  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
   const navigate = useNavigate();
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: id }).then((res) => {
-      setDatas(res.ratingCount);
-      //   console.log('rating count: ', res.ratingCount);
-      setAvgRating(res.averageRating);
-      setRatingToPercent({ width: `${(res.averageRating / 5) * 100}%` });
+      setAvgRating(res.averageRating); // 평균 별점만 필요함
     });
 
     getReview({ challengeGroupId: id, page, size: DATA_SIZE })
@@ -66,13 +58,19 @@ export const ReviewSection = ({ id }: Props) => {
       });
   }, [id, page]);
 
+  useEffect(() => {
+    if (avgRating !== undefined) {
+      setRatingToPercent(`${(avgRating / 5) * 100}%`);
+    }
+  }, [avgRating]);
+
   return (
     <S.Wrapper>
-      {datas && (
+      {avgRating && (
         <S.RatingContainer>
           <S.AvgRating>{avgRating}</S.AvgRating>
           <S.StarRating>
-            <S.StarFill style={ratingToPercent}>
+            <S.StarFill style={{ width: ratingToPercent }}>
               {[...Array(5)].map((_, index) => (
                 <span key={`fill-${index}`}>★</span>
               ))}
