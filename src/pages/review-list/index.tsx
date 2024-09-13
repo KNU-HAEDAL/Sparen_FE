@@ -57,8 +57,7 @@ export default ReviewList;
 
 const ReviewListLayout = styled.div`
   position: relative;
-  margin: 30px;
-  margin-top: 60px;
+  margin: 16px;
   display: flex;
   flex-direction: column;
 `;
@@ -66,7 +65,7 @@ const ReviewListLayout = styled.div`
 const Title = styled.div`
   font-size: var(--font-size-lg);
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 `;
 
 const List = styled.div`
