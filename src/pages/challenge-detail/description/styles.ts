@@ -58,6 +58,6 @@ export const RowList = styled.div`
     display: none;
   }
   gap: 16px;
-  margin: 0 0 3.44rem;
+  margin: 0 0 3.44rem; // 하단 내브 바 높이
   padding: 0 16px 16px;
 `;
