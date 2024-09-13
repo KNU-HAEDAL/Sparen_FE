@@ -7,16 +7,16 @@ import styled from '@emotion/styled';
 
 const ReviewRating = () => {
   const [datas, setDatas] = useState<RatingCount | null>(null);
-  const [starAvg, setStarAvg] = useState(0);
+  const [avgRating, setAvgRating] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState({
-    width: `${(starAvg / 5) * 100}%`,
+    width: `${(avgRating / 5) * 100}%`,
   });
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
       setDatas(res.ratingCount);
       console.log('rating count: ', res.ratingCount);
-      setStarAvg(res.averageRating);
+      setAvgRating(res.averageRating);
       setRatingToPercent({ width: `${(res.averageRating / 5) * 100}%` });
     });
   }, []);
@@ -27,10 +27,10 @@ const ReviewRating = () => {
   return (
     <>
       {datas ? (
-        <StarBox>
+        <Wrapper>
           <CWrapper style={{ alignItems: 'center' }}>
-            <Text fontSize='var(--font-size-xxl)' fontWeight='700'>
-              {starAvg}
+            <Text fontSize='var(--font-size-xl)' fontWeight='700'>
+              {avgRating}
             </Text>
             <StarRating>
               <StarFill style={ratingToPercent}>
@@ -73,7 +73,7 @@ const ReviewRating = () => {
               ))}
             </CWrapper>
           </RWrapper>
-        </StarBox>
+        </Wrapper>
       ) : (
         <div />
       )}
@@ -83,15 +83,14 @@ const ReviewRating = () => {
 
 export default ReviewRating;
 
-const StarBox = styled(Box)`
+const Wrapper = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
   align-self: center;
-  width: 90%;
   border-radius: 10px;
   background-color: var(--color-green-06);
-  padding: 0px 20px;
+  width: 100%;
   justify-content: center;
 `;
 
