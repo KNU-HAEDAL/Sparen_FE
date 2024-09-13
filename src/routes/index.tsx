@@ -11,7 +11,7 @@ import MyChallengePage from '@/pages/my-challenge';
 import MyChallengeRecord from '@/pages/my-challenge-record';
 import RankPage from '@/pages/rank';
 import RegisterPage from '@/pages/register';
-import ReviewList from '@/pages/review-list';
+import Review from '@/pages/review';
 import ReviewWrite from '@/pages/review-write';
 import ShortsPage from '@/pages/shorts';
 import { RouterPath } from '@/routes/path.ts';
@@ -49,12 +49,14 @@ const router = createBrowserRouter([
             element: <ChallengeDetailPage />,
           },
           {
-            path: RouterPath.reviewWrite,
-            element: <ReviewWrite />,
-          },
-          {
-            path: RouterPath.reviewList,
-            element: <ReviewList />,
+            path: `${RouterPath.review}/:id`,
+            element: <Review />,
+            children: [
+              {
+                path: RouterPath.write,
+                element: <ReviewWrite />,
+              },
+            ],
           },
         ],
       },
