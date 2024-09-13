@@ -72,7 +72,9 @@ export const ReviewSection = ({ id }: Props) => {
           <S.RatingContainer className='RatingContainer'>
             <S.AvgRating>{avgRating}</S.AvgRating>
             <StarRating ratingToPercent={ratingToPercent} />
-            <S.AllReviewButton onClick={() => navigate('/challenge/list')}>
+            <S.AllReviewButton
+              onClick={() => navigate(`/challenge/list/${id}`)}
+            >
               모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
           </S.RatingContainer>

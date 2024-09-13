@@ -13,7 +13,7 @@ export const RouterPath = {
   auth: 'auth',
   register: 'register',
   review: 'review',
-  reviewList: 'list',
+  reviewList: 'list/:id',
   reviewWrite: 'write',
 };
 
