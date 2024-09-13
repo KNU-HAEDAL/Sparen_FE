@@ -7,14 +7,14 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewRating = () => {
-  const [datas, setDatas] = useState<RatingCount | null>(null);
+  const [ratingCount, setRatingCount] = useState<RatingCount | null>(null);
   const [avgRating, setAvgRating] = useState(0);
   const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: 1 }).then((res) => {
-      setDatas(res.ratingCount);
-      console.log('rating count: ', res.ratingCount);
+      setRatingCount(res.ratingCount);
+      // console.log('rating count: ', res.ratingCount);
 
       setAvgRating(res.averageRating);
     });
@@ -27,11 +27,11 @@ const ReviewRating = () => {
   }, [avgRating]);
 
   // data 객체를 [key, value] 형태의 배열로 변환
-  const ratings = datas ? Object.entries(datas) : [];
+  const newRatingCount = ratingCount ? Object.entries(ratingCount) : [];
 
   return (
     <>
-      {datas ? (
+      {ratingCount ? (
         <Wrapper>
           <CWrapper style={{ alignItems: 'center' }}>
             <Text fontSize='var(--font-size-xl)' fontWeight='700'>
@@ -42,7 +42,7 @@ const ReviewRating = () => {
           <VLine />
           <RWrapper>
             <CWrapper>
-              {ratings.map(([key]) => (
+              {newRatingCount.map(([key]) => (
                 <SubText key={key}>
                   {key === '5'
                     ? '매우 만족'
@@ -57,12 +57,12 @@ const ReviewRating = () => {
               ))}
             </CWrapper>
             <CWrapper>
-              {ratings.map(([key, data]) => (
+              {newRatingCount.map(([key, data]) => (
                 <Bar key={key} percentage={`${data * 100}%`} />
               ))}
             </CWrapper>
             <CWrapper>
-              {ratings.map(([key, data]) => (
+              {newRatingCount.map(([key, data]) => (
                 <SubText key={key}>{data}</SubText>
               ))}
             </CWrapper>
