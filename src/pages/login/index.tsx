@@ -27,7 +27,7 @@ const LoginPage = () => {
           gap='10px'
           marginBottom='2rem'
         >
-          <Text fontSize='14px'>아직 가입안했다면?</Text>
+          <Text fontSize='14px'>아직 가입 안 했다면?</Text>
           <Link to={RouterPath.register}>
             <Text
               cursor='pointer'

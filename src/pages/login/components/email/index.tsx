@@ -34,6 +34,12 @@ const EmailLogin = () => {
     }
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   return (
     <>
       <Container
@@ -49,6 +55,7 @@ const EmailLogin = () => {
           placeholder='이메일을 입력해주세요.'
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          onKeyDown={handleKeyPress}
         />
         <LoginInput
           type='password'
@@ -56,6 +63,7 @@ const EmailLogin = () => {
           placeholder='비밀번호를 입력해주세요.'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          onKeyDown={handleKeyPress}
         />
       </Container>
       <Container
