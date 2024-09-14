@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import UserItem from '../components/user-item/';
+import { RankingItem } from '../components/ranking-item/';
 import * as S from './styles';
 import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
-import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
+import {
+  type ChallengeRankingData,
+  DummyRankingList,
+} from '@/apis/challenge-detail/challenge.ranking.response';
 import * as Base from '@/styles/baseStyles';
 
 type RankingSectionProps = {
@@ -13,78 +16,8 @@ type RankingSectionProps = {
 
 export const RankingSection = ({ id }: RankingSectionProps) => {
   const DATA_SIZE = 10;
-  const [rankingList, setRankingList] = useState<ChallengeRankingData[]>([
-    {
-      ranking: 1,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: '뽀로로가 뽀롱뽀롱 노는 게 젤 좋아',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '양반IV',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 2,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: '하츄핑',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '평민I',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 3,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: '파산핑',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '상민II',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 4,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: '유재석',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '상민III',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-    {
-      ranking: 5,
-      acquiredPoint: 800,
-      user: {
-        id: 0,
-        nickname: '조셉',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '노비IV',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-    },
-  ]);
+  const [rankingList, setRankingList] =
+    useState<ChallengeRankingData[]>(DummyRankingList);
   const [page, setPage] = useState<number>(1);
   const [ref, inView] = useInView({ threshold: 0.8 });
   const [isFetching, setIsFetching] = useState<boolean>(false);
@@ -121,8 +54,10 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
         <>
           {rankingList.map((item, index) => (
             <div key={item.ranking}>
-              <UserItem data={item} />
-              {index < rankingList.length - 1 && <Base.HorizontalLine />}
+              <RankingItem item={item} />
+              {index < rankingList.length - 1 && (
+                <Base.HorizontalLine margin={8} />
+              )}
               {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
             </div>
           ))}
