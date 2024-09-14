@@ -17,7 +17,7 @@ export const Content = styled.div`
 
 export const Rank = styled.div<{ ranking: number }>`
   font-size: var(--font-size-md);
-  font-weight: ${({ ranking }) => (ranking <= 3 ? `bold` : `regular`)};
+  font-weight: ${({ ranking }) => (ranking <= 3 ? `600` : `400`)};
   color: ${({ ranking }) => (ranking <= 3 ? `var(--color-green-01)` : `#000`)};
 `;
 
