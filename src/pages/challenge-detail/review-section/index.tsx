@@ -17,6 +17,7 @@ export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
+  const [totalRatings, setTotalRatings] = useState(0); // 별점(리뷰) 개수
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,6 +25,13 @@ export const ReviewSection = ({ id }: Props) => {
     getChallegeAvgScore({ challengeGroupId: id })
       .then((res) => {
         setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
+
+        // 모든 별점 개수 합 구하기
+        const total = Object.values(res.ratingCount).reduce(
+          (acc, value) => acc + value,
+          0
+        );
+        setTotalRatings(total);
       })
       .catch((error) => {
         console.error('Error fetching average score:', error);
@@ -55,7 +63,8 @@ export const ReviewSection = ({ id }: Props) => {
             <S.AllReviewButton
               onClick={() => navigate(`/challenge/review/${id}`)}
             >
-              모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
+              {totalRatings}개 모두 보기{' '}
+              <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
           </S.RatingContainer>
           {reviewList.map((review, index) => (

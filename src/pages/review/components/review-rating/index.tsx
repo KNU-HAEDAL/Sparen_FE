@@ -19,7 +19,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
     1: 0,
   });
   const [avgRating, setAvgRating] = useState(0);
-  const [totalRatings, setTotalRatings] = useState(0);
+  const [totalRatings, setTotalRatings] = useState(0); // 별점(리뷰) 개수
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
@@ -42,41 +42,45 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
 
   return (
     <Wrapper>
-      <AvgRatingWrapper style={{ alignItems: 'center' }}>
-        <Text fontSize='var(--font-size-xl)' fontWeight='600'>
-          {avgRating}
-        </Text>
-        <StarRating rating={avgRating} size={20} />
-      </AvgRatingWrapper>
+      <RatingBox>
+        <AvgRatingWrapper style={{ alignItems: 'center' }}>
+          <Text fontSize='var(--font-size-xl)' fontWeight='600'>
+            {avgRating}
+          </Text>
+          <StarRating rating={avgRating} size={20} />
+        </AvgRatingWrapper>
 
-      <RatingGraphWrapper>
-        {newRatingCount.map(([key, value]) => (
-          <RatingGraphItem key={key}>
-            <Text
-              fontSize='var(--font-size-xs)'
-              color='var(--color-grey-01)'
-              mr='auto'
-            >
-              {key === '5'
-                ? '매우 만족'
-                : key === '4'
-                  ? '만족'
-                  : key === '3'
-                    ? '보통'
-                    : key === '2'
-                      ? '별로'
-                      : '매우 별로'}
-            </Text>
-            <Bar
-              key={`${key}-bar`}
-              percentage={`${(value / totalRatings) * 100}%`}
-            />
-            <Text fontSize='var(--font-size-xs)' color='var(--color-grey-01)'>
-              {value}
-            </Text>
-          </RatingGraphItem>
-        ))}
-      </RatingGraphWrapper>
+        <RatingGraphWrapper>
+          {newRatingCount.map(([key, value]) => (
+            <RatingGraphItem key={key}>
+              <Text
+                fontSize='var(--font-size-xs)'
+                color='var(--color-grey-01)'
+                mr='auto'
+              >
+                {key === '5'
+                  ? '매우 만족'
+                  : key === '4'
+                    ? '만족'
+                    : key === '3'
+                      ? '보통'
+                      : key === '2'
+                        ? '별로'
+                        : '매우 별로'}
+              </Text>
+              <Bar
+                key={`${key}-bar`}
+                percentage={`${(value / totalRatings) * 100}%`}
+              />
+              <Text fontSize='var(--font-size-xs)' color='var(--color-grey-01)'>
+                {value}
+              </Text>
+            </RatingGraphItem>
+          ))}
+        </RatingGraphWrapper>
+      </RatingBox>
+
+      <Text fontSize='var(--font-size-sm)'>{totalRatings}개의 리뷰</Text>
     </Wrapper>
   );
 };
@@ -84,6 +88,13 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
 export default ReviewRating;
 
 const Wrapper = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+`;
+
+const RatingBox = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
