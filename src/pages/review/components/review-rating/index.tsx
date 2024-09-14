@@ -105,14 +105,6 @@ const RatingBox = styled(Box)`
   justify-content: center;
 `;
 
-// const VerticalLine = styled.div<{ margin?: number }>`
-//   border: #d7d7d7 solid 0.5px;
-//   /* flex: 1; */
-//   height: 100px;
-//   border-radius: 10px;
-//   margin: ${({ margin }) => margin && `0 ${margin}px`};
-// `;
-
 const AvgRatingWrapper = styled.div`
   display: flex;
   flex-direction: column;
