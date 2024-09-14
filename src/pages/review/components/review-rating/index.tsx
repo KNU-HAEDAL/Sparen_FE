@@ -19,56 +19,65 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
     1: 0,
   });
   const [avgRating, setAvgRating] = useState(0);
+  const [totalRatings, setTotalRatings] = useState(0);
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
       setRatingCount(res.ratingCount);
       setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
+
+      // 모든 별점 개수 합 구하기
+      const total = Object.values(res.ratingCount).reduce(
+        (acc, value) => acc + value,
+        0
+      );
+      setTotalRatings(total);
     });
   }, [challengeGroupId]);
 
-  // data 객체를 [key, value] 형태의 배열로 변환
-  const newRatingCount = ratingCount ? Object.entries(ratingCount) : [];
+  // data 객체를 [key, value] 형태의 배열로 변환하고, 내림차순 정렬
+  const newRatingCount = ratingCount
+    ? Object.entries(ratingCount).sort(([a], [b]) => Number(b) - Number(a))
+    : [];
 
   return (
-    <>
-      <Wrapper>
-        <CWrapper style={{ alignItems: 'center' }}>
-          <Text fontSize='var(--font-size-xl)' fontWeight='700'>
-            {avgRating}
-          </Text>
-          <StarRating rating={avgRating} size={20} />
-        </CWrapper>
-        <VLine />
-        <RWrapper>
-          <CWrapper>
-            {newRatingCount.map(([key]) => (
-              <SubText key={key}>
-                {key === '5'
-                  ? '매우 만족'
-                  : key === '4'
-                    ? '만족'
-                    : key === '3'
-                      ? '보통'
-                      : key === '2'
-                        ? '별로'
-                        : '매우 별로'}
-              </SubText>
-            ))}
-          </CWrapper>
-          <CWrapper>
-            {newRatingCount.map(([key, data]) => (
-              <Bar key={key} percentage={`${data * 100}%`} />
-            ))}
-          </CWrapper>
-          <CWrapper>
-            {newRatingCount.map(([key, data]) => (
-              <SubText key={key}>{data}</SubText>
-            ))}
-          </CWrapper>
-        </RWrapper>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <AvgRatingWrapper style={{ alignItems: 'center' }}>
+        <Text fontSize='var(--font-size-xl)' fontWeight='600'>
+          {avgRating}
+        </Text>
+        <StarRating rating={avgRating} size={20} />
+      </AvgRatingWrapper>
+
+      <RatingGraphWrapper>
+        {newRatingCount.map(([key, value]) => (
+          <RatingGraphItem key={key}>
+            <Text
+              fontSize='var(--font-size-xs)'
+              color='var(--color-grey-01)'
+              mr='auto'
+            >
+              {key === '5'
+                ? '매우 만족'
+                : key === '4'
+                  ? '만족'
+                  : key === '3'
+                    ? '보통'
+                    : key === '2'
+                      ? '별로'
+                      : '매우 별로'}
+            </Text>
+            <Bar
+              key={`${key}-bar`}
+              percentage={`${(value / totalRatings) * 100}%`}
+            />
+            <Text fontSize='var(--font-size-xs)' color='var(--color-grey-01)'>
+              {value}
+            </Text>
+          </RatingGraphItem>
+        ))}
+      </RatingGraphWrapper>
+    </Wrapper>
   );
 };
 
@@ -78,50 +87,50 @@ const Wrapper = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  align-self: center;
   border-radius: 10px;
   background-color: var(--color-green-06);
   width: 100%;
+  padding: 16px 16px;
   justify-content: center;
 `;
 
-const VLine = styled.div`
-  border: #d7d7d7 solid 0.5px;
-  height: 100px;
-  border-radius: 10px;
-  margin: 10px;
-`;
+// const VerticalLine = styled.div<{ margin?: number }>`
+//   border: #d7d7d7 solid 0.5px;
+//   /* flex: 1; */
+//   height: 100px;
+//   border-radius: 10px;
+//   margin: ${({ margin }) => margin && `0 ${margin}px`};
+// `;
 
-const RWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 0;
-  align-items: center;
-  width: 170px;
-  justify-content: space-between;
-`;
-
-const CWrapper = styled.div`
+const AvgRatingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  margin-right: 16px;
 `;
 
-const SubText = styled(Text)`
-  font-size: var(--font-size-xs);
-  color: var(--color-grey-01);
-  margin: 0.2px;
+const RatingGraphWrapper = styled.div`
+  display: grid;
+  grid-template-columns: max-content auto max-content;
+  gap: 8px 12px;
+  align-items: center;
+  flex: 1;
+  padding-left: 16px;
+  border-left: #d7d7d7 solid 0.5px;
+`;
+
+const RatingGraphItem = styled.div`
+  display: contents;
 `;
 
 const Bar = styled.div<{ percentage: string }>`
   border-radius: 10px;
-  height: 5px;
+  height: 8px;
   background: linear-gradient(
     to right,
     var(--color-green-01) ${(props) => props.percentage},
     #d7d7d7 ${(props) => props.percentage}
   );
-  width: 80px;
+  min-width: 80px;
   flex-shrink: 0;
-  margin: 6px 0;
 `;
