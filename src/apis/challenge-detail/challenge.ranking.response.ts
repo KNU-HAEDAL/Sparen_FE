@@ -88,3 +88,14 @@ export const DummyRankingList: ChallengeRankingData[] = [
     },
   },
 ];
+
+export type GetChallengeRankingResponse = {
+  totalPage: number;
+  hasNext?: boolean;
+  myRanking?: {
+    ranking: number;
+    acquiredPoint: number;
+    user: UserData;
+  };
+  data: ChallengeRankingData[];
+};
