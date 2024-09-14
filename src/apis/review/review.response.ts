@@ -1,5 +1,11 @@
 import { TierInfo } from './../../interface/apis/tier/index';
 
+export type GetReviewResponse = {
+  totalPage: number;
+  hasNext: boolean;
+  data: ReviewData[];
+};
+
 export type User = {
   id: number;
   nickname: string;
@@ -16,7 +22,7 @@ export type ReviewData = {
   rating: number;
 };
 
-export const DummyReviewData: ReviewData[] = [
+export const DummyReviewList: ReviewData[] = [
   {
     challengeId: 1,
     challengeTitle: '쓰레기 줍기 챌린지',
@@ -36,12 +42,6 @@ export const DummyReviewData: ReviewData[] = [
     rating: 4,
   },
 ];
-
-export type GetReviewResponse = {
-  totalPage: number;
-  hasNext: boolean;
-  data: ReviewData[];
-};
 
 //
 
