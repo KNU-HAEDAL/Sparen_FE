@@ -10,24 +10,21 @@ import type {
 type GetReviewParams = {
   challengeGroupId: number;
   page: number;
-  size?: number;
+  size: number;
 };
 
 export async function getReview({
   challengeGroupId,
   page,
-  size = 5,
+  size,
 }: GetReviewParams): Promise<GetReviewResponse> {
   try {
     const response = await axiosClient.get(
-      `api/challengeGroups/${challengeGroupId}/reviews`,
-      {
-        params: { page, size },
-      }
+      `api/challengeGroups/${challengeGroupId}/reviews?page=${page}&size=${size}`
     );
-    console.log('getReview response: ', response.data);
-
-    return response.data;
+    // console.log('getReview response: ', response.data); // 전체 응답 로그
+    // console.log('getReview response data: ', response.data.data); // 실제 데이터 부분 확인
+    return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       throw new Error(
@@ -50,7 +47,7 @@ export async function getChallegeAvgScore({
     const response = await axiosClient.get(
       `api/challengeGroups/${challengeGroupId}/reviews/score`
     );
-    console.log('getChallegeAvgScore response: ', response.data);
+    // console.log('getChallegeAvgScore response: ', response.data);
 
     return response.data.data;
   } catch (error) {

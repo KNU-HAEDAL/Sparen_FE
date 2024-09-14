@@ -3,12 +3,15 @@ import { ReactNode } from 'react';
 import Challenge from '../components/challenge';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
+import * as Base from '@/styles/baseStyles';
 
-type DescriptionProps = {
+type DescriptionSectionProps = {
   data: ChallengeDetailData;
 };
 
-const Description = ({ data }: DescriptionProps): ReactNode => {
+export const DescriptionSection = ({
+  data,
+}: DescriptionSectionProps): ReactNode => {
   const challenges = data.challenges;
 
   return (
@@ -29,7 +32,7 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
         <S.Text>{data.guide}</S.Text>
       </S.ContentWrapper>
 
-      <S.Line />
+      <Base.HorizontalLine margin={16} />
 
       <S.RowList>
         {challenges.map((item) => (
@@ -43,5 +46,3 @@ const Description = ({ data }: DescriptionProps): ReactNode => {
     </S.Wrapper>
   );
 };
-
-export default Description;

@@ -13,8 +13,7 @@ export const RouterPath = {
   auth: 'auth',
   register: 'register',
   review: 'review',
-  reviewList: 'list',
-  reviewWrite: 'write',
+  write: 'write',
 };
 
 export const getDynamicPath = {
