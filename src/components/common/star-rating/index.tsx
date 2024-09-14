@@ -40,11 +40,10 @@ const Wrapper = styled.div<{ size: number }>`
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
-  font-size: ${(props) => `${props.size}px`}; // props를 사용하여 size 값을 변환
+  font-size: ${({ size }) => `${size}px`};
 `;
 
 const StarFill = styled.div`
-  padding: 0;
   position: absolute;
   display: flex;
   top: 0;
@@ -53,6 +52,4 @@ const StarFill = styled.div`
   -webkit-text-fill-color: var(--color-green-01);
 `;
 
-const StarBase = styled.div`
-  padding: 0;
-`;
+const StarBase = styled.div``;
