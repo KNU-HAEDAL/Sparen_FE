@@ -14,6 +14,8 @@ type TopBarProps = {
   backgroundColor: string;
 };
 
+export const HEADER_HEIGHT = '3rem';
+
 /**
  * type : Main | Page,
  * title : Page Title,
@@ -22,10 +24,16 @@ type TopBarProps = {
  */
 const TopBar = ({ type, ...props }: TopBarProps) => {
   if (type === 'Main') {
-    return <MainBar />;
+    return <MainBar height={HEADER_HEIGHT} />;
   } else if (type === 'Page') {
     const { title, backgroundColor } = props;
-    return <PageBar title={title} backgroundColor={backgroundColor} />;
+    return (
+      <PageBar
+        title={title}
+        height={HEADER_HEIGHT}
+        backgroundColor={backgroundColor}
+      />
+    );
   }
   return null;
 };

@@ -6,9 +6,11 @@ import styled from '@emotion/styled';
 
 const PageBar = ({
   title,
+  height,
   backgroundColor,
 }: {
   title: string;
+  height: string;
   backgroundColor: string;
 }) => {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const PageBar = ({
     navigate(-1);
   };
   return (
-    <PageBarLayout backgroundColor={backgroundColor}>
+    <PageBarLayout height={height} backgroundColor={backgroundColor}>
       <PrevButtonBox onClick={handlerNavigate}>
         <Image width='0.8rem' height='1.45rem' src={PrevIcon} alt='Prev Icon' />
       </PrevButtonBox>
@@ -37,16 +39,19 @@ const PageBar = ({
 
 export default PageBar;
 
-const PageBarLayout = styled(Box)<{ backgroundColor: string }>`
+const PageBarLayout = styled(Box)<{ height: string; backgroundColor: string }>`
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
+  height: ${({ height }) => height};
   padding: 0.5rem;
-  cursor: pointer;
   gap: 1rem;
   background-color: ${(props) => props.backgroundColor};
+  z-index: 1000;
+  position: fixed;
 `;
 
 const TitleBox = styled(Box)`

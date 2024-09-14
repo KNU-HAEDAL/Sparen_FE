@@ -9,7 +9,7 @@ import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 
 // const CHALLENGE_GROUP_ID = 38;
 
@@ -67,6 +67,8 @@ const ChallengeDetailPage = () => {
   return (
     <S.Wrapper>
       <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
+      <div style={{ height: HEADER_HEIGHT }} />
+
       <S.ImageMask>
         {data?.imageUrls?.length ? (
           data.imageUrls.map((img, index) => <S.Image key={index} src={img} />)

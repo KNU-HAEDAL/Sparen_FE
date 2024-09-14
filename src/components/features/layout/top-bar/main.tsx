@@ -5,7 +5,7 @@ import { RouterPath } from '@/routes/path.ts';
 import { Box, Image, Text, Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const MainBar = () => {
+const MainBar = ({ height }: { height: string }) => {
   const accessToken = localStorage.getItem('accessToken');
 
   const handleLogout = () => {
@@ -17,7 +17,7 @@ const MainBar = () => {
   };
 
   return (
-    <PageBarLayout>
+    <PageBarLayout height={height}>
       <Box gap='1rem' alignItems='center' display='flex'>
         <Box
           border='1.5px solid var(--color-green-01)'
@@ -87,6 +87,8 @@ const PageBarLayout = styled(Box)`
   text-align: center;
   flex-direction: row;
   justify-content: space-between;
+
+  height: ${({ height }) => height};
   margin: 0.5rem;
   cursor: pointer;
   gap: 1rem;
