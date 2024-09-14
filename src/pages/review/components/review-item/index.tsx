@@ -30,7 +30,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
         </RowWrapper>
         <RowWrapper>
           <Text fontSize='var(--font-size-sm)'>{rating}</Text>
-          <StarRating rating={rating} />
+          <StarRating rating={rating} size={16} />
         </RowWrapper>
         <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
       </ReviewItemBox>
