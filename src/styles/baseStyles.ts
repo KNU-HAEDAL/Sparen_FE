@@ -111,7 +111,14 @@ export const TextItem = styled.div<{ fontWeight?: string; color: string }>`
 
 export const HorizontalLine = styled.div<{ margin?: number }>`
   border-top: 1px solid var(--color-green-06);
-  margin: ${({ margin }) => margin && `${margin}px`};
+  margin: ${({ margin }) => margin && `${margin}px 0`};
+`;
+
+export const VerticalLine = styled.div<{ margin?: number }>`
+  border: 1px solid var(--color-green-06);
+  /* flex: 1; */
+  height: 100px; // 수정 필요
+  margin: ${({ margin }) => margin && `0 ${margin}px`};
 `;
 
 // export const TeerTotal = styled.div`
