@@ -37,7 +37,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
           <Text fontSize='var(--font-size-xl)' fontWeight='700'>
             {avgRating}
           </Text>
-          <StarRating rating={avgRating} />
+          <StarRating rating={avgRating} size={20} />
         </CWrapper>
         <VLine />
         <RWrapper>
