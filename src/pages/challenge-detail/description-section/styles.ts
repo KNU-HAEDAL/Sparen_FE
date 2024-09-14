@@ -36,11 +36,6 @@ export const SubText = styled.div`
   margin: 0 30px;
 `;
 
-export const Line = styled.div`
-  border-top: 1px solid var(--color-green-06);
-  margin: 16px;
-`;
-
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -20,7 +20,6 @@ export const Wrapper = styled.div`
   margin: 0 0 3.44rem; // 하단 내브 바 높이
   display: flex;
   flex-direction: column;
-  gap: 16px;
   height: auto;
 `;
 
@@ -30,6 +29,7 @@ export const RatingContainer = styled.div`
   gap: 12px;
   flex: 1;
   width: 100%;
+  margin: 0 0 16px 0;
 `;
 
 export const AvgRating = styled.p`

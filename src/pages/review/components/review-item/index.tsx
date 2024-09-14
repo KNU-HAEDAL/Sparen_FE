@@ -1,6 +1,5 @@
-import { PiStarFill, PiStarLight } from 'react-icons/pi';
-
-import type { ReviewData } from '@/apis/review/review.response';
+import { type ReviewData } from '@/apis/review/review.response';
+import { StarRating } from '@/components/common/star-rating';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -12,91 +11,75 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
   const rating = item.rating;
 
   return (
-    <ReviewItemBox>
-      <UserWrapper>
-        <Wrapper>
-          <RowWrapper>
-            <ImageBox>
-              <Image
-                height='100%'
-                width='100%'
-                objectFit='cover'
-                src={item.user.profileImageUrl}
-              />
-            </ImageBox>
-            <Text fontSize='var(--font-size-md)' fontWeight='700'>
-              {item.user.nickname}
-            </Text>
-            <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
-              {item.user.tierInfo.tier}
-            </Text>
-          </RowWrapper>
-          <SmallText>난이도 {item.challengeDifficulty}</SmallText>
-        </Wrapper>
-        <StarWrapper>
-          {[...Array(rating)].map((i) => (
-            <PiStarFill size='15' key={i} color='var(--color-green-01)' />
-          ))}
-          {[...Array(5 - rating)].map((i) => (
-            <PiStarLight size='15' key={i} color='var(--color-green-01)' />
-          ))}
-        </StarWrapper>
-      </UserWrapper>
-      <Text fontSize='var(--font-size-sm)' marginLeft='35px'>
-        {item.content}
-      </Text>
-    </ReviewItemBox>
+    <Wrapper>
+      <ImageBox>
+        <Image
+          height='100%'
+          width='100%'
+          objectFit='cover'
+          src={item.user.profileImageUrl}
+        />
+      </ImageBox>
+      <ReviewItemBox>
+        <RowWrapper>
+          <Text fontSize='var(--font-size-sm)'>{item.user.nickname}</Text>
+          <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
+            {item.user.tierInfo.tier}
+          </Text>
+          <Rating>난이도 {item.challengeDifficulty}</Rating>
+        </RowWrapper>
+        <RowWrapper>
+          <Text fontSize='var(--font-size-sm)'>{rating}</Text>
+          <StarRating rating={rating} />
+        </RowWrapper>
+        <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
+      </ReviewItemBox>
+    </Wrapper>
   );
 };
 
 export default ReviewItem;
 
-const ReviewItemBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`;
-
-const SmallText = styled.div`
-  font-size: 0.8rem;
-  margin-left: 35px;
-  margin-bottom: 5px;
-  color: var(--color-grey-01);
-  border-radius: 20px;
-  width: 90px;
-  border: var(--color-grey-02) 0.5px solid;
-  text-align: center;
-`;
-
 const Wrapper = styled(Box)`
   display: flex;
-  flex-direction: row;
-`;
-
-const RowWrapper = styled(Wrapper)`
-  gap: 5px;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const UserWrapper = styled(Wrapper)`
-  gap: 5px;
-  align-items: start;
-  justify-content: space-between;
-`;
-
-const StarWrapper = styled(Wrapper)`
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  margin: 5px;
+  text-align: left;
+  gap: 8px;
+  flex: 1;
+  width: 100%;
 `;
 
 const ImageBox = styled.div`
-  height: 30px;
-  width: 30px;
-  border-radius: 70%;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
   overflow: hidden;
-  z-index: 10;
   aspect-ratio: 1/1;
+  display: flex; /* 이미지 가운데 정렬 */
+  align-items: center;
+  justify-content: center;
+`;
+
+const ReviewItemBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+`;
+
+const RowWrapper = styled(Wrapper)`
+  display: flex;
+  align-items: center;
+  margin: 4px 0 0 0;
+  flex: 1;
+  gap: 8px;
+`;
+
+const Rating = styled.div`
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-01);
+  border-radius: 20px;
+  border: var(--color-grey-02) 0.5px solid;
+  padding: 2px 8px;
+  text-align: center;
+  margin-left: auto;
 `;

@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import Challenge from '../components/challenge';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
+import * as Base from '@/styles/baseStyles';
 
 type DescriptionSectionProps = {
   data: ChallengeDetailData;
@@ -31,7 +32,7 @@ export const DescriptionSection = ({
         <S.Text>{data.guide}</S.Text>
       </S.ContentWrapper>
 
-      <S.Line />
+      <Base.HorizontalLine margin={16} />
 
       <S.RowList>
         {challenges.map((item) => (

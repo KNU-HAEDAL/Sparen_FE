@@ -5,6 +5,7 @@ import UserItem from '../components/user-item/';
 import * as S from './styles';
 import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
 import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
+import * as Base from '@/styles/baseStyles';
 
 type RankingSectionProps = {
   id: number;
@@ -121,7 +122,7 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
           {rankingList.map((item, index) => (
             <div key={item.ranking}>
               <UserItem data={item} />
-              {index < rankingList.length - 1 && <S.Line />}
+              {index < rankingList.length - 1 && <Base.HorizontalLine />}
               {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
             </div>
           ))}

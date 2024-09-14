@@ -7,6 +7,7 @@ import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
 import { type ReviewData } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review/components/review-item';
+import * as Base from '@/styles/baseStyles';
 
 interface Props {
   id: number;
@@ -16,7 +17,6 @@ export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
-  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,12 +44,6 @@ export const ReviewSection = ({ id }: Props) => {
       });
   }, [id]);
 
-  useEffect(() => {
-    if (avgRating !== undefined) {
-      setRatingToPercent(`${(avgRating / 5) * 100}%`);
-    }
-  }, [avgRating]);
-
   return (
     <S.Wrapper>
       {reviewList.length > 0 ? (
@@ -57,7 +51,7 @@ export const ReviewSection = ({ id }: Props) => {
         <>
           <S.RatingContainer className='RatingContainer'>
             <S.AvgRating>{avgRating}</S.AvgRating>
-            <StarRating ratingToPercent={ratingToPercent} />
+            {avgRating && <StarRating rating={avgRating} />}
             <S.AllReviewButton
               onClick={() => navigate(`/challenge/review/${id}`)}
             >
@@ -65,7 +59,13 @@ export const ReviewSection = ({ id }: Props) => {
             </S.AllReviewButton>
           </S.RatingContainer>
           {reviewList.map((review, index) => (
-            <ReviewItem key={index} item={review} />
+            <div key={index}>
+              <ReviewItem item={review} />
+              {index < reviewList.length - 1 && (
+                <Base.HorizontalLine margin={8} />
+              )}
+              {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+            </div>
           ))}
         </>
       ) : (

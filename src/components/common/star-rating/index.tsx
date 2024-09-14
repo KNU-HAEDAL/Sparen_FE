@@ -1,10 +1,21 @@
+import { useState, useEffect } from 'react';
+
 import styled from '@emotion/styled';
 
 interface StarRatingProps {
-  ratingToPercent: string;
+  rating: number;
 }
 
-export const StarRating = ({ ratingToPercent }: StarRatingProps) => {
+export const StarRating = ({ rating }: StarRatingProps) => {
+  // rating(별점)을 백분율로 변환
+  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
+
+  useEffect(() => {
+    if (rating !== undefined) {
+      setRatingToPercent(`${(rating / 5) * 100}%`);
+    }
+  }, [rating]);
+
   return (
     <Wrapper>
       <StarFill style={{ width: ratingToPercent }}>

@@ -7,6 +7,7 @@ import ReviewRating from './components/review-rating';
 import { getReview } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
 import TopBar from '@/components/features/layout/top-bar';
+import * as Base from '@/styles/baseStyles';
 import styled from '@emotion/styled';
 
 const Review = () => {
@@ -54,7 +55,13 @@ const Review = () => {
         {reviewList.length > 0 && (
           <ReviewList>
             {reviewList.map((review, index) => (
-              <ReviewItem key={index} item={review} />
+              <div key={index}>
+                <ReviewItem item={review} />
+                {index < reviewList.length - 1 && (
+                  <Base.HorizontalLine margin={8} />
+                )}
+                {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+              </div>
             ))}
             <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text>
           </ReviewList>

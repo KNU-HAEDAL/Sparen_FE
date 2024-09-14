@@ -109,6 +109,11 @@ export const TextItem = styled.div<{ fontWeight?: string; color: string }>`
   line-height: normal;
 `;
 
+export const HorizontalLine = styled.div<{ margin?: number }>`
+  border-top: 1px solid var(--color-green-06);
+  margin: ${({ margin }) => margin && `${margin}px`};
+`;
+
 // export const TeerTotal = styled.div`
 //   display: flex;
 //   /* width: 21.125rem; */

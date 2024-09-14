@@ -19,7 +19,6 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
     1: 0,
   });
   const [avgRating, setAvgRating] = useState(0);
-  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
@@ -27,12 +26,6 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
       setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
     });
   }, [challengeGroupId]);
-
-  useEffect(() => {
-    if (avgRating !== undefined) {
-      setRatingToPercent(`${(avgRating / 5) * 100}%`);
-    }
-  }, [avgRating]);
 
   // data 객체를 [key, value] 형태의 배열로 변환
   const newRatingCount = ratingCount ? Object.entries(ratingCount) : [];
@@ -44,7 +37,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
           <Text fontSize='var(--font-size-xl)' fontWeight='700'>
             {avgRating}
           </Text>
-          <StarRating ratingToPercent={ratingToPercent} />
+          <StarRating rating={avgRating} />
         </CWrapper>
         <VLine />
         <RWrapper>

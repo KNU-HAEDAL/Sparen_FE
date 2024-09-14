@@ -12,7 +12,3 @@ export const RankingWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-export const Line = styled.div`
-  border-top: 1px solid var(--color-green-06);
-`;
