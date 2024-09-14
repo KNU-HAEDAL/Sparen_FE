@@ -56,7 +56,6 @@ const Review = () => {
       <Wrapper>
         <Title>{challengeGrouptitle}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
-        <div style={{ height: '16px' }} />
         {reviewList.length > 0 ? (
           // 리뷰 있을 때
           <ReviewList>
@@ -98,7 +97,6 @@ const Text = styled.span<{ fontWeight?: string; color?: string }>`
 
 const Wrapper = styled.div`
   position: relative;
-  margin: 16px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -107,7 +105,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   font-size: var(--font-size-lg);
   font-weight: bold;
-  margin-bottom: 16px;
+  margin: 16px 16px;
   text-align: left;
 `;
 
@@ -115,6 +113,6 @@ const ReviewList = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 0 0 16px 0;
-  margin: 0 0 3.44rem 0;
+  padding: 16px 0;
+  margin: 0 16px 3.44rem 16px;
 `;

@@ -91,6 +91,7 @@ const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin: 0 16px;
   gap: 8px;
 `;
 
