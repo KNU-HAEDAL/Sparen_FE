@@ -49,7 +49,7 @@ const router = createBrowserRouter([
             element: <ChallengeDetailPage />,
           },
           {
-            path: `${RouterPath.review}/:id`,
+            path: `:id/${RouterPath.review}`,
             element: <Review />,
             children: [
               {
