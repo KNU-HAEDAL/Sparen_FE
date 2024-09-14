@@ -22,13 +22,9 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
       .catch((error) => {
         // API에서 받은 오류 객체일 경우
         if (error.result === 'FAIL') {
-          if (error.errorCode === 'BAD_REQUEST') {
-            alert(error.message); // 이미 참여한 챌린지입니다.
-          } else if (error.errorCode === 'UNAUTHORIZED') {
+          if (error.errorCode === 'UNAUTHORIZED') {
             alert('로그인 후 시도해주세요.');
             navigate(RouterPath.auth);
-          } else if (error.errorCode === 'COMMON_SYSTEM_ERROR') {
-            alert(error.message);
           } else {
             alert(error.message || '다시 시도해주세요.');
           }
