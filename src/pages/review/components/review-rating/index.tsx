@@ -44,7 +44,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
     <Wrapper>
       <RatingBox>
         <AvgRatingWrapper style={{ alignItems: 'center' }}>
-          <Text fontSize='var(--font-size-xl)' fontWeight='600'>
+          <Text fontSize='var(--font-size-xxl)' fontWeight='600'>
             {avgRating}
           </Text>
           <StarRating rating={avgRating} size={20} />
@@ -101,7 +101,7 @@ const RatingBox = styled(Box)`
   border-radius: 10px;
   background-color: var(--color-green-06);
   width: 100%;
-  padding: 16px 16px;
+  padding: 20px 20px;
   justify-content: center;
 `;
 
