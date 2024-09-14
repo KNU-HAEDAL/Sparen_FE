@@ -55,6 +55,7 @@ const Review = () => {
       <Wrapper>
         <Title>{challengeGrouptitle}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
+        <div style={{ height: '16px' }} />
         {reviewList.length > 0 ? (
           // 리뷰 있을 때
           <ReviewList>
@@ -113,6 +114,6 @@ const ReviewList = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: 0 0 16px 0;
   margin: 0 0 3.44rem 0;
 `;
