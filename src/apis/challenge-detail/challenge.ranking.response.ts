@@ -1,3 +1,14 @@
+export type GetChallengeRankingResponse = {
+  totalPage: number;
+  hasNext?: boolean;
+  myRanking?: {
+    ranking: number;
+    acquiredPoint: number;
+    user: UserData;
+  };
+  data: ChallengeRankingData[];
+};
+
 export type UserData = {
   id: number;
   nickname: string;
@@ -14,7 +25,6 @@ export type ChallengeRankingData = {
   acquiredPoint: number;
   user: UserData;
 };
-// ChallengeRankingData[]로 반환됨
 
 export const DummyRankingList: ChallengeRankingData[] = [
   {

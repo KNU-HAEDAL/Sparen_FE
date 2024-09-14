@@ -10,6 +10,8 @@ import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
+const CHALLENGE_GROUP_ID = 38;
+
 const ChallengeDetailPage = () => {
   const [activeTab, setActiveTab] = useState<number>(() => {
     // 세션 스토리지에 저장된 값 | 기본값 0
@@ -23,8 +25,14 @@ const ChallengeDetailPage = () => {
       label: '설명',
       component: data ? <DescriptionSection data={data} /> : null,
     },
-    { label: '랭킹', component: data ? <RankingSection id={data.id} /> : null },
-    { label: '리뷰', component: data ? <ReviewSection id={data.id} /> : null },
+    {
+      label: '랭킹',
+      component: data ? <RankingSection id={CHALLENGE_GROUP_ID} /> : null,
+    },
+    {
+      label: '리뷰',
+      component: data ? <ReviewSection id={CHALLENGE_GROUP_ID} /> : null,
+    },
   ];
 
   const handleSelectedTab = (value: number) => {
@@ -35,7 +43,7 @@ const ChallengeDetailPage = () => {
   useEffect(() => {
     const fetchChallengeDetail = async () => {
       try {
-        const res = await getChallengeDetail(20);
+        const res = await getChallengeDetail(CHALLENGE_GROUP_ID);
         setData(res);
       } catch (error) {
         console.error(error);
