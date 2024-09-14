@@ -48,7 +48,7 @@ const Review = () => {
           setIsFetching(false);
         });
     }
-  }, [inView, hasNext, challengeGroupId, page]);
+  }, [inView, hasNext, isFetching, challengeGroupId, page]);
 
   return (
     <>
