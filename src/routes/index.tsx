@@ -45,11 +45,11 @@ const router = createBrowserRouter([
             element: <ChallengeRecord />,
           },
           {
-            path: RouterPath.detail,
+            path: `:id/${RouterPath.detail}`,
             element: <ChallengeDetailPage />,
           },
           {
-            path: `${RouterPath.review}/:id`,
+            path: `:id/${RouterPath.review}`,
             element: <Review />,
             children: [
               {

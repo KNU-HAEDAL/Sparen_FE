@@ -27,15 +27,13 @@ export async function getChallengeDetail(
 export async function joinChallenge(id: number) {
   try {
     const response = await axiosClient.post(`api/challenges/${id}/join`);
-    console.log('joinChallenge response: ', response.data);
-    return response.data.data;
+    // console.log('joinChallenge response: ', response.data);
+    return response.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(
-        `joinChallenge error: ${error.response?.data.message || error.message}`
-      );
-    } else {
-      throw new Error('joinChallenge error: unexpected');
+    if (error instanceof AxiosError && error.response) {
+      throw error.response.data;
     }
+    // AxiosError가 아닌 경우 일반적인 예외 처리
+    throw new Error('joinChallenge error: unexpected');
   }
 }

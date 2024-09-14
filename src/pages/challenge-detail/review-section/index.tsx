@@ -61,7 +61,7 @@ export const ReviewSection = ({ id }: Props) => {
             <S.AvgRating>{avgRating}</S.AvgRating>
             {avgRating && <StarRating rating={avgRating} />}
             <S.AllReviewButton
-              onClick={() => navigate(`/challenge/review/${id}`)}
+              onClick={() => navigate(`/challenge/${id}/review`)}
             >
               {totalRatings}개 모두 보기{' '}
               <IoIosArrowForward style={{ marginLeft: '4px' }} />

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
+import { RouterPath } from '@/routes/path';
 
 type Props = {
   challenge: Challenge;
@@ -11,21 +11,28 @@ type Props = {
 };
 
 const Challenge = ({ challenge, maxDifficulty }: Props) => {
-  const [data, setData] = useState<number | null>(null);
+  const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
   const navigate = useNavigate();
 
-  const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
-
-  const saveHandler = () => {
+  const clickJoinChallenge = () => {
     joinChallenge(challenge.id)
       .then((res) => {
-        setData(res);
-        alert(`성공적으로 참여했습니다. 데이터: ${res}`);
-        navigate('/');
+        alert(res.message);
       })
-      .catch(() => {
-        alert('이미 참여한 챌린지입니다.');
-        navigate('/');
+      .catch((error) => {
+        // API에서 받은 오류 객체일 경우
+        if (error.result === 'FAIL') {
+          if (error.errorCode === 'UNAUTHORIZED') {
+            alert('로그인 후 시도해주세요.');
+            navigate(RouterPath.auth);
+          } else {
+            alert(error.message || '다시 시도해주세요.');
+          }
+        }
+        // 예상치 못한 오류 처리
+        else {
+          alert('다시 시도해주세요.');
+        }
       });
   };
 
@@ -63,8 +70,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
           <S.ExpContent>{challenge.successExp} 포인트</S.ExpContent>
         </S.RowWrapper>
       </S.Wrapper>
-      <S.Btn onClick={saveHandler}>참여하기</S.Btn>
-      {data && null}
+      <S.Btn onClick={clickJoinChallenge}>참여하기</S.Btn>
     </S.Outer>
   );
 };
