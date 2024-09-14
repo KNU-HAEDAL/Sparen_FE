@@ -46,7 +46,6 @@ const Wrapper = styled.div<{ size: number }>`
 const StarFill = styled.div`
   padding: 0;
   position: absolute;
-  z-index: 1;
   display: flex;
   top: 0;
   left: 0;
@@ -55,6 +54,5 @@ const StarFill = styled.div`
 `;
 
 const StarBase = styled.div`
-  z-index: 0;
   padding: 0;
 `;
