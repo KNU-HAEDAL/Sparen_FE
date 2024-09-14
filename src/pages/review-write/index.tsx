@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -66,6 +66,7 @@ const ReviewWrite = () => {
   return (
     <>
       <TopBar title='챌린지 리뷰' backgroundColor='#fff' type='Page' />
+      <div style={{ height: HEADER_HEIGHT }} />
       <ReviewWriteLayout>
         <Text fontSize='var(--font-size-lg)' fontWeight='700'>
           {challengeTitle}
