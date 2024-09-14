@@ -33,7 +33,7 @@ export const RatingContainer = styled.div`
 `;
 
 export const AvgRating = styled.p`
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-xl);
   font-weight: 600;
 `;
 
