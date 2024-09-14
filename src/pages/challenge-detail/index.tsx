@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { getChallengeDetail } from '../../apis/challenge-detail/challenge.detail.api';
 import { DescriptionSection } from './description-section';
@@ -10,9 +11,12 @@ import DefaultImage from '@/assets/Default-Image.svg';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
 import TopBar from '@/components/features/layout/top-bar';
 
-const CHALLENGE_GROUP_ID = 38;
+// const CHALLENGE_GROUP_ID = 38;
 
 const ChallengeDetailPage = () => {
+  const { id } = useParams();
+  const challengeGroupId = Number(id);
+
   const [activeTab, setActiveTab] = useState<number>(() => {
     // 세션 스토리지에 저장된 값 | 기본값 0
     const savedTab = sessionStorage.getItem('activeTab');
@@ -27,11 +31,11 @@ const ChallengeDetailPage = () => {
     },
     {
       label: '랭킹',
-      component: data ? <RankingSection id={CHALLENGE_GROUP_ID} /> : null,
+      component: data ? <RankingSection id={challengeGroupId} /> : null,
     },
     {
       label: '리뷰',
-      component: data ? <ReviewSection id={CHALLENGE_GROUP_ID} /> : null,
+      component: data ? <ReviewSection id={challengeGroupId} /> : null,
     },
   ];
 
@@ -43,7 +47,7 @@ const ChallengeDetailPage = () => {
   useEffect(() => {
     const fetchChallengeDetail = async () => {
       try {
-        const res = await getChallengeDetail(CHALLENGE_GROUP_ID);
+        const res = await getChallengeDetail(challengeGroupId);
         setData(res);
       } catch (error) {
         console.error(error);

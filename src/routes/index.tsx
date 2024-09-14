@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             element: <ChallengeRecord />,
           },
           {
-            path: RouterPath.detail,
+            path: `:id/${RouterPath.detail}`,
             element: <ChallengeDetailPage />,
           },
           {
