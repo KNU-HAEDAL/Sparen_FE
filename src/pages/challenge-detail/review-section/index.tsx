@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
-import type { ReviewData } from '@/apis/review/review.response';
+import { type ReviewData } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review/components/review-item';
 
@@ -14,41 +14,27 @@ interface Props {
 
 export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
-  const [reviewList, setReviewList] = useState<ReviewData[]>([
-    {
-      challengeId: 1,
-      challengeTitle: '쓰레기 줍기 챌린지',
-      challengeDifficulty: 0,
-      user: {
-        id: 2000,
-        nickname: '뽀롱뽀롱 뽀로로 노는 게 젤 좋아',
-        profileImageUrl: 'string',
-        tierInfo: {
-          tier: '노비 III',
-          totalExp: 0,
-          currentExp: 0,
-        },
-      },
-      content:
-        '매일 매일 꾸준히 했더니 습관이 형성되었어요. 습관도 만들고 포인트도 얻고 좋아요 굿',
-      rating: 4,
-    },
-  ]);
-  const [page, setPage] = useState(0);
+  const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
   const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getChallegeAvgScore({ challengeGroupId: id }).then((res) => {
-      setAvgRating(Number(res.averageRating.toFixed(1))); // 평균 별점만 필요함 / 소수점 아래 한 자리
-    });
+    // 평균 별점 가져오기
+    getChallegeAvgScore({ challengeGroupId: id })
+      .then((res) => {
+        setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
+      })
+      .catch((error) => {
+        console.error('Error fetching average score:', error);
+      });
 
-    getReview({ challengeGroupId: id, page, size: DATA_SIZE })
+    // 리뷰 리스트 가져오기
+    getReview({ challengeGroupId: id, page: 0, size: DATA_SIZE })
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length > 0) {
           setReviewList((prevReviewList) => [...prevReviewList, ...res.data]);
-          setPage((prevPage) => prevPage + 1);
+          // console.log(`리뷰 리스트: `, reviewList); // test
         } else {
           console.log('리뷰 데이터 없음');
         }
@@ -56,7 +42,7 @@ export const ReviewSection = ({ id }: Props) => {
       .catch((error) => {
         console.error('Error fetching reviews:', error);
       });
-  }, [id, page]);
+  }, [id]);
 
   useEffect(() => {
     if (avgRating !== undefined) {
@@ -78,9 +64,8 @@ export const ReviewSection = ({ id }: Props) => {
               모두 보기 <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
           </S.RatingContainer>
-          {reviewList.map((review) => (
-            <ReviewItem key={review.rating} data={review} />
-            // 키가 원래 ranking으로 되어있었는데 ReviewData에는 해당 키가 없어서 임의로 변경해둠
+          {reviewList.map((review, index) => (
+            <ReviewItem key={index} item={review} />
           ))}
         </>
       ) : (

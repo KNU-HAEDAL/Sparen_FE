@@ -5,12 +5,11 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ReviewItemProps = {
-  data: ReviewData;
+  item: ReviewData;
 };
 
-const ReviewItem = ({ data }: ReviewItemProps) => {
-  // const rating = 2;
-  const rating = data.rating;
+const ReviewItem = ({ item }: ReviewItemProps) => {
+  const rating = item.rating;
 
   return (
     <ReviewItemBox>
@@ -22,17 +21,17 @@ const ReviewItem = ({ data }: ReviewItemProps) => {
                 height='100%'
                 width='100%'
                 objectFit='cover'
-                src={data.user.profileImageUrl}
+                src={item.user.profileImageUrl}
               />
             </ImageBox>
             <Text fontSize='var(--font-size-md)' fontWeight='700'>
-              {data.user.nickname}
+              {item.user.nickname}
             </Text>
             <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
-              {data.user.tierInfo.tier}
+              {item.user.tierInfo.tier}
             </Text>
           </RowWrapper>
-          <SmallText>참여난이도 {data.challengeDifficulty}</SmallText>
+          <SmallText>난이도 {item.challengeDifficulty}</SmallText>
         </Wrapper>
         <StarWrapper>
           {[...Array(rating)].map((i) => (
@@ -44,7 +43,7 @@ const ReviewItem = ({ data }: ReviewItemProps) => {
         </StarWrapper>
       </UserWrapper>
       <Text fontSize='var(--font-size-sm)' marginLeft='35px'>
-        {data.content}
+        {item.content}
       </Text>
     </ReviewItemBox>
   );
@@ -99,4 +98,5 @@ const ImageBox = styled.div`
   border-radius: 70%;
   overflow: hidden;
   z-index: 10;
+  aspect-ratio: 1/1;
 `;
