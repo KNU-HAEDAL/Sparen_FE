@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 import { useParams } from 'react-router-dom';
 
 import ReviewItem from './components/review-item';
@@ -18,33 +18,36 @@ const Review = () => {
   const DATA_SIZE = 10; // 한번에 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [page, setPage] = useState<number>(0); // 0부터 시작
-  const [ref, inView] = useInView({ threshold: 0.8 });
-  const [isFetching, setIsFetching] = useState<boolean>(false);
-  const [hasMore, setHasMore] = useState<boolean>(true); // 데이터 없을 때 호출 방지
+  // const [ref, inView] = useInView({ threshold: 0.8 });
+  // const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [hasNext, setHasNext] = useState<boolean>(true); // 데이터 없을 때 호출 방지
 
   useEffect(() => {
-    if (inView && hasMore && !isFetching) {
-      setIsFetching(true);
+    if (hasNext) {
+      // setIsFetching(true);
+
       getReview({ challengeGroupId: challengeGroupId, page, size: DATA_SIZE })
         .then((res) => {
-          if (Array.isArray(res) && res.data.length > 0) {
+          if (Array.isArray(res.data) && res.data.length > 0) {
             // 데이터가 있을 때
             setReviewList((prevReviewList) => [...prevReviewList, ...res.data]);
+            console.log(`리뷰 리스트: `, reviewList); // test
+            setHasNext(res.hasNext);
             setPage((prevPage) => prevPage + 1);
           } else {
             // 데이터가 없을 때
-            setHasMore(false);
-            console.log('더 이상 리뷰가 없습니다.');
+            setHasNext(false);
+            console.log('리뷰 데이터 없음');
           }
         })
         .catch((error) => {
           console.error('Error fetching rankings:', error);
         })
         .finally(() => {
-          setIsFetching(false);
+          // setIsFetching(false);
         });
     }
-  }, [inView, isFetching, hasMore, challengeGroupId, page, reviewList]);
+  }, [hasNext, challengeGroupId, page]);
 
   return (
     <>
@@ -52,7 +55,8 @@ const Review = () => {
       <Wrapper>
         <Title>{challengeGrouptitle}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
-        {reviewList.length > 0 && (
+        {reviewList.length > 0 ? (
+          // 리뷰 있을 때
           <ReviewList>
             {reviewList.map((review, index) => (
               <div key={index}>
@@ -63,8 +67,19 @@ const Review = () => {
                 {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
               </div>
             ))}
-            <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text>
+            {/* <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text> */}
           </ReviewList>
+        ) : (
+          // 리뷰 없을 때
+          <Text>
+            아직 리뷰가 없습니다.
+            <br />
+            챌린지를 완료하고{' '}
+            <Text fontWeight='600' color={`var(--color-green-01)`}>
+              첫 번째 리뷰어
+            </Text>
+            가 되어보세요!
+          </Text>
         )}
       </Wrapper>
     </>
@@ -84,18 +99,20 @@ const Wrapper = styled.div`
   margin: 16px;
   display: flex;
   flex-direction: column;
+  text-align: center;
 `;
 
 const Title = styled.div`
   font-size: var(--font-size-lg);
   font-weight: bold;
   margin-bottom: 16px;
+  text-align: left;
 `;
 
 const ReviewList = styled.div`
   position: relative;
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  padding: 16px 0;
+  margin: 0 0 3.44rem 0;
 `;
