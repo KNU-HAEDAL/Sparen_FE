@@ -21,15 +21,14 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
         />
       </ImageBox>
       <ReviewItemBox>
-        <RowWrapper>
+        <RowWrapper style={{ marginTop: '4px' }}>
           <Text fontSize='var(--font-size-sm)'>{item.user.nickname}</Text>
-          <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
+          <Text fontSize='var(--font-size-sm)' color='var(--color-grey-01)'>
             {item.user.tierInfo.tier}
           </Text>
           <Rating>난이도 {item.challengeDifficulty}</Rating>
         </RowWrapper>
         <RowWrapper>
-          <Text fontSize='var(--font-size-sm)'>{rating}</Text>
           <StarRating rating={rating} size={16} />
         </RowWrapper>
         <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
@@ -69,7 +68,6 @@ const ReviewItemBox = styled(Box)`
 const RowWrapper = styled(Wrapper)`
   display: flex;
   align-items: center;
-  margin: 4px 0 0 0;
   flex: 1;
   gap: 8px;
 `;
