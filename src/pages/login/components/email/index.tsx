@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { AxiosError } from 'axios';
+
 import { useLogin } from '@/apis/auth/auth.api';
 import { RouterPath } from '@/routes/path';
 import { Button, Container, Text } from '@chakra-ui/react';
@@ -20,10 +22,10 @@ const EmailLogin = () => {
       return;
     }
     try {
-      const data = await loginMutation.mutateAsync({ email, password });
+      const response = await loginMutation.mutateAsync({ email, password });
 
-      const accessToken = data.data.accessToken;
-      const refreshToken = data.data.refreshToken;
+      const accessToken = response.data.accessToken;
+      const refreshToken = response.data.refreshToken;
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
@@ -37,8 +39,14 @@ const EmailLogin = () => {
       }
       navigate(redirectUrl);
     } catch (error) {
-      console.error('로그인 실패:', error);
-      alert('로그인 실패: ' + (error as Error).message);
+      // axios 통신 에러인 경우
+      if (error instanceof AxiosError && error.response) {
+        alert(error.response.data?.message); // 에러 응답 메시지 출력
+      }
+      // 이외의 에러
+      else {
+        alert('알 수 없는 오류가 발생했습니다.' + (error as Error).message);
+      }
     }
   };
 
