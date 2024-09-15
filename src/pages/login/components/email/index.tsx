@@ -27,7 +27,15 @@ const EmailLogin = () => {
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      navigate(RouterPath.main);
+
+      // 리다이렉트 페이지 설정
+      let redirectUrl =
+        new URLSearchParams(location.search).get('redirect') || RouterPath.main;
+      // redirectUrl이 상대경로일 경우 앞에 '/' 추가하여 절대경로로
+      if (!redirectUrl.startsWith('/')) {
+        redirectUrl = `/${redirectUrl}`;
+      }
+      navigate(redirectUrl);
     } catch (error) {
       console.error('로그인 실패:', error);
       alert('로그인 실패: ' + (error as Error).message);
