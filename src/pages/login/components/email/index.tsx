@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { AxiosError } from 'axios';
+
 import { useLogin } from '@/apis/auth/auth.api';
 import { RouterPath } from '@/routes/path';
 import { Button, Container, Text } from '@chakra-ui/react';
@@ -20,17 +22,37 @@ const EmailLogin = () => {
       return;
     }
     try {
-      const data = await loginMutation.mutateAsync({ email, password });
+      const response = await loginMutation.mutateAsync({ email, password });
 
-      const accessToken = data.data.accessToken;
-      const refreshToken = data.data.refreshToken;
+      const accessToken = response.data.accessToken;
+      const refreshToken = response.data.refreshToken;
 
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      navigate(RouterPath.main);
+
+      // 리다이렉트 페이지 설정
+      let redirectUrl =
+        new URLSearchParams(location.search).get('redirect') || RouterPath.main;
+      // redirectUrl이 상대경로일 경우 앞에 '/' 추가하여 절대경로로
+      if (!redirectUrl.startsWith('/')) {
+        redirectUrl = `/${redirectUrl}`;
+      }
+      navigate(redirectUrl);
     } catch (error) {
-      console.error('로그인 실패:', error);
-      alert('로그인 실패: ' + (error as Error).message);
+      // axios 통신 에러인 경우
+      if (error instanceof AxiosError && error.response) {
+        alert(error.response.data?.message); // 에러 응답 메시지 출력
+      }
+      // 이외의 에러
+      else {
+        alert('알 수 없는 오류가 발생했습니다.' + (error as Error).message);
+      }
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -49,6 +71,7 @@ const EmailLogin = () => {
           placeholder='이메일을 입력해주세요.'
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          onKeyDown={handleKeyPress}
         />
         <LoginInput
           type='password'
@@ -56,6 +79,7 @@ const EmailLogin = () => {
           placeholder='비밀번호를 입력해주세요.'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
+          onKeyDown={handleKeyPress}
         />
       </Container>
       <Container
