@@ -17,7 +17,7 @@ const MainBar = ({ height }: { height: string }) => {
   };
 
   return (
-    <PageBarLayout height={height}>
+    <MainBarLayout height={height}>
       <Box gap='1rem' alignItems='center' display='flex'>
         <Box
           border='1.5px solid var(--color-green-01)'
@@ -75,21 +75,23 @@ const MainBar = ({ height }: { height: string }) => {
           </NavLink>
         </Button>
       )}
-    </PageBarLayout>
+    </MainBarLayout>
   );
 };
 
 export default MainBar;
 
-const PageBarLayout = styled(Box)`
+const MainBarLayout = styled(Box)`
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: row;
   justify-content: space-between;
-
+  width: 100%;
   height: ${({ height }) => height};
-  margin: 0.5rem;
-  cursor: pointer;
+  padding: 0.5rem;
   gap: 1rem;
+  background-color: #fff;
+  z-index: 1000;
+  position: fixed;
 `;

@@ -27,8 +27,8 @@ const MyChallengePage = () => {
   return (
     <>
       <TopBar type='Page' title='내 챌린지' backgroundColor='#fff' />
-      <div style={{ height: HEADER_HEIGHT }} />
 
+      <div style={{ height: HEADER_HEIGHT }} />
       <MyChallengeLayout>
         <Text
           fontSize='var(--font-size-xxl)'
