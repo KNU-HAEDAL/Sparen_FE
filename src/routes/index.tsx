@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
+import { ProtectedRoute } from './protected-route';
 import NavBar from '@/components/features/layout/nav-bar';
 import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeRecord from '@/pages/challenge-record';
@@ -34,27 +35,51 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <MyChallengePage />,
+            element: (
+              <ProtectedRoute>
+                <MyChallengePage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: RouterPath.myRecord,
-            element: <MyChallengeRecord />,
+            element: (
+              <ProtectedRoute>
+                <MyChallengeRecord />
+              </ProtectedRoute>
+            ),
           },
           {
             path: RouterPath.record,
-            element: <ChallengeRecord />,
+            element: (
+              <ProtectedRoute>
+                <ChallengeRecord />
+              </ProtectedRoute>
+            ),
           },
           {
             path: `:id/${RouterPath.detail}`,
-            element: <ChallengeDetailPage />,
+            element: (
+              <ProtectedRoute>
+                <ChallengeDetailPage />
+              </ProtectedRoute>
+            ),
           },
           {
             path: `:id/${RouterPath.review}`,
-            element: <Review />,
+            element: (
+              <ProtectedRoute>
+                <Review />
+              </ProtectedRoute>
+            ),
             children: [
               {
                 path: RouterPath.write,
-                element: <ReviewWrite />,
+                element: (
+                  <ProtectedRoute>
+                    <ReviewWrite />
+                  </ProtectedRoute>
+                ),
               },
             ],
           },
@@ -66,11 +91,19 @@ const router = createBrowserRouter([
       },
       {
         path: RouterPath.rank,
-        element: <RankPage />,
+        element: (
+          <ProtectedRoute>
+            <RankPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RouterPath.dashboard,
-        element: <DashBoardPage />,
+        element: (
+          <ProtectedRoute>
+            <DashBoardPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
