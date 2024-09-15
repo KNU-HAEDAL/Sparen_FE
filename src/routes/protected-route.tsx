@@ -26,6 +26,6 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 const getDynamicPath = {
   login: (redirect?: string) => {
     const currentRedirect = redirect ?? window.location.href;
-    return `${RouterPath.auth}?redirect=${encodeURIComponent(currentRedirect)}`;
+    return `/${RouterPath.auth}?redirect=${encodeURIComponent(currentRedirect)}`;
   },
 };
