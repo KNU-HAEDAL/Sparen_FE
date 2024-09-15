@@ -8,17 +8,23 @@ const PageBar = ({
   title,
   height,
   backgroundColor,
+  show,
 }: {
   title: string;
   height: string;
   backgroundColor: string;
+  show: boolean;
 }) => {
   const navigate = useNavigate();
   const handlerNavigate = () => {
     navigate(-1);
   };
   return (
-    <PageBarLayout height={height} backgroundColor={backgroundColor}>
+    <PageBarLayout
+      height={height}
+      backgroundColor={backgroundColor}
+      show={show}
+    >
       <PrevButtonBox onClick={handlerNavigate}>
         <Image width='0.8rem' height='1.45rem' src={PrevIcon} alt='Prev Icon' />
       </PrevButtonBox>
@@ -39,7 +45,11 @@ const PageBar = ({
 
 export default PageBar;
 
-const PageBarLayout = styled(Box)<{ height: string; backgroundColor: string }>`
+const PageBarLayout = styled(Box)<{
+  height: string;
+  backgroundColor: string;
+  show: boolean;
+}>`
   display: flex;
   align-items: center;
   text-align: center;
@@ -52,6 +62,8 @@ const PageBarLayout = styled(Box)<{ height: string; backgroundColor: string }>`
   background-color: ${(props) => props.backgroundColor};
   z-index: 1000;
   position: fixed;
+  top: ${({ show }) => (show ? '0' : '-100px')};
+  transition: top 0.3s;
 `;
 
 const TitleBox = styled(Box)`

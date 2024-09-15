@@ -5,7 +5,7 @@ import { RouterPath } from '@/routes/path.ts';
 import { Box, Image, Text, Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const MainBar = ({ height }: { height: string }) => {
+const MainBar = ({ height, show }: { height: string; show: boolean }) => {
   const accessToken = localStorage.getItem('accessToken');
 
   const handleLogout = () => {
@@ -17,7 +17,7 @@ const MainBar = ({ height }: { height: string }) => {
   };
 
   return (
-    <MainBarLayout height={height}>
+    <MainBarLayout height={height} show={show}>
       <Box gap='1rem' alignItems='center' display='flex'>
         <Box
           border='1.5px solid var(--color-green-01)'
@@ -81,7 +81,7 @@ const MainBar = ({ height }: { height: string }) => {
 
 export default MainBar;
 
-const MainBarLayout = styled(Box)`
+const MainBarLayout = styled(Box)<{ show: boolean }>`
   display: flex;
   align-items: center;
   text-align: center;
@@ -94,4 +94,9 @@ const MainBarLayout = styled(Box)`
   background-color: #fff;
   z-index: 1000;
   position: fixed;
+  top: ${({ show }) => (show ? '0' : '-100px')};
+  transition: top 0.3s;
+
+  /* position: sticky;
+  top: 0; */
 `;
