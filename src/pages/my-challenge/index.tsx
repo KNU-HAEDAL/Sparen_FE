@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import ChallengeList from './components/challenge-list';
 import { getCurrentChallengeList } from '@/apis/challenge/my-challenge/my.challenge.api';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { ChallengeData } from '@/interface/apis/challenge';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -27,6 +27,8 @@ const MyChallengePage = () => {
   return (
     <>
       <TopBar type='Page' title='내 챌린지' backgroundColor='#fff' />
+      <div style={{ height: HEADER_HEIGHT }} />
+
       <MyChallengeLayout>
         <Text
           fontSize='var(--font-size-xxl)'

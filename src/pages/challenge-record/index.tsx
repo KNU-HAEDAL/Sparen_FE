@@ -3,7 +3,7 @@ import { useState } from 'react';
 import StampBoard from './components/stamp-board';
 import Verification from './components/verification';
 import { Tab, TabPanel, Tabs } from '@/components/common/tab';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
 type TabsContainerProps = {
@@ -20,6 +20,8 @@ const ChallengeRecord = () => {
   return (
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
+      <div style={{ height: HEADER_HEIGHT }} />
+
       <ChallengeRecordLayout>
         <TabsContainer>
           <Tabs selectedTab={activeTab} onChange={(value) => handleTab(value)}>

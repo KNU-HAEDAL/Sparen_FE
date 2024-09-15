@@ -1,5 +1,5 @@
 import ListItem from './components/list-item';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -11,6 +11,8 @@ const MyChallengeRecord = () => {
         title='내 챌린지 기록'
         backgroundColor='var(--color-green-06)'
       />
+      <div style={{ height: HEADER_HEIGHT }} />
+
       <MyChallengeRecordLayout>
         <ChallengeList>
           <ListItem />

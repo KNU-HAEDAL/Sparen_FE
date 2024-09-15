@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import EmailLogin from './components/email';
 import GoogleLogin from './components/google';
 import NaverLogin from './components/naver';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import KakaoLogin from '@/pages/login/components/kakao';
 import { RouterPath } from '@/routes/path';
 import { Container, Text } from '@chakra-ui/react';
@@ -13,6 +13,8 @@ const LoginPage = () => {
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='#fff' />
+      <div style={{ height: HEADER_HEIGHT }} />
+
       <LoginLayout>
         <Text fontSize='var(--font-size-xl)' fontWeight='700'>
           짠수니와 함께 챌린지를 시작해보세요!
