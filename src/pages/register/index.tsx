@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { setRegister } from '@/apis/auth/auth.api.ts';
-import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import TopBar from '@/components/features/layout/top-bar';
 import { RouterPath } from '@/routes/path.ts';
 import * as Base from '@/styles/baseStyles.ts';
 import { Text, Input } from '@chakra-ui/react';
@@ -45,8 +45,6 @@ const RegisterPage = () => {
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='#fff' />
-      <div style={{ height: HEADER_HEIGHT }} />
-
       <RegisterLayout>
         <Text fontSize='var(--font-size-xl)' fontWeight='700'>
           짠수니에 오신것을 환영합니다!

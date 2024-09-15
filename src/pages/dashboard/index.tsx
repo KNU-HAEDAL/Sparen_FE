@@ -1,7 +1,7 @@
 import Strick from '../main/components/strick';
 import Record from './components/challenge-record';
 import UserInfo from './components/user-info';
-import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import TopBar from '@/components/features/layout/top-bar';
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -13,8 +13,6 @@ const DashBoardPage = () => {
         title='대시보드'
         backgroundColor='var(--color-green-06)'
       />
-      <div style={{ height: HEADER_HEIGHT }} />
-
       <DashBoardLayout>
         <UserInfo />
         <Record />

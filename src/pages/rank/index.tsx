@@ -1,7 +1,7 @@
 import AllRank from './components/all';
 import MyRank from './components/my';
 import * as S from './styles';
-import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import TopBar from '@/components/features/layout/top-bar';
 
 const RankPage = () => {
   return (
@@ -11,8 +11,6 @@ const RankPage = () => {
         title='랭킹'
         backgroundColor='var(--color-green-06)'
       />
-      <div style={{ height: HEADER_HEIGHT }} />
-
       <S.RankLayout>
         <S.PageLayout>
           <MyRank />

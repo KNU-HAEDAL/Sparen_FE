@@ -93,10 +93,7 @@ const MainBarLayout = styled(Box)<{ show: boolean }>`
   gap: 1rem;
   background-color: #fff;
   z-index: 1000;
-  position: fixed;
+  position: sticky;
   top: ${({ show }) => (show ? '0' : '-100px')};
   transition: top 0.3s;
-
-  /* position: sticky;
-  top: 0; */
 `;

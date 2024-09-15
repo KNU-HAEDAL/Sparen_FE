@@ -6,7 +6,7 @@ import ReviewItem from './components/review-item';
 import ReviewRating from './components/review-rating';
 import { getReview } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
-import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import TopBar from '@/components/features/layout/top-bar';
 import * as Base from '@/styles/baseStyles';
 import styled from '@emotion/styled';
 
@@ -53,7 +53,6 @@ const Review = () => {
   return (
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
-      <div style={{ height: HEADER_HEIGHT }} />
       <Wrapper>
         <Title>{challengeGrouptitle}</Title>
         <ReviewRating challengeGroupId={challengeGroupId} />
