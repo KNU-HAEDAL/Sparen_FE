@@ -5,7 +5,7 @@ import { RouterPath } from '@/routes/path.ts';
 import { Box, Image, Text, Button } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const MainBar = () => {
+const MainBar = ({ height, show }: { height: string; show: boolean }) => {
   const accessToken = localStorage.getItem('accessToken');
 
   const handleLogout = () => {
@@ -17,7 +17,7 @@ const MainBar = () => {
   };
 
   return (
-    <PageBarLayout>
+    <MainBarLayout height={height} show={show}>
       <Box gap='1rem' alignItems='center' display='flex'>
         <Box
           border='1.5px solid var(--color-green-01)'
@@ -75,19 +75,25 @@ const MainBar = () => {
           </NavLink>
         </Button>
       )}
-    </PageBarLayout>
+    </MainBarLayout>
   );
 };
 
 export default MainBar;
 
-const PageBarLayout = styled(Box)`
+const MainBarLayout = styled(Box)<{ show: boolean }>`
   display: flex;
   align-items: center;
   text-align: center;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0.5rem;
-  cursor: pointer;
+  width: 100%;
+  height: ${({ height }) => height};
+  padding: 0.5rem;
   gap: 1rem;
+  background-color: #fff;
+  z-index: 1000;
+  position: sticky;
+  top: ${({ show }) => (show ? '0' : '-100px')};
+  transition: top 0.3s;
 `;

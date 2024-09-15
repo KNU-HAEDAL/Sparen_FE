@@ -1,5 +1,7 @@
-import MainBar from './main';
-import PageBar from './page';
+import { useEffect, useState } from 'react';
+
+import MainBar from './main-bar';
+import PageBar from './page-bar';
 
 // 이 곳에서 다 처리해야함
 // 1. Main 페이지에서의 Top - Bar
@@ -20,13 +22,46 @@ type TopBarProps = {
  * backgroundColor : 배경색,
  * var(--color-green-06) or #fff
  */
+
+export const HEADER_HEIGHT = '3rem';
+
 const TopBar = ({ type, ...props }: TopBarProps) => {
+  const [show, setShow] = useState(true);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollTop = window.scrollY;
+
+      if (currentScrollTop > lastScrollTop) {
+        setShow(false);
+      } else {
+        setShow(true);
+      }
+
+      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollTop]);
+
   if (type === 'Main') {
-    return <MainBar />;
+    return <MainBar height={HEADER_HEIGHT} show={show} />;
   } else if (type === 'Page') {
     const { title, backgroundColor } = props;
-    return <PageBar title={title} backgroundColor={backgroundColor} />;
+    return (
+      <PageBar
+        title={title}
+        height={HEADER_HEIGHT}
+        backgroundColor={backgroundColor}
+        show={show}
+      />
+    );
   }
   return null;
 };
+
 export default TopBar;
