@@ -82,7 +82,7 @@ const ChallengeList = ({
                 borderColor={BorderColor}
                 onClick={() => handleSaveTitle(challenge.title)}
               >
-                <Link to={RouterPath.reviewWrite}>
+                <Link to={RouterPath.write}>
                   <Text
                     fontSize='0.875rem'
                     fontStyle='normal'
