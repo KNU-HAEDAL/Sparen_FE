@@ -1,31 +1,46 @@
+import CategoryIcon from './category-icons';
 import StartIcon from '@/assets/challenge/Start-Icon.svg';
-import EcoIcon from '@/assets/main/Eco-Logo.svg';
-import { Image, Text } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ShortsInfo = () => {
+type Info = {
+  participantCount?: number;
+  category: 'HEALTH' | 'ECHO' | 'SHARE' | 'VOLUNTEER' | 'ETC';
+};
+
+type Props = {
+  info?: Info;
+};
+
+const ShortsInfo = ({ info }: Props) => {
   return (
     <>
       <ShortsInfoLayout>
-        <ShortsInfoIconBox>
-          <Image width='1.5rem' height='1.5rem' src={EcoIcon} />
-        </ShortsInfoIconBox>
+        <CategoryIcon category={info?.category} />
         <ShortsInfoTextBox>
-          <Text
-            color='#000'
-            fontSize='1.125rem'
-            fontStyle='normal'
-            fontWeight='700'
-            lineHeight='normal'
-          >
-            누적 참여자 :&nbsp;
-          </Text>
-          <Text>125명</Text>
+          <Box display='flex'>
+            <Text
+              color='#000'
+              fontSize='1.125rem'
+              fontStyle='normal'
+              fontWeight='700'
+              lineHeight='normal'
+              textAlign='center'
+              alignItems='center'
+            >
+              누적 참여자 :&nbsp;
+            </Text>
+            <Text textAlign='center' alignItems='center'>
+              {info?.participantCount !== undefined
+                ? `${info.participantCount} 명`
+                : '정보 없음'}
+            </Text>
+          </Box>
+          <ShortsStartBox>
+            <Image width='1rem' height='1.25rem' src={StartIcon} />
+          </ShortsStartBox>
         </ShortsInfoTextBox>
       </ShortsInfoLayout>
-      <ShortsStartBox>
-        <Image width='1rem' height='1.25rem' src={StartIcon} />
-      </ShortsStartBox>
     </>
   );
 };
@@ -39,32 +54,22 @@ export const ShortsInfoLayout = styled.div`
   align-items: center;
 `;
 
-export const ShortsInfoIconBox = styled.div`
-  display: flex;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 1px solid var(--color-green-01);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-`;
-
 export const ShortsInfoTextBox = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 1rem;
+  width: 100%;
+  margin: 0 1rem;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const ShortsStartBox = styled.div`
   display: flex;
-  width: 0.5rem;
-  height: 0.5rem;
-
   justify-content: center;
   align-items: center;
   text-align: center;
-  border-radius: 5rem;
+  border-radius: 100%;
 
-  margin: 1rem 19rem 2rem;
-  background: #5cc6ba;
-  padding: 1.5rem;
+  background-color: #5cc6ba;
+  padding: 1rem;
 `;
