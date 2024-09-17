@@ -1,15 +1,24 @@
+import { useEffect, useState } from 'react';
+
 import ShortsContents from './components/contents';
 import ShortsImage from './components/image';
 import ShortsInfo from './components/info';
 import { useGetShorts } from '@/apis/shorts/getShorts.api';
 import TopBar from '@/components/features/layout/top-bar';
+import { Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// 가져온 data random으로 섞기
+type Short = {
+  title: string;
+  content: string;
+  participantCount: number;
+  category: 'HEALTH' | 'ECHO' | 'SHARE' | 'VOLUNTEER' | 'ETC';
+};
+
 const shuffleArray = <T,>(array: T[]): T[] => {
   const shuffled = array.slice();
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -20,27 +29,36 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 };
 
 const Shorts = () => {
-  const { data } = useGetShorts();
+  const [page, setPage] = useState(0);
+  const [allData, setAllData] = useState<Short[]>([]);
+  const { data, isLoading } = useGetShorts(page, 20);
 
   console.log(data);
-  let contentsData = data?.data.data?.map((item) => ({
-    title: item.title,
-    content: item.content,
-  }));
+  useEffect(() => {
+    if (data) {
+      setAllData((prevData) => [...prevData, ...data.data.data]);
+    }
+  }, [data]);
 
-  let infoData = data?.data.data?.map((item) => ({
-    participantCount: item.participantCount,
-    category: item.category,
-  }));
+  const loadNextPage = () => {
+    if (data?.data.hasNext && !isLoading) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
 
-  // data가 있을 때만 섞어주기
-  if (contentsData && infoData) {
-    const shuffledIndices = shuffleArray([
-      ...Array(contentsData.length).keys(),
-    ]);
-    contentsData = shuffledIndices.map((index) => contentsData![index]);
-    infoData = shuffledIndices.map((index) => infoData![index]);
-  }
+  const contentsData = shuffleArray(
+    allData.map((item) => ({
+      title: item.title,
+      content: item.content,
+    }))
+  );
+
+  const infoData = shuffleArray(
+    allData.map((item) => ({
+      participantCount: item.participantCount,
+      category: item.category,
+    }))
+  );
 
   return (
     <>
@@ -52,6 +70,11 @@ const Shorts = () => {
           spaceBetween={30}
           mousewheel={true}
           modules={[Mousewheel, Pagination]}
+          onSlideChange={(swiper) => {
+            if (swiper.isEnd) {
+              loadNextPage();
+            }
+          }}
         >
           {contentsData?.map((item, index) => (
             <SwiperSlide key={index}>
@@ -63,6 +86,7 @@ const Shorts = () => {
             </SwiperSlide>
           ))}
         </SwiperBox>
+        {isLoading && <LoadingSpinner />}
       </ShortsLayout>
     </>
   );
@@ -80,4 +104,11 @@ const SwiperBox = styled(Swiper)`
   display: flex;
   flex-direction: column;
   width: 100%;
+`;
+
+const LoadingSpinner = styled(Spinner)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
