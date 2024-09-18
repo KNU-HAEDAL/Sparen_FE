@@ -86,10 +86,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: RouterPath.shorts,
-        element: <ShortsPage />,
-      },
+
       {
         path: RouterPath.rank,
         element: (
@@ -111,6 +108,10 @@ const router = createBrowserRouter([
         element: <ErrorPage />,
       },
     ],
+  },
+  {
+    path: RouterPath.shorts,
+    element: <ShortsPage />,
   },
   {
     path: RouterPath.login,
