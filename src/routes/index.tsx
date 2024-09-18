@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { ProtectedRoute } from './protected-route';
 import NavBar from '@/components/features/layout/nav-bar';
+import ErrorPage from '@/pages/ErrorPage';
 import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeRecord from '@/pages/challenge-record';
 import DashBoardPage from '@/pages/dashboard';
@@ -104,6 +105,10 @@ const router = createBrowserRouter([
             <DashBoardPage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: RouterPath.notFound,
+        element: <ErrorPage />,
       },
     ],
   },
