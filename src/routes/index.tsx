@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { ProtectedRoute } from './protected-route';
 import NavBar from '@/components/features/layout/nav-bar';
+import ErrorPage from '@/pages/ErrorPage';
 import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeRecord from '@/pages/challenge-record';
 import DashBoardPage from '@/pages/dashboard';
@@ -85,10 +86,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: RouterPath.shorts,
-        element: <ShortsPage />,
-      },
+
       {
         path: RouterPath.rank,
         element: (
@@ -105,7 +103,15 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: RouterPath.notFound,
+        element: <ErrorPage />,
+      },
     ],
+  },
+  {
+    path: RouterPath.shorts,
+    element: <ShortsPage />,
   },
   {
     path: RouterPath.login,

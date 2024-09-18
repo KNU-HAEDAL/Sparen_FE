@@ -95,7 +95,7 @@ const Shorts = () => {
 export default Shorts;
 
 const ShortsLayout = styled.div`
-  height: 85vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 `;
