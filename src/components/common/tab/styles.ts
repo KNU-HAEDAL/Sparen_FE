@@ -21,15 +21,11 @@ export const TabPanelContainer = styled.div`
   text-align: center;
 `;
 
-export const Wrapper = styled.div``;
-
-type StylizedTabProps = {
+export const StylizedTab = styled.div<{
   active?: boolean;
   onClick?: () => void;
   inactiveStyle?: React.CSSProperties;
-};
-
-export const StylizedTab = styled.div<StylizedTabProps>`
+}>`
   z-index: 1;
   color: var(--color-grey-02);
   width: 50%; /* 각 Tab의 너비를 50%로 설정하여 두 개의 Tab이 꽉 차도록 설정 */
@@ -50,11 +46,9 @@ export const StylizedTab = styled.div<StylizedTabProps>`
     `}
 `;
 
-type StyledTabPanelProps = {
+export const StyledTabPanel = styled.div<{
   active: boolean;
-};
-
-export const StyledTabPanel = styled.div<StyledTabPanelProps>`
+}>`
   display: ${(p) => (p.active ? 'flex' : 'none')};
   font-size: 2rem;
   flex-direction: column;
@@ -63,11 +57,9 @@ export const StyledTabPanel = styled.div<StyledTabPanelProps>`
   justify-content: center;
 `;
 
-type TabHeaderContainerProps = {
+export const TabHeaderContainer = styled.div<{
   position?: string;
-};
-
-export const TabHeaderContainer = styled.div<TabHeaderContainerProps>`
+}>`
   position: ${(props) => props.position || 'absolute'};
   width: 100%;
 `;
@@ -78,17 +70,18 @@ export const TabsHolder = styled.div`
   width: 100%;
 `;
 
-type TabSliderProps = {
+// 선택된 탭
+export const TabSlider = styled.div<{
   width: number;
   index: number;
-};
-
-export const TabSlider = styled.div<TabSliderProps>`
+}>`
   position: absolute;
   top: 3px;
   height: 50px;
   background-color: var(--color-white);
   border-radius: 20px;
+
+  /* 슬라이딩 애니메이션 */
   transition: 0.2s;
   transform: ${({ width, index }) => `translateX(${width * index}px)`};
   width: ${({ width }) => `${width}px`};
