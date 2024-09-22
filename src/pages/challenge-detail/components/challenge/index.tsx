@@ -58,7 +58,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
         <S.RowWrapper>
           <S.BoldText>참여 횟수 및 기간</S.BoldText>
           <S.Text>
-            {challenge.count}회/{challenge.period}일
+            {challenge.count}회 / {challenge.period}일
           </S.Text>
         </S.RowWrapper>
         <S.RowWrapper>
