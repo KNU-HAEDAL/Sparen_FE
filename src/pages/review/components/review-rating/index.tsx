@@ -45,7 +45,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
   return (
     <Wrapper>
       <Text fontSize='var(--font-size-md)'>
-        <strong>{formattedTotalRatings}</strong>개의 리뷰
+        <strong>{formattedTotalRatings || 0}</strong>개의 리뷰
       </Text>
 
       <RatingBox>

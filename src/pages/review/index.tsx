@@ -71,15 +71,17 @@ const Review = () => {
           </ReviewList>
         ) : (
           // 리뷰 없을 때
-          <Text>
-            아직 리뷰가 없습니다.
-            <br />
-            챌린지를 완료하고{' '}
-            <Text fontWeight='600' color={`var(--color-green-01)`}>
-              첫 번째 리뷰어
+          <EmptyState>
+            <Text>
+              아직 리뷰가 없습니다.
+              <br />
+              챌린지를 완료하고{' '}
+              <Text fontWeight='600' color={`var(--color-green-01)`}>
+                첫 번째 리뷰어
+              </Text>
+              가 되어보세요!
             </Text>
-            가 되어보세요!
-          </Text>
+          </EmptyState>
         )}
         <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text>
       </Wrapper>
@@ -116,4 +118,8 @@ const ReviewList = styled.div`
   flex-direction: column;
   padding: 16px 0;
   margin: 0 16px 0 16px;
+`;
+
+const EmptyState = styled.div`
+  padding: 16px 16px;
 `;
