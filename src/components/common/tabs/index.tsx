@@ -6,15 +6,9 @@ type TabsProps = {
   selectedTab: number;
   onChange: (value: number) => void;
   children: ReactElement[];
-  position?: string;
 };
 
-export const Tabs = ({
-  selectedTab,
-  onChange,
-  children,
-  position,
-}: TabsProps) => {
+export const Tabs = ({ selectedTab, onChange, children }: TabsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -39,8 +33,8 @@ export const Tabs = ({
   });
 
   return (
-    <S.StyledTabs position={position} ref={containerRef}>
-      <S.TabsHolder>{tabs}</S.TabsHolder>
+    <S.StyledTabs ref={containerRef}>
+      {tabs}
       <S.TabSlider width={sliderWidth} index={selectedTab} />
     </S.StyledTabs>
   );
