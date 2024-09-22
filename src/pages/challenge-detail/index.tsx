@@ -25,6 +25,18 @@ const ChallengeDetailPage = () => {
   });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
+  const categoryList = [
+    { label: '건강', data: 'HEALTH' },
+    { label: '에코', data: 'ECHO' },
+    { label: '나눔', data: 'SHARE' },
+    { label: '봉사', data: 'VOLUNTEER' },
+    { label: '기타', data: 'ETC' },
+  ];
+
+  // data.category에 맞는 label 찾기
+  const categoryLabel =
+    categoryList.find((c) => c.data === data?.category)?.label || '';
+
   const tabsList = [
     {
       label: '설명',
@@ -76,7 +88,7 @@ const ChallengeDetailPage = () => {
         )}
       </S.ImageMask>
       <S.ChallengeTitleWrapper>
-        <S.Category>{data?.category}</S.Category>
+        <S.Category>{categoryLabel}</S.Category>
         <S.Title>{data?.title}</S.Title>
       </S.ChallengeTitleWrapper>
 
