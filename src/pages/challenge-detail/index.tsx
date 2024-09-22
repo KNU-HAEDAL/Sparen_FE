@@ -8,7 +8,8 @@ import { ReviewSection } from './review-section/';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
-import { Tab, TabPanel, Tabs } from '@/components/common/tab';
+import { Tabs, Tab } from '@/components/common/tabs';
+import { TabPanels, TabPanel } from '@/components/common/tabs/tap-panels';
 import TopBar from '@/components/features/layout/top-bar';
 
 // const CHALLENGE_GROUP_ID = 38;
@@ -27,15 +28,15 @@ const ChallengeDetailPage = () => {
   const tabsList = [
     {
       label: '설명',
-      component: data ? <DescriptionSection data={data} /> : null,
+      panel: data ? <DescriptionSection data={data} /> : null,
     },
     {
       label: '랭킹',
-      component: data ? <RankingSection id={challengeGroupId} /> : null,
+      panel: data ? <RankingSection id={challengeGroupId} /> : null,
     },
     {
       label: '리뷰',
-      component: data ? <ReviewSection id={challengeGroupId} /> : null,
+      panel: data ? <ReviewSection id={challengeGroupId} /> : null,
     },
   ];
 
@@ -55,7 +56,7 @@ const ChallengeDetailPage = () => {
     };
 
     fetchChallengeDetail();
-  }, []);
+  }, [challengeGroupId]);
 
   // 챌린지 리뷰 페이지에 필요한 챌린지 제목 세션 스토리지에 저장
   useEffect(() => {
@@ -78,20 +79,19 @@ const ChallengeDetailPage = () => {
         <S.Category>{data?.category}</S.Category>
         <S.Title>{data?.title}</S.Title>
       </S.ChallengeTitleWrapper>
-      <S.TabsContainer>
-        <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
-          {tabsList.map((t, index) => (
-            <Tab key={t.label} label={t.label} value={index} />
-          ))}
-        </Tabs>
-      </S.TabsContainer>
-      <S.TabPanelContainer>
+
+      <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
+        {tabsList.map((t, index) => (
+          <Tab key={t.label} label={t.label} value={index} />
+        ))}
+      </Tabs>
+      <TabPanels>
         {tabsList.map((t, index) => (
           <TabPanel key={index} value={activeTab} selectedIndex={index}>
-            {t.component ?? undefined}
+            {t.panel ?? undefined}
           </TabPanel>
         ))}
-      </S.TabPanelContainer>
+      </TabPanels>
     </S.Wrapper>
   );
 };
