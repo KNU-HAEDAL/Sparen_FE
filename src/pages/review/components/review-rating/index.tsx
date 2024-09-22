@@ -18,22 +18,27 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
     2: 0,
     1: 0,
   });
-  const [avgRating, setAvgRating] = useState(0);
+  const [avgRating, setAvgRating] = useState<number>(0);
+  const [formattedAvgRating, setFormattedAvgRating] = useState<string>('0.0'); // 소수점 한 자리까지 포맷팅된 별점 평균
   const [totalRatings, setTotalRatings] = useState(0); // 별점(리뷰) 개수
   const [formattedTotalRatings, setFormattedTotalRatings] = useState(''); // 쉼표 포맷팅된 별점(리뷰) 개수
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
       setRatingCount(res.ratingCount);
-      setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
 
-      // 모든 별점 개수 합 구하기
+      // 별점 평균 저장
+      const average = Number(res.averageRating.toFixed(1)); // 소수점 아래 한 자리까지
+      setAvgRating(average);
+      setFormattedAvgRating(average.toFixed(1)); // 소수점 한 자리까지 나오게 포맷팅
+
+      // 모든 별점 개수 합 구하여 저장
       const total = Object.values(res.ratingCount).reduce(
         (acc, value) => acc + value,
         0
       );
       setTotalRatings(total);
-      setFormattedTotalRatings(total.toLocaleString()); // 쉼포 포맷팅하여 저장
+      setFormattedTotalRatings(total.toLocaleString()); // 쉼표 포맷팅하여 저장
     });
   }, [challengeGroupId]);
 
@@ -51,7 +56,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
       <RatingBox>
         <AvgRatingWrapper style={{ alignItems: 'center' }}>
           <Text fontSize='var(--font-size-xxl)' fontWeight='600'>
-            {avgRating}
+            {formattedAvgRating}
           </Text>
           <StarRating rating={avgRating} size={20} />
         </AvgRatingWrapper>

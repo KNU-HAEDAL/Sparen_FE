@@ -17,6 +17,7 @@ export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
+  const [formattedAvgRating, setFormattedAvgRating] = useState<string>('0.0'); // 소수점 한 자리까지 포맷팅된 별점 평균
   const [formattedTotalRatings, setFormattedTotalRatings] = useState(''); // 쉼표 포맷팅된 별점(리뷰) 개수
   const navigate = useNavigate();
 
@@ -24,7 +25,10 @@ export const ReviewSection = ({ id }: Props) => {
     // 평균 별점 가져오기
     getChallegeAvgScore({ challengeGroupId: id })
       .then((res) => {
-        setAvgRating(Number(res.averageRating.toFixed(1))); // 소수점 아래 한 자리
+        // 별점 평균 저장
+        const average = Number(res.averageRating.toFixed(1)); // 소수점 아래 한 자리까지
+        setAvgRating(average);
+        setFormattedAvgRating(average.toFixed(1)); // 소수점 한 자리까지 나오게 포맷팅
 
         // 모든 별점 개수 합 구하기
         const total = Object.values(res.ratingCount).reduce(
@@ -57,7 +61,7 @@ export const ReviewSection = ({ id }: Props) => {
         // 리뷰 있을 때
         <>
           <S.RatingContainer className='RatingContainer'>
-            <S.AvgRating>{avgRating}</S.AvgRating>
+            <S.AvgRating>{formattedAvgRating}</S.AvgRating>
             {avgRating && <StarRating rating={avgRating} />}
             <S.AllReviewButton
               onClick={() => navigate(`/challenge/${id}/review`)}
