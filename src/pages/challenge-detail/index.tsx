@@ -81,15 +81,17 @@ const ChallengeDetailPage = () => {
     <>
       <TopBar type='Page' title={'챌린지 상세 정보'} backgroundColor='#fff' />
       <S.Wrapper>
-        <S.ImageMask>
+        <S.ImageList>
           {data?.imageUrls?.length ? (
             data.imageUrls.map((img, index) => (
               <S.Image key={index} src={img} />
             ))
           ) : (
-            <S.Image src={DefaultImage} />
+            <S.DefaultImageMask>
+              <S.DefaultImage src={DefaultImage} />
+            </S.DefaultImageMask>
           )}
-        </S.ImageMask>
+        </S.ImageList>
         <S.ChallengeTitleWrapper>
           <S.Category>{categoryLabel}</S.Category>
           <S.Title>{data?.title}</S.Title>
