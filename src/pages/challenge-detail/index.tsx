@@ -55,7 +55,7 @@ const ChallengeDetailPage = () => {
     };
 
     fetchChallengeDetail();
-  }, []);
+  }, [challengeGroupId]);
 
   // 챌린지 리뷰 페이지에 필요한 챌린지 제목 세션 스토리지에 저장
   useEffect(() => {
