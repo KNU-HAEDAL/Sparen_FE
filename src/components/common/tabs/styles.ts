@@ -22,6 +22,7 @@ export const TabSlider = styled.div<{
 }>`
   position: absolute;
   top: 4px;
+  left: 4px;
   width: ${({ width }) => `${width}px`};
   height: 38px;
   background-color: var(--color-white);

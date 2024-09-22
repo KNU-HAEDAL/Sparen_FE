@@ -1,4 +1,11 @@
-import { cloneElement, ReactElement, useEffect, useRef, useState } from 'react';
+import {
+  cloneElement,
+  forwardRef,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import * as S from './styles';
 
@@ -10,17 +17,22 @@ type TabsProps = {
 
 export const Tabs = ({ selectedTab, onChange, children }: TabsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerWidth, setContainerWidth] = useState(0);
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]); // Tab refs 배열
+  const [tabWidths, setTabWidths] = useState<number[]>([]); // 각 Tab 너비 저장
 
+  // 각 Tab의 너비를 계산하여 상태로 저장
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerWidth(containerRef.current.getBoundingClientRect().width);
+    if (tabRefs.current.length > 0) {
+      const widths = tabRefs.current.map(
+        (ref) => ref?.getBoundingClientRect().width || 0
+      );
+      setTabWidths(widths);
     }
-  }, [containerRef]);
+  }, [children]);
 
-  const sliderWidth = containerWidth / children.length;
+  const sliderWidth = tabWidths[selectedTab] - 4 || 0; // 여백 4px 빼기
 
-  const tabs = children.map((child) => {
+  const tabs = children.map((child, index) => {
     const handleClick = () => {
       onChange(child.props.value);
     };
@@ -29,6 +41,7 @@ export const Tabs = ({ selectedTab, onChange, children }: TabsProps) => {
       key: child.props.value,
       active: child.props.value === selectedTab,
       onClick: handleClick,
+      ref: (el: HTMLDivElement) => (tabRefs.current[index] = el), // Tab 요소에 ref 연결
     });
   });
 
@@ -47,10 +60,15 @@ type TabProps = {
   onClick?: () => void;
 };
 
-export const Tab = ({ label, active, onClick }: TabProps) => {
-  return (
-    <S.StyledTab active={active} onClick={onClick}>
-      {label}
-    </S.StyledTab>
-  );
-};
+export const Tab = forwardRef<HTMLDivElement, TabProps>(
+  ({ label, active, onClick }, ref) => {
+    return (
+      <S.StyledTab active={active} onClick={onClick} ref={ref}>
+        {label}
+      </S.StyledTab>
+    );
+  }
+);
+
+// displayName 설정으로 경고 해결
+Tab.displayName = 'Tab';
