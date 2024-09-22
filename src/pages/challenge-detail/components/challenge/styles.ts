@@ -11,7 +11,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding-bottom: 16px;
 `;
 
 export const RowWrapper = styled.div`
@@ -74,4 +73,6 @@ export const CTA = styled.button`
   color: var(--color-white);
   font-weight: bold;
   font-size: var(--font-size-md);
+
+  margin-top: 16px;
 `;
