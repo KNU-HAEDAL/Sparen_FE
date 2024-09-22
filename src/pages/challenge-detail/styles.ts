@@ -1,21 +1,6 @@
 import styled from '@emotion/styled';
 
-export const TabsContainer = styled.div`
-  display: flex;
-  position: relative;
-  align-self: center;
-  margin: 0 16px;
-  height: 46px;
-  border-radius: 10px;
-  background-color: var(--color-green-06);
-`;
-
-export const TabPanelContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  position: relative;
-  text-align: center;
-`;
+export const Wrapper = styled.div``;
 
 export const ImageMask = styled.div`
   background-color: var(--color-green-06);
@@ -32,8 +17,6 @@ export const Image = styled.img`
   object-fit: cover;
   filter: grayscale(100%);
 `;
-
-export const Wrapper = styled.div``;
 
 export const ChallengeTitleWrapper = styled.div`
   margin: 16px;

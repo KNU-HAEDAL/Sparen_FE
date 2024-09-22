@@ -2,32 +2,11 @@ import { cloneElement, ReactElement, useEffect, useRef, useState } from 'react';
 
 import * as S from './styles';
 
-type TabProps = {
-  label: string;
-  value: number;
-  active?: boolean;
-  onClick?: () => void;
-};
-
 type TabsProps = {
   selectedTab: number;
   onChange: (value: number) => void;
   children: ReactElement[];
   position?: string;
-};
-
-type TabPanelProps = {
-  children?: ReactElement;
-  value: number;
-  selectedIndex: number;
-};
-
-export const Tab = ({ label, active, onClick }: TabProps) => {
-  return (
-    <S.StylizedTab active={active} onClick={onClick}>
-      {label}
-    </S.StylizedTab>
-  );
 };
 
 export const Tabs = ({
@@ -60,11 +39,40 @@ export const Tabs = ({
   });
 
   return (
-    <S.TabHeaderContainer position={position} ref={containerRef}>
+    <S.StyledTabs position={position} ref={containerRef}>
       <S.TabsHolder>{tabs}</S.TabsHolder>
       <S.TabSlider width={sliderWidth} index={selectedTab} />
-    </S.TabHeaderContainer>
+    </S.StyledTabs>
   );
+};
+
+type TabProps = {
+  label: string;
+  value: number;
+  active?: boolean;
+  onClick?: () => void;
+};
+
+export const Tab = ({ label, active, onClick }: TabProps) => {
+  return (
+    <S.StyledTab active={active} onClick={onClick}>
+      {label}
+    </S.StyledTab>
+  );
+};
+
+type TapPanelsProps = {
+  children: ReactElement[];
+};
+
+export const TabPanels = ({ children }: TapPanelsProps) => {
+  return <S.StyledTabPanels>{children}</S.StyledTabPanels>;
+};
+
+type TabPanelProps = {
+  children?: ReactElement;
+  value: number;
+  selectedIndex: number;
 };
 
 export const TabPanel = ({ children, value, selectedIndex }: TabPanelProps) => {

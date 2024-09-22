@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const StylizedTab = styled.div<{
+export const StyledTab = styled.div<{
   active?: boolean;
   onClick?: () => void;
   inactiveStyle?: React.CSSProperties;
@@ -26,22 +26,18 @@ export const StylizedTab = styled.div<{
     `}
 `;
 
-export const StyledTabPanel = styled.div<{
-  active: boolean;
-}>`
-  display: ${(p) => (p.active ? 'flex' : 'none')};
-  font-size: 2rem;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-`;
-
-export const TabHeaderContainer = styled.div<{
+export const StyledTabs = styled.div<{
   position?: string;
 }>`
   position: ${(props) => props.position || 'absolute'};
-  width: 100%;
+
+  display: flex;
+  position: relative;
+  align-self: center;
+  margin: 0 16px;
+  height: 46px;
+  border-radius: 10px;
+  background-color: var(--color-green-06);
 `;
 
 export const TabsHolder = styled.div`
@@ -66,4 +62,22 @@ export const TabSlider = styled.div<{
   transition: 0.2s;
   transform: ${({ width, index }) => `translateX(${width * index}px)`};
   width: ${({ width }) => `${width}px`};
+`;
+
+export const StyledTabPanels = styled.div`
+  height: 100%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+`;
+
+export const StyledTabPanel = styled.div<{
+  active: boolean;
+}>`
+  display: ${(p) => (p.active ? 'flex' : 'none')};
+  font-size: 2rem;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 `;
