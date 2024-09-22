@@ -25,6 +25,18 @@ const ChallengeDetailPage = () => {
   });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
 
+  const categoryList = [
+    { label: '건강', data: 'HEALTH' },
+    { label: '에코', data: 'ECHO' },
+    { label: '나눔', data: 'SHARE' },
+    { label: '봉사', data: 'VOLUNTEER' },
+    { label: '기타', data: 'ETC' },
+  ];
+
+  // data.category에 맞는 label 찾기
+  const categoryLabel =
+    categoryList.find((c) => c.data === data?.category)?.label || '';
+
   const tabsList = [
     {
       label: '설명',
@@ -66,33 +78,39 @@ const ChallengeDetailPage = () => {
   }, [data?.title]);
 
   return (
-    <S.Wrapper>
-      <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
-      <S.ImageMask>
-        {data?.imageUrls?.length ? (
-          data.imageUrls.map((img, index) => <S.Image key={index} src={img} />)
-        ) : (
-          <S.Image src={DefaultImage} />
-        )}
-      </S.ImageMask>
-      <S.ChallengeTitleWrapper>
-        <S.Category>{data?.category}</S.Category>
-        <S.Title>{data?.title}</S.Title>
-      </S.ChallengeTitleWrapper>
+    <>
+      <TopBar type='Page' title={'챌린지 상세 정보'} backgroundColor='#fff' />
+      <S.Wrapper>
+        <S.ImageList>
+          {data?.imageUrls?.length ? (
+            data.imageUrls.map((img, index) => (
+              <S.Image key={index} src={img} />
+            ))
+          ) : (
+            <S.DefaultImageMask>
+              <S.DefaultImage src={DefaultImage} />
+            </S.DefaultImageMask>
+          )}
+        </S.ImageList>
+        <S.ChallengeTitleWrapper>
+          <S.Category>{categoryLabel}</S.Category>
+          <S.Title>{data?.title}</S.Title>
+        </S.ChallengeTitleWrapper>
 
-      <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
-        {tabsList.map((t, index) => (
-          <Tab key={t.label} label={t.label} value={index} />
-        ))}
-      </Tabs>
-      <TabPanels>
-        {tabsList.map((t, index) => (
-          <TabPanel key={index} value={activeTab} selectedIndex={index}>
-            {t.panel ?? undefined}
-          </TabPanel>
-        ))}
-      </TabPanels>
-    </S.Wrapper>
+        <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
+          {tabsList.map((t, index) => (
+            <Tab key={t.label} label={t.label} value={index} />
+          ))}
+        </Tabs>
+        <TabPanels>
+          {tabsList.map((t, index) => (
+            <TabPanel key={index} value={activeTab} selectedIndex={index}>
+              {t.panel ?? undefined}
+            </TabPanel>
+          ))}
+        </TabPanels>
+      </S.Wrapper>
+    </>
   );
 };
 

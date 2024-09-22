@@ -63,7 +63,7 @@ const Review = () => {
               <div key={index}>
                 <ReviewItem item={review} />
                 {index < reviewList.length - 1 && (
-                  <Base.HorizontalLine margin={8} />
+                  <Base.HorizontalLine marginY={8} />
                 )}
                 {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
               </div>
@@ -71,15 +71,17 @@ const Review = () => {
           </ReviewList>
         ) : (
           // 리뷰 없을 때
-          <Text>
-            아직 리뷰가 없습니다.
-            <br />
-            챌린지를 완료하고{' '}
-            <Text fontWeight='600' color={`var(--color-green-01)`}>
-              첫 번째 리뷰어
+          <EmptyState>
+            <Text>
+              아직 리뷰가 없습니다.
+              <br />
+              챌린지를 완료하고{' '}
+              <Text fontWeight='600' color={`var(--color-green-01)`}>
+                첫 번째 리뷰어
+              </Text>
+              가 되어보세요!
             </Text>
-            가 되어보세요!
-          </Text>
+          </EmptyState>
         )}
         <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text>
       </Wrapper>
@@ -100,6 +102,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-bottom: 3.44rem;
 `;
 
 const Title = styled.div`
@@ -114,5 +117,9 @@ const ReviewList = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px 0;
-  margin: 0 16px 3.44rem 16px;
+  margin: 0 16px 0 16px;
+`;
+
+const EmptyState = styled.div`
+  padding: 16px 16px;
 `;

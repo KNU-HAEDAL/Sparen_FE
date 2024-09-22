@@ -109,16 +109,19 @@ export const TextItem = styled.div<{ fontWeight?: string; color: string }>`
   line-height: normal;
 `;
 
-export const HorizontalLine = styled.div<{ margin?: number }>`
+export const HorizontalLine = styled.div<{
+  marginX?: number;
+  marginY?: number;
+}>`
   border-top: 1px solid var(--color-green-06);
-  margin: ${({ margin }) => margin && `${margin}px 0`};
+  margin: ${({ marginX = 0, marginY = 0 }) => `${marginY}px ${marginX}px`};
 `;
 
-export const VerticalLine = styled.div<{ margin?: number }>`
+export const VerticalLine = styled.div<{ marginX?: number; marginY?: number }>`
   border: 1px solid var(--color-green-06);
   /* flex: 1; */
   height: 100px; // 수정 필요
-  margin: ${({ margin }) => margin && `0 ${margin}px`};
+  margin: ${({ marginX = 0, marginY = 0 }) => `${marginY}px ${marginX}px`};
 `;
 
 // export const TeerTotal = styled.div`
