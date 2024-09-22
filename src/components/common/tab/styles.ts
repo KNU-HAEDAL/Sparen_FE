@@ -32,7 +32,7 @@ export const StylizedTab = styled.div<{
   font-size: var(--font-size-md);
   background-color: transparent;
   border: none;
-  height: 50px;
+  height: 38px;
   text-align: center;
   line-height: 50px;
   cursor: pointer;
@@ -42,7 +42,7 @@ export const StylizedTab = styled.div<{
     css`
       color: var(--color-green-01);
       font-weight: 600;
-      border-radius: 20px;
+      border-radius: 10px;
     `}
 `;
 
@@ -76,10 +76,11 @@ export const TabSlider = styled.div<{
   index: number;
 }>`
   position: absolute;
-  top: 3px;
-  height: 50px;
+  top: 4px;
+  height: 38px;
   background-color: var(--color-white);
-  border-radius: 20px;
+  border-radius: 10px;
+  margin: 0 4px;
 
   /* 슬라이딩 애니메이션 */
   transition: 0.2s;

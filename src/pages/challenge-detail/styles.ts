@@ -5,8 +5,8 @@ export const TabsContainer = styled.div`
   position: relative;
   align-self: center;
   margin: 0 16px;
-  height: 55px;
-  border-radius: 20px;
+  height: 46px;
+  border-radius: 10px;
   background-color: var(--color-green-06);
 `;
 
