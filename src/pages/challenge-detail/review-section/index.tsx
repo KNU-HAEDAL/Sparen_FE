@@ -71,7 +71,7 @@ export const ReviewSection = ({ id }: Props) => {
             <div key={index}>
               <ReviewItem item={review} />
               {index < reviewList.length - 1 && (
-                <Base.HorizontalLine margin={8} />
+                <Base.HorizontalLine marginY={8} />
               )}
               {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
             </div>

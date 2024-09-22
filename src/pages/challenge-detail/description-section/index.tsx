@@ -32,7 +32,7 @@ export const DescriptionSection = ({
         <S.Text>{data.guide}</S.Text>
       </S.ContentWrapper>
 
-      <Base.HorizontalLine margin={16} />
+      <Base.HorizontalLine marginY={16} marginX={16} />
 
       <S.RowList>
         {challenges.map((item) => (
