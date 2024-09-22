@@ -65,13 +65,13 @@ export const ExpContent = styled.div`
   padding: 2px 6px;
 `;
 
-export const Btn = styled.button`
-  border-radius: 20px;
+export const CTA = styled.button`
+  width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
+  padding: 10px 8px;
+  margin: auto;
+  border-radius: 10px;
   background-color: var(--color-green-01);
   color: var(--color-white);
   font-weight: bold;
   font-size: var(--font-size-md);
-  width: 100%;
-  height: 45px;
-  border: none;
 `;

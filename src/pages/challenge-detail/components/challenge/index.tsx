@@ -70,7 +70,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
           <S.ExpContent>{challenge.successExp} 포인트</S.ExpContent>
         </S.RowWrapper>
       </S.Wrapper>
-      <S.Btn onClick={clickJoinChallenge}>참여하기</S.Btn>
+      <S.CTA onClick={clickJoinChallenge}>참여하기</S.CTA>
     </S.Outer>
   );
 };
