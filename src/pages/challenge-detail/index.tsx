@@ -8,7 +8,8 @@ import { ReviewSection } from './review-section/';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
-import { Tabs, Tab, TabPanels, TabPanel } from '@/components/common/tab';
+import { Tabs, Tab } from '@/components/common/tabs';
+import { TabPanels, TabPanel } from '@/components/common/tabs/tap-panels';
 import TopBar from '@/components/features/layout/top-bar';
 
 // const CHALLENGE_GROUP_ID = 38;
