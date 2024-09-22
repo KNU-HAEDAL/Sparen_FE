@@ -100,6 +100,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  margin-bottom: 3.44rem;
 `;
 
 const Title = styled.div`
@@ -114,5 +115,5 @@ const ReviewList = styled.div`
   display: flex;
   flex-direction: column;
   padding: 16px 0;
-  margin: 0 16px 3.44rem 16px;
+  margin: 0 16px 0 16px;
 `;

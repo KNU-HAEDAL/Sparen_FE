@@ -78,33 +78,37 @@ const ChallengeDetailPage = () => {
   }, [data?.title]);
 
   return (
-    <S.Wrapper>
-      <TopBar type='Page' title={'챌린지 상세정보'} backgroundColor='#fff' />
-      <S.ImageMask>
-        {data?.imageUrls?.length ? (
-          data.imageUrls.map((img, index) => <S.Image key={index} src={img} />)
-        ) : (
-          <S.Image src={DefaultImage} />
-        )}
-      </S.ImageMask>
-      <S.ChallengeTitleWrapper>
-        <S.Category>{categoryLabel}</S.Category>
-        <S.Title>{data?.title}</S.Title>
-      </S.ChallengeTitleWrapper>
+    <>
+      <TopBar type='Page' title={'챌린지 상세 정보'} backgroundColor='#fff' />
+      <S.Wrapper>
+        <S.ImageMask>
+          {data?.imageUrls?.length ? (
+            data.imageUrls.map((img, index) => (
+              <S.Image key={index} src={img} />
+            ))
+          ) : (
+            <S.Image src={DefaultImage} />
+          )}
+        </S.ImageMask>
+        <S.ChallengeTitleWrapper>
+          <S.Category>{categoryLabel}</S.Category>
+          <S.Title>{data?.title}</S.Title>
+        </S.ChallengeTitleWrapper>
 
-      <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
-        {tabsList.map((t, index) => (
-          <Tab key={t.label} label={t.label} value={index} />
-        ))}
-      </Tabs>
-      <TabPanels>
-        {tabsList.map((t, index) => (
-          <TabPanel key={index} value={activeTab} selectedIndex={index}>
-            {t.panel ?? undefined}
-          </TabPanel>
-        ))}
-      </TabPanels>
-    </S.Wrapper>
+        <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
+          {tabsList.map((t, index) => (
+            <Tab key={t.label} label={t.label} value={index} />
+          ))}
+        </Tabs>
+        <TabPanels>
+          {tabsList.map((t, index) => (
+            <TabPanel key={index} value={activeTab} selectedIndex={index}>
+              {t.panel ?? undefined}
+            </TabPanel>
+          ))}
+        </TabPanels>
+      </S.Wrapper>
+    </>
   );
 };
 
