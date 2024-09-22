@@ -20,6 +20,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
   });
   const [avgRating, setAvgRating] = useState(0);
   const [totalRatings, setTotalRatings] = useState(0); // 별점(리뷰) 개수
+  const [formattedTotalRatings, setFormattedTotalRatings] = useState(''); // 쉼표 포맷팅된 별점(리뷰) 개수
 
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
@@ -32,6 +33,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
         0
       );
       setTotalRatings(total);
+      setFormattedTotalRatings(total.toLocaleString()); // 쉼포 포맷팅하여 저장
     });
   }, [challengeGroupId]);
 
@@ -80,7 +82,9 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
         </RatingGraphWrapper>
       </RatingBox>
 
-      <Text fontSize='var(--font-size-sm)'>{totalRatings}개의 리뷰</Text>
+      <Text fontSize='var(--font-size-sm)'>
+        {formattedTotalRatings}개의 리뷰
+      </Text>
     </Wrapper>
   );
 };

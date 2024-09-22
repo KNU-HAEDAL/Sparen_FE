@@ -17,7 +17,7 @@ export const ReviewSection = ({ id }: Props) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
-  const [totalRatings, setTotalRatings] = useState(0); // 별점(리뷰) 개수
+  const [formattedTotalRatings, setFormattedTotalRatings] = useState(''); // 쉼표 포맷팅된 별점(리뷰) 개수
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const ReviewSection = ({ id }: Props) => {
           (acc, value) => acc + value,
           0
         );
-        setTotalRatings(total);
+        setFormattedTotalRatings(total.toLocaleString()); // 쉼포 포맷팅하여 저장
       })
       .catch((error) => {
         console.error('Error fetching average score:', error);
@@ -42,7 +42,6 @@ export const ReviewSection = ({ id }: Props) => {
       .then((res) => {
         if (Array.isArray(res.data) && res.data.length > 0) {
           setReviewList((prevReviewList) => [...prevReviewList, ...res.data]);
-          // console.log(`리뷰 리스트: `, reviewList); // test
         } else {
           console.log('리뷰 데이터 없음');
         }
@@ -63,7 +62,7 @@ export const ReviewSection = ({ id }: Props) => {
             <S.AllReviewButton
               onClick={() => navigate(`/challenge/${id}/review`)}
             >
-              {totalRatings}개 모두 보기{' '}
+              {formattedTotalRatings}개 모두 보기{' '}
               <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
           </S.RatingContainer>
