@@ -44,6 +44,10 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
 
   return (
     <Wrapper>
+      <Text fontSize='var(--font-size-md)'>
+        <strong>{formattedTotalRatings}</strong>개의 리뷰
+      </Text>
+
       <RatingBox>
         <AvgRatingWrapper style={{ alignItems: 'center' }}>
           <Text fontSize='var(--font-size-xxl)' fontWeight='600'>
@@ -81,10 +85,6 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
           ))}
         </RatingGraphWrapper>
       </RatingBox>
-
-      <Text fontSize='var(--font-size-sm)'>
-        {formattedTotalRatings}개의 리뷰
-      </Text>
     </Wrapper>
   );
 };
@@ -94,7 +94,7 @@ export default ReviewRating;
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   margin: 0 16px;
   gap: 8px;
 `;
