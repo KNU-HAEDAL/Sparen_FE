@@ -73,16 +73,14 @@ const router = createBrowserRouter([
                 <Review />
               </ProtectedRoute>
             ),
-            children: [
-              {
-                path: RouterPath.write,
-                element: (
-                  <ProtectedRoute>
-                    <ReviewWrite />
-                  </ProtectedRoute>
-                ),
-              },
-            ],
+          },
+          {
+            path: `:id/${RouterPath.write}`,
+            element: (
+              <ProtectedRoute>
+                <ReviewWrite />
+              </ProtectedRoute>
+            ),
           },
         ],
       },

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PiStarFill, PiStarLight } from 'react-icons/pi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
@@ -10,9 +10,12 @@ import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const SAMPLE_CHALLENGE_ID = 1;
+// const SAMPLE_CHALLENGE_ID = 1;
 
 const ReviewWrite = () => {
+  const { id } = useParams();
+  const challengeGroupId = Number(id);
+  // const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
   const { challengeTitle } = useChallengeStore();
 
   const difficultyList = ['쉬워요', '적당해요', '어려워요'];
@@ -50,7 +53,7 @@ const ReviewWrite = () => {
       return;
     } else
       postReview({
-        challengeId: SAMPLE_CHALLENGE_ID,
+        challengeId: challengeGroupId,
         content,
         rating,
       })
@@ -65,7 +68,7 @@ const ReviewWrite = () => {
 
   return (
     <>
-      <TopBar title='챌린지 리뷰' backgroundColor='#fff' type='Page' />
+      <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
       <ReviewWriteLayout>
         <Text fontSize='var(--font-size-lg)' fontWeight='700'>
           {challengeTitle}
