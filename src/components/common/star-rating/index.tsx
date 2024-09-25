@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 interface StarRatingProps {
   rating: number;
   size?: number;
+  onClick?: (rating: number) => void;
 }
 
-export const StarRating = ({ rating, size = 24 }: StarRatingProps) => {
-  // rating(별점)을 백분율로 변환
+export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
   const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
 
   useEffect(() => {
@@ -17,23 +17,33 @@ export const StarRating = ({ rating, size = 24 }: StarRatingProps) => {
     }
   }, [rating]);
 
+  const handleClick = (rating: number) => {
+    if (onClick) {
+      onClick(rating + 1); // 클릭한 별점 값 전달 (1부터 시작)
+    }
+  };
+
   return (
     <Wrapper size={size}>
       <StarFill style={{ width: ratingToPercent }}>
         {[...Array(5)].map((_, index) => (
-          <span key={`fill-${index}`}>★</span>
+          <button key={`fill-${index}`} onClick={() => handleClick(index)}>
+            ★
+          </button>
         ))}
       </StarFill>
       <StarBase>
         {[...Array(5)].map((_, index) => (
-          <span key={`base-${index}`}>★</span>
+          <button key={`base-${index}`} onClick={() => handleClick(index)}>
+            ★
+          </button>
         ))}
       </StarBase>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div<{ size: number }>`
+const Wrapper = styled.div<{ size: number; cursor?: string }>`
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
@@ -41,6 +51,7 @@ const Wrapper = styled.div<{ size: number }>`
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
   font-size: ${({ size }) => `${size}px`};
+  cursor: ${({ cursor }) => cursor && 'pointer'};
 `;
 
 const StarFill = styled.div`
@@ -52,4 +63,6 @@ const StarFill = styled.div`
   -webkit-text-fill-color: var(--color-green-01);
 `;
 
-const StarBase = styled.div``;
+const StarBase = styled.div`
+  display: flex;
+`;

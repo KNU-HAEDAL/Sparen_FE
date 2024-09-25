@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { PiStarFill, PiStarLight } from 'react-icons/pi';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
+import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
@@ -77,23 +77,12 @@ const ReviewWrite = () => {
           <Title>{challengeTitle}</Title>
         </ChallengeTitleWrapper>
         <FlexBox margin='32px 0' alignItems='end' alignSelf='center'>
-          {[...Array(rating)].map((_, i) => (
-            <PiStarFill
-              size='35'
-              key={i}
-              onClick={() => setRating(i + 1)}
-              color='var(--color-green-01)'
-            />
-          ))}
-          {[...Array(5 - rating)].map((_, i) => (
-            <PiStarLight
-              size='35'
-              key={i}
-              onClick={() => setRating(rating + i + 1)}
-              color='var(--color-green-01)'
-            />
-          ))}
-          <Star>{rating}.0</Star>
+          <StarRating
+            rating={rating}
+            size={32}
+            onClick={(newRating) => setRating(newRating)}
+          />
+          <Rating>{rating}.0</Rating>
           <Text
             fontSize='var(--font-size-sm)'
             color='var(--color-gray-01)'
@@ -204,7 +193,7 @@ const FlexBox = styled(Box)`
   padding: 0 16px;
 `;
 
-const Star = styled.div`
+const Rating = styled.div`
   font-size: var(--font-size-xxl);
   font-weight: bold;
   margin-left: 10px;
