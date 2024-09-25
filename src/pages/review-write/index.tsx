@@ -20,8 +20,8 @@ const ReviewWrite = () => {
   const { challengeTitle } = useChallengeStore();
   // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
-  const difficultyList = ['쉬워요', '적당해요', '어려워요'];
-  const feelingList = ['뿌듯해요', '그냥 그래요', '별로예요'];
+  const difficultyList = ['쉬워요', '적당해요', '어려워요']; // 1 2 3
+  const feelingList = ['뿌듯해요', '그냥 그래요', '별로예요']; // 1 2 3
 
   const navigate = useNavigate();
 
