@@ -16,10 +16,12 @@ const ReviewWrite = () => {
   const { id } = useParams();
   const challengeGroupId = Number(id);
   // const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
+  const categoryLabel = sessionStorage.getItem('categoryLabel');
   const { challengeTitle } = useChallengeStore();
+  // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
   const difficultyList = ['쉬워요', '적당해요', '어려워요'];
-  const feelingList = ['뿌듯해요', '유익해요', '애매해요'];
+  const feelingList = ['뿌듯해요', '그냥 그래요', '별로예요'];
 
   const navigate = useNavigate();
 
@@ -46,10 +48,10 @@ const ReviewWrite = () => {
       selectedDifficulty === undefined ||
       selectedFeeling === undefined
     ) {
-      alert('난이도와 성취감을 선택해주세요.');
+      alert('체감 난이도와 성취감을 선택해주세요.');
       return;
-    } else if (!content.trim()) {
-      alert('리뷰 내용을 입력해주세요.');
+    } else if (!content.trim() || content.length < 20) {
+      alert('소감을 20자 이상 입력해주세요.');
       return;
     } else
       postReview({
@@ -69,11 +71,12 @@ const ReviewWrite = () => {
   return (
     <>
       <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
-      <ReviewWriteLayout>
-        <Text fontSize='var(--font-size-lg)' fontWeight='700'>
-          {challengeTitle}
-        </Text>
-        <Wrapper margin='20px 0' alignItems='end' alignSelf='center'>
+      <Wrapper>
+        <ChallengeTitleWrapper>
+          <Category>{categoryLabel}</Category>
+          <Title>{challengeTitle}</Title>
+        </ChallengeTitleWrapper>
+        <FlexBox margin='32px 0' alignItems='end' alignSelf='center'>
           {[...Array(rating)].map((_, i) => (
             <PiStarFill
               size='35'
@@ -96,17 +99,12 @@ const ReviewWrite = () => {
             color='var(--color-gray-01)'
             margin='3px'
           >
-            /5.0
+            / 5.0
           </Text>
-        </Wrapper>
-        <Wrapper margin='10px 0'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='700'
-            marginLeft='5px'
-            marginRight='20px'
-          >
-            난이도
+        </FlexBox>
+        <FlexBox>
+          <Text fontSize='var(--font-size-md)' fontWeight='600'>
+            체감 난이도
           </Text>
           {difficultyList.map((item) => (
             <CheckButton
@@ -117,14 +115,9 @@ const ReviewWrite = () => {
               {item}
             </CheckButton>
           ))}
-        </Wrapper>
-        <Wrapper margin='10px 0'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='700'
-            marginLeft='5px'
-            marginRight='20px'
-          >
+        </FlexBox>
+        <FlexBox marginTop='8px'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600'>
             성취감
           </Text>
           {feelingList.map((item) => (
@@ -136,41 +129,79 @@ const ReviewWrite = () => {
               {item}
             </CheckButton>
           ))}
-        </Wrapper>
-        <Text
-          fontSize='var(--font-size-md)'
-          fontWeight='700'
-          marginLeft='5px'
-          marginRight='20px'
-          marginTop='20px'
-        >
-          리뷰 쓰기
-        </Text>
-        <InputArea
-          placeholder='챌린지 후 느낀점을 적어주세요'
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        </FlexBox>
+        <FlexBox flexDirection='column' gap='8px'>
+          <Text
+            fontSize='var(--font-size-md)'
+            fontWeight='600'
+            marginTop='24px'
+          >
+            소감
+          </Text>
+          <TextArea
+            placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <Text
+            fontSize='var(--font-size-xs)'
+            color='var(--color-grey-02)'
+            textAlign='right'
+          >
+            {content.length} / 최소 20자
+          </Text>
+        </FlexBox>
+        <FlexBox flexDirection='column' gap='8px'>
+          <Text
+            fontSize='var(--font-size-md)'
+            fontWeight='600'
+            marginTop='24px'
+          >
+            리뷰 작성 시 주의 사항
+          </Text>
+          <Text fontSize='var(--font-size-sm)'>
+            해당 챌린지와 무관한 내용 또는 욕설, 도배 등의 부적절한 내용은 삭제
+            조치될 수 있습니다.
+          </Text>
+        </FlexBox>
+      </Wrapper>
+      <CTABox>
         <SubmitButton onClick={handleSaveReview}>등록하기</SubmitButton>
-      </ReviewWriteLayout>
+      </CTABox>
     </>
   );
 };
 
 export default ReviewWrite;
 
-const ReviewWriteLayout = styled.div`
+const Wrapper = styled.div`
   position: relative;
-  margin: 30px;
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 3.44rem;
+`;
+
+const ChallengeTitleWrapper = styled.div`
+  margin: 16px;
   display: flex;
   flex-direction: column;
   text-align: left;
 `;
 
-const Wrapper = styled(Box)`
+const Category = styled.div`
+  font-size: var(--font-size-xs);
+  color: var(--color-green-01);
+`;
+
+const Title = styled.div`
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+`;
+
+const FlexBox = styled(Box)`
   display: flex;
-  flex-direction: row;
+  padding: 0 16px;
 `;
 
 const Star = styled.div`
@@ -179,29 +210,33 @@ const Star = styled.div`
   margin-left: 10px;
 `;
 
-const InputArea = styled.textarea`
+const TextArea = styled.textarea`
   font-size: var(--font-size-sm);
   border-radius: 20px;
   border: var(--color-green-01) 1px solid;
-  padding: 10px;
+  padding: 12px;
   height: 30vh;
   resize: none;
-  margin-top: 10px;
+`;
+
+const CTABox = styled(Box)`
+  position: fixed;
+  bottom: 3.44rem; // 밑에 탭바
+  display: flex;
+  width: 100%;
+  height: 3.44rem;
+  padding: 4px 16px;
 `;
 
 const SubmitButton = styled(Button)`
-  position: fixed;
-  display: block;
-  bottom: 60px;
-  width: calc(100% - 60px);
-  height: 50px;
-  margin-top: 30px;
-  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
   background-color: var(--color-green-01);
   color: var(--color-white);
   font-size: var(--font-size-md);
   font-weight: bold;
-  border: none;
 `;
 
 const CheckButton = styled.button<{ isSelected: boolean }>`
