@@ -19,7 +19,7 @@ const ReviewWrite = () => {
   // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
   const difficultyList = ['쉬워요', '적당해요', '어려워요']; // 1 2 3
-  const feelingList = ['뿌듯해요', '그냥 그래요', '별로예요']; // 1 2 3
+  const feelingList = ['뿌듯해요', '보통이에요', '잘 모르겠어요']; // 1 2 3
 
   const [rating, setRating] = useState(0);
   const [selectedDifficulty, setSelectedDifficulty] = useState<
@@ -101,15 +101,15 @@ const ReviewWrite = () => {
           <FlexBox alignSelf='center'>
             <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
               {rating === 5
-                ? '매우 만족 😆'
+                ? '최고예요 😆'
                 : rating === 4
-                  ? '만족 😀'
+                  ? '만족해요 😀'
                   : rating === 3
-                    ? '보통 🙂'
+                    ? '무난해요 🙂'
                     : rating === 2
-                      ? '별로 😐'
+                      ? '그저 그래요 😐'
                       : rating === 1
-                        ? '매우 별로 🙁'
+                        ? '별로예요 🙁'
                         : ''}
             </Text>
           </FlexBox>

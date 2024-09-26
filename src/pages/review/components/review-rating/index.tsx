@@ -70,14 +70,14 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
                 mr='auto'
               >
                 {key === '5'
-                  ? '매우 만족'
+                  ? '최고예요 😆'
                   : key === '4'
-                    ? '만족'
+                    ? '만족해요 😀'
                     : key === '3'
-                      ? '보통'
+                      ? '무난해요 🙂'
                       : key === '2'
-                        ? '별로'
-                        : '매우 별로'}
+                        ? '그저 그래요 😐'
+                        : '별로예요 🙁'}
               </Text>
               <Bar
                 key={`${key}-bar`}
