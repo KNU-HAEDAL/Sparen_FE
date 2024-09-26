@@ -322,10 +322,18 @@ const SubmitButton = styled(Button)<{ disabled?: boolean }>`
   color: var(--color-white);
   font-size: var(--font-size-md);
   font-weight: bold;
+  outline: none;
 
   &:disabled {
     cursor: not-allowed;
     color: var(--color-grey-01);
     background-color: var(--color-grey-02);
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 0.8 !important;
+    background-color: var(--color-green-01) !important;
+    color: var(--color-white) !important;
   }
 `;
