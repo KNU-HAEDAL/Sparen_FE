@@ -9,11 +9,11 @@ interface StarRatingProps {
 }
 
 export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
-  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
+  const [ratingToPercent, setRatingToPercent] = useState<number>(0);
 
   useEffect(() => {
     if (rating !== undefined) {
-      setRatingToPercent(`${(rating / 5) * 100}%`);
+      setRatingToPercent((rating / 5) * 100);
     }
   }, [rating]);
 
@@ -25,20 +25,20 @@ export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
 
   return (
     <Wrapper size={size}>
-      <StarFill style={{ width: ratingToPercent }}>
+      <FilledStars ratingToPercent={ratingToPercent}>
         {[...Array(5)].map((_, index) => (
-          <button key={`fill-${index}`} onClick={() => handleClick(index)}>
+          <Star key={`fill-${index}`} onClick={() => handleClick(index)}>
             ★
-          </button>
+          </Star>
         ))}
-      </StarFill>
-      <StarBase>
+      </FilledStars>
+      <BaseStars>
         {[...Array(5)].map((_, index) => (
-          <button key={`base-${index}`} onClick={() => handleClick(index)}>
+          <Star key={`base-${index}`} onClick={() => handleClick(index)}>
             ★
-          </button>
+          </Star>
         ))}
-      </StarBase>
+      </BaseStars>
     </Wrapper>
   );
 };
@@ -54,15 +54,20 @@ const Wrapper = styled.div<{ size: number; cursor?: string }>`
   cursor: ${({ cursor }) => cursor && 'pointer'};
 `;
 
-const StarFill = styled.div`
+const FilledStars = styled.div<{ ratingToPercent: number }>`
   position: absolute;
   display: flex;
   top: 0;
   left: 0;
+  width: ${({ ratingToPercent }) => `${ratingToPercent}%`};
   overflow: hidden;
   -webkit-text-fill-color: var(--color-green-01);
 `;
 
-const StarBase = styled.div`
+const BaseStars = styled.div`
   display: flex;
+`;
+
+const Star = styled.button`
+  outline: none;
 `;
