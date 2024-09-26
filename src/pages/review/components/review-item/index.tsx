@@ -10,6 +10,15 @@ type ReviewItemProps = {
 const ReviewItem = ({ item }: ReviewItemProps) => {
   const rating = item.rating;
 
+  const formatDate = (dateStr: string) => {
+    const dateObj = new Date(dateStr);
+
+    return `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+    // 2024.00.00 형식으로 반환
+  };
+
+  const formattedDate = formatDate(item.createdAt);
+
   return (
     <Wrapper>
       <ImageBox>
@@ -26,9 +35,16 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
           <Text fontSize='var(--font-size-sm)' color='var(--color-grey-01)'>
             {item.user.tierInfo.tier}
           </Text>
-          <Rating>난이도 {item.challengeDifficulty}</Rating>
+          <Text
+            fontSize='var(--font-size-xs)'
+            color='var(--color-grey-02)'
+            marginLeft='auto'
+          >
+            {formattedDate}
+          </Text>
         </RowWrapper>
         <RowWrapper>
+          <Chip>난이도 {item.challengeDifficulty}</Chip>
           <StarRating rating={rating} size={16} />
         </RowWrapper>
         <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
@@ -72,12 +88,13 @@ const RowWrapper = styled(Wrapper)`
   gap: 8px;
 `;
 
-const Rating = styled.div`
-  font-size: var(--font-size-xs);
-  color: var(--color-grey-01);
-  border-radius: 20px;
+const Chip = styled.div`
+  padding: 4px 12px;
+  border-radius: 50px;
   border: var(--color-grey-02) 0.5px solid;
-  padding: 2px 8px;
+  background-color: var(--color-white);
+  color: var(--color-grey-01);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
   text-align: center;
-  margin-left: auto;
 `;

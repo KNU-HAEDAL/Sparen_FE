@@ -20,6 +20,9 @@ export type ReviewData = {
   user: User;
   content: string;
   rating: number;
+  difficulty: number;
+  achievement: number;
+  createdAt: string;
 };
 
 export const DummyReviewList: ReviewData[] = [
@@ -40,6 +43,9 @@ export const DummyReviewList: ReviewData[] = [
     content:
       '매일 매일 꾸준히 했더니 습관이 형성되었어요. 습관도 만들고 포인트도 얻고 좋아요 굿',
     rating: 4,
+    difficulty: 1,
+    achievement: 1,
+    createdAt: '2024-09-26T21:16:18',
   },
 ];
 
