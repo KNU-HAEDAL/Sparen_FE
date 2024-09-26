@@ -1,41 +1,56 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
+import { RouterPath } from '@/routes/path';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const ReviewWrite = () => {
   const { id } = useParams();
-  const challengeGroupId = Number(id);
+  const challengeId = Number(id);
   // const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
   const categoryLabel = sessionStorage.getItem('categoryLabel');
   const { challengeTitle } = useChallengeStore();
   // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
-  const difficultyList = ['쉬워요', '적당해요', '어려워요']; // 1 2 3
-  const feelingList = ['뿌듯해요', '보통이에요', '잘 모르겠어요']; // 1 2 3
-
+  const difficultyList = [
+    { label: '쉬워요', number: 1 },
+    { label: '적당해요', number: 2 },
+    { label: '어려워요', number: 3 },
+  ];
+  const achievementList = [
+    { label: '뿌듯해요', number: 1 },
+    { label: '보통이에요', number: 2 },
+    { label: '잘 모르겠어요', number: 3 },
+  ];
   const [rating, setRating] = useState(0);
   const [selectedDifficulty, setSelectedDifficulty] = useState<
-    string | undefined
+    number | undefined
   >();
-  const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
+  const [selectedAchievement, setSelectedAchievement] = useState<
+    number | undefined
+  >();
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  const handleDifficultyClick = (difficulty: string) => {
+  // 로그인 안 되었을 때
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentRedirect = location.pathname ?? window.location.href;
+
+  const handleDifficultyClick = (difficulty: number) => {
     setSelectedDifficulty(difficulty);
   };
 
-  const handleFeelingClick = (feeling: string) => {
-    setSelectedFeeling(feeling);
+  const handleFeelingClick = (feeling: number) => {
+    setSelectedAchievement(feeling);
   };
 
   // 별점, 체감 난이도, 성취감, 내용 유효성 검사 -> 버튼 상태 관리
@@ -43,7 +58,7 @@ const ReviewWrite = () => {
     if (
       rating &&
       selectedDifficulty &&
-      selectedFeeling &&
+      selectedAchievement &&
       content.trim() &&
       content.length >= 20
     ) {
@@ -51,7 +66,7 @@ const ReviewWrite = () => {
     } else {
       setIsButtonDisabled(true);
     }
-  }, [rating, selectedDifficulty, selectedFeeling, content]);
+  }, [rating, selectedDifficulty, selectedAchievement, content]);
 
   // 소감 내용 유효성 검사
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -67,15 +82,31 @@ const ReviewWrite = () => {
 
   const handleSaveReview = () => {
     postReview({
-      challengeId: challengeGroupId,
+      challengeId,
       content,
       rating,
+      difficulty: selectedDifficulty,
+      achievement: selectedAchievement,
     })
       .then(() => {
-        alert('성공적으로 저장했습니다.');
+        alert('리뷰가 등록되었습니다!');
       })
-      .catch(() => {
-        alert('저장에 실패했습니다.');
+      .catch((error) => {
+        // API에서 받은 오류 객체일 경우
+        if (error.result === 'FAIL') {
+          if (error.errorCode === 'UNAUTHORIZED') {
+            alert('로그인 후 시도해주세요.');
+            navigate(
+              `/${RouterPath.auth}?redirect=${encodeURIComponent(currentRedirect)}`
+            );
+          } else {
+            alert(error.message || '다시 시도해주세요.');
+          }
+        }
+        // 예상치 못한 오류 처리
+        else {
+          alert('다시 시도해주세요.');
+        }
       });
   };
 
@@ -122,11 +153,11 @@ const ReviewWrite = () => {
             {difficultyList.map((item) => (
               <Chip
                 as='li'
-                key={item}
-                onClick={() => handleDifficultyClick(item)}
-                isSelected={selectedDifficulty === item}
+                key={item.number}
+                onClick={() => handleDifficultyClick(item.number)}
+                isSelected={selectedDifficulty === item.number}
               >
-                {item}
+                {item.label}
               </Chip>
             ))}
           </Box>
@@ -136,14 +167,14 @@ const ReviewWrite = () => {
             성취감
           </Text>
           <Box as='ul' display='flex'>
-            {feelingList.map((item) => (
+            {achievementList.map((item) => (
               <Chip
                 as='li'
-                key={item}
-                onClick={() => handleFeelingClick(item)}
-                isSelected={selectedFeeling === item}
+                key={item.number}
+                onClick={() => handleFeelingClick(item.number)}
+                isSelected={selectedAchievement === item.number}
               >
-                {item}
+                {item.label}
               </Chip>
             ))}
           </Box>

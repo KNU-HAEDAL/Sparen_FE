@@ -53,5 +53,3 @@ export type ChallengeAvgScoreData = {
 };
 
 //
-
-export type PostReviewData = number;
