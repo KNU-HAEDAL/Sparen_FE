@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
-import { RouterPath } from '@/routes/path';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -39,11 +38,6 @@ const ReviewWrite = () => {
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
-
-  // 로그인 안 되었을 때
-  const navigate = useNavigate();
-  const location = useLocation();
-  const currentRedirect = location.pathname ?? window.location.href;
 
   const handleDifficultyClick = (difficulty: number) => {
     setSelectedDifficulty(difficulty);
@@ -94,14 +88,7 @@ const ReviewWrite = () => {
       .catch((error) => {
         // API에서 받은 오류 객체일 경우
         if (error.result === 'FAIL') {
-          if (error.errorCode === 'UNAUTHORIZED') {
-            alert('로그인 후 시도해주세요.');
-            navigate(
-              `/${RouterPath.auth}?redirect=${encodeURIComponent(currentRedirect)}`
-            );
-          } else {
-            alert(error.message || '다시 시도해주세요.');
-          }
+          alert(error.message || '다시 시도해주세요.');
         }
         // 예상치 못한 오류 처리
         else {
