@@ -10,6 +10,57 @@ type ReviewItemProps = {
 const ReviewItem = ({ item }: ReviewItemProps) => {
   const rating = item.rating;
 
+  const formatDate = (dateStr: string) => {
+    const dateObj = new Date(dateStr);
+
+    return `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
+    // 2024.00.00 형식으로 반환
+  };
+
+  const formatDifficulty = (difficulty: number) => {
+    let difficultyStr;
+
+    switch (difficulty) {
+      case 1:
+        difficultyStr = '쉬워요';
+        break;
+      case 2:
+        difficultyStr = '적당해요';
+        break;
+      case 3:
+        difficultyStr = '어려워요';
+        break;
+      default:
+        difficultyStr = 'undefined';
+    }
+
+    return difficultyStr;
+  };
+
+  const formatAchievement = (achievement: number) => {
+    let achievementStr;
+
+    switch (achievement) {
+      case 1:
+        achievementStr = '뿌듯해요';
+        break;
+      case 2:
+        achievementStr = '보통이에요';
+        break;
+      case 3:
+        achievementStr = '잘 모르겠어요';
+        break;
+      default:
+        achievementStr = 'undefined';
+    }
+
+    return achievementStr;
+  };
+
+  const formattedDate = formatDate(item.createdAt);
+  const formattedDifficulty = formatDifficulty(item.difficulty);
+  const formattedAchievement = formatAchievement(item.achievement);
+
   return (
     <Wrapper>
       <ImageBox>
@@ -21,15 +72,36 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
         />
       </ImageBox>
       <ReviewItemBox>
-        <RowWrapper style={{ marginTop: '4px' }}>
+        <RowWrapper style={{ lineHeight: '2rem' }}>
           <Text fontSize='var(--font-size-sm)'>{item.user.nickname}</Text>
           <Text fontSize='var(--font-size-sm)' color='var(--color-grey-01)'>
             {item.user.tierInfo.tier}
           </Text>
-          <Rating>난이도 {item.challengeDifficulty}</Rating>
+          <Text
+            fontSize='var(--font-size-xs)'
+            color='var(--color-grey-02)'
+            marginLeft='auto'
+          >
+            신고
+          </Text>
+          <VerticalLine />
+          <Text fontSize='var(--font-size-xs)' color='var(--color-grey-02)'>
+            {formattedDate}
+          </Text>
         </RowWrapper>
         <RowWrapper>
+          <Text
+            fontSize='var(--font-size-xs)'
+            color='var(--color-black)'
+            margin='4px 0 0'
+          >
+            난이도 {item.challengeDifficulty}
+          </Text>
+        </RowWrapper>
+        <RowWrapper style={{ margin: '12px 0' }}>
           <StarRating rating={rating} size={16} />
+          <Chip>{formattedDifficulty}</Chip>
+          <Chip>{formattedAchievement}</Chip>
         </RowWrapper>
         <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
       </ReviewItemBox>
@@ -42,7 +114,7 @@ export default ReviewItem;
 const Wrapper = styled(Box)`
   display: flex;
   text-align: left;
-  gap: 8px;
+  gap: 16px;
   flex: 1;
   width: 100%;
 `;
@@ -50,9 +122,9 @@ const Wrapper = styled(Box)`
 const ImageBox = styled.div`
   height: 2rem;
   width: 2rem;
-  border-radius: 50%;
-  overflow: hidden;
   aspect-ratio: 1/1;
+  border-radius: 50%;
+  /* overflow: hidden; */
   display: flex; /* 이미지 가운데 정렬 */
   align-items: center;
   justify-content: center;
@@ -61,7 +133,6 @@ const ImageBox = styled.div`
 const ReviewItemBox = styled(Box)`
   display: flex;
   flex-direction: column;
-  gap: 8px;
   width: 100%;
 `;
 
@@ -72,12 +143,18 @@ const RowWrapper = styled(Wrapper)`
   gap: 8px;
 `;
 
-const Rating = styled.div`
+const Chip = styled.div`
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: var(--color-green-01) 0.5px solid;
+  background-color: var(--color-white);
+  color: var(--color-green-01);
   font-size: var(--font-size-xs);
-  color: var(--color-grey-01);
-  border-radius: 20px;
-  border: var(--color-grey-02) 0.5px solid;
-  padding: 2px 8px;
+  font-weight: 600;
   text-align: center;
-  margin-left: auto;
+`;
+
+const VerticalLine = styled.span`
+  height: 10px;
+  border-right: 0.5px solid var(--color-grey-02);
 `;
