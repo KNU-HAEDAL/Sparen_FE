@@ -249,13 +249,13 @@ const Chip = styled.button<{ isSelected: boolean }>`
   background-color: var(--color-white);
   color: var(--color-grey-01);
   font-size: var(--font-size-sm);
+  font-weight: 600;
   text-align: center;
   ${({ isSelected }) =>
     isSelected &&
     `
-        border: var(--color-green-01) 1.5px solid;
+        border: var(--color-green-01) 1px solid;
         color: var(--color-green-01);
-        font-weight: 600;
     `}
 `;
 
