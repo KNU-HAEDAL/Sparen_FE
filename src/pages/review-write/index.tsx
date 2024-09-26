@@ -7,6 +7,7 @@ import { postReview } from '@/apis/review/review.api';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
+import { formatDifficulty, formatAchievement } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -18,26 +19,18 @@ const ReviewWrite = () => {
   const { challengeTitle } = useChallengeStore();
   // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
-  const difficultyList = [
-    { label: '쉬워요', number: 1 },
-    { label: '적당해요', number: 2 },
-    { label: '어려워요', number: 3 },
-  ];
-  const achievementList = [
-    { label: '뿌듯해요', number: 1 },
-    { label: '보통이에요', number: 2 },
-    { label: '잘 모르겠어요', number: 3 },
-  ];
   const [rating, setRating] = useState(0);
+  const difficultyList = [1, 2, 3];
   const [selectedDifficulty, setSelectedDifficulty] = useState<
     number | undefined
   >();
+  const achievementList = [1, 2, 3];
   const [selectedAchievement, setSelectedAchievement] = useState<
     number | undefined
   >();
   const [content, setContent] = useState('');
-  const [isContentValid, setIsContentValid] = useState<boolean>(true);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [isContentValid, setIsContentValid] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleDifficultyClick = (difficulty: number) => {
     setSelectedDifficulty(difficulty);
@@ -137,14 +130,14 @@ const ReviewWrite = () => {
             체감 난이도
           </Text>
           <Box as='ul' display='flex'>
-            {difficultyList.map((item) => (
+            {difficultyList.map((d) => (
               <Chip
                 as='li'
-                key={item.number}
-                onClick={() => handleDifficultyClick(item.number)}
-                isSelected={selectedDifficulty === item.number}
+                key={d}
+                onClick={() => handleDifficultyClick(d)}
+                isSelected={selectedDifficulty === d}
               >
-                {item.label}
+                {formatDifficulty(d)}
               </Chip>
             ))}
           </Box>
@@ -154,14 +147,14 @@ const ReviewWrite = () => {
             성취감
           </Text>
           <Box as='ul' display='flex'>
-            {achievementList.map((item) => (
+            {achievementList.map((a) => (
               <Chip
                 as='li'
-                key={item.number}
-                onClick={() => handleFeelingClick(item.number)}
-                isSelected={selectedAchievement === item.number}
+                key={a}
+                onClick={() => handleFeelingClick(a)}
+                isSelected={selectedAchievement === a}
               >
-                {item.label}
+                {formatAchievement(a)}
               </Chip>
             ))}
           </Box>
