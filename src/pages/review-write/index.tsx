@@ -226,6 +226,7 @@ const Rating = styled.span`
 
 const Content = styled.textarea<{ valid?: boolean }>`
   font-size: var(--font-size-sm);
+  color: var(--color-black);
   border-radius: 20px;
   border: ${({ valid }) =>
     valid
@@ -236,6 +237,11 @@ const Content = styled.textarea<{ valid?: boolean }>`
   height: 180px;
   resize: none;
   outline: none;
+
+  &::placeholder {
+    color: var(--color-grey-01);
+    opacity: 1; /* Firefox에서 placeholder 색상을 명시적으로 설정하기 위해 추가 */
+  }
 
   &:focus {
     border: ${({ valid }) =>
