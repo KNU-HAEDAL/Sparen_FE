@@ -17,29 +17,20 @@ export const formatWithComma = (number: number) => {
 
 // 챌린지 카테고리
 export const formatCategory = (category: string | undefined): string => {
-  let categoryStr;
-
   switch (category) {
     case 'HEALTH':
-      categoryStr = '건강';
-      break;
+      return '건강';
     case 'ECHO':
-      categoryStr = '에코';
-      break;
+      return '에코';
     case 'SHARE':
-      categoryStr = '나눔';
-      break;
+      return '나눔';
     case 'VOLUNTEER':
-      categoryStr = '봉사';
-      break;
+      return '봉사';
     case 'ETC':
-      categoryStr = '기타';
-      break;
+      return '기타';
     default:
-      categoryStr = 'undefined';
+      return '??';
   }
-
-  return categoryStr;
 };
 
 // const categoryList = [
@@ -56,69 +47,46 @@ export const formatCategory = (category: string | undefined): string => {
 
 // 리뷰 - 별점
 export const formatRating = (rating: number): string => {
-  let ratingInComment;
-
   switch (rating) {
     case 5:
-      ratingInComment = '최고예요 😆';
-      break;
+      return '최고예요 😆';
     case 4:
-      ratingInComment = '만족해요 😀';
-      break;
+      return '만족해요 😀';
     case 3:
-      ratingInComment = '무난해요 🙂';
-      break;
+      return '무난해요 🙂';
     case 2:
-      ratingInComment = '그저 그래요 😐';
-      break;
+      return '그저 그래요 😐';
     case 1:
-      ratingInComment = '별로예요 🙁';
-      break;
+      return '별로예요 🙁';
     default:
-      ratingInComment = '';
+      return '';
   }
-
-  return ratingInComment;
 };
 
 // 리뷰 - 체감 난이도
 export const formatDifficulty = (difficulty: number): string => {
-  let difficultyStr;
-
   switch (difficulty) {
     case 1:
-      difficultyStr = '쉬워요';
-      break;
+      return '쉬워요';
     case 2:
-      difficultyStr = '적당해요';
-      break;
+      return '적당해요';
     case 3:
-      difficultyStr = '어려워요';
-      break;
+      return '어려워요';
     default:
-      difficultyStr = 'undefined';
+      return '??';
   }
-
-  return difficultyStr;
 };
 
 // 리뷰 - 성취감
 export const formatAchievement = (achievement: number): string => {
-  let achievementStr;
-
   switch (achievement) {
     case 1:
-      achievementStr = '뿌듯해요';
-      break;
+      return '뿌듯해요';
     case 2:
-      achievementStr = '보통이에요';
-      break;
+      return '보통이에요';
     case 3:
-      achievementStr = '잘 모르겠어요';
-      break;
+      return '잘 모르겠어요';
     default:
-      achievementStr = 'undefined';
+      return 'undefined';
   }
-
-  return achievementStr;
 };
