@@ -87,15 +87,32 @@ const ReviewWrite = () => {
           <Category>{categoryLabel}</Category>
           <Title>{challengeTitle}</Title>
         </ChallengeTitleWrapper>
-        <FlexBox alignItems='center' alignSelf='center'>
-          <StarRating
-            rating={rating}
-            size={32}
-            onClick={(newRating) => setRating(newRating)}
-          />
-          <Rating>
-            <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
-          </Rating>
+        <FlexBox flexDirection='column' alignItems='center' alignSelf='center'>
+          <FlexBox flexDirection='row' alignItems='center'>
+            <StarRating
+              rating={rating}
+              size={32}
+              onClick={(newRating) => setRating(newRating)}
+            />
+            <Rating>
+              <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
+            </Rating>
+          </FlexBox>
+          <FlexBox alignSelf='center'>
+            <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
+              {rating === 5
+                ? '매우 만족 😆'
+                : rating === 4
+                  ? '만족 😀'
+                  : rating === 3
+                    ? '보통 🙂'
+                    : rating === 2
+                      ? '별로 😐'
+                      : rating === 1
+                        ? '매우 별로 🙁'
+                        : ''}
+            </Text>
+          </FlexBox>
         </FlexBox>
         <FlexBox flexDirection='column'>
           <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
