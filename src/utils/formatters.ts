@@ -15,6 +15,45 @@ export const formatWithComma = (number: number) => {
   return number.toLocaleString();
 };
 
+// 챌린지 카테고리
+export const formatCategory = (category: string | undefined): string => {
+  let categoryStr;
+
+  switch (category) {
+    case 'HEALTH':
+      categoryStr = '건강';
+      break;
+    case 'ECHO':
+      categoryStr = '에코';
+      break;
+    case 'SHARE':
+      categoryStr = '나눔';
+      break;
+    case 'VOLUNTEER':
+      categoryStr = '봉사';
+      break;
+    case 'ETC':
+      categoryStr = '기타';
+      break;
+    default:
+      categoryStr = 'undefined';
+  }
+
+  return categoryStr;
+};
+
+// const categoryList = [
+//   { label: '건강', data: 'HEALTH' },
+//   { label: '에코', data: 'ECHO' },
+//   { label: '나눔', data: 'SHARE' },
+//   { label: '봉사', data: 'VOLUNTEER' },
+//   { label: '기타', data: 'ETC' },
+// ];
+
+// // data.category에 맞는 label 찾기
+// const categoryLabel =
+//   categoryList.find((c) => c.data === data?.category)?.label || '';
+
 // 리뷰 - 별점
 export const formatRating = (rating: number): string => {
   let ratingInComment;

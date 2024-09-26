@@ -11,6 +11,7 @@ import DefaultImage from '@/assets/Default-Image.svg';
 import { Tabs, Tab } from '@/components/common/tabs';
 import { TabPanels, TabPanel } from '@/components/common/tabs/tap-panels';
 import TopBar from '@/components/features/layout/top-bar';
+import { formatCategory } from '@/utils/formatters';
 
 // const CHALLENGE_GROUP_ID = 38;
 
@@ -24,18 +25,6 @@ const ChallengeDetailPage = () => {
     return savedTab ? Number(savedTab) : 0;
   });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
-
-  const categoryList = [
-    { label: '건강', data: 'HEALTH' },
-    { label: '에코', data: 'ECHO' },
-    { label: '나눔', data: 'SHARE' },
-    { label: '봉사', data: 'VOLUNTEER' },
-    { label: '기타', data: 'ETC' },
-  ];
-
-  // data.category에 맞는 label 찾기
-  const categoryLabel =
-    categoryList.find((c) => c.data === data?.category)?.label || '';
 
   const tabsList = [
     {
@@ -93,7 +82,7 @@ const ChallengeDetailPage = () => {
           )}
         </S.ImageList>
         <S.ChallengeTitleWrapper>
-          <S.Category>{categoryLabel}</S.Category>
+          <S.Category>{formatCategory(data?.category)}</S.Category>
           <S.Title>{data?.title}</S.Title>
         </S.ChallengeTitleWrapper>
 
