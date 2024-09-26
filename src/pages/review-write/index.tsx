@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
@@ -31,6 +31,7 @@ const ReviewWrite = () => {
   >();
   const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
   const [content, setContent] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const handleDifficultyClick = (difficulty: string) => {
     setSelectedDifficulty(difficulty);
@@ -40,32 +41,33 @@ const ReviewWrite = () => {
     setSelectedFeeling(feeling);
   };
 
-  const handleSaveReview = () => {
-    if (rating === 0) {
-      alert('별점을 선택해주세요.');
-      return;
-    } else if (
-      selectedDifficulty === undefined ||
-      selectedFeeling === undefined
+  useEffect(() => {
+    if (
+      rating &&
+      selectedDifficulty &&
+      selectedFeeling &&
+      content.trim() &&
+      content.length >= 20
     ) {
-      alert('체감 난이도와 성취감을 선택해주세요.');
-      return;
-    } else if (!content.trim() || content.length < 20) {
-      alert('소감을 20자 이상 입력해주세요.');
-      return;
-    } else
-      postReview({
-        challengeId: challengeGroupId,
-        content,
-        rating,
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [rating, selectedDifficulty, selectedFeeling, content]);
+
+  const handleSaveReview = () => {
+    postReview({
+      challengeId: challengeGroupId,
+      content,
+      rating,
+    })
+      .then(() => {
+        alert('성공적으로 저장했습니다.');
+        navigate('/');
       })
-        .then(() => {
-          alert('성공적으로 저장했습니다.');
-          navigate('/');
-        })
-        .catch(() => {
-          alert('저장에 실패했습니다.');
-        });
+      .catch(() => {
+        alert('저장에 실패했습니다.');
+      });
   };
 
   return (
@@ -152,7 +154,9 @@ const ReviewWrite = () => {
         </FlexBox>
       </Wrapper>
       <CTABox>
-        <SubmitButton onClick={handleSaveReview}>등록하기</SubmitButton>
+        <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
+          등록하기
+        </SubmitButton>
       </CTABox>
     </>
   );
@@ -243,7 +247,7 @@ const Chip = styled.button<{ isSelected: boolean }>`
     `}
 `;
 
-const SubmitButton = styled(Button)`
+const SubmitButton = styled(Button)<{ disabled?: boolean }>`
   width: 100%;
   height: 100%;
   border: none;
@@ -252,4 +256,10 @@ const SubmitButton = styled(Button)`
   color: var(--color-white);
   font-size: var(--font-size-md);
   font-weight: bold;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-grey-01);
+    background-color: var(--color-grey-02);
+  }
 `;
