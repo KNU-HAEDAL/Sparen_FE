@@ -4,6 +4,7 @@ import Challenge from '../components/challenge';
 import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import * as Base from '@/styles/baseStyles';
+import { formatDate } from '@/utils/formatters';
 
 type DescriptionSectionProps = {
   data: ChallengeDetailData;
@@ -14,6 +15,9 @@ export const DescriptionSection = ({
 }: DescriptionSectionProps): ReactNode => {
   const challenges = data.challenges;
 
+  const formattedStartDate = formatDate(data.startDate);
+  const formattedEndDate = formatDate(data.endDate);
+
   return (
     <S.Wrapper>
       <S.ContentWrapper>
@@ -23,7 +27,7 @@ export const DescriptionSection = ({
       <S.ContentWrapper>
         <S.BoldText>챌린지 신청 가능 기간</S.BoldText>
         <S.Text>
-          {data.startDate} ~ {data.endDate}
+          {formattedStartDate} ~ {formattedEndDate}
         </S.Text>
       </S.ContentWrapper>
       <div style={{ height: '12px' }} />
