@@ -158,7 +158,7 @@ const ReviewWrite = () => {
           </Text>
           <Text fontSize='var(--font-size-sm)'>
             해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
-            <Text as='span' color='var(--color-green-01)'>
+            <Text as='span' color='var(--color-green-01)' fontWeight={600}>
               부적절한 내용은 삭제 조치
             </Text>
             될 수 있습니다.
@@ -209,12 +209,13 @@ const FlexBox = styled(Box)`
 
 const Rating = styled.span`
   display: inline-flex;
-  align-items: center;
+  align-items: end;
 
   span:first-child {
     font-size: var(--font-size-xxl);
     font-weight: bold;
     margin-left: 10px;
+    line-height: 1;
   }
 
   span:last-child {
@@ -231,7 +232,8 @@ const Content = styled.textarea<{ valid?: boolean }>`
       ? 'var(--color-grey-02) 1px solid'
       : 'var(--color-class-05) 1px solid'};
   padding: 12px;
-  height: 30vh;
+  width: 100%;
+  height: 180px;
   resize: none;
   outline: none;
 
@@ -258,7 +260,7 @@ const Chip = styled.button<{ isSelected: boolean }>`
   border-radius: 50px;
   border: var(--color-grey-02) 1px solid;
   background-color: var(--color-white);
-  color: var(--color-grey-02);
+  color: var(--color-grey-01);
   font-size: var(--font-size-sm);
   text-align: center;
   ${({ isSelected }) =>
