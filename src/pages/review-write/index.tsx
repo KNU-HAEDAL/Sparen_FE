@@ -27,6 +27,7 @@ const ReviewWrite = () => {
   >();
   const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
   const [content, setContent] = useState('');
+  const [isContentValid, setIsContentValid] = useState<boolean>(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const handleDifficultyClick = (difficulty: string) => {
@@ -37,6 +38,7 @@ const ReviewWrite = () => {
     setSelectedFeeling(feeling);
   };
 
+  // 별점, 체감 난이도, 성취감, 내용 유효성 검사 -> 버튼 상태 관리
   useEffect(() => {
     if (
       rating &&
@@ -50,6 +52,18 @@ const ReviewWrite = () => {
       setIsButtonDisabled(true);
     }
   }, [rating, selectedDifficulty, selectedFeeling, content]);
+
+  // 소감 내용 유효성 검사
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newContent = e.target.value;
+    setContent(newContent);
+
+    if (newContent.trim() && newContent.length >= 20) {
+      setIsContentValid(true);
+    } else {
+      setIsContentValid(false);
+    }
+  };
 
   const handleSaveReview = () => {
     postReview({
@@ -121,14 +135,17 @@ const ReviewWrite = () => {
           <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             소감
           </Text>
-          <TextArea
+          <Content
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={handleContentChange}
+            valid={isContentValid}
           />
           <Text
             fontSize='var(--font-size-xs)'
-            color='var(--color-grey-02)'
+            color={
+              isContentValid ? `var(--color-grey-01)` : `var(--color-class-05)`
+            }
             textAlign='right'
             marginTop='8px'
           >
@@ -206,13 +223,24 @@ const Rating = styled.span`
   }
 `;
 
-const TextArea = styled.textarea`
+const Content = styled.textarea<{ valid?: boolean }>`
   font-size: var(--font-size-sm);
   border-radius: 20px;
-  border: var(--color-green-01) 1px solid;
+  border: ${({ valid }) =>
+    valid
+      ? 'var(--color-grey-02) 1px solid'
+      : 'var(--color-class-05) 1px solid'};
   padding: 12px;
   height: 30vh;
   resize: none;
+  outline: none;
+
+  &:focus {
+    border: ${({ valid }) =>
+      valid
+        ? 'var(--color-green-01) 1px solid'
+        : 'var(--color-class-05) 1px solid'};
+  }
 `;
 
 const CTABox = styled(Box)`
