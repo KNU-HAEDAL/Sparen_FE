@@ -1,12 +1,39 @@
-export const formatDate = (dateStr: string) => {
+export const formatDate = (dateStr: string): string => {
   const dateObj = new Date(dateStr);
 
   return `${dateObj.getFullYear()}.${String(dateObj.getMonth() + 1).padStart(2, '0')}.${String(dateObj.getDate()).padStart(2, '0')}`;
   // 2024.00.00 형식으로 반환
 };
 
-// 리뷰에 필요
-export const formatDifficulty = (difficulty: number) => {
+// 리뷰 - 별점
+export const formatRating = (rating: number): string => {
+  let ratingInComment;
+
+  switch (rating) {
+    case 5:
+      ratingInComment = '최고예요 😆';
+      break;
+    case 4:
+      ratingInComment = '만족해요 😀';
+      break;
+    case 3:
+      ratingInComment = '무난해요 🙂';
+      break;
+    case 2:
+      ratingInComment = '그저 그래요 😐';
+      break;
+    case 1:
+      ratingInComment = '별로예요 🙁';
+      break;
+    default:
+      ratingInComment = '';
+  }
+
+  return ratingInComment;
+};
+
+// 리뷰 - 체감 난이도
+export const formatDifficulty = (difficulty: number): string => {
   let difficultyStr;
 
   switch (difficulty) {
@@ -26,8 +53,8 @@ export const formatDifficulty = (difficulty: number) => {
   return difficultyStr;
 };
 
-// 리뷰에 필요
-export const formatAchievement = (achievement: number) => {
+// 리뷰 - 성취감
+export const formatAchievement = (achievement: number): string => {
   let achievementStr;
 
   switch (achievement) {

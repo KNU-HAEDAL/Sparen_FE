@@ -7,7 +7,11 @@ import { postReview } from '@/apis/review/review.api';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
-import { formatDifficulty, formatAchievement } from '@/utils/formatters';
+import {
+  formatRating,
+  formatDifficulty,
+  formatAchievement,
+} from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -111,17 +115,7 @@ const ReviewWrite = () => {
           </FlexBox>
           <FlexBox alignSelf='center'>
             <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
-              {rating === 5
-                ? '최고예요 😆'
-                : rating === 4
-                  ? '만족해요 😀'
-                  : rating === 3
-                    ? '무난해요 🙂'
-                    : rating === 2
-                      ? '그저 그래요 😐'
-                      : rating === 1
-                        ? '별로예요 🙁'
-                        : ''}
+              {formatRating(rating)}
             </Text>
           </FlexBox>
         </FlexBox>

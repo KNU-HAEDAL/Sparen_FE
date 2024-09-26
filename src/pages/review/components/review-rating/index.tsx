@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { getChallegeAvgScore } from '@/apis/review/review.api';
 import type { RatingCount } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
+import { formatRating } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -69,15 +70,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
                 color='var(--color-grey-01)'
                 mr='auto'
               >
-                {key === '5'
-                  ? '최고예요 😆'
-                  : key === '4'
-                    ? '만족해요 😀'
-                    : key === '3'
-                      ? '무난해요 🙂'
-                      : key === '2'
-                        ? '그저 그래요 😐'
-                        : '별로예요 🙁'}
+                {formatRating(Number(key))}
               </Text>
               <Bar
                 key={`${key}-bar`}
