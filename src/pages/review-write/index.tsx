@@ -224,6 +224,24 @@ const Rating = styled.span`
   }
 `;
 
+const Chip = styled.button<{ isSelected: boolean }>`
+  margin-right: 4px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: var(--color-grey-02) 1px solid;
+  background-color: var(--color-white);
+  color: var(--color-grey-01);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+        border: var(--color-green-01) 1.5px solid;
+        color: var(--color-green-01);
+        font-weight: 600;
+    `}
+`;
+
 const Content = styled.textarea<{ valid?: boolean }>`
   font-size: var(--font-size-sm);
   color: var(--color-black);
@@ -258,24 +276,6 @@ const CTABox = styled(Box)`
   width: 100%;
   height: 3.44rem;
   padding: 4px 16px;
-`;
-
-const Chip = styled.button<{ isSelected: boolean }>`
-  margin-right: 4px;
-  padding: 4px 12px;
-  border-radius: 50px;
-  border: var(--color-grey-02) 1px solid;
-  background-color: var(--color-white);
-  color: var(--color-grey-01);
-  font-size: var(--font-size-sm);
-  text-align: center;
-  ${({ isSelected }) =>
-    isSelected &&
-    `
-        border: var(--color-green-01) 1.5px solid;
-        color: var(--color-green-01);
-        font-weight: 600;
-    `}
 `;
 
 const SubmitButton = styled(Button)<{ disabled?: boolean }>`
