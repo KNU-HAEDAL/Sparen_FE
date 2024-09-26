@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
@@ -9,8 +9,6 @@ import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
-
-// const SAMPLE_CHALLENGE_ID = 1;
 
 const ReviewWrite = () => {
   const { id } = useParams();
@@ -22,8 +20,6 @@ const ReviewWrite = () => {
 
   const difficultyList = ['쉬워요', '적당해요', '어려워요']; // 1 2 3
   const feelingList = ['뿌듯해요', '그냥 그래요', '별로예요']; // 1 2 3
-
-  const navigate = useNavigate();
 
   const [rating, setRating] = useState(0);
   const [selectedDifficulty, setSelectedDifficulty] = useState<
@@ -63,7 +59,6 @@ const ReviewWrite = () => {
     })
       .then(() => {
         alert('성공적으로 저장했습니다.');
-        navigate('/');
       })
       .catch(() => {
         alert('저장에 실패했습니다.');
