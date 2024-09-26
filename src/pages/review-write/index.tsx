@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { Button } from 'antd';
-
 import { postReview } from '@/apis/review/review.api';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
@@ -300,7 +298,7 @@ const CTABox = styled(Box)`
   padding: 4px 16px;
 `;
 
-const SubmitButton = styled(Button)<{ disabled?: boolean }>`
+const SubmitButton = styled.button<{ disabled?: boolean }>`
   width: 100%;
   height: 100%;
   border: none;
