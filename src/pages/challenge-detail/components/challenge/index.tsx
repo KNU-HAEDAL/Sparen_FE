@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
-import { RouterPath } from '@/routes/path';
+import { getDynamicPath } from '@/routes/protected-route';
 
 type Props = {
   challenge: Challenge;
@@ -14,7 +14,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
   const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
   const navigate = useNavigate();
 
-  const clickJoinChallenge = () => {
+  const handleJoinChallenge = () => {
     joinChallenge(challenge.id)
       .then((res) => {
         alert(res.message);
@@ -24,7 +24,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
         if (error.result === 'FAIL') {
           if (error.errorCode === 'UNAUTHORIZED') {
             alert('로그인 후 시도해주세요.');
-            navigate(RouterPath.auth);
+            navigate(getDynamicPath.login());
           } else {
             alert(error.message || '다시 시도해주세요.');
           }
@@ -74,7 +74,7 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
         </S.RowWrapper>
       </S.Wrapper>
 
-      <S.CTA onClick={clickJoinChallenge}>참여하기</S.CTA>
+      <S.CTA onClick={handleJoinChallenge}>참여하기</S.CTA>
     </S.Outer>
   );
 };
