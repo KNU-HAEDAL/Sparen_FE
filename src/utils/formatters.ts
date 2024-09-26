@@ -5,6 +5,16 @@ export const formatDate = (dateStr: string): string => {
   // 2024.00.00 형식으로 반환
 };
 
+// 숫자에 소수점 처리
+export const formatToFixed = (number: number, digits = 1) => {
+  return number.toFixed(digits);
+};
+
+// 숫자에 , 넣기
+export const formatWithComma = (number: number) => {
+  return number.toLocaleString();
+};
+
 // 리뷰 - 별점
 export const formatRating = (rating: number): string => {
   let ratingInComment;

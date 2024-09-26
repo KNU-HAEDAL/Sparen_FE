@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import { getChallegeAvgScore } from '@/apis/review/review.api';
 import type { RatingCount } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
-import { formatRating } from '@/utils/formatters';
+import {
+  formatRating,
+  formatToFixed,
+  formatWithComma,
+} from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -27,11 +31,8 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
   useEffect(() => {
     getChallegeAvgScore({ challengeGroupId: challengeGroupId }).then((res) => {
       setRatingCount(res.ratingCount);
-
-      // 별점 평균 저장
-      const average = Number(res.averageRating.toFixed(1)); // 소수점 아래 한 자리까지
-      setAvgRating(average);
-      setFormattedAvgRating(average.toFixed(1)); // 소수점 한 자리까지 나오게 포맷팅
+      setAvgRating(res.averageRating);
+      setFormattedAvgRating(formatToFixed(res.averageRating));
 
       // 모든 별점 개수 합 구하여 저장
       const total = Object.values(res.ratingCount).reduce(
@@ -39,7 +40,7 @@ const ReviewRating = ({ challengeGroupId }: ReviewDataProps) => {
         0
       );
       setTotalRatings(total);
-      setFormattedTotalRatings(total.toLocaleString()); // 쉼표 포맷팅하여 저장
+      setFormattedTotalRatings(formatWithComma(total));
     });
   }, [challengeGroupId]);
 

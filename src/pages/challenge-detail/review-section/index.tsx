@@ -8,6 +8,7 @@ import { type ReviewData } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review/components/review-item';
 import * as Base from '@/styles/baseStyles';
+import { formatToFixed, formatWithComma } from '@/utils/formatters';
 
 interface Props {
   id: number;
@@ -25,17 +26,15 @@ export const ReviewSection = ({ id }: Props) => {
     // 평균 별점 가져오기
     getChallegeAvgScore({ challengeGroupId: id })
       .then((res) => {
-        // 별점 평균 저장
-        const average = Number(res.averageRating.toFixed(1)); // 소수점 아래 한 자리까지
-        setAvgRating(average);
-        setFormattedAvgRating(average.toFixed(1)); // 소수점 한 자리까지 나오게 포맷팅
+        setAvgRating(res.averageRating);
+        setFormattedAvgRating(formatToFixed(res.averageRating));
 
-        // 모든 별점 개수 합 구하기
+        // 모든 별점 개수 합 구하여 저장
         const total = Object.values(res.ratingCount).reduce(
           (acc, value) => acc + value,
           0
         );
-        setFormattedTotalRatings(total.toLocaleString()); // 쉼포 포맷팅하여 저장
+        setFormattedTotalRatings(formatWithComma(total));
       })
       .catch((error) => {
         console.error('Error fetching average score:', error);
