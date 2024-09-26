@@ -76,55 +76,52 @@ const ReviewWrite = () => {
           <Category>{categoryLabel}</Category>
           <Title>{challengeTitle}</Title>
         </ChallengeTitleWrapper>
-        <FlexBox margin='32px 0' alignItems='end' alignSelf='center'>
+        <FlexBox alignItems='center' alignSelf='center'>
           <StarRating
             rating={rating}
             size={32}
             onClick={(newRating) => setRating(newRating)}
           />
-          <Rating>{rating}.0</Rating>
-          <Text
-            fontSize='var(--font-size-sm)'
-            color='var(--color-gray-01)'
-            margin='3px'
-          >
-            / 5.0
-          </Text>
+          <Rating>
+            <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
+          </Rating>
         </FlexBox>
-        <FlexBox>
-          <Text fontSize='var(--font-size-md)' fontWeight='600'>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             체감 난이도
           </Text>
-          {difficultyList.map((item) => (
-            <CheckButton
-              key={item}
-              onClick={() => handleDifficultyClick(item)}
-              isSelected={selectedDifficulty === item}
-            >
-              {item}
-            </CheckButton>
-          ))}
+          <Box as='ul' display='flex'>
+            {difficultyList.map((item) => (
+              <Chip
+                as='li'
+                key={item}
+                onClick={() => handleDifficultyClick(item)}
+                isSelected={selectedDifficulty === item}
+              >
+                {item}
+              </Chip>
+            ))}
+          </Box>
         </FlexBox>
-        <FlexBox marginTop='8px'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600'>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             성취감
           </Text>
-          {feelingList.map((item) => (
-            <CheckButton
-              key={item}
-              onClick={() => handleFeelingClick(item)}
-              isSelected={selectedFeeling === item}
-            >
-              {item}
-            </CheckButton>
-          ))}
+          <Box as='ul' display='flex'>
+            {feelingList.map((item) => (
+              <Chip
+                as='li'
+                key={item}
+                onClick={() => handleFeelingClick(item)}
+                isSelected={selectedFeeling === item}
+              >
+                {item}
+              </Chip>
+            ))}
+          </Box>
         </FlexBox>
-        <FlexBox flexDirection='column' gap='8px'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='600'
-            marginTop='24px'
-          >
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             소감
           </Text>
           <TextArea
@@ -136,21 +133,21 @@ const ReviewWrite = () => {
             fontSize='var(--font-size-xs)'
             color='var(--color-grey-02)'
             textAlign='right'
+            marginTop='8px'
           >
             {content.length} / 최소 20자
           </Text>
         </FlexBox>
-        <FlexBox flexDirection='column' gap='8px'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='600'
-            marginTop='24px'
-          >
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             리뷰 작성 시 주의 사항
           </Text>
           <Text fontSize='var(--font-size-sm)'>
-            해당 챌린지와 무관한 내용 또는 욕설, 도배 등의 부적절한 내용은 삭제
-            조치될 수 있습니다.
+            해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
+            <Text as='span' color='var(--color-green-01)'>
+              부적절한 내용은 삭제 조치
+            </Text>
+            될 수 있습니다.
           </Text>
         </FlexBox>
       </Wrapper>
@@ -169,6 +166,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   text-align: left;
   margin-bottom: 3.44rem;
+  gap: 16px;
 `;
 
 const ChallengeTitleWrapper = styled.div`
@@ -193,10 +191,20 @@ const FlexBox = styled(Box)`
   padding: 0 16px;
 `;
 
-const Rating = styled.div`
-  font-size: var(--font-size-xxl);
-  font-weight: bold;
-  margin-left: 10px;
+const Rating = styled.span`
+  display: inline-flex;
+  align-items: center;
+
+  span:first-child {
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  span:last-child {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-01);
+  }
 `;
 
 const TextArea = styled.textarea`
@@ -217,6 +225,24 @@ const CTABox = styled(Box)`
   padding: 4px 16px;
 `;
 
+const Chip = styled.button<{ isSelected: boolean }>`
+  margin-right: 4px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  border: var(--color-grey-02) 1px solid;
+  background-color: var(--color-white);
+  color: var(--color-grey-02);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  ${({ isSelected }) =>
+    isSelected &&
+    `
+        border: var(--color-green-01) 1.5px solid;
+        color: var(--color-green-01);
+        font-weight: 600;
+    `}
+`;
+
 const SubmitButton = styled(Button)`
   width: 100%;
   height: 100%;
@@ -226,23 +252,4 @@ const SubmitButton = styled(Button)`
   color: var(--color-white);
   font-size: var(--font-size-md);
   font-weight: bold;
-`;
-
-const CheckButton = styled.button<{ isSelected: boolean }>`
-  height: 25px;
-  border-radius: 20px;
-  margin-left: 5px;
-  width: 4rem;
-  border: var(--color-grey-02) 1px solid;
-  background-color: var(--color-white);
-  color: var(--color-grey-02);
-  font-size: var(--font-size-sm);
-  text-align: center;
-  flex-shrink: 0;
-  ${({ isSelected }) =>
-    isSelected &&
-    `
-        border: var(--color-green-01) 1px solid;
-        color: var(--color-green-01);
-    `}
 `;
