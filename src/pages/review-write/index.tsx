@@ -1,221 +1,339 @@
-import { useState } from 'react';
-import { PiStarFill, PiStarLight } from 'react-icons/pi';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import { Button } from 'antd';
 
 import { postReview } from '@/apis/review/review.api';
+import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const SAMPLE_CHALLENGE_ID = 1;
-
 const ReviewWrite = () => {
+  const { id } = useParams();
+  const challengeId = Number(id);
+  // const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
+  const categoryLabel = sessionStorage.getItem('categoryLabel');
   const { challengeTitle } = useChallengeStore();
+  // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
 
-  const difficultyList = ['쉬워요', '적당해요', '어려워요'];
-  const feelingList = ['뿌듯해요', '유익해요', '애매해요'];
-
-  const navigate = useNavigate();
-
+  const difficultyList = [
+    { label: '쉬워요', number: 1 },
+    { label: '적당해요', number: 2 },
+    { label: '어려워요', number: 3 },
+  ];
+  const achievementList = [
+    { label: '뿌듯해요', number: 1 },
+    { label: '보통이에요', number: 2 },
+    { label: '잘 모르겠어요', number: 3 },
+  ];
   const [rating, setRating] = useState(0);
   const [selectedDifficulty, setSelectedDifficulty] = useState<
-    string | undefined
+    number | undefined
   >();
-  const [selectedFeeling, setSelectedFeeling] = useState<string | undefined>();
+  const [selectedAchievement, setSelectedAchievement] = useState<
+    number | undefined
+  >();
   const [content, setContent] = useState('');
+  const [isContentValid, setIsContentValid] = useState<boolean>(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
-  const handleDifficultyClick = (difficulty: string) => {
+  const handleDifficultyClick = (difficulty: number) => {
     setSelectedDifficulty(difficulty);
   };
 
-  const handleFeelingClick = (feeling: string) => {
-    setSelectedFeeling(feeling);
+  const handleFeelingClick = (feeling: number) => {
+    setSelectedAchievement(feeling);
+  };
+
+  // 별점, 체감 난이도, 성취감, 내용 유효성 검사 -> 버튼 상태 관리
+  useEffect(() => {
+    if (
+      rating &&
+      selectedDifficulty &&
+      selectedAchievement &&
+      content.trim() &&
+      content.length >= 20
+    ) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [rating, selectedDifficulty, selectedAchievement, content]);
+
+  // 소감 내용 유효성 검사
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newContent = e.target.value;
+    setContent(newContent);
+
+    if (newContent.trim() && newContent.length >= 20) {
+      setIsContentValid(true);
+    } else {
+      setIsContentValid(false);
+    }
   };
 
   const handleSaveReview = () => {
-    if (rating === 0) {
-      alert('별점을 선택해주세요.');
-      return;
-    } else if (
-      selectedDifficulty === undefined ||
-      selectedFeeling === undefined
-    ) {
-      alert('난이도와 성취감을 선택해주세요.');
-      return;
-    } else if (!content.trim()) {
-      alert('리뷰 내용을 입력해주세요.');
-      return;
-    } else
-      postReview({
-        challengeId: SAMPLE_CHALLENGE_ID,
-        content,
-        rating,
+    postReview({
+      challengeId,
+      content,
+      rating,
+      difficulty: selectedDifficulty,
+      achievement: selectedAchievement,
+    })
+      .then(() => {
+        alert('리뷰가 등록되었습니다!');
       })
-        .then(() => {
-          alert('성공적으로 저장했습니다.');
-          navigate('/');
-        })
-        .catch(() => {
-          alert('저장에 실패했습니다.');
-        });
+      .catch((error) => {
+        // API에서 받은 오류 객체일 경우
+        if (error.result === 'FAIL') {
+          alert(error.message || '다시 시도해주세요.');
+        }
+        // 예상치 못한 오류 처리
+        else {
+          alert('다시 시도해주세요.');
+        }
+      });
   };
 
   return (
     <>
-      <TopBar title='챌린지 리뷰' backgroundColor='#fff' type='Page' />
-      <ReviewWriteLayout>
-        <Text fontSize='var(--font-size-lg)' fontWeight='700'>
-          {challengeTitle}
-        </Text>
-        <Wrapper margin='20px 0' alignItems='end' alignSelf='center'>
-          {[...Array(rating)].map((_, i) => (
-            <PiStarFill
-              size='35'
-              key={i}
-              onClick={() => setRating(i + 1)}
-              color='var(--color-green-01)'
+      <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
+      <Wrapper>
+        <ChallengeTitleWrapper>
+          <Category>{categoryLabel}</Category>
+          <Title>{challengeTitle}</Title>
+        </ChallengeTitleWrapper>
+        <FlexBox flexDirection='column' alignItems='center' alignSelf='center'>
+          <FlexBox flexDirection='row' alignItems='center'>
+            <StarRating
+              rating={rating}
+              size={32}
+              onClick={(newRating) => setRating(newRating)}
             />
-          ))}
-          {[...Array(5 - rating)].map((_, i) => (
-            <PiStarLight
-              size='35'
-              key={i}
-              onClick={() => setRating(rating + i + 1)}
-              color='var(--color-green-01)'
-            />
-          ))}
-          <Star>{rating}.0</Star>
-          <Text
-            fontSize='var(--font-size-sm)'
-            color='var(--color-gray-01)'
-            margin='3px'
-          >
-            /5.0
+            <Rating>
+              <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
+            </Rating>
+          </FlexBox>
+          <FlexBox alignSelf='center'>
+            <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
+              {rating === 5
+                ? '최고예요 😆'
+                : rating === 4
+                  ? '만족해요 😀'
+                  : rating === 3
+                    ? '무난해요 🙂'
+                    : rating === 2
+                      ? '그저 그래요 😐'
+                      : rating === 1
+                        ? '별로예요 🙁'
+                        : ''}
+            </Text>
+          </FlexBox>
+        </FlexBox>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
+            체감 난이도
           </Text>
-        </Wrapper>
-        <Wrapper margin='10px 0'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='700'
-            marginLeft='5px'
-            marginRight='20px'
-          >
-            난이도
-          </Text>
-          {difficultyList.map((item) => (
-            <CheckButton
-              key={item}
-              onClick={() => handleDifficultyClick(item)}
-              isSelected={selectedDifficulty === item}
-            >
-              {item}
-            </CheckButton>
-          ))}
-        </Wrapper>
-        <Wrapper margin='10px 0'>
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='700'
-            marginLeft='5px'
-            marginRight='20px'
-          >
+          <Box as='ul' display='flex'>
+            {difficultyList.map((item) => (
+              <Chip
+                as='li'
+                key={item.number}
+                onClick={() => handleDifficultyClick(item.number)}
+                isSelected={selectedDifficulty === item.number}
+              >
+                {item.label}
+              </Chip>
+            ))}
+          </Box>
+        </FlexBox>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             성취감
           </Text>
-          {feelingList.map((item) => (
-            <CheckButton
-              key={item}
-              onClick={() => handleFeelingClick(item)}
-              isSelected={selectedFeeling === item}
-            >
-              {item}
-            </CheckButton>
-          ))}
-        </Wrapper>
-        <Text
-          fontSize='var(--font-size-md)'
-          fontWeight='700'
-          marginLeft='5px'
-          marginRight='20px'
-          marginTop='20px'
-        >
-          리뷰 쓰기
-        </Text>
-        <InputArea
-          placeholder='챌린지 후 느낀점을 적어주세요'
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <SubmitButton onClick={handleSaveReview}>등록하기</SubmitButton>
-      </ReviewWriteLayout>
+          <Box as='ul' display='flex'>
+            {achievementList.map((item) => (
+              <Chip
+                as='li'
+                key={item.number}
+                onClick={() => handleFeelingClick(item.number)}
+                isSelected={selectedAchievement === item.number}
+              >
+                {item.label}
+              </Chip>
+            ))}
+          </Box>
+        </FlexBox>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
+            소감
+          </Text>
+          <Content
+            placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
+            value={content}
+            onChange={handleContentChange}
+            valid={isContentValid}
+          />
+          <Text
+            fontSize='var(--font-size-xs)'
+            color={
+              isContentValid ? `var(--color-grey-01)` : `var(--color-class-05)`
+            }
+            textAlign='right'
+            marginTop='8px'
+          >
+            {content.length} / 최소 20자
+          </Text>
+        </FlexBox>
+        <FlexBox flexDirection='column'>
+          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
+            리뷰 작성 시 주의 사항
+          </Text>
+          <Text fontSize='var(--font-size-sm)'>
+            해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
+            <Text as='span' color='var(--color-green-01)' fontWeight={600}>
+              부적절한 내용은 삭제 조치
+            </Text>
+            될 수 있습니다.
+          </Text>
+        </FlexBox>
+      </Wrapper>
+      <CTABox>
+        <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
+          등록하기
+        </SubmitButton>
+      </CTABox>
     </>
   );
 };
 
 export default ReviewWrite;
 
-const ReviewWriteLayout = styled.div`
+const Wrapper = styled.div`
   position: relative;
-  margin: 30px;
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 3.44rem;
+  gap: 16px;
+`;
+
+const ChallengeTitleWrapper = styled.div`
+  margin: 16px;
   display: flex;
   flex-direction: column;
   text-align: left;
 `;
 
-const Wrapper = styled(Box)`
+const Category = styled.div`
+  font-size: var(--font-size-xs);
+  color: var(--color-green-01);
+`;
+
+const Title = styled.div`
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+`;
+
+const FlexBox = styled(Box)`
   display: flex;
-  flex-direction: row;
+  padding: 0 16px;
 `;
 
-const Star = styled.div`
-  font-size: var(--font-size-xxl);
-  font-weight: bold;
-  margin-left: 10px;
+const Rating = styled.span`
+  display: inline-flex;
+  align-items: end;
+
+  span:first-child {
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    margin-left: 10px;
+    line-height: 1;
+  }
+
+  span:last-child {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-01);
+  }
 `;
 
-const InputArea = styled.textarea`
-  font-size: var(--font-size-sm);
-  border-radius: 20px;
-  border: var(--color-green-01) 1px solid;
-  padding: 10px;
-  height: 30vh;
-  resize: none;
-  margin-top: 10px;
-`;
-
-const SubmitButton = styled(Button)`
-  position: fixed;
-  display: block;
-  bottom: 60px;
-  width: calc(100% - 60px);
-  height: 50px;
-  margin-top: 30px;
-  border-radius: 20px;
-  background-color: var(--color-green-01);
-  color: var(--color-white);
-  font-size: var(--font-size-md);
-  font-weight: bold;
-  border: none;
-`;
-
-const CheckButton = styled.button<{ isSelected: boolean }>`
-  height: 25px;
-  border-radius: 20px;
-  margin-left: 5px;
-  width: 4rem;
+const Chip = styled.button<{ isSelected: boolean }>`
+  margin-right: 4px;
+  padding: 4px 12px;
+  border-radius: 50px;
   border: var(--color-grey-02) 1px solid;
   background-color: var(--color-white);
-  color: var(--color-grey-02);
+  color: var(--color-grey-01);
   font-size: var(--font-size-sm);
+  font-weight: 600;
   text-align: center;
-  flex-shrink: 0;
   ${({ isSelected }) =>
     isSelected &&
     `
         border: var(--color-green-01) 1px solid;
         color: var(--color-green-01);
     `}
+`;
+
+const Content = styled.textarea<{ valid?: boolean }>`
+  font-size: var(--font-size-sm);
+  color: var(--color-black);
+  border-radius: 20px;
+  border: ${({ valid }) =>
+    valid
+      ? 'var(--color-grey-02) 1px solid'
+      : 'var(--color-class-05) 1px solid'};
+  padding: 12px;
+  width: 100%;
+  height: 180px;
+  resize: none;
+  outline: none;
+
+  &::placeholder {
+    color: var(--color-grey-01);
+    opacity: 1; /* Firefox에서 placeholder 색상을 명시적으로 설정하기 위해 추가 */
+  }
+
+  &:focus {
+    border: ${({ valid }) =>
+      valid
+        ? 'var(--color-green-01) 1px solid'
+        : 'var(--color-class-05) 1px solid'};
+  }
+`;
+
+const CTABox = styled(Box)`
+  position: fixed;
+  bottom: 3.44rem; // 밑에 탭바
+  display: flex;
+  width: 100%;
+  height: 3.44rem;
+  padding: 4px 16px;
+`;
+
+const SubmitButton = styled(Button)<{ disabled?: boolean }>`
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color-green-01);
+  color: var(--color-white);
+  font-size: var(--font-size-md);
+  font-weight: bold;
+  outline: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--color-grey-01);
+    background-color: var(--color-grey-02);
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 0.8 !important;
+    background-color: var(--color-green-01) !important;
+    color: var(--color-white) !important;
+  }
 `;

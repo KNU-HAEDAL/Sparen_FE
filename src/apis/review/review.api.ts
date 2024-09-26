@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import { axiosClient } from '../AxiosClient';
 import type {
   GetReviewResponse,
-  PostReviewData,
   ChallengeAvgScoreData,
 } from './review.response';
 
@@ -65,31 +64,30 @@ type PostReviewParams = {
   challengeId: number;
   content: string;
   rating: number;
+  difficulty: number | undefined;
+  achievement: number | undefined;
 };
 
 export async function postReview({
   challengeId,
   content,
   rating,
-}: PostReviewParams): Promise<PostReviewData> {
-  const body = { content, rating };
-  // console.log('json : ', JSON.stringify(body));
+  difficulty,
+  achievement,
+}: PostReviewParams): Promise<void> {
+  const requestBody = { content, rating, difficulty, achievement };
 
   try {
     const response = await axiosClient.post(
       `/api/challenges/${challengeId}/reviews`,
-      body
+      requestBody
     );
     console.log('postReview response: ', response.data);
-
-    return response.data.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(
-        `postReview error: ${error.response?.data.message || error.message}`
-      );
-    } else {
-      throw new Error('postReview error: unexpected');
+    if (error instanceof AxiosError && error.response) {
+      throw error.response.data;
     }
+    // AxiosError가 아닌 경우 일반적인 예외 처리
+    throw new Error('postReview error: unexpected');
   }
 }

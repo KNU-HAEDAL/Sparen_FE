@@ -5,35 +5,45 @@ import styled from '@emotion/styled';
 interface StarRatingProps {
   rating: number;
   size?: number;
+  onClick?: (rating: number) => void;
 }
 
-export const StarRating = ({ rating, size = 24 }: StarRatingProps) => {
-  // rating(별점)을 백분율로 변환
-  const [ratingToPercent, setRatingToPercent] = useState<string>(`0%`);
+export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
+  const [ratingToPercent, setRatingToPercent] = useState<number>(0);
 
   useEffect(() => {
     if (rating !== undefined) {
-      setRatingToPercent(`${(rating / 5) * 100}%`);
+      setRatingToPercent((rating / 5) * 100);
     }
   }, [rating]);
 
+  const handleClick = (rating: number) => {
+    if (onClick) {
+      onClick(rating + 1); // 클릭한 별점 값 전달 (1부터 시작)
+    }
+  };
+
   return (
     <Wrapper size={size}>
-      <StarFill style={{ width: ratingToPercent }}>
+      <FilledStars ratingToPercent={ratingToPercent}>
         {[...Array(5)].map((_, index) => (
-          <span key={`fill-${index}`}>★</span>
+          <Star key={`fill-${index}`} onClick={() => handleClick(index)}>
+            ★
+          </Star>
         ))}
-      </StarFill>
-      <StarBase>
+      </FilledStars>
+      <BaseStars>
         {[...Array(5)].map((_, index) => (
-          <span key={`base-${index}`}>★</span>
+          <Star key={`base-${index}`} onClick={() => handleClick(index)}>
+            ★
+          </Star>
         ))}
-      </StarBase>
+      </BaseStars>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div<{ size: number }>`
+const Wrapper = styled.div<{ size: number; cursor?: string }>`
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
@@ -41,15 +51,23 @@ const Wrapper = styled.div<{ size: number }>`
   -webkit-text-stroke-width: 0.8px;
   -webkit-text-stroke-color: var(--color-green-01);
   font-size: ${({ size }) => `${size}px`};
+  cursor: ${({ cursor }) => cursor && 'pointer'};
 `;
 
-const StarFill = styled.div`
+const FilledStars = styled.div<{ ratingToPercent: number }>`
   position: absolute;
   display: flex;
   top: 0;
   left: 0;
+  width: ${({ ratingToPercent }) => `${ratingToPercent}%`};
   overflow: hidden;
   -webkit-text-fill-color: var(--color-green-01);
 `;
 
-const StarBase = styled.div``;
+const BaseStars = styled.div`
+  display: flex;
+`;
+
+const Star = styled.button`
+  outline: none;
+`;
