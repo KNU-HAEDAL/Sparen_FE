@@ -61,10 +61,14 @@ const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
         </S.TimesPeriodContent>
 
         <S.BoldText>참여 경험치</S.BoldText>
-        <Chip margin='0 0 0 auto'>{challenge.onceExp} 포인트</Chip>
+        <Chip margin='0 0 0 auto' color='var(--color-green-05)'>
+          + {challenge.onceExp} 포인트
+        </Chip>
 
         <S.BoldText>완료 경험치</S.BoldText>
-        <Chip margin='0 0 0 auto'>{challenge.successExp} 포인트</Chip>
+        <Chip margin='0 0 0 auto' color='var(--color-green-05)'>
+          + {challenge.successExp} 포인트
+        </Chip>
       </S.ContentGrid>
 
       <S.CTA onClick={handleJoinChallenge}>참여하기</S.CTA>

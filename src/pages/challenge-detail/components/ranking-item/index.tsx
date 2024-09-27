@@ -1,6 +1,7 @@
 // import DefaultImage from '../../../../assets/UserImage.svg';
 import * as S from './styles';
 import type { ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
+import { Chip } from '@/components/common/chip';
 import { ProfileImage } from '@/components/common/profile-image';
 
 type RankingItemProps = {
@@ -18,7 +19,9 @@ export const RankingItem = ({ item }: RankingItemProps) => {
           <S.Tier>{item.user.tierInfo.tier}</S.Tier>
         </S.UserWrapper>
       </S.Content>
-      <S.Point>+ {item.acquiredPoint} 포인트</S.Point>
+      <Chip margin='0 0 0 12px' color='var(--color-green-05)'>
+        + {item.acquiredPoint} 포인트
+      </Chip>
     </S.Wrapper>
   );
 };

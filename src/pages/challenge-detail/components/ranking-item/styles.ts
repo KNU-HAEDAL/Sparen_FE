@@ -46,8 +46,8 @@ export const Tier = styled.div`
   text-align: left;
 `;
 
-export const Point = styled.div`
-  font-size: var(--font-size-xs);
-  color: var(--color-green-05);
-  margin-left: 12px;
-`;
+// export const Point = styled.div`
+//   font-size: var(--font-size-xs);
+//   color: var(--color-green-05);
+//   margin-left: 12px;
+// `;
