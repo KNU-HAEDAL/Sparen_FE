@@ -41,16 +41,16 @@ const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
     <S.Wrapper>
       <S.ContentGrid>
         <S.BoldText>난이도</S.BoldText>
-        <div>
-          <S.DifficultyBar>
+        <S.DifficultyBox>
+          <S.BarBox>
             <S.Bar width={difficultyRate} />
             <S.MaxBar />
-          </S.DifficultyBar>
+          </S.BarBox>
           <S.Text>
             {challenge.difficulty}
             <S.SubText>&nbsp;/ {maxDifficulty}</S.SubText>
           </S.Text>
-        </div>
+        </S.DifficultyBox>
 
         <S.BoldText>
           참여 횟수 및

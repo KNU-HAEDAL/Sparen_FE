@@ -32,13 +32,19 @@ export const SubText = styled.span`
   flex-shrink: 0;
 `;
 
-export const DifficultyBar = styled.div`
+export const DifficultyBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const BarBox = styled.div`
   position: relative;
   display: inline-block;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  margin: 0 8px 0 0;
   width: 100px;
   height: 10px;
 `;
