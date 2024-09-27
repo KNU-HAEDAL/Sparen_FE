@@ -1,5 +1,5 @@
 import { type ReviewData } from '@/apis/review/review.response';
-import { ProfileImageBox } from '@/components/common/profile-image';
+import { ProfileImage } from '@/components/common/profile-image';
 import { StarRating } from '@/components/common/star-rating';
 import {
   formatAchievement,
@@ -22,9 +22,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
 
   return (
     <Wrapper>
-      <ProfileImageBox size={3}>
-        <img src={item.user.profileImageUrl} alt='이미지' />
-      </ProfileImageBox>
+      <ProfileImage size={2.5} src={item.user.profileImageUrl} />
       <ReviewItemBox>
         <RowWrapper style={{ lineHeight: '2rem' }}>
           <Text fontSize='var(--font-size-sm)' fontWeight='600'>

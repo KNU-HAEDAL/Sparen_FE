@@ -1,20 +1,14 @@
+import UserImage from '@/assets/UserImage.svg';
 import styled from '@emotion/styled';
 
-export const ProfileImageBox = styled.div<{ size?: number }>`
-  width: ${({ size }) => (size ? `${size}rem` : '2rem')};
-  height: ${({ size }) => (size ? `${size}rem` : '2rem')};
+export const ProfileImage = styled.div<{ size?: number; src?: string }>`
+  width: ${({ size }) => (size ? `${size}rem` : '3rem')};
+  height: ${({ size }) => (size ? `${size}rem` : '3rem')};
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  /* overflow: hidden; */
 
-  /* 이미지 가운데 정렬  */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+  background-image: url(${({ src }) => src || UserImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
