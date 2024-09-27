@@ -29,7 +29,7 @@ export const formatCategory = (category: string | undefined): string => {
     case 'ETC':
       return '기타';
     default:
-      return '??';
+      return '';
   }
 };
 
@@ -73,7 +73,7 @@ export const formatDifficulty = (difficulty: number): string => {
     case 3:
       return '어려워요';
     default:
-      return '??';
+      return '';
   }
 };
 
@@ -87,6 +87,6 @@ export const formatAchievement = (achievement: number): string => {
     case 3:
       return '잘 모르겠어요';
     default:
-      return 'undefined';
+      return '';
   }
 };
