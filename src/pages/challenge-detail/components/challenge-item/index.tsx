@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
+import { Chip } from '@/components/common/chip';
 import { getDynamicPath } from '@/routes/protected-route';
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
   maxDifficulty: number;
 };
 
-const Challenge = ({ challenge, maxDifficulty }: Props) => {
+const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
   const difficultyRate = (challenge.difficulty / maxDifficulty) * 100;
   const navigate = useNavigate();
 
@@ -37,46 +38,42 @@ const Challenge = ({ challenge, maxDifficulty }: Props) => {
   };
 
   return (
-    <S.Outer>
-      <S.Wrapper>
-        <S.RowWrapper>
-          <S.Wrapper>
-            <S.BoldText>난이도</S.BoldText>
-            <S.SubText>최대 난이도</S.SubText>
-          </S.Wrapper>
-          <S.Wrapper>
-            <S.RowWrapper>
-              <S.Bar width={difficultyRate}></S.Bar>
-              <S.Text>{challenge.difficulty}</S.Text>
-            </S.RowWrapper>
-            <S.RowWrapper>
-              <S.MaxBar></S.MaxBar>
-              <S.SubText>{maxDifficulty}</S.SubText>
-            </S.RowWrapper>
-          </S.Wrapper>
-        </S.RowWrapper>
-
-        <S.RowWrapper>
-          <S.BoldText>참여 횟수 및 기간</S.BoldText>
+    <S.Wrapper>
+      <S.ContentGrid>
+        <S.BoldText>난이도</S.BoldText>
+        <S.DifficultyBox>
+          <S.BarBox>
+            <S.Bar width={difficultyRate} />
+            <S.MaxBar />
+          </S.BarBox>
           <S.Text>
-            {challenge.count}회 / {challenge.period}일
+            {challenge.difficulty}
+            <S.SubText>&nbsp;/ {maxDifficulty}</S.SubText>
           </S.Text>
-        </S.RowWrapper>
+        </S.DifficultyBox>
 
-        <S.RowWrapper>
-          <S.BoldText>참여 경험치</S.BoldText>
-          <S.ExpContent>{challenge.onceExp} 포인트</S.ExpContent>
-        </S.RowWrapper>
+        <S.BoldText>
+          참여 횟수 및
+          <br /> 기간
+        </S.BoldText>
+        <S.TimesPeriodContent>
+          {challenge.count}회 / {challenge.period}일
+        </S.TimesPeriodContent>
 
-        <S.RowWrapper>
-          <S.BoldText>완료 경험치</S.BoldText>
-          <S.ExpContent>{challenge.successExp} 포인트</S.ExpContent>
-        </S.RowWrapper>
-      </S.Wrapper>
+        <S.BoldText>참여 경험치</S.BoldText>
+        <Chip margin='0 0 0 auto' color='var(--color-green-05)'>
+          + {challenge.onceExp} 포인트
+        </Chip>
+
+        <S.BoldText>완료 경험치</S.BoldText>
+        <Chip margin='0 0 0 auto' color='var(--color-green-05)'>
+          + {challenge.successExp} 포인트
+        </Chip>
+      </S.ContentGrid>
 
       <S.CTA onClick={handleJoinChallenge}>참여하기</S.CTA>
-    </S.Outer>
+    </S.Wrapper>
   );
 };
 
-export default Challenge;
+export default ChallengeItem;

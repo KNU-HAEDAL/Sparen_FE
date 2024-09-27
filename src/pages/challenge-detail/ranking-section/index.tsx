@@ -59,7 +59,7 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
             <div key={item.ranking}>
               <RankingItem item={item} />
               {index < rankingList.length - 1 && (
-                <Base.HorizontalLine marginY={8} />
+                <Base.HorizontalLine marginY={16} />
               )}
               {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
             </div>

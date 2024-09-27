@@ -1,11 +1,13 @@
 import { type ReviewData } from '@/apis/review/review.response';
+import { Chip } from '@/components/common/chip';
+import { ProfileImage } from '@/components/common/profile-image';
 import { StarRating } from '@/components/common/star-rating';
 import {
   formatAchievement,
   formatDate,
   formatDifficulty,
 } from '@/utils/formatters';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ReviewItemProps = {
@@ -21,17 +23,12 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
 
   return (
     <Wrapper>
-      <ImageBox>
-        <Image
-          height='100%'
-          width='100%'
-          objectFit='cover'
-          src={item.user.profileImageUrl}
-        />
-      </ImageBox>
+      <ProfileImage size={2.5} src={item.user.profileImageUrl} />
       <ReviewItemBox>
         <RowWrapper style={{ lineHeight: '2rem' }}>
-          <Text fontSize='var(--font-size-sm)'>{item.user.nickname}</Text>
+          <Text fontSize='var(--font-size-sm)' fontWeight='600'>
+            {item.user.nickname}
+          </Text>
           <Text fontSize='var(--font-size-sm)' color='var(--color-grey-01)'>
             {item.user.tierInfo.tier}
           </Text>
@@ -77,17 +74,6 @@ const Wrapper = styled(Box)`
   width: 100%;
 `;
 
-const ImageBox = styled.div`
-  height: 2rem;
-  width: 2rem;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  /* overflow: hidden; */
-  display: flex; /* 이미지 가운데 정렬 */
-  align-items: center;
-  justify-content: center;
-`;
-
 const ReviewItemBox = styled(Box)`
   display: flex;
   flex-direction: column;
@@ -99,17 +85,6 @@ const RowWrapper = styled(Wrapper)`
   align-items: center;
   flex: 1;
   gap: 8px;
-`;
-
-const Chip = styled.div`
-  padding: 4px 12px;
-  border-radius: 50px;
-  border: var(--color-green-01) 0.5px solid;
-  background-color: var(--color-white);
-  color: var(--color-green-01);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  text-align: center;
 `;
 
 const VerticalLine = styled.span`
