@@ -1,4 +1,5 @@
 import { type ReviewData } from '@/apis/review/review.response';
+import { Chip } from '@/components/common/chip';
 import { ProfileImage } from '@/components/common/profile-image';
 import { StarRating } from '@/components/common/star-rating';
 import {
@@ -84,17 +85,6 @@ const RowWrapper = styled(Wrapper)`
   align-items: center;
   flex: 1;
   gap: 8px;
-`;
-
-const Chip = styled.div`
-  padding: 4px 12px;
-  border-radius: 50px;
-  border: var(--color-green-01) 0.5px solid;
-  background-color: var(--color-white);
-  color: var(--color-green-01);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
-  text-align: center;
 `;
 
 const VerticalLine = styled.span`
