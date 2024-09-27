@@ -16,7 +16,6 @@ export const Text = styled.span<{ fontWeight?: string; color?: string }>`
 `;
 
 export const Wrapper = styled.div`
-  padding: 16px 16px;
   display: flex;
   flex-direction: column;
   height: auto;
@@ -27,8 +26,8 @@ export const RatingContainer = styled.div`
   align-items: center;
   gap: 12px;
   flex: 1;
-  width: 100%;
-  margin: 0 0 16px 0;
+  /* width: 100%; */
+  margin: 16px;
 `;
 
 export const AvgRating = styled.p`
@@ -39,7 +38,8 @@ export const AvgRating = styled.p`
 export const AllReviewButton = styled.button`
   font-size: var(--font-size-sm);
   font-weight: 600;
-  display: flex;
+  color: var(--color-grey-01);
+  display: inline-flex;
   align-items: center;
   margin: 0 0 0 auto;
   cursor: pointer;
@@ -47,4 +47,8 @@ export const AllReviewButton = styled.button`
 
 export const Line = styled.div`
   border-top: 1px solid var(--color-green-06);
+`;
+
+export const ReviewList = styled.div`
+  margin: 16px;
 `;

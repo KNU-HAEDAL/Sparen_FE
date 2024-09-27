@@ -69,15 +69,18 @@ export const ReviewSection = ({ id }: Props) => {
               <IoIosArrowForward style={{ marginLeft: '4px' }} />
             </S.AllReviewButton>
           </S.RatingContainer>
-          {reviewList.map((review, index) => (
-            <div key={index}>
-              <ReviewItem item={review} />
-              {index < reviewList.length - 1 && (
-                <Base.HorizontalLine marginY={8} />
-              )}
-              {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
-            </div>
-          ))}
+
+          <S.ReviewList className='review-list'>
+            {reviewList.map((review, index) => (
+              <div key={index}>
+                <ReviewItem item={review} />
+                {index < reviewList.length - 1 && (
+                  <Base.HorizontalLine marginY={16} />
+                )}
+                {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+              </div>
+            ))}
+          </S.ReviewList>
         </>
       ) : (
         // 리뷰 없을 때
