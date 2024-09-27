@@ -31,7 +31,9 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
       </ImageBox>
       <ReviewItemBox>
         <RowWrapper style={{ lineHeight: '2rem' }}>
-          <Text fontSize='var(--font-size-sm)'>{item.user.nickname}</Text>
+          <Text fontSize='var(--font-size-sm)' fontWeight='600'>
+            {item.user.nickname}
+          </Text>
           <Text fontSize='var(--font-size-sm)' color='var(--color-grey-01)'>
             {item.user.tierInfo.tier}
           </Text>
