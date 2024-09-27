@@ -1,11 +1,12 @@
 import { type ReviewData } from '@/apis/review/review.response';
+import { ProfileImageBox } from '@/components/common/profile-image';
 import { StarRating } from '@/components/common/star-rating';
 import {
   formatAchievement,
   formatDate,
   formatDifficulty,
 } from '@/utils/formatters';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ReviewItemProps = {
@@ -21,14 +22,9 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
 
   return (
     <Wrapper>
-      <ImageBox>
-        <Image
-          height='100%'
-          width='100%'
-          objectFit='cover'
-          src={item.user.profileImageUrl}
-        />
-      </ImageBox>
+      <ProfileImageBox size={3}>
+        <img src={item.user.profileImageUrl} alt='이미지' />
+      </ProfileImageBox>
       <ReviewItemBox>
         <RowWrapper style={{ lineHeight: '2rem' }}>
           <Text fontSize='var(--font-size-sm)' fontWeight='600'>
@@ -77,17 +73,6 @@ const Wrapper = styled(Box)`
   gap: 16px;
   flex: 1;
   width: 100%;
-`;
-
-const ImageBox = styled.div`
-  height: 2rem;
-  width: 2rem;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  /* overflow: hidden; */
-  display: flex; /* 이미지 가운데 정렬 */
-  align-items: center;
-  justify-content: center;
 `;
 
 const ReviewItemBox = styled(Box)`

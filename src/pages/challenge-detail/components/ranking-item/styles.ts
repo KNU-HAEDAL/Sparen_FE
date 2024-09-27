@@ -51,17 +51,3 @@ export const Point = styled.div`
   color: var(--color-green-05);
   margin-left: 12px;
 `;
-
-export const ImageBox = styled.div`
-  height: 3rem;
-  width: 3rem;
-  border-radius: 70%;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-`;
-
-export const Image = styled.img`
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-`;
