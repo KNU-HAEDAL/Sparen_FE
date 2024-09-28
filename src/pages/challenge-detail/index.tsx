@@ -106,7 +106,6 @@ export default ChallengeDetailPage;
 
 export const Wrapper = styled.div`
   width: 100%;
-  margin-bottom: 3.44rem; // 하단 내브 바 높이
 `;
 
 export const ImageList = styled.div`

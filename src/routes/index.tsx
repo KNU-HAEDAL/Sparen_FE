@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { ProtectedRoute } from './protected-route';
-import NavBar from '@/components/features/layout/nav-bar';
+import NavBarLayout from '@/components/features/layout/nav-bar-layout';
 import ErrorPage from '@/pages/ErrorPage';
 import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeList from '@/pages/challenge-list';
@@ -23,9 +23,9 @@ const router = createBrowserRouter([
   {
     path: RouterPath.root,
     element: (
-      <NavBar>
+      <NavBarLayout>
         <Outlet />
-      </NavBar>
+      </NavBarLayout>
     ),
     children: [
       {
@@ -51,49 +51,8 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
-          {
-            path: RouterPath.record,
-            element: (
-              <ProtectedRoute>
-                <ChallengeRecord />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: RouterPath.challengeList,
-            element: (
-              <ProtectedRoute>
-                <ChallengeList />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.detail}`,
-            element: (
-              <ProtectedRoute>
-                <ChallengeDetailPage />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.review}`,
-            element: (
-              <ProtectedRoute>
-                <Review />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.write}`,
-            element: (
-              <ProtectedRoute>
-                <ReviewWrite />
-              </ProtectedRoute>
-            ),
-          },
         ],
       },
-
       {
         path: RouterPath.rank,
         element: (
@@ -113,6 +72,43 @@ const router = createBrowserRouter([
       {
         path: RouterPath.notFound,
         element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    path: RouterPath.challenge,
+    children: [
+      {
+        path: `:id`,
+        element: (
+          <ProtectedRoute>
+            <ChallengeDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `:id/${RouterPath.review}`,
+        element: (
+          <ProtectedRoute>
+            <Review />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: RouterPath.record,
+        element: (
+          <ProtectedRoute>
+            <ChallengeRecord />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `:id/${RouterPath.write}`,
+        element: (
+          <ProtectedRoute>
+            <ReviewWrite />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
