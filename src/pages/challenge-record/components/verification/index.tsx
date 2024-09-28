@@ -139,18 +139,6 @@ const Wrapper = styled.form`
   }
 `;
 
-// const InputArea = styled.textarea`
-//   font-size: var(--font-size-sm);
-//   border-radius: 20px;
-//   border: var(--color-green-01) 1px solid;
-//   padding: 10px;
-//   height: 30vh;
-//   resize: none;
-//   :focus {
-//     outline: none;
-//   }
-// `;
-
 const AddImageBtn = styled.div`
   border-radius: 20px;
   background-color: #fff;
@@ -173,28 +161,3 @@ const PreviewImage = styled(Image)`
   object-fit: cover;
   border: none;
 `;
-
-// export const ModalBack = styled.div`
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   bottom: 0;
-//   right: 0;
-//   background: rgba(0, 0, 0, 0.8);
-// `;
-
-// export const ModalBackDrop = styled.div`
-//   position: absolute;
-//   top: 50%;
-//   left: 50%;
-//   transform: translate(-50%, -50%);
-//   width: 60%;
-//   height: 20%;
-//   background-color: var(--color-white);
-//   border-radius: 10px;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 100;
-//   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-// `;
