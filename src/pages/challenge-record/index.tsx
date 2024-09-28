@@ -4,24 +4,29 @@ import StampBoard from './components/stamp-board';
 import Verification from './components/verification';
 import { Tabs, Tab } from '@/components/common/tabs';
 import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
 const ChallengeRecord = () => {
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<number>(() => {
+    // 세션 스토리지에 저장된 값 | 기본값 0
+    const savedTab = sessionStorage.getItem('activeTab');
+    return savedTab ? Number(savedTab) : 0;
+  });
   const tabsList = [
     {
       label: '인증 기록',
-      panel: <Verification />,
+      panel: <StampBoard />,
     },
     {
       label: '인증하기',
-      panel: <StampBoard />,
+      panel: <Verification />,
     },
   ];
 
   const handleSelectedTab = (value: number) => {
     setActiveTab(value as 0 | 1);
+    sessionStorage.setItem('activeTab', String(value));
   };
 
   return (
@@ -48,5 +53,5 @@ const ChallengeRecord = () => {
 export default ChallengeRecord;
 
 const Wrapper = styled.div`
-  width: 100%;
+  min-height: calc(100vh - ${HEADER_HEIGHT});
 `;
