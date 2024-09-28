@@ -29,8 +29,6 @@ const colorClass06 = '#8B00FF';
 const colorClass07 = '#009000';
 
 export const globalStyle = css`
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
   :root {
     --font-size-xxl: ${fontSizeXXl};
     --font-size-xl: ${fontSizeXl};
@@ -56,39 +54,5 @@ export const globalStyle = css`
     --color-class-05: ${colorClass05};
     --color-class-06: ${colorClass06};
     --color-class-07: ${colorClass07};
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Noto Sans', monospace;
-    box-sizing: border-box;
-    overflow-y: auto;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-
-    /* 중앙 정렬 및 고정 너비 적용 */
-    position: relative;
-    // transform: translateX(-50%);
-    // left: 50%;
-
-    // 모바일 너비 적용
-    @media (min-width: 768px) {
-      width: 480px;
-    }
-
-    /* position: fixed; */
-    /* left: 50%; */
-  }
-
-  img {
-    display: block;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
   }
 `;
