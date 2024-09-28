@@ -1,20 +1,41 @@
+import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type TextareaProps = {
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  minValueLength?: number;
   valid?: boolean;
 };
 
-const Textarea = ({ placeholder, value, onChange, valid }: TextareaProps) => {
+const Textarea = ({
+  placeholder,
+  value,
+  onChange,
+  minValueLength,
+  valid,
+}: TextareaProps) => {
   return (
-    <StyledTextarea
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      valid={valid}
-    />
+    <>
+      <StyledTextarea
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        valid={valid}
+      />
+      {/* 최소 길이 제한 있을 때만 보이기 */}
+      {minValueLength && (
+        <Text
+          fontSize='var(--font-size-xs)'
+          color={valid ? `var(--color-grey-01)` : `var(--color-class-05)`}
+          textAlign='right'
+          marginTop='8px'
+        >
+          {value.length} / 최소 {minValueLength}자
+        </Text>
+      )}
+    </>
   );
 };
 

@@ -15,6 +15,8 @@ import {
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
+const MIN_CONTENT_LENGTH = 20;
+
 const ReviewWrite = () => {
   const { id } = useParams();
   const challengeId = Number(id);
@@ -51,7 +53,7 @@ const ReviewWrite = () => {
       selectedDifficulty &&
       selectedAchievement &&
       content.trim() &&
-      content.length >= 20
+      content.length >= MIN_CONTENT_LENGTH
     ) {
       setIsButtonDisabled(false);
     } else {
@@ -65,7 +67,7 @@ const ReviewWrite = () => {
     setContent(newContent);
     // console.log(content); // test
 
-    if (newContent.trim() && newContent.length >= 20) {
+    if (newContent.trim() && newContent.length >= MIN_CONTENT_LENGTH) {
       setIsContentValid(true);
     } else {
       setIsContentValid(false);
@@ -163,18 +165,9 @@ const ReviewWrite = () => {
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
             onChange={handleContentChange}
+            minValueLength={MIN_CONTENT_LENGTH}
             valid={isContentValid}
           />
-          <Text
-            fontSize='var(--font-size-xs)'
-            color={
-              isContentValid ? `var(--color-grey-01)` : `var(--color-class-05)`
-            }
-            textAlign='right'
-            marginTop='8px'
-          >
-            {content.length} / 최소 20자
-          </Text>
         </FlexBox>
         <FlexBox flexDirection='column'>
           <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>

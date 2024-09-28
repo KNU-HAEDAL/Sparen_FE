@@ -93,6 +93,7 @@ const Verification = () => {
           placeholder='어떻게 챌린지를 수행했는지 기록을 남겨보세요.'
           value={content}
           onChange={handleContentChange}
+          minValueLength={MIN_CONTENT_LENGTH}
           valid={isContentValid}
         />
         {!image && (
