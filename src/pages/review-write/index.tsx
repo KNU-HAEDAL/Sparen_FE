@@ -183,13 +183,14 @@ const ReviewWrite = () => {
             </Text>
             될 수 있습니다.
           </Text>
+          <Box marginBottom='16px' />
         </FlexBox>
+        <CTABox>
+          <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
+            등록하기
+          </SubmitButton>
+        </CTABox>
       </Wrapper>
-      <CTABox>
-        <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
-          등록하기
-        </SubmitButton>
-      </CTABox>
     </>
   );
 };
@@ -201,7 +202,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
+  width: 100%;
   gap: 16px;
+  margin-bottom: 4rem;
 `;
 
 const ChallengeTitleWrapper = styled.div`
@@ -293,8 +296,9 @@ const CTABox = styled(Box)`
   bottom: 0;
   display: flex;
   width: 100%;
-  height: 3.44rem;
-  padding: 4px 16px;
+  height: 4rem;
+  padding: 8px 16px;
+  background-color: var(--color-white);
 `;
 
 const SubmitButton = styled.button<{ disabled?: boolean }>`
