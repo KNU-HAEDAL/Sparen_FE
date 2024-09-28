@@ -4,6 +4,7 @@ import { ProtectedRoute } from './protected-route';
 import NavBar from '@/components/features/layout/nav-bar';
 import ErrorPage from '@/pages/ErrorPage';
 import ChallengeDetailPage from '@/pages/challenge-detail';
+import ChallengeList from '@/pages/challenge-list';
 import ChallengeRecord from '@/pages/challenge-record';
 import DashBoardPage from '@/pages/dashboard';
 import LoginPage from '@/pages/login';
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
             element: (
               <ProtectedRoute>
                 <ChallengeRecord />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: RouterPath.challengeList,
+            element: (
+              <ProtectedRoute>
+                <ChallengeList />
               </ProtectedRoute>
             ),
           },
