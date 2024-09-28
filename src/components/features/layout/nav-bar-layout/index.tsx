@@ -1,17 +1,15 @@
-import NavBarButtons from '@/components/features/layout/nav-bar';
+import NavBar from '@/components/features/layout/nav-bar';
 import { Box } from '@chakra-ui/react';
 
-type NavBarTypes = {
+type NavBarLayoutTypes = {
   children: React.ReactNode;
 };
 
-const NavBarLayout = ({ children }: NavBarTypes) => {
+const NavBarLayout = ({ children }: NavBarLayoutTypes) => {
   return (
     <Box>
       <Box flex={1}>{children}</Box>
-      <Box position='sticky' bottom='0' display='flex'>
-        <NavBarButtons />
-      </Box>
+      <NavBar />
     </Box>
   );
 };

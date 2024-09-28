@@ -9,18 +9,18 @@ const MainPage = () => {
   return (
     <>
       <TopBar type='Main' backgroundColor='#fff' title={''} />
-      <LoginPageLayout>
+      <Wrapper>
         <Category />
         <Tier />
         <Strick />
         <Review />
-      </LoginPageLayout>
+      </Wrapper>
     </>
   );
 };
 
 export default MainPage;
 
-const LoginPageLayout = styled.div`
+const Wrapper = styled.div`
   min-height: 100vh;
 `;
