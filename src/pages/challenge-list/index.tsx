@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Contents from './components/contents';
 import { useGetChallengeList } from '@/apis/challenge-list/getChallengeList.api';
 import { Tab, Tabs } from '@/components/common/tabs';
-import { TabPanel } from '@/components/common/tabs/tap-panels';
+import { TabPanel } from '@/components/common/tabs/tab-panels';
 import TopBar from '@/components/features/layout/top-bar';
 import { Box, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
