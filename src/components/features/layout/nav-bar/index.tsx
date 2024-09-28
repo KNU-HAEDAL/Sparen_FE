@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { navBarData } from '@/constants/nav-bar';
-import { Box, Image } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const NavBar = () => {
@@ -14,13 +14,13 @@ const NavBar = () => {
   return (
     <Wrapper>
       {navBarData.map((item) => (
-        <Box width='2rem' height='2rem' flexShrink={0} key={item.title}>
-          <Image
-            onClick={() => handleNav(item.path)}
+        <Tab key={item.title}>
+          <Icon
             src={item.icon}
-            alt={item.title}
+            // alt={item.title}
+            onClick={() => handleNav(item.path)}
           />
-        </Box>
+        </Tab>
       ))}
     </Wrapper>
   );
@@ -31,9 +31,6 @@ export default NavBar;
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 2.5rem;
   width: 100%;
   height: 3.44rem;
 
@@ -43,4 +40,22 @@ const Wrapper = styled(Box)`
 
   border-top: 0.5px solid #bdc5cd;
   background-color: #fafafa;
+`;
+
+const Tab = styled.div`
+  width: 50%;
+  height: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Icon = styled.button<{ src: string }>`
+  width: 2rem;
+  height: 2rem;
+  outline: none;
+  background-image: url(${({ src }) => src});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
