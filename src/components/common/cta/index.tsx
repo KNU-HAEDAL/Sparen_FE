@@ -17,8 +17,7 @@ export const CTA = ({ label, disabled, onClick }: CTAProps) => {
 export default CTA;
 
 const StyledCTA = styled.button<{ disabled?: boolean }>`
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
   border: none;
   border-radius: 10px;
   background-color: var(--color-green-01);
@@ -26,6 +25,8 @@ const StyledCTA = styled.button<{ disabled?: boolean }>`
   font-size: var(--font-size-md);
   font-weight: bold;
   outline: none;
+  padding: 10px 8px;
+  margin: 0 auto;
 
   &:disabled {
     cursor: not-allowed;
@@ -33,7 +34,7 @@ const StyledCTA = styled.button<{ disabled?: boolean }>`
     background-color: var(--color-grey-02);
   }
 
-  /* &:hover와 &:focus는 disabled가 false일 때만 적용 */
+  /* &:hover와 &:focus는 disabled === false일 때만 적용 */
   &:hover,
   &:focus {
     ${({ disabled }) =>

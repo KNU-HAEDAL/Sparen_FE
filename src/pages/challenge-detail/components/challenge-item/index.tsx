@@ -4,7 +4,9 @@ import * as S from './styles';
 import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
 import { Chip } from '@/components/common/chip';
+import CTA from '@/components/common/cta';
 import { getDynamicPath } from '@/routes/protected-route';
+import { Box } from '@chakra-ui/react';
 
 type Props = {
   challenge: Challenge;
@@ -71,7 +73,8 @@ const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
         </Chip>
       </S.ContentGrid>
 
-      <S.CTA onClick={handleJoinChallenge}>참여하기</S.CTA>
+      <Box margin='0 0 16px 0' />
+      <CTA label='참여하기' onClick={handleJoinChallenge} />
     </S.Wrapper>
   );
 };
