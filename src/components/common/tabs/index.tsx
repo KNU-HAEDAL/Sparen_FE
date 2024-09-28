@@ -78,9 +78,7 @@ export const StyledTabs = styled.div<{
   position?: string;
 }>`
   display: flex;
-  justify-content: space-between;
   position: relative;
-  align-self: center;
   height: 46px;
   margin: 0 16px;
   padding: 4px 0;
