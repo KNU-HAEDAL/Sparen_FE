@@ -9,7 +9,7 @@ import * as S from './styles';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
 import { Tabs, Tab } from '@/components/common/tabs';
-import { TabPanels, TabPanel } from '@/components/common/tabs/tap-panels';
+import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
 import TopBar from '@/components/features/layout/top-bar';
 import { formatCategory } from '@/utils/formatters';
 
