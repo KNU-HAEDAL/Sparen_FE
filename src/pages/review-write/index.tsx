@@ -183,7 +183,6 @@ const ReviewWrite = () => {
             </Text>
             될 수 있습니다.
           </Text>
-          <Box marginBottom='16px' />
         </FlexBox>
         <CTABox>
           <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
@@ -204,7 +203,6 @@ const Wrapper = styled.div`
   text-align: left;
   width: 100%;
   gap: 16px;
-  margin-bottom: 4rem;
 `;
 
 const ChallengeTitleWrapper = styled.div`
@@ -292,7 +290,7 @@ const Content = styled.textarea<{ valid?: boolean }>`
 `;
 
 const CTABox = styled(Box)`
-  position: fixed;
+  position: sticky;
   bottom: 0;
   display: flex;
   width: 100%;
