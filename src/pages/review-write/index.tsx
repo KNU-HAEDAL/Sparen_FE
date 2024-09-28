@@ -201,7 +201,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-bottom: 3.44rem;
   gap: 16px;
 `;
 
@@ -291,7 +290,7 @@ const Content = styled.textarea<{ valid?: boolean }>`
 
 const CTABox = styled(Box)`
   position: fixed;
-  bottom: 3.44rem; // 밑에 탭바
+  bottom: 0;
   display: flex;
   width: 100%;
   height: 3.44rem;
