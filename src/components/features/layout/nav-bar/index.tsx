@@ -4,6 +4,8 @@ import { navBarData } from '@/constants/nav-bar';
 import { Box } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
+export const NAVBAR_HEIGHT = '3.44rem';
+
 const NavBar = () => {
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const Wrapper = styled(Box)`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 3.44rem;
+  height: ${NAVBAR_HEIGHT};
 
   position: sticky;
   bottom: 0;
