@@ -15,4 +15,5 @@ export const RouterPath = {
   register: 'register',
   review: 'review',
   write: 'write',
+  challengeList: 'list',
 };
