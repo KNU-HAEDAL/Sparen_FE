@@ -3,7 +3,7 @@ import { useState } from 'react';
 import StampBoard from './components/stamp-board';
 import Verification from './components/verification';
 import { Tabs, Tab } from '@/components/common/tabs';
-import { TabPanels, TabPanel } from '@/components/common/tabs/tap-panels';
+import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
 import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 

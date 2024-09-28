@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 
-import * as S from './styles';
+import * as S from '../styles';
 
 type TapPanelsProps = {
   children: ReactElement[];
