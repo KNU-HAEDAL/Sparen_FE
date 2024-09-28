@@ -8,39 +8,48 @@ import TopBar from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
 const ChallengeRecord = () => {
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const tabsList = [
+    {
+      label: '인증 기록',
+      panel: <Verification />,
+    },
+    {
+      label: '인증하기',
+      panel: <StampBoard />,
+    },
+  ];
 
-  const handleTab = (value: number) => {
+  const handleSelectedTab = (value: number) => {
     setActiveTab(value as 0 | 1);
   };
 
   return (
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
-      <ChallengeRecordLayout>
-        <Tabs selectedTab={activeTab} onChange={(value) => handleTab(value)}>
-          <Tab label='인증하기' value={0} />
-          <Tab label='기록보기' value={1} />
+      <Wrapper>
+        <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
+          {tabsList.map((t, index) => (
+            <Tab key={t.label} label={t.label} value={index} />
+          ))}
         </Tabs>
         <TabPanels>
-          <TabPanel value={0} selectedIndex={activeTab}>
-            <Verification />
-          </TabPanel>
-          <TabPanel value={1} selectedIndex={activeTab}>
-            <StampBoard />
-          </TabPanel>
+          {tabsList.map((t, index) => (
+            <TabPanel key={index} value={activeTab} selectedIndex={index}>
+              {t.panel ?? undefined}
+            </TabPanel>
+          ))}
         </TabPanels>
-      </ChallengeRecordLayout>
+      </Wrapper>
     </>
   );
 };
 
 export default ChallengeRecord;
 
-const ChallengeRecordLayout = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
-  margin: 0 1.5rem;
 `;
