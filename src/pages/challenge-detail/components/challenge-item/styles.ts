@@ -68,16 +68,3 @@ export const Bar = styled(MaxBar)<{ width: number }>`
 export const TimesPeriodContent = styled(Text)`
   margin: 0 0 0 auto;
 `;
-
-export const CTA = styled.button`
-  width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
-  padding: 10px 8px;
-  margin: auto;
-  border-radius: 10px;
-  background-color: var(--color-green-01);
-  color: var(--color-white);
-  font-weight: bold;
-  font-size: var(--font-size-md);
-
-  margin-top: 16px;
-`;

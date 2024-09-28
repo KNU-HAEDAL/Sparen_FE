@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
+import CTA, { CTAContainer } from '@/components/common/cta';
+import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
@@ -61,12 +63,14 @@ const ReviewWrite = () => {
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newContent = e.target.value;
     setContent(newContent);
+    // console.log(content); // test
 
     if (newContent.trim() && newContent.length >= 20) {
       setIsContentValid(true);
     } else {
       setIsContentValid(false);
     }
+    // console.log(isContentValid); // test
   };
 
   const handleSaveReview = () => {
@@ -155,7 +159,7 @@ const ReviewWrite = () => {
           <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             소감
           </Text>
-          <Content
+          <Textarea
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
             onChange={handleContentChange}
@@ -184,11 +188,13 @@ const ReviewWrite = () => {
             될 수 있습니다.
           </Text>
         </FlexBox>
-        <CTABox>
-          <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
-            등록하기
-          </SubmitButton>
-        </CTABox>
+        <CTAContainer>
+          <CTA
+            label='등록하기'
+            disabled={isButtonDisabled}
+            onClick={handleSaveReview}
+          />
+        </CTAContainer>
       </Wrapper>
     </>
   );
@@ -260,66 +266,4 @@ const Chip = styled.button<{ isSelected: boolean }>`
         border: var(--color-green-01) 1px solid;
         color: var(--color-green-01);
     `}
-`;
-
-const Content = styled.textarea<{ valid?: boolean }>`
-  font-size: var(--font-size-sm);
-  color: var(--color-black);
-  border-radius: 20px;
-  border: ${({ valid }) =>
-    valid
-      ? 'var(--color-grey-02) 1px solid'
-      : 'var(--color-class-05) 1px solid'};
-  padding: 12px;
-  width: 100%;
-  height: 180px;
-  resize: none;
-  outline: none;
-
-  &::placeholder {
-    color: var(--color-grey-01);
-    opacity: 1; /* Firefox에서 placeholder 색상을 명시적으로 설정하기 위해 추가 */
-  }
-
-  &:focus {
-    border: ${({ valid }) =>
-      valid
-        ? 'var(--color-green-01) 1px solid'
-        : 'var(--color-class-05) 1px solid'};
-  }
-`;
-
-const CTABox = styled(Box)`
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  width: 100%;
-  height: 4rem;
-  padding: 8px 16px;
-  background-color: var(--color-white);
-`;
-
-const SubmitButton = styled.button<{ disabled?: boolean }>`
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 10px;
-  background-color: var(--color-green-01);
-  color: var(--color-white);
-  font-size: var(--font-size-md);
-  font-weight: bold;
-  outline: none;
-
-  &:disabled {
-    cursor: not-allowed;
-    color: var(--color-grey-01);
-    background-color: var(--color-grey-02);
-  }
-
-  &:focus,
-  &:hover {
-    opacity: 0.8 !important;
-    background-color: var(--color-green-01) !important;
-    color: var(--color-white) !important;
-  }
 `;
