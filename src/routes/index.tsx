@@ -50,41 +50,8 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
-          {
-            path: RouterPath.record,
-            element: (
-              <ProtectedRoute>
-                <ChallengeRecord />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.detail}`,
-            element: (
-              <ProtectedRoute>
-                <ChallengeDetailPage />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.review}`,
-            element: (
-              <ProtectedRoute>
-                <Review />
-              </ProtectedRoute>
-            ),
-          },
-          {
-            path: `:id/${RouterPath.write}`,
-            element: (
-              <ProtectedRoute>
-                <ReviewWrite />
-              </ProtectedRoute>
-            ),
-          },
         ],
       },
-
       {
         path: RouterPath.rank,
         element: (
@@ -104,6 +71,43 @@ const router = createBrowserRouter([
       {
         path: RouterPath.notFound,
         element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    path: RouterPath.challenge,
+    children: [
+      {
+        path: `:id/${RouterPath.detail}`,
+        element: (
+          <ProtectedRoute>
+            <ChallengeDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `:id/${RouterPath.review}`,
+        element: (
+          <ProtectedRoute>
+            <Review />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: RouterPath.record,
+        element: (
+          <ProtectedRoute>
+            <ChallengeRecord />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: `:id/${RouterPath.write}`,
+        element: (
+          <ProtectedRoute>
+            <ReviewWrite />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
