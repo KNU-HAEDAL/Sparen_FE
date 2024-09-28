@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
+import CTA, { CTAContainer } from '@/components/common/cta';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
@@ -184,11 +185,13 @@ const ReviewWrite = () => {
             될 수 있습니다.
           </Text>
         </FlexBox>
-        <CTABox>
-          <SubmitButton disabled={isButtonDisabled} onClick={handleSaveReview}>
-            등록하기
-          </SubmitButton>
-        </CTABox>
+        <CTAContainer>
+          <CTA
+            label='등록하기'
+            disabled={isButtonDisabled}
+            onClick={handleSaveReview}
+          />
+        </CTAContainer>
       </Wrapper>
     </>
   );
@@ -286,40 +289,5 @@ const Content = styled.textarea<{ valid?: boolean }>`
       valid
         ? 'var(--color-green-01) 1px solid'
         : 'var(--color-class-05) 1px solid'};
-  }
-`;
-
-const CTABox = styled(Box)`
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  width: 100%;
-  height: 4rem;
-  padding: 8px 16px;
-  background-color: var(--color-white);
-`;
-
-const SubmitButton = styled.button<{ disabled?: boolean }>`
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 10px;
-  background-color: var(--color-green-01);
-  color: var(--color-white);
-  font-size: var(--font-size-md);
-  font-weight: bold;
-  outline: none;
-
-  &:disabled {
-    cursor: not-allowed;
-    color: var(--color-grey-01);
-    background-color: var(--color-grey-02);
-  }
-
-  &:focus,
-  &:hover {
-    opacity: 0.8 !important;
-    background-color: var(--color-green-01) !important;
-    color: var(--color-white) !important;
   }
 `;
