@@ -1,4 +1,4 @@
-import NavBar from '@/components/features/layout/nav-bar';
+import NavBar, { NAVBAR_HEIGHT } from '@/components/features/layout/nav-bar';
 import { Box } from '@chakra-ui/react';
 
 type NavBarLayoutTypes = {
@@ -8,7 +8,7 @@ type NavBarLayoutTypes = {
 const NavBarLayout = ({ children }: NavBarLayoutTypes) => {
   return (
     <Box>
-      <Box flex={1}>{children}</Box>
+      <Box minHeight={`calc(100vh - ${NAVBAR_HEIGHT})`}>{children}</Box>
       <NavBar />
     </Box>
   );
