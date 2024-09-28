@@ -31,17 +31,15 @@ export default NavBar;
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: row;
-
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-
-  height: 3.44rem;
-
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
+  width: 100%;
+  height: 3.44rem;
+
+  position: sticky;
+  bottom: 0;
+  left: 0;
 
   border-top: 0.5px solid #bdc5cd;
   background-color: #fafafa;
