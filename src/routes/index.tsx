@@ -51,6 +51,14 @@ const router = createBrowserRouter([
               </ProtectedRoute>
             ),
           },
+          {
+            path: RouterPath.challengeList,
+            element: (
+              <ProtectedRoute>
+                <ChallengeList />
+              </ProtectedRoute>
+            ),
+          },
         ],
       },
       {
