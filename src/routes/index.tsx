@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
 import { ProtectedRoute } from './protected-route';
-import NavBar from '@/components/features/layout/nav-bar';
+import NavBarLayout from '@/components/features/layout/nav-bar-layout';
 import ErrorPage from '@/pages/ErrorPage';
 import ChallengeDetailPage from '@/pages/challenge-detail';
 import ChallengeRecord from '@/pages/challenge-record';
@@ -22,9 +22,9 @@ const router = createBrowserRouter([
   {
     path: RouterPath.root,
     element: (
-      <NavBar>
+      <NavBarLayout>
         <Outlet />
-      </NavBar>
+      </NavBarLayout>
     ),
     children: [
       {
