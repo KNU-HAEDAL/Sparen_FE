@@ -5,7 +5,7 @@ export const StyledTabs = styled.div<{
   position?: string;
 }>`
   display: flex;
-  justify-content: space-between; /* Tab들이 좌우로 정렬되도록 설정 */
+  justify-content: space-between;
   position: relative;
   align-self: center;
   height: 46px;
@@ -39,8 +39,9 @@ export const StyledTab = styled.div<{
   inactiveStyle?: React.CSSProperties;
 }>`
   z-index: 1;
-  width: 50%; /* 각 Tab의 너비를 50%로 설정하여 두 개의 Tab이 꽉 차도록 설정 */
+  width: 50%;
   height: 100%;
+  white-space: nowrap; // 글자 줄바꿈 없음
   display: flex;
   justify-content: center;
   align-items: center;
