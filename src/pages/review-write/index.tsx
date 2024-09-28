@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
+import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
@@ -62,12 +63,14 @@ const ReviewWrite = () => {
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newContent = e.target.value;
     setContent(newContent);
+    // console.log(content); // test
 
     if (newContent.trim() && newContent.length >= 20) {
       setIsContentValid(true);
     } else {
       setIsContentValid(false);
     }
+    // console.log(isContentValid); // test
   };
 
   const handleSaveReview = () => {
@@ -156,7 +159,7 @@ const ReviewWrite = () => {
           <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
             소감
           </Text>
-          <Content
+          <Textarea
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
             onChange={handleContentChange}
@@ -263,31 +266,4 @@ const Chip = styled.button<{ isSelected: boolean }>`
         border: var(--color-green-01) 1px solid;
         color: var(--color-green-01);
     `}
-`;
-
-const Content = styled.textarea<{ valid?: boolean }>`
-  font-size: var(--font-size-sm);
-  color: var(--color-black);
-  border-radius: 20px;
-  border: ${({ valid }) =>
-    valid
-      ? 'var(--color-grey-02) 1px solid'
-      : 'var(--color-class-05) 1px solid'};
-  padding: 12px;
-  width: 100%;
-  height: 180px;
-  resize: none;
-  outline: none;
-
-  &::placeholder {
-    color: var(--color-grey-01);
-    opacity: 1; /* Firefox에서 placeholder 색상을 명시적으로 설정하기 위해 추가 */
-  }
-
-  &:focus {
-    border: ${({ valid }) =>
-      valid
-        ? 'var(--color-green-01) 1px solid'
-        : 'var(--color-class-05) 1px solid'};
-  }
 `;
