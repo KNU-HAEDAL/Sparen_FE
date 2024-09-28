@@ -6,7 +6,7 @@ type CTAProps = {
   onClick: () => void;
 };
 
-export const CTA = ({ label, disabled, onClick }: CTAProps) => {
+const CTA = ({ label, disabled, onClick }: CTAProps) => {
   return (
     <StyledCTA disabled={disabled} onClick={onClick}>
       {label}
