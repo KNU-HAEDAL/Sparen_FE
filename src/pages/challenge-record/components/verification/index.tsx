@@ -164,17 +164,19 @@ const AddImage = styled.div`
   padding: 10px 8px;
   outline: none;
   cursor: pointer;
+  margin: 16px 0;
 `;
 
 const PreviewImageContainer = styled.div`
   position: relative;
+  margin: 16px 0 0 0;
 `;
 
 const PreviewImage = styled(Image)`
-  border-radius: 20px;
   width: 100%;
   object-fit: cover;
-  border: none;
+  border-radius: 20px;
+  border: var(--color-grey-02) 1px solid;
 `;
 
 const DeleteImageButton = styled.button`
@@ -182,5 +184,5 @@ const DeleteImageButton = styled.button`
   top: 8px;
   right: 8px;
   outline: none;
-  color: var(--color-white);
+  color: var(--color-grey-02);
 `;
