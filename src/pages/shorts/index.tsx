@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ShortsContents from './components/contents';
 import ShortsImage from './components/image';
@@ -13,6 +14,7 @@ import { Mousewheel, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 type Short = {
+  id: number;
   title: string;
   content: string;
   participantCount: number;
@@ -33,7 +35,8 @@ const Shorts = () => {
   const [allData, setAllData] = useState<Short[]>([]);
   const { data, isLoading } = useGetShorts(page, 20);
 
-  console.log(data);
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (data) {
       setAllData((prevData) => [...prevData, ...data.data.data]);
@@ -48,18 +51,25 @@ const Shorts = () => {
 
   const contentsData = shuffleArray(
     allData.map((item) => ({
+      id: item.id,
       title: item.title,
       content: item.content,
     }))
   );
 
+  const handleNavigate = (id: number) => {
+    navigate(`/challenge/${id}`);
+  };
+
   const infoData = shuffleArray(
     allData.map((item) => ({
       participantCount: item.participantCount,
       category: item.category,
+      id: item.id,
     }))
   );
 
+  console.log(data?.data.data);
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='var(--color--green-06)' />
@@ -81,7 +91,11 @@ const Shorts = () => {
               <ShortsContents title={item.title} content={item.content} />
               <ShortsImage />
               {infoData && infoData[index] && (
-                <ShortsInfo info={infoData[index]} />
+                <ShortsInfo
+                  onClick={() => handleNavigate(infoData[index].id)}
+                  id={infoData[index].id}
+                  info={infoData[index]}
+                />
               )}
             </SwiperSlide>
           ))}

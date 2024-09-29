@@ -9,6 +9,8 @@ type Props = {
   startDate: string;
   endDate: string;
   participantCount: number;
+  id: number;
+  onClick: (id: number) => void;
 };
 
 const Contents = ({
@@ -17,11 +19,14 @@ const Contents = ({
   startDate,
   endDate,
   participantCount,
+  onClick,
+  id,
 }: Props) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleBoxClick = () => {
     setIsClicked(!isClicked);
+    onClick(id);
   };
 
   const date = `${startDate} ~ ${endDate}`;

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Contents from './components/contents';
 import { useGetChallengeList } from '@/apis/challenge-list/getChallengeList.api';
@@ -22,6 +23,12 @@ const ChallengeList = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [allData, setAllData] = useState<Challenge[]>([]);
   const [page, setPage] = useState(0);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (id: number) => {
+    navigate(`/challenge/${id}`);
+  };
 
   const categoryList = useMemo(
     () => [
@@ -102,6 +109,8 @@ const ChallengeList = () => {
                     startDate={challenge.startDate}
                     endDate={challenge.endDate}
                     participantCount={challenge.participantCount}
+                    onClick={() => handleNavigate(challenge.id)}
+                    id={challenge.id}
                   />
                 ))}
               </>
