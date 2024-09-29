@@ -12,7 +12,7 @@ export async function postVerification(
   id: number,
   image: File,
   content: string
-): Promise<any> {
+): Promise<unknown> {
   const formData = new FormData();
   formData.append(
     'body',
