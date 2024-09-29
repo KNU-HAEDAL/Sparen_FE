@@ -48,5 +48,6 @@ const ChallengeRecord = () => {
 export default ChallengeRecord;
 
 const Wrapper = styled.div`
+  display: block;
   width: 100%;
 `;
