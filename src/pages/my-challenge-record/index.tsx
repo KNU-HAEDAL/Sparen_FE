@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import ListItem from './components/list-item';
 import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
@@ -11,6 +12,7 @@ const MyChallengeRecord = () => {
   const [page, setPage] = useState(0);
   const [allChallenges, setAllChallenges] = useState<ChallengeData[]>([]);
   const { data, isLoading } = useGetReview(page, 20);
+  const navigate = useNavigate();
 
   const loadMoreChallenges = useCallback(() => {
     if (data?.data.hasNext && !isLoading) {
@@ -41,7 +43,10 @@ const MyChallengeRecord = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loadMoreChallenges]);
 
-  // const challenges = data?.data.data || [];
+  const handleNavigate = (id: number) => {
+    navigate(`/challenge/${id}/detail`);
+    console.log('click');
+  };
 
   return (
     <>
@@ -56,12 +61,14 @@ const MyChallengeRecord = () => {
         </Box>
         <ChallengeList>
           {allChallenges.length > 0 ? (
-            allChallenges.map((challenge) => (
+            allChallenges.map((challenge, index) => (
               <ListItem
-                key={challenge.challengeId}
+                key={`${challenge.challengeId}-${index}`}
+                id={challenge.challengeId}
                 challengeTitle={challenge.challengeTitle}
                 userNickname={challenge.user.nickname}
                 profileImageUrl={challenge.user.profileImageUrl}
+                onClick={() => handleNavigate(challenge.challengeId)}
               />
             ))
           ) : (
