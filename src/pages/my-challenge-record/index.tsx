@@ -44,8 +44,7 @@ const MyChallengeRecord = () => {
   }, [loadMoreChallenges]);
 
   const handleNavigate = (id: number) => {
-    navigate(`/challenge/${id}/detail`);
-    console.log('click');
+    navigate(`/challenge/${id}/review`);
   };
 
   return (

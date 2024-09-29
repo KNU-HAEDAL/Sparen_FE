@@ -6,11 +6,17 @@ type Props = {
   challengeTitle: string;
   userNickname: string;
   profileImageUrl?: string | null;
+  id: number;
+  onClick: (id: number) => void;
 };
 
-const ListItem = ({ challengeTitle, profileImageUrl }: Props) => {
+const ListItem = ({ challengeTitle, profileImageUrl, onClick, id }: Props) => {
+  const handleClick = () => {
+    onClick(id);
+  };
+
   return (
-    <ListItemLayout>
+    <ListItemLayout onClick={handleClick}>
       <ProfileContainer>
         <Image
           src={profileImageUrl || ProfileImg}
