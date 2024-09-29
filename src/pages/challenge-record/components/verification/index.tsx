@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { MdDeleteForever } from 'react-icons/md';
 
 import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
@@ -45,6 +46,11 @@ const Verification = () => {
         }
       }
     };
+  };
+
+  const handleDeleteImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setImage(null);
   };
 
   // 내용 유효성 검사
@@ -96,23 +102,28 @@ const Verification = () => {
           minValueLength={MIN_CONTENT_LENGTH}
           valid={isContentValid}
         />
-        {!image && (
-          <AddImageBtn onClick={handleUploadImage}>
-            <input
-              type='file'
-              ref={fileInput}
-              accept='image/*'
-              style={{ display: 'none' }}
-              onChange={(e) => {
-                if (e.target.files) {
-                  handleImage(e.target.files[0]);
-                }
-              }}
-            />
-            사진 추가
-          </AddImageBtn>
+        {image && (
+          <PreviewImageContainer>
+            <PreviewImage id='previewImage' src='' />
+            <DeleteImageButton onClick={handleDeleteImage}>
+              <MdDeleteForever size='24' />
+            </DeleteImageButton>
+          </PreviewImageContainer>
         )}
-        {image && <PreviewImage id='previewImage' src='' />}
+        <AddImageBtn onClick={handleUploadImage}>
+          <input
+            type='file'
+            ref={fileInput}
+            accept='image/*'
+            style={{ display: 'none' }}
+            onChange={(e) => {
+              if (e.target.files) {
+                handleImage(e.target.files[0]);
+              }
+            }}
+          />
+          사진 업로드
+        </AddImageBtn>
       </Wrapper>
       <CTAContainer>
         <CTA
@@ -153,11 +164,21 @@ const AddImageBtn = styled.div`
   margin-top: 30px;
 `;
 
+const PreviewImageContainer = styled.div`
+  position: relative;
+`;
+
 const PreviewImage = styled(Image)`
-  margin-top: 30px;
-  margin-bottom: 60px;
   border-radius: 20px;
   width: 100%;
   object-fit: cover;
   border: none;
+`;
+
+const DeleteImageButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  outline: none;
+  color: var(--color-white);
 `;
