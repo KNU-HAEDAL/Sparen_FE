@@ -10,9 +10,11 @@ type Info = {
 
 type Props = {
   info?: Info;
+  onClick: (id: number) => void;
+  id: number;
 };
 
-const ShortsInfo = ({ info }: Props) => {
+const ShortsInfo = ({ info, id, onClick }: Props) => {
   return (
     <>
       <ShortsInfoLayout>
@@ -36,7 +38,7 @@ const ShortsInfo = ({ info }: Props) => {
                 : '정보 없음'}
             </Text>
           </Box>
-          <ShortsStartBox>
+          <ShortsStartBox onClick={() => onClick(id)}>
             <Image width='1rem' height='1.25rem' src={StartIcon} />
           </ShortsStartBox>
         </ShortsInfoTextBox>
