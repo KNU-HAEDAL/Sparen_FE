@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import EcoIcon from '@/assets/main/Eco-Logo.svg';
 import HealthIcon from '@/assets/main/Heart-Logo.svg';
 import ShearIcon from '@/assets/main/Nanum-Logo.svg';
@@ -6,6 +8,12 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Category = () => {
+  const navigate = useNavigate();
+  const handleCategoryClick = (category: string) => {
+    sessionStorage.setItem('category', category);
+    navigate('/challenge/list');
+    console.log(`${category} 카테고리가 세션 스토리지에 저장되었습니다.`);
+  };
   return (
     <>
       <Text
@@ -20,7 +28,7 @@ const Category = () => {
       </Text>
       <CategoryLayout>
         <CategoryButtonContainer>
-          <CategoryButton>
+          <CategoryButton onClick={() => handleCategoryClick('ECHO')}>
             <CategoryButtonImage src={EcoIcon} />
           </CategoryButton>
           <Text fontSize='var(--font-size-xl)' fontWeight='700' color='#5DB075'>
@@ -28,7 +36,7 @@ const Category = () => {
           </Text>
         </CategoryButtonContainer>
         <CategoryButtonContainer>
-          <CategoryButton>
+          <CategoryButton onClick={() => handleCategoryClick('SHARE')}>
             <CategoryButtonImage src={ShearIcon} />
           </CategoryButton>
           <Text fontSize='var(--font-size-xl)' fontWeight='700' color='#FFB636'>
@@ -36,7 +44,7 @@ const Category = () => {
           </Text>
         </CategoryButtonContainer>
         <CategoryButtonContainer>
-          <CategoryButton>
+          <CategoryButton onClick={() => handleCategoryClick('VOLUNTEER')}>
             <CategoryButtonImage src={VolunteerIcon} />
           </CategoryButton>
           <Text fontSize='var(--font-size-xl)' fontWeight='700' color='#599BE8'>
@@ -44,7 +52,7 @@ const Category = () => {
           </Text>
         </CategoryButtonContainer>
         <CategoryButtonContainer>
-          <CategoryButton>
+          <CategoryButton onClick={() => handleCategoryClick('HEALTH')}>
             <CategoryButtonImage src={HealthIcon} />
           </CategoryButton>
           <Text fontSize='var(--font-size-xl)' fontWeight='700' color='#FF0000'>
@@ -85,6 +93,7 @@ const CategoryButton = styled(Container)`
   border: 1px solid #d4d6dd;
   background: #fff;
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
 `;
 
 const CategoryButtonImage = styled.img`
