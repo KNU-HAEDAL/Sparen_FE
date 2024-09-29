@@ -110,7 +110,7 @@ const Verification = () => {
             </DeleteImageButton>
           </PreviewImageContainer>
         )}
-        <AddImageBtn onClick={handleUploadImage}>
+        <AddImage onClick={handleUploadImage}>
           <input
             type='file'
             ref={fileInput}
@@ -123,7 +123,7 @@ const Verification = () => {
             }}
           />
           사진 업로드
-        </AddImageBtn>
+        </AddImage>
       </Wrapper>
       <CTAContainer>
         <CTA
@@ -150,18 +150,20 @@ const Wrapper = styled.form`
   }
 `;
 
-const AddImageBtn = styled.div`
-  border-radius: 20px;
-  background-color: #fff;
-  font-size: var(--font-size-md);
-  color: var(--color-green-01);
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 45px;
+const AddImage = styled.div`
+  box-sizing: border-box;
   border: var(--color-green-01) 1px solid;
-  margin-top: 30px;
+  border-radius: 10px;
+  background-color: var(--color-white);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-green-01);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  outline: none;
+  cursor: pointer;
 `;
 
 const PreviewImageContainer = styled.div`
