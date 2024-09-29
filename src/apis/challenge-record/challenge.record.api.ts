@@ -12,7 +12,7 @@ export async function postVerification(
   id: number,
   image: File,
   content: string
-): Promise<ChallengeVerificationData> {
+): Promise<{ data: ChallengeVerificationData; status: number }> {
   const formData = new FormData();
   formData.append(
     'body',
@@ -25,7 +25,8 @@ export async function postVerification(
     formData
   );
   console.log('postVerification response: ', response.data);
-  return response.data;
+  // return response.data;
+  return { data: response.data, status: response.status };
 }
 
 // GET: /api/challenges/{challengeId}/record
