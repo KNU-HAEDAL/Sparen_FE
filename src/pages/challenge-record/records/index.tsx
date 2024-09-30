@@ -13,7 +13,7 @@ import {
   ChallengeRecordDetailData,
 } from '@/apis/challenge-record/challenge.record.response';
 import { formatDate } from '@/utils/formatters';
-import { Box, Text } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Records = () => {
@@ -45,19 +45,6 @@ const Records = () => {
         console.error('Error fetching records:', error);
       });
   }, [challengeId]);
-
-  const chunkItems = (arr: number[], chunkSize: number): number[][] => {
-    const chunks = [];
-    const last = arr.length % chunkSize === 1 ? chunkSize + 1 : 0;
-    for (let i = 0; i < arr.length - last; i += chunkSize)
-      chunks.push(arr.slice(i, i + chunkSize));
-
-    for (let i = arr.length - last; i < arr.length; i += chunkSize - 1)
-      chunks.push(arr.slice(i, i + (chunkSize - 1)));
-    return chunks;
-  };
-
-  const rows = chunkItems(items, 3);
 
   const toggleBottomSheet = async (idx: number) => {
     if (idx === -1) {
@@ -96,36 +83,36 @@ const Records = () => {
           짠돌이가 응원해요
         </Text>
         {data && (
-          <InfoGrid>
-            {/* 참여 기간 */}
-            <Text>참여 기간</Text>
-            <span className='highlight'>
-              {formatDate(data.startDate)} ~ {formatDate(data.endDate)}
-            </span>
+          <>
+            <InfoGrid>
+              {/* 참여 기간 */}
+              <Text>참여 기간</Text>
+              <span className='highlight'>
+                {formatDate(data.startDate)} ~ {formatDate(data.endDate)}
+              </span>
 
-            {/* 인증 횟수 */}
-            <Text>인증 횟수</Text>
-            <Text marginLeft='auto'>
-              <span className='highlight'>{data.successCount}</span>
-              &nbsp;/ {data.totalCount}회
-            </Text>
-          </InfoGrid>
+              {/* 인증 횟수 */}
+              <Text>인증 횟수</Text>
+              <Text marginLeft='auto'>
+                <span className='highlight'>{data.successCount}</span>
+                &nbsp;/ {data.totalCount}회
+              </Text>
+            </InfoGrid>
+
+            <StampGrid>
+              {items.map((item, index) => (
+                <Item
+                  key={index}
+                  onClick={() => {
+                    toggleBottomSheet(item);
+                  }}
+                >
+                  <Stamp data={item} />
+                </Item>
+              ))}
+            </StampGrid>
+          </>
         )}
-        {rows.map((row, rowIndex) => (
-          <Box display='flex' key={rowIndex}>
-            {row.map((item, index) => (
-              <Item
-                key={index}
-                rowLength={row.length}
-                onClick={() => {
-                  toggleBottomSheet(item);
-                }}
-              >
-                <Stamp data={item} />
-              </Item>
-            ))}
-          </Box>
-        ))}
       </StampBoard>
 
       <Caution />
@@ -155,7 +142,7 @@ const Wrapper = styled.div`
 
 const StampBoard = styled.div`
   margin: 0 16px 32px;
-  padding: 16px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -179,24 +166,17 @@ const InfoGrid = styled.div`
   }
 `;
 
-const Item = styled.div<{ rowLength: number }>`
-  width: 100%;
-  flex: 1;
-  text-align: center;
+const StampGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 0;
+  justify-items: center;
+  align-items: center;
+`;
 
-  ${({ rowLength }) =>
-    rowLength === 1 &&
-    `
-        flex: 1 1 100%;
-    `}
-  ${({ rowLength }) =>
-    rowLength === 2 &&
-    `
-        flex: 1 1 calc(50% - 10px);
-    `}
-    ${({ rowLength }) =>
-    rowLength === 3 &&
-    `
-        flex: 1 1 calc(33.33% - 20px);
-    `}
+const Item = styled.div`
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  cursor: pointer;
 `;
