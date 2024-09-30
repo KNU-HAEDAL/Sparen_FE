@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { navBarData } from '@/constants/nav-bar';
-import { Box } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 export const NAVBAR_HEIGHT = '3.44rem';
@@ -17,9 +17,9 @@ const NavBar = () => {
     <Wrapper>
       {navBarData.map((item) => (
         <Tab key={item.title}>
-          <Icon
+          <IconImage
             src={item.icon}
-            // alt={item.title}
+            alt={item.title}
             onClick={() => handleNav(item.path)}
           />
         </Tab>
@@ -52,12 +52,8 @@ const Tab = styled.div`
   align-items: center;
 `;
 
-const Icon = styled.button<{ src: string }>`
+const IconImage = styled(Image)`
   width: 2rem;
   height: 2rem;
   outline: none;
-  background-image: url(${({ src }) => src});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 `;
