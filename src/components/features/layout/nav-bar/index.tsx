@@ -14,14 +14,10 @@ const NavBar = () => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper as='nav'>
       {navBarData.map((item) => (
-        <Tab key={item.title}>
-          <IconImage
-            src={item.icon}
-            alt={item.title}
-            onClick={() => handleNav(item.path)}
-          />
+        <Tab as='a' key={item.title} onClick={() => handleNav(item.path)}>
+          <IconImage src={item.icon} alt={item.title} />
         </Tab>
       ))}
     </Wrapper>
