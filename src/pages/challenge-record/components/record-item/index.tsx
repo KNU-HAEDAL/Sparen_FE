@@ -105,7 +105,7 @@ const Inner = styled(motion.div)`
   min-height: 60%;
   max-height: calc(100vh - ${HEADER_HEIGHT});
   overflow-y: auto;
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
