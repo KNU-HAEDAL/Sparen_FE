@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import BottomSheet from '../components/bottom-sheet';
 import Caution from '../components/caution';
@@ -16,6 +17,9 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Records = () => {
+  const { id } = useParams();
+  const challengeId = Number(id);
+
   const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
   const [data, setData] = useState<ChallengeRecordData['data'] | null>(null);
   const [items, setItems] = useState<number[]>([]);
@@ -30,6 +34,20 @@ const Records = () => {
     }
     setItems(array);
   };
+
+  useEffect(() => {
+    const fetchChallengeRecord = async () => {
+      try {
+        const response = await getChallengeRecord(challengeId);
+        setData(response.data);
+        setArray(response.data.totalCount, response.data.recordIds);
+      } catch (error) {
+        console.error('Failed to fetch challenge record:', error);
+      }
+    };
+
+    fetchChallengeRecord();
+  }, [challengeId]);
 
   const chunkItems = (arr: number[], chunkSize: number): number[][] => {
     const chunks = [];
@@ -67,20 +85,6 @@ const Records = () => {
       setBottomSheetOpen(false);
     }
   };
-
-  useEffect(() => {
-    const fetchChallengeRecord = async () => {
-      try {
-        const response = await getChallengeRecord(18);
-        setData(response.data);
-        setArray(response.data.totalCount, response.data.recordIds);
-      } catch (error) {
-        console.error('Failed to fetch challenge record:', error);
-      }
-    };
-
-    fetchChallengeRecord();
-  }, []);
 
   return (
     <Wrapper>

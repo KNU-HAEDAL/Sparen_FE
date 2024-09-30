@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { multiPartClient, axiosClient } from '../AxiosClient';
 import {
   ApiResponse,
@@ -27,15 +29,24 @@ export async function postVerification(
   console.log('postVerification response: ', response.data); // test
 }
 
-// GET: /api/challenges/{challengeId}/record
 export async function getChallengeRecord(
-  id: number
+  challengeId: number
 ): Promise<ChallengeRecordData> {
-  const response = await axiosClient.get<ApiResponse<ChallengeRecordData>>(
-    `api/challenges/${id}/record`
-  );
-  console.log('getChallengeRecord response: ', response.data);
-  return response.data.data;
+  try {
+    const response = await axiosClient.get(
+      `api/challenges/${challengeId}/record`
+    );
+    // console.log('getChallengeRecord response: ', response.data); // test
+    return response.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallengeRecord error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallengeRecord error: unexpected');
+    }
+  }
 }
 
 // GET: /api/challenges/record/{recordId}
