@@ -173,7 +173,7 @@ const AddImage = styled.div`
 
 const PreviewImageContainer = styled.div`
   position: relative;
-  margin: 16px 0 0 0;
+  margin: 16px 16px 0 16px;
 `;
 
 const PreviewImage = styled(Image)`
