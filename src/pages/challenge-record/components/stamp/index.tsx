@@ -1,7 +1,6 @@
-import StampActive from '@/assets/StampActive.svg';
-import StampInActive from '@/assets/StampInactive.svg';
+import StampActive from '@/assets/stamp-active.svg';
+import StampInActive from '@/assets/stamp-inactive.svg';
 import { Image } from '@chakra-ui/react';
-import styled from '@emotion/styled';
 
 type StampProps = {
   data: number;
@@ -11,18 +10,12 @@ const Stamp = ({ data }: StampProps) => {
   return (
     <>
       {data === -1 ? (
-        <StampImage src={StampInActive} />
+        <Image src={StampInActive} />
       ) : (
-        <StampImage src={StampActive} />
+        <Image src={StampActive} />
       )}
     </>
   );
 };
 
 export default Stamp;
-
-const StampImage = styled(Image)`
-  width: 80px;
-  height: 80px;
-  margin: 5px auto;
-`;
