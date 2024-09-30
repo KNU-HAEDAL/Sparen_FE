@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import StampBoard from './components/stamp-board';
+import Records from './components/records';
 import Verification from './components/verification';
 import ChallengeTitle from '@/components/common/challenge-title';
 import { Tab, Tabs } from '@/components/common/tabs';
@@ -20,7 +20,7 @@ const ChallengeRecord = () => {
   const tabsList = [
     {
       label: '인증 기록',
-      panel: <StampBoard />,
+      panel: <Records />,
     },
     {
       label: '인증하기',

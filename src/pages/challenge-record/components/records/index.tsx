@@ -14,7 +14,7 @@ import {
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const StampBoard = () => {
+const Records = () => {
   const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
   const [data, setData] = useState<ChallengeRecordData['data'] | null>(null);
   const [items, setItems] = useState<number[]>([]);
@@ -137,7 +137,7 @@ const StampBoard = () => {
   );
 };
 
-export default StampBoard;
+export default Records;
 
 const StampBoardBox = styled(Box)`
   margin: 30px;
