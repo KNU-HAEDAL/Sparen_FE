@@ -4,12 +4,12 @@ import { Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type StampProps = {
-  item: number;
+  id: number;
   onClick?: () => void;
 };
 
-const Stamp = ({ item, onClick }: StampProps) => {
-  const active = item !== -1 ? true : false; // -1이면 inactive
+const Stamp = ({ id, onClick }: StampProps) => {
+  const active = id !== -1 ? true : false; // -1이면 inactive
 
   return (
     <>

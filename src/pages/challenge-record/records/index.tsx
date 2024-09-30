@@ -21,25 +21,27 @@ const Records = () => {
   const challengeId = Number(id);
 
   const [data, setData] = useState<ChallengeRecordData | null>(null); // api 응답 데이터 전체
-  const [items, setItems] = useState<number[]>([]);
-  const [record, setRecord] = useState<
+  const [recordIdList, setRecordIdList] = useState<number[]>([]);
+  const [recordDetails, setRecordDetails] = useState<
     ChallengeRecordDetailData['data'] | null
   >(null);
   const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
 
-  const setArray = (length: number, values: number[]) => {
-    const array = new Array(length).fill(-1);
+  // recordId를 recordList에 추가하는 함수
+  const fillRecordList = (length: number, values: number[]) => {
+    const newRecordIdList = new Array(length).fill(-1); // 모두 -1로 초기화
     for (let i = 0; i < values.length; i++) {
-      array[i] = values[i];
+      newRecordIdList[i] = values[i]; // recordId로 바꾸기
     }
-    setItems(array);
+    setRecordIdList(newRecordIdList);
   };
 
+  // 기록 리스트 페칭
   useEffect(() => {
     getChallengeRecord(challengeId)
       .then((res) => {
         setData(res);
-        setArray(res.totalCount, res.recordIds);
+        fillRecordList(res.totalCount, res.recordIds);
       })
       .catch((error) => {
         console.error('Error fetching records:', error);
@@ -53,7 +55,7 @@ const Records = () => {
     } else {
       try {
         const response = await getChallengeRecordDetail(idx);
-        setRecord(response.data);
+        setRecordDetails(response.data);
         setBottomSheetOpen(true);
       } catch (error) {
         console.error('Failed to fetch challenge record detail:', error);
@@ -100,12 +102,12 @@ const Records = () => {
             </InfoGrid>
 
             <StampGrid>
-              {items.map((item, index) => (
+              {recordIdList.map((recordId, index) => (
                 <Stamp
                   key={index}
-                  item={item}
+                  id={recordId}
                   onClick={() => {
-                    toggleBottomSheet(item);
+                    toggleBottomSheet(recordId);
                   }}
                 />
               ))}
@@ -117,7 +119,7 @@ const Records = () => {
       <Caution />
 
       <BottomSheet
-        data={record}
+        data={recordDetails}
         isOpen={isBottomSheetOpen}
         onDragEnd={handleDragEnd}
       />
