@@ -54,6 +54,7 @@ export const ShortsInfoLayout = styled.div`
   flex-direction: row;
   margin-left: 1rem;
   align-items: center;
+  padding: 2rem 0;
 `;
 
 export const ShortsInfoTextBox = styled.div`
@@ -71,7 +72,8 @@ export const ShortsStartBox = styled.div`
   align-items: center;
   text-align: center;
   border-radius: 100%;
-
+  width: 3rem;
+  height: 3rem;
   background-color: #5cc6ba;
-  padding: 1rem;
+  /* padding: 1rem; */
 `;
