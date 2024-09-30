@@ -11,6 +11,7 @@ import {
   ChallengeRecordData,
   ChallengeRecordDetailData,
 } from '@/apis/challenge-record/challenge.record.response';
+import { formatDate } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -82,49 +83,50 @@ const Records = () => {
   }, []);
 
   return (
-    <>
-      {data ? (
-        <StampBoardBox>
-          <Text
+    <Wrapper>
+      <StampBoard>
+        {/* <Text
             fontSize='var(--font-size-lg)'
             fontWeight='700'
             marginBottom='15px'
           >
             {data.title}
+          </Text> */}
+        <Text
+          fontSize='var(--font-size-md)'
+          fontWeight='600'
+          margin='0 0 0 16px'
+        >
+          챌린지 인증하고 레벨 업!
+          <br />
+          짠돌이가 응원해요
+        </Text>
+        <Text fontSize='var(--font-size-sm)' margin='0 0 0 24px'>
+          챌린지 참여 기간&nbsp;
+          <Text fontWeight='600' color='var(--color-green-01)'>
+            {data && formatDate(data.startDate)}
           </Text>
-          <StampBox>
-            <Text
-              fontSize='var(--font-size-sm)'
-              fontWeight='700'
-              margin='5px 0'
-            >
-              챌린지 인증하고 레벨업!
-              <br />
-              짠돌이가 응원해요
-            </Text>
-            <Text fontSize='var(--font-size-sm)' marginBottom='15px'>
-              챌린지 유효기간 {data.startDate} ~ {data.endDate}
-            </Text>
-            {rows.map((row, rowIndex) => (
-              <Box display='flex' key={rowIndex}>
-                {row.map((item, index) => (
-                  <Item
-                    key={index}
-                    rowLength={row.length}
-                    onClick={() => {
-                      toggleBottomSheet(item);
-                    }}
-                  >
-                    <Stamp data={item} />
-                  </Item>
-                ))}
-              </Box>
+          &nbsp;~&nbsp;
+          <Text fontWeight='600' color='var(--color-green-01)'>
+            {data && formatDate(data.endDate)}
+          </Text>
+        </Text>
+        {rows.map((row, rowIndex) => (
+          <Box display='flex' key={rowIndex}>
+            {row.map((item, index) => (
+              <Item
+                key={index}
+                rowLength={row.length}
+                onClick={() => {
+                  toggleBottomSheet(item);
+                }}
+              >
+                <Stamp data={item} />
+              </Item>
             ))}
-          </StampBox>
-        </StampBoardBox>
-      ) : (
-        <div />
-      )}
+          </Box>
+        ))}
+      </StampBoard>
 
       <Caution />
 
@@ -133,18 +135,15 @@ const Records = () => {
         isOpen={isBottomSheetOpen}
         onDragEnd={handleDragEnd}
       />
-    </>
+    </Wrapper>
   );
 };
 
 export default Records;
 
-const StampBoardBox = styled(Box)`
-  margin: 30px;
-  margin-bottom: 50px;
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  text-align: left;
   overflow-y: auto;
   scrollbar-color: transparent transparent;
   &::-webkit-scrollbar {
@@ -152,12 +151,13 @@ const StampBoardBox = styled(Box)`
   }
 `;
 
-const StampBox = styled.div`
-  border-radius: 20px;
+const StampBoard = styled.div`
+  margin: 0 16px;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  padding: 10px 20px;
-  background-color: var(--color-green-06);
-  margin-bottom: calc(100% - 250px);
+  border-radius: 20px;
+  background-color: var(--color-white);
 `;
 
 const Item = styled.div<{ rowLength: number }>`
