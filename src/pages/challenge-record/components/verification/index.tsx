@@ -168,7 +168,7 @@ const AddImage = styled.div`
   padding: 10px 8px;
   outline: none;
   cursor: pointer;
-  margin: 16px 16px;
+  margin: 16px 16px 32px;
 `;
 
 const PreviewImageContainer = styled.div`
