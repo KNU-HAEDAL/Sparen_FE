@@ -42,36 +42,36 @@ const ChallengeList = ({
           gap={10}
         >
           <Image opacity='0.5' width='8rem' src={NotChallenge} />
-
-          <Text fontSize='1.2rem' fontStyle='normal' fontWeight='700'>
-            진행중인 챌린지가 없습니다.
+          <Text
+            fontSize='var(--font-size-md)'
+            fontStyle='normal'
+            fontWeight='700'
+          >
+            진행 중인 챌린지가 없습니다.
           </Text>
         </Box>
       ) : (
         <ChallengeListBox>
-          {challenges.map((challenge) => (
-            <Box
-              display='flex'
-              marginLeft='1rem'
-              width='100%'
-              justifyContent='space-between'
-              gap='10px'
-              alignItems='center'
-              flexDirection='row'
-              key={challenge.id}
-            >
+          {challenges.map((challenge, index) => (
+            <ChallengeItem key={index}>
               <S.ChallengeImgContainer>
                 <Image
                   filter='opacity(0.5) drop-shadow(0 0 0 #c0c0c0)'
                   src={FinishStamp}
                 />
               </S.ChallengeImgContainer>
-              <Box display='flex' margin='1rem 0'>
-                <Text fontSize='1.2rem' fontStyle='normal' fontWeight='700'>
-                  {challenge.title}
-                </Text>
-              </Box>
+              <Text
+                className='challenge-title'
+                fontSize='var(--font-size-md)'
+                fontStyle='normal'
+                fontWeight='600'
+                alignSelf='center'
+                margin='0 auto 0 0'
+              >
+                {challenge.title}
+              </Text>
               <Box
+                className='verify-button'
                 display='flex'
                 padding='1rem 0.625rem'
                 justifyContent='center'
@@ -80,21 +80,22 @@ const ChallengeList = ({
                 borderRadius='0.625rem'
                 backgroundColor={BackgroundColor}
                 borderColor={BorderColor}
+                cursor='pointer'
                 onClick={() => handleSaveTitle(challenge.title)}
               >
                 <Link to={RouterPath.write}>
                   <Text
-                    fontSize='0.875rem'
+                    fontSize='var(--font-size-sm)'
                     fontStyle='normal'
                     fontWeight='700'
                     lineHeight='normal'
                     color={color}
                   >
-                    리뷰 쓰기
+                    인증하기
                   </Text>
                 </Link>
               </Box>
-            </Box>
+            </ChallengeItem>
           ))}
         </ChallengeListBox>
       )}
@@ -110,7 +111,18 @@ const ChallengeListBox = styled(Box)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  // border-bottom: 1px solid #d4d6dd;
   background-color: #fff;
+
+  > div:not(:last-child) {
+    border-bottom: 1px solid var(--color-green-06);
+  }
+`;
+
+const ChallengeItem = styled(Box)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  padding: 8px 0;
 `;
