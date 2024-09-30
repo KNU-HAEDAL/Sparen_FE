@@ -25,7 +25,6 @@ export async function postVerification(
     requestBody
   );
   console.log('postVerification response: ', response.data); // test
-  // return response.data;
 }
 
 // GET: /api/challenges/{challengeId}/record
