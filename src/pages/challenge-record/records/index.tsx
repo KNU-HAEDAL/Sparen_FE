@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import BottomSheet from '../components/bottom-sheet';
 import Caution from '../components/caution';
+import RecordItem from '../components/record-item';
 import Stamp from '../components/stamp';
 import {
   getChallengeRecord,
@@ -25,7 +25,7 @@ const Records = () => {
   const [recordDetails, setRecordDetails] = useState<
     ChallengeRecordDetailData['data'] | null
   >(null);
-  const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
+  const [isRecordItemOpen, setIsRecordItemOpen] = useState<boolean>(false);
 
   // recordId를 recordList에 추가하는 함수
   const fillRecordList = (length: number, values: number[]) => {
@@ -48,15 +48,16 @@ const Records = () => {
       });
   }, [challengeId]);
 
-  const toggleBottomSheet = async (idx: number) => {
+  // 각각의 인증 기록을 펼치는 핸들러
+  const handleStampClick = async (idx: number) => {
     if (idx === -1) {
-      setBottomSheetOpen(false);
-      console.log('Closing BottomSheet');
+      setIsRecordItemOpen(false);
+      console.log('Closing record item');
     } else {
       try {
         const response = await getChallengeRecordDetail(idx);
         setRecordDetails(response.data);
-        setBottomSheetOpen(true);
+        setIsRecordItemOpen(true);
       } catch (error) {
         console.error('Failed to fetch challenge record detail:', error);
       }
@@ -68,7 +69,7 @@ const Records = () => {
     info: { offset: { x: number; y: number } }
   ) => {
     if (info.offset.y > 100) {
-      setBottomSheetOpen(false);
+      setIsRecordItemOpen(false);
     }
   };
 
@@ -107,7 +108,7 @@ const Records = () => {
                   key={index}
                   id={recordId}
                   onClick={() => {
-                    toggleBottomSheet(recordId);
+                    handleStampClick(recordId);
                   }}
                 />
               ))}
@@ -118,9 +119,9 @@ const Records = () => {
 
       <Caution />
 
-      <BottomSheet
+      <RecordItem
         data={recordDetails}
-        isOpen={isBottomSheetOpen}
+        isOpen={isRecordItemOpen}
         onDragEnd={handleDragEnd}
       />
     </Wrapper>

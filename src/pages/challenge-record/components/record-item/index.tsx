@@ -4,7 +4,7 @@ import useBottomSheet from '@/hooks/useBottomSheet';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-type Props = {
+type RecordItemProps = {
   data: {
     id: 0;
     createdAt: string;
@@ -18,7 +18,7 @@ type Props = {
   ) => void;
 };
 
-const BottomSheet = ({ data, isOpen, onDragEnd }: Props) => {
+const RecordItem = ({ data, isOpen, onDragEnd }: RecordItemProps) => {
   const { controls } = useBottomSheet(isOpen);
 
   if (!isOpen || !data) {
@@ -63,7 +63,7 @@ const BottomSheet = ({ data, isOpen, onDragEnd }: Props) => {
   );
 };
 
-export default BottomSheet;
+export default RecordItem;
 
 const BottomSheetBox = styled(Box)`
   position: fixed;
