@@ -1,6 +1,7 @@
 import { motion, PanInfo } from 'framer-motion';
 
 import { ChallengeRecordDetailData } from '@/apis/challenge-record/challenge.record.response';
+import { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { formatDate } from '@/utils/formatters';
 import { Image, Text } from '@chakra-ui/react';
@@ -55,6 +56,7 @@ const RecordItem = ({
             fontSize='var(--font-size-lg)'
             fontWeight='600'
             margin='0 0 16px 0'
+            alignSelf='center'
           >
             {recordIndex}회차 인증
           </Text>
@@ -85,6 +87,7 @@ const RecordItem = ({
 export default RecordItem;
 
 const Wrapper = styled.div`
+  /* height: calc(100vh - ${HEADER_HEIGHT}); */
   position: fixed;
   top: 0;
   left: 0;
@@ -100,14 +103,14 @@ const Wrapper = styled.div`
 const Inner = styled(motion.div)`
   z-index: 101;
   width: 100%;
-  min-height: 50%;
-  max-height: 70%;
+  min-height: 60%;
+  max-height: calc(100vh - ${HEADER_HEIGHT});
   overflow-y: auto;
   flex-direction: column;
   position: fixed;
   left: 0;
   right: 0;
-  bottom: -50px;
+  bottom: 0;
   border-radius: 20px 20px 0 0;
   background-color: var(--color-green-06);
   transition: transform 150ms ease-out;
