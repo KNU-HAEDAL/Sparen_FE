@@ -69,7 +69,6 @@ const Shorts = () => {
     }))
   );
 
-  console.log(data?.data.data);
   return (
     <>
       <TopBar type='Page' title='' backgroundColor='var(--color--green-06)' />
@@ -109,9 +108,10 @@ const Shorts = () => {
 export default Shorts;
 
 const ShortsLayout = styled.div`
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
+  gap: auto;
 `;
 
 const SwiperBox = styled(Swiper)`
