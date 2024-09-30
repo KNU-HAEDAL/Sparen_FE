@@ -2,10 +2,14 @@ import { useState } from 'react';
 
 import StampBoard from './components/stamp-board';
 import Verification from './components/verification';
-import { Tabs, Tab } from '@/components/common/tabs';
-import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
+import ChallengeTitle from '@/components/common/challenge-title';
+import { Tab, Tabs } from '@/components/common/tabs';
+import { TabPanel, TabPanels } from '@/components/common/tabs/tab-panels';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
+
+const SAMPLE_CATEGORY = '에코';
+const SAMPLE_TITLE = '환경 정화 활동';
 
 const ChallengeRecord = () => {
   const [activeTab, setActiveTab] = useState<number>(() => {
@@ -33,6 +37,7 @@ const ChallengeRecord = () => {
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
       <Wrapper>
+        <ChallengeTitle category={SAMPLE_CATEGORY} title={SAMPLE_TITLE} />
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (
             <Tab key={t.label} label={t.label} value={index} />

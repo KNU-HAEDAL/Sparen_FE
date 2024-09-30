@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
+import ChallengeTitle from '@/components/common/challenge-title';
 import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
@@ -102,10 +103,9 @@ const ReviewWrite = () => {
     <>
       <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
       <Wrapper>
-        <ChallengeTitleWrapper>
-          <Category>{categoryLabel}</Category>
-          <Title>{challengeTitle}</Title>
-        </ChallengeTitleWrapper>
+        {categoryLabel && challengeTitle && (
+          <ChallengeTitle category={categoryLabel} title={challengeTitle} />
+        )}
         <FlexBox flexDirection='column' alignItems='center' alignSelf='center'>
           <FlexBox flexDirection='row' alignItems='center'>
             <StarRating
@@ -195,23 +195,6 @@ const Wrapper = styled.div`
   text-align: left;
   width: 100%;
   gap: 16px;
-`;
-
-const ChallengeTitleWrapper = styled.div`
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`;
-
-const Category = styled.div`
-  font-size: var(--font-size-xs);
-  color: var(--color-green-01);
-`;
-
-const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: bold;
 `;
 
 const FlexBox = styled(Box)`

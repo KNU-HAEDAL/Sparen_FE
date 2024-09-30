@@ -6,6 +6,7 @@ import ReviewItem from './components/review-item';
 import ReviewRating from './components/review-rating';
 import { getReview } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
+import ChallengeTitle from '@/components/common/challenge-title';
 import TopBar from '@/components/features/layout/top-bar';
 import * as Base from '@/styles/baseStyles';
 import styled from '@emotion/styled';
@@ -54,7 +55,7 @@ const Review = () => {
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
       <Wrapper>
-        <Title>{challengeGrouptitle}</Title>
+        <ChallengeTitle category='' title={challengeGrouptitle || ''} />
         <ReviewRating challengeGroupId={challengeGroupId} />
         {reviewList.length > 0 ? (
           // 리뷰 있을 때
@@ -102,13 +103,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-`;
-
-const Title = styled.div`
-  font-size: var(--font-size-lg);
-  font-weight: bold;
-  margin: 16px 16px;
-  text-align: left;
 `;
 
 const ReviewList = styled.div`
