@@ -95,19 +95,19 @@ const Records = () => {
         <Text
           fontSize='var(--font-size-md)'
           fontWeight='600'
-          margin='0 0 0 16px'
+          margin='0 0 16px 0'
         >
           챌린지 인증하고 레벨 업!
           <br />
           짠돌이가 응원해요
         </Text>
-        <Text fontSize='var(--font-size-sm)' margin='0 0 0 24px'>
+        <Text fontSize='var(--font-size-sm)' margin='0 0 24px 0'>
           챌린지 참여 기간&nbsp;
-          <Text fontWeight='600' color='var(--color-green-01)'>
+          <Text as='span' fontWeight='600' color='var(--color-green-01)'>
             {data && formatDate(data.startDate)}
           </Text>
           &nbsp;~&nbsp;
-          <Text fontWeight='600' color='var(--color-green-01)'>
+          <Text as='span' fontWeight='600' color='var(--color-green-01)'>
             {data && formatDate(data.endDate)}
           </Text>
         </Text>
@@ -153,10 +153,12 @@ const Wrapper = styled.div`
 
 const StampBoard = styled.div`
   margin: 0 16px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   text-align: center;
   border-radius: 20px;
+  border: 1px solid var(--color-grey-02);
   background-color: var(--color-white);
 `;
 
