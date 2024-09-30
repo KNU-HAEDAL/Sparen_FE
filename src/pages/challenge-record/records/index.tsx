@@ -101,14 +101,13 @@ const Records = () => {
 
             <StampGrid>
               {items.map((item, index) => (
-                <Item
+                <Stamp
                   key={index}
+                  item={item}
                   onClick={() => {
                     toggleBottomSheet(item);
                   }}
-                >
-                  <Stamp data={item} />
-                </Item>
+                />
               ))}
             </StampGrid>
           </>
@@ -172,11 +171,4 @@ const StampGrid = styled.div`
   gap: 16px 0;
   justify-items: center;
   align-items: center;
-`;
-
-const Item = styled.div`
-  width: 100px;
-  height: 100px;
-  text-align: center;
-  cursor: pointer;
 `;
