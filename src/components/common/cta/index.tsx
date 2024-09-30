@@ -16,6 +16,8 @@ const CTA = ({ label, disabled, onClick }: CTAProps) => {
 
 export default CTA;
 
+export const CTA_CONTAINER_HEIGHT = '4rem';
+
 const StyledCTA = styled.button<{ disabled?: boolean }>`
   width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
   border: none;
@@ -53,7 +55,8 @@ export const CTAContainer = styled.div`
   bottom: 0;
   display: flex;
   width: 100%;
-  height: 4rem;
+  height: ${CTA_CONTAINER_HEIGHT};
   padding: 8px 16px;
   background-color: var(--color-white);
+  z-index: 1;
 `;

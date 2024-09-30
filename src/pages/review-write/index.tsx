@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
+import ChallengeTitle from '@/components/common/challenge-title';
 import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
@@ -14,6 +15,8 @@ import {
 } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
+
+const MIN_CONTENT_LENGTH = 20;
 
 const ReviewWrite = () => {
   const { id } = useParams();
@@ -51,7 +54,7 @@ const ReviewWrite = () => {
       selectedDifficulty &&
       selectedAchievement &&
       content.trim() &&
-      content.length >= 20
+      content.length >= MIN_CONTENT_LENGTH
     ) {
       setIsButtonDisabled(false);
     } else {
@@ -65,7 +68,7 @@ const ReviewWrite = () => {
     setContent(newContent);
     // console.log(content); // test
 
-    if (newContent.trim() && newContent.length >= 20) {
+    if (newContent.trim() && newContent.length >= MIN_CONTENT_LENGTH) {
       setIsContentValid(true);
     } else {
       setIsContentValid(false);
@@ -100,10 +103,9 @@ const ReviewWrite = () => {
     <>
       <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
       <Wrapper>
-        <ChallengeTitleWrapper>
-          <Category>{categoryLabel}</Category>
-          <Title>{challengeTitle}</Title>
-        </ChallengeTitleWrapper>
+        {categoryLabel && challengeTitle && (
+          <ChallengeTitle category={categoryLabel} title={challengeTitle} />
+        )}
         <FlexBox flexDirection='column' alignItems='center' alignSelf='center'>
           <FlexBox flexDirection='row' alignItems='center'>
             <StarRating
@@ -122,10 +124,8 @@ const ReviewWrite = () => {
           </FlexBox>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            체감 난이도
-          </Text>
-          <Box as='ul' display='flex'>
+          <ItemTitle>체감 난이도</ItemTitle>
+          <Box as='ul' display='flex' margin='0 16px'>
             {difficultyList.map((d) => (
               <Chip
                 as='li'
@@ -139,10 +139,8 @@ const ReviewWrite = () => {
           </Box>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            성취감
-          </Text>
-          <Box as='ul' display='flex'>
+          <ItemTitle>성취감</ItemTitle>
+          <Box as='ul' display='flex' margin='0 16px'>
             {achievementList.map((a) => (
               <Chip
                 as='li'
@@ -156,31 +154,18 @@ const ReviewWrite = () => {
           </Box>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            소감
-          </Text>
+          <ItemTitle>소감</ItemTitle>
           <Textarea
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
             onChange={handleContentChange}
+            minValueLength={MIN_CONTENT_LENGTH}
             valid={isContentValid}
           />
-          <Text
-            fontSize='var(--font-size-xs)'
-            color={
-              isContentValid ? `var(--color-grey-01)` : `var(--color-class-05)`
-            }
-            textAlign='right'
-            marginTop='8px'
-          >
-            {content.length} / 최소 20자
-          </Text>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            리뷰 작성 시 주의 사항
-          </Text>
-          <Text fontSize='var(--font-size-sm)'>
+          <ItemTitle>리뷰 작성 시 주의 사항</ItemTitle>
+          <Text fontSize='var(--font-size-sm)' margin='0 16px'>
             해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
             <Text as='span' color='var(--color-green-01)' fontWeight={600}>
               부적절한 내용은 삭제 조치
@@ -188,6 +173,7 @@ const ReviewWrite = () => {
             될 수 있습니다.
           </Text>
         </FlexBox>
+
         <CTAContainer>
           <CTA
             label='등록하기'
@@ -211,26 +197,15 @@ const Wrapper = styled.div`
   gap: 16px;
 `;
 
-const ChallengeTitleWrapper = styled.div`
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`;
-
-const Category = styled.div`
-  font-size: var(--font-size-xs);
-  color: var(--color-green-01);
-`;
-
-const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: bold;
-`;
-
 const FlexBox = styled(Box)`
   display: flex;
-  padding: 0 16px;
+`;
+
+const ItemTitle = styled(Text)`
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 2.5;
+  margin: 0 16px;
 `;
 
 const Rating = styled.span`

@@ -7,6 +7,7 @@ import { RankingSection } from './ranking-section/';
 import { ReviewSection } from './review-section/';
 import { type ChallengeDetailData } from '@/apis/challenge-detail/challenge.detail.response';
 import DefaultImage from '@/assets/Default-Image.svg';
+import ChallengeTitle from '@/components/common/challenge-title';
 import { Tabs, Tab } from '@/components/common/tabs';
 import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
 import TopBar from '@/components/features/layout/top-bar';
@@ -79,12 +80,12 @@ const ChallengeDetailPage = () => {
             </DefaultImageMask>
           )}
         </ImageList>
-
-        <ChallengeTitleWrapper>
-          <Category>{formatCategory(data?.category)}</Category>
-          <Title>{data?.title}</Title>
-        </ChallengeTitleWrapper>
-
+        {data && (
+          <ChallengeTitle
+            category={formatCategory(data.category)}
+            title={data.title}
+          />
+        )}
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (
             <Tab key={t.label} label={t.label} value={index} />
@@ -139,21 +140,4 @@ export const StyledDefaultImage = styled.img`
   display: block;
   object-fit: cover;
   opacity: 50%;
-`;
-
-export const ChallengeTitleWrapper = styled.div`
-  margin: 16px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-`;
-
-export const Category = styled.div`
-  font-size: var(--font-size-xs);
-  color: var(--color-green-01);
-`;
-
-export const Title = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: bold;
 `;

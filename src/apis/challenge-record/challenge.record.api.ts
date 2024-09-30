@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { multiPartClient, axiosClient } from '../AxiosClient';
 import {
   ApiResponse,
@@ -9,35 +11,42 @@ import {
 
 // POST: /api/challenges/{challengeId}/verification
 export async function postVerification(
-  id: number,
-  image: File,
-  content: string
-): Promise<{ data: ChallengeVerificationData; status: number }> {
-  const formData = new FormData();
-  formData.append(
+  challengeId: number,
+  content: string,
+  image: File
+): Promise<void> {
+  const requestBody = new FormData();
+  requestBody.append(
     'body',
     new Blob([JSON.stringify({ content })], { type: 'application/json' })
   );
-  formData.append('image', image);
+  requestBody.append('image', image);
 
   const response = await multiPartClient.post<ChallengeVerificationData>(
-    `api/challenges/${id}/verifications`,
-    formData
+    `api/challenges/${challengeId}/verification`,
+    requestBody
   );
-  console.log('postVerification response: ', response.data);
-  // return response.data;
-  return { data: response.data, status: response.status };
+  console.log('postVerification response: ', response.data); // test
 }
 
-// GET: /api/challenges/{challengeId}/record
 export async function getChallengeRecord(
-  id: number
+  challengeId: number
 ): Promise<ChallengeRecordData> {
-  const response = await axiosClient.get<ApiResponse<ChallengeRecordData>>(
-    `api/challenges/${id}/record`
-  );
-  console.log('getChallengeRecord response: ', response.data);
-  return response.data.data;
+  try {
+    const response = await axiosClient.get(
+      `api/challenges/${challengeId}/record`
+    );
+    // console.log('getChallengeRecord response: ', response.data); // test
+    return response.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallengeRecord error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallengeRecord error: unexpected');
+    }
+  }
 }
 
 // GET: /api/challenges/record/{recordId}
@@ -51,11 +60,22 @@ export async function getChallengeRecordDetailorigin(
   return response.data.data;
 }
 
-export async function getChallengeRecordDetail(
+export async function getChallengeRecordDetails(
   recordId: number
 ): Promise<ChallengeRecordDetailData> {
-  const response = await axiosClient.get(`api/challenges/record/${recordId}`);
-  return response.data;
+  try {
+    const response = await axiosClient.get(`api/challenges/record/${recordId}`);
+    // console.log('getChallengeRecordDetails response: ', response.data); // test
+    return response.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallengeRecord error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallengeRecord error: unexpected');
+    }
+  }
 }
 
 // GET: /api/user/challenges/completes

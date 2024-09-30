@@ -6,29 +6,19 @@ export type ApiResponse<T> = {
 };
 
 export type ChallengeRecordData = {
-  result: string;
-  data: {
-    title: string;
-    totalCount: number;
-    successCount: number;
-    startDate: string;
-    endDate: string;
-    recordIds: number[];
-  };
-  message: string;
-  errorCode: string;
+  title: string;
+  totalCount: number;
+  successCount: number;
+  startDate: string;
+  endDate: string;
+  recordIds: number[];
 };
 
 export type ChallengeRecordDetailData = {
-  result: string;
-  data: {
-    id: 0;
-    createdAt: string;
-    content: string;
-    imageUrl: string;
-  };
-  message: string;
-  errorCode: string;
+  id: 0;
+  createdAt: string;
+  content: string;
+  imageUrl: string;
 };
 
 export type CompleteChallengeData = {

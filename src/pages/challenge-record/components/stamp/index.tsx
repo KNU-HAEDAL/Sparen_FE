@@ -1,19 +1,22 @@
-import StampActive from '@/assets/StampActive.svg';
-import StampInActive from '@/assets/StampInactive.svg';
+import StampActive from '@/assets/stamp-active.svg';
+import StampInActive from '@/assets/stamp-inactive.svg';
 import { Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type StampProps = {
-  data: number;
+  id: number;
+  onClick?: () => void;
 };
 
-const Stamp = ({ data }: StampProps) => {
+const Stamp = ({ id, onClick }: StampProps) => {
+  const active = id !== -1 ? true : false; // -1이면 inactive
+
   return (
     <>
-      {data === -1 ? (
-        <StampImage src={StampInActive} />
+      {active ? (
+        <StyledStamp src={StampActive} active={active} onClick={onClick} />
       ) : (
-        <StampImage src={StampActive} />
+        <StyledStamp src={StampInActive} active={active} />
       )}
     </>
   );
@@ -21,8 +24,7 @@ const Stamp = ({ data }: StampProps) => {
 
 export default Stamp;
 
-const StampImage = styled(Image)`
-  width: 80px;
-  height: 80px;
-  margin: 5px auto;
+const StyledStamp = styled(Image)<{ active: boolean }>`
+  aspect-ratio: 1 / 1;
+  cursor: ${({ active }) => (active ? 'pointer' : null)};
 `;
