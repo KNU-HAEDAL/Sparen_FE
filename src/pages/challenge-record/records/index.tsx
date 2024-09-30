@@ -86,32 +86,31 @@ const Records = () => {
   return (
     <Wrapper>
       <StampBoard>
-        {/* <Text
-            fontSize='var(--font-size-lg)'
-            fontWeight='700'
-            marginBottom='15px'
-          >
-            {data.title}
-          </Text> */}
         <Text
           fontSize='var(--font-size-md)'
           fontWeight='600'
-          margin='0 0 16px 0'
+          margin='0 0 8px 0'
         >
           챌린지 인증하고 레벨 업!
           <br />
           짠돌이가 응원해요
         </Text>
-        <Text fontSize='var(--font-size-sm)' margin='0 0 24px 0'>
-          챌린지 참여 기간&nbsp;
-          <Text as='span' fontWeight='600' color='var(--color-green-01)'>
-            {data && formatDate(data.startDate)}
-          </Text>
-          &nbsp;~&nbsp;
-          <Text as='span' fontWeight='600' color='var(--color-green-01)'>
-            {data && formatDate(data.endDate)}
-          </Text>
-        </Text>
+        {data && (
+          <InfoGrid>
+            {/* 참여 기간 */}
+            <Text>참여 기간</Text>
+            <span className='highlight'>
+              {formatDate(data.startDate)} ~ {formatDate(data.endDate)}
+            </span>
+
+            {/* 인증 횟수 */}
+            <Text>인증 횟수</Text>
+            <Text marginLeft='auto'>
+              <span className='highlight'>{data.successCount}</span>
+              &nbsp;/ {data.totalCount}회
+            </Text>
+          </InfoGrid>
+        )}
         {rows.map((row, rowIndex) => (
           <Box display='flex' key={rowIndex}>
             {row.map((item, index) => (
@@ -161,6 +160,21 @@ const StampBoard = styled.div`
   border-radius: 20px;
   border: 1px solid var(--color-grey-02);
   background-color: var(--color-white);
+`;
+
+const InfoGrid = styled.div`
+  align-self: center;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-gap: 0 16px;
+  margin: 0 0 24px 0;
+  line-height: 2;
+  font-size: var(--font-size-sm);
+
+  .highlight {
+    font-weight: 600;
+    color: var(--color-green-01);
+  }
 `;
 
 const Item = styled.div<{ rowLength: number }>`
