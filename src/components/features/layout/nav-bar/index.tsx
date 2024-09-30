@@ -16,7 +16,7 @@ const NavBar = () => {
   return (
     <Wrapper as='nav'>
       {navBarData.map((item) => (
-        <Tab as='a' key={item.title} onClick={() => handleNav(item.path)}>
+        <Tab key={item.title} onClick={() => handleNav(item.path)}>
           <IconImage src={item.icon} alt={item.title} />
         </Tab>
       ))}
@@ -40,12 +40,13 @@ const Wrapper = styled(Box)`
   background-color: #fafafa;
 `;
 
-const Tab = styled.div`
-  width: 50%;
+const Tab = styled.a`
+  width: 50%; // 요소마다 부모 요소의 너비를 균등하게 차지하도록
   height: 100%;
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const IconImage = styled(Image)`
