@@ -6,7 +6,7 @@ import ChallengeTitle from '@/components/common/challenge-title';
 import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import {
   formatRating,
@@ -106,73 +106,75 @@ const ReviewWrite = () => {
         {categoryLabel && challengeTitle && (
           <ChallengeTitle category={categoryLabel} title={challengeTitle} />
         )}
-        <FlexBox flexDirection='column' alignItems='center' alignSelf='center'>
-          <FlexBox flexDirection='row' alignItems='center'>
-            <StarRating
-              rating={rating}
-              size={32}
-              onClick={(newRating) => setRating(newRating)}
+        <Inner>
+          <FormItem alignItems='center' alignSelf='center'>
+            <Box display='flex' flex-direction='row' alignItems='center'>
+              <StarRating
+                rating={rating}
+                size={32}
+                onClick={(newRating) => setRating(newRating)}
+              />
+              <Rating>
+                <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
+              </Rating>
+            </Box>
+            <Box>
+              <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
+                {formatRating(rating)}
+              </Text>
+            </Box>
+          </FormItem>
+          <FormItem>
+            <ItemTitle>체감 난이도</ItemTitle>
+            <Box as='ul' display='flex' margin='0 16px'>
+              {difficultyList.map((d) => (
+                <Chip
+                  as='li'
+                  key={d}
+                  onClick={() => handleDifficultyClick(d)}
+                  isSelected={selectedDifficulty === d}
+                >
+                  {formatDifficulty(d)}
+                </Chip>
+              ))}
+            </Box>
+          </FormItem>
+          <FormItem>
+            <ItemTitle>성취감</ItemTitle>
+            <Box as='ul' display='flex' margin='0 16px'>
+              {achievementList.map((a) => (
+                <Chip
+                  as='li'
+                  key={a}
+                  onClick={() => handleFeelingClick(a)}
+                  isSelected={selectedAchievement === a}
+                >
+                  {formatAchievement(a)}
+                </Chip>
+              ))}
+            </Box>
+          </FormItem>
+          <FormItem>
+            <ItemTitle>소감</ItemTitle>
+            <Textarea
+              placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
+              value={content}
+              onChange={handleContentChange}
+              minValueLength={MIN_CONTENT_LENGTH}
+              valid={isContentValid}
             />
-            <Rating>
-              <span>{rating}.0</span>&nbsp;<span>/ 5.0</span>
-            </Rating>
-          </FlexBox>
-          <FlexBox alignSelf='center'>
-            <Text fontSize='var(--font-size-sm)' color='var(--color-gray-01)'>
-              {formatRating(rating)}
+          </FormItem>
+          <FormItem>
+            <ItemTitle>리뷰 작성 시 주의 사항</ItemTitle>
+            <Text fontSize='var(--font-size-sm)' margin='0 16px 32px'>
+              해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
+              <Text as='span' color='var(--color-green-01)' fontWeight={600}>
+                부적절한 내용은 삭제 조치
+              </Text>
+              될 수 있습니다.
             </Text>
-          </FlexBox>
-        </FlexBox>
-        <FlexBox flexDirection='column'>
-          <ItemTitle>체감 난이도</ItemTitle>
-          <Box as='ul' display='flex' margin='0 16px'>
-            {difficultyList.map((d) => (
-              <Chip
-                as='li'
-                key={d}
-                onClick={() => handleDifficultyClick(d)}
-                isSelected={selectedDifficulty === d}
-              >
-                {formatDifficulty(d)}
-              </Chip>
-            ))}
-          </Box>
-        </FlexBox>
-        <FlexBox flexDirection='column'>
-          <ItemTitle>성취감</ItemTitle>
-          <Box as='ul' display='flex' margin='0 16px'>
-            {achievementList.map((a) => (
-              <Chip
-                as='li'
-                key={a}
-                onClick={() => handleFeelingClick(a)}
-                isSelected={selectedAchievement === a}
-              >
-                {formatAchievement(a)}
-              </Chip>
-            ))}
-          </Box>
-        </FlexBox>
-        <FlexBox flexDirection='column'>
-          <ItemTitle>소감</ItemTitle>
-          <Textarea
-            placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
-            value={content}
-            onChange={handleContentChange}
-            minValueLength={MIN_CONTENT_LENGTH}
-            valid={isContentValid}
-          />
-        </FlexBox>
-        <FlexBox flexDirection='column'>
-          <ItemTitle>리뷰 작성 시 주의 사항</ItemTitle>
-          <Text fontSize='var(--font-size-sm)' margin='0 16px'>
-            해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
-            <Text as='span' color='var(--color-green-01)' fontWeight={600}>
-              부적절한 내용은 삭제 조치
-            </Text>
-            될 수 있습니다.
-          </Text>
-        </FlexBox>
+          </FormItem>
+        </Inner>
 
         <CTAContainer>
           <CTA
@@ -192,13 +194,22 @@ const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  flex: 1;
   text-align: left;
   width: 100%;
+  min-height: calc(100vh - ${HEADER_HEIGHT});
+`;
+
+const Inner = styled.form`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   gap: 16px;
 `;
 
-const FlexBox = styled(Box)`
+const FormItem = styled(Box)`
   display: flex;
+  flex-direction: column;
 `;
 
 const ItemTitle = styled(Text)`
