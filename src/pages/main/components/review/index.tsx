@@ -1,9 +1,25 @@
+import { useGetRecentlyReview } from '@/apis/recently-review/getRecentlyReview.api';
 import StarIcon from '@/assets/main/Star-Icon.svg';
 import ProfileIcon from '@/assets/main/ZZAN-Profile.png';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image, Text, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const Review = () => {
+  const { data, isLoading } = useGetRecentlyReview(0, 10);
+
+  if (isLoading) {
+    return (
+      <Box
+        display='flex'
+        justifyContent='center'
+        alignItems='center'
+        height='100vh'
+      >
+        <Spinner size='xl' />
+      </Box>
+    );
+  }
+
   return (
     <>
       <Text
@@ -16,46 +32,56 @@ const Review = () => {
         최근 챌린지 리뷰
       </Text>
       <ReviewLayout>
-        <ChallengeLayout>
+        {!data || data?.data.length === 0 ? (
           <Text
             fontSize='1.25rem'
-            marginTop='0.5rem'
-            marginBottom='0.5rem'
-            marginLeft='0.5rem'
+            fontWeight={700}
+            color='var(--color-green-07)'
+            textAlign='center'
           >
-            쓰레기 줍기 챌린지
+            최근 챌린지 리뷰가 존재하지 않아요..
           </Text>
-          <Box display='flex' margin='0.5rem' gap='0.2rem'>
-            <StarImg src={StarIcon} />
-            <StarImg src={StarIcon} />
-            <StarImg src={StarIcon} />
-          </Box>
-          <ReviewProfileContainer>
-            <Image src={ProfileIcon} />
-            <Text
-              fontWeight='700'
-              fontSize='1rem'
-              color='#fff'
-              textAlign='left'
-              fontStyle='normal'
-              lineHeight='normal'
-            >
-              짠돌이
-            </Text>
-          </ReviewProfileContainer>
-          <Box width='100%'>
-            <Text
-              fontWeight='700'
-              fontSize='1rem'
-              color='#fff'
-              textAlign='left'
-              fontStyle='normal'
-              lineHeight='normal'
-            >
-              세상이 깨끗해지는 기분이에요! 포인트도 많이줘서 등급 올리기 ...
-            </Text>
-          </Box>
-        </ChallengeLayout>
+        ) : (
+          data?.data.map((review) => (
+            <ChallengeLayout key={review.challengeId}>
+              <Text
+                fontSize='1.4rem'
+                fontWeight={700}
+                color='var(--color-green-07)'
+                marginTop='0.5rem'
+                marginBottom='0.5rem'
+                marginLeft='0.5rem'
+              >
+                {review.challengeTitle}
+              </Text>
+              <Box display='flex' ml={1} gap='0.2rem'>
+                {Array.from({ length: review.rating }, (_, index) => (
+                  <StarImg key={index} src={StarIcon} />
+                ))}
+              </Box>
+              <ReviewProfileContainer>
+                <ImageBox
+                  src={review.user.profileImageUrl || ProfileIcon} // 프로필 이미지가 없으면 기본 이미지 사용
+                />
+                <Text fontWeight='700' fontSize='1rem' color='#fff'>
+                  {review.user.nickname}
+                </Text>
+              </ReviewProfileContainer>
+              <Box width='100%'>
+                <Text
+                  fontWeight='700'
+                  fontSize='1rem'
+                  color='#fff'
+                  textAlign='left'
+                  fontStyle='normal'
+                  lineHeight='normal'
+                >
+                  {review.content}
+                </Text>
+              </Box>
+            </ChallengeLayout>
+          ))
+        )}
       </ReviewLayout>
     </>
   );
@@ -69,19 +95,29 @@ const Container = styled(Box)`
 `;
 
 const ReviewLayout = styled(Container)`
-  height: 15.5625rem;
-  padding: 0.9375rem 4.8125rem 0.9375rem 0.8125rem;
+  display: flex;
+  overflow-x: scroll;
+  height: 15.5rem;
+  padding: 0.9375rem 0.8125rem;
   margin: 1rem;
 
   border-radius: 1.25rem;
-  background: var(--green--06, rgba(240, 244, 243, 0.75));
+  background: var(--color-green-06);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const ChallengeLayout = styled.div`
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
   width: 18rem;
   height: 13.7rem;
   padding: 1rem;
+  margin-right: 1rem;
   border-radius: 1.25rem;
   background-color: var(--color-green-01);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -99,5 +135,13 @@ const ReviewProfileContainer = styled(Container)`
   flex-direction: row;
   justify-content: space-between;
   width: 5.5rem;
-  gap: 0.25rem;
+`;
+
+const ImageBox = styled(Image)`
+  display: flex;
+  width: 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
