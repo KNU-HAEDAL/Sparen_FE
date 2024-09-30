@@ -87,7 +87,6 @@ const RecordItem = ({
 export default RecordItem;
 
 const Wrapper = styled.div`
-  /* height: calc(100vh - ${HEADER_HEIGHT}); */
   position: fixed;
   top: 0;
   left: 0;
@@ -95,9 +94,9 @@ const Wrapper = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end; // 자식이 하단에 붙게
   z-index: 100;
+  overflow: hidden;
 `;
 
 const Inner = styled(motion.div)`
@@ -106,7 +105,6 @@ const Inner = styled(motion.div)`
   min-height: 60%;
   max-height: calc(100vh - ${HEADER_HEIGHT});
   overflow-y: auto;
-  flex-direction: column;
   position: fixed;
   left: 0;
   right: 0;
