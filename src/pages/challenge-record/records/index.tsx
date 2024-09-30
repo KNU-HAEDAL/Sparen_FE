@@ -6,7 +6,7 @@ import RecordItem from '../components/record-item';
 import Stamp from '../components/stamp';
 import {
   getChallengeRecord,
-  getChallengeRecordDetail,
+  getChallengeRecordDetails,
 } from '@/apis/challenge-record/challenge.record.api';
 import {
   ChallengeRecordData,
@@ -20,11 +20,10 @@ const Records = () => {
   const { id } = useParams();
   const challengeId = Number(id);
 
-  const [data, setData] = useState<ChallengeRecordData | null>(null); // api 응답 데이터 전체
+  const [data, setData] = useState<ChallengeRecordData | null>(); // api 응답 데이터 전체
   const [recordIdList, setRecordIdList] = useState<number[]>([]);
-  const [recordDetails, setRecordDetails] = useState<
-    ChallengeRecordDetailData['data'] | null
-  >(null);
+  const [recordDetails, setRecordDetails] =
+    useState<ChallengeRecordDetailData | null>(); // 인증기록 상세
   const [isRecordItemOpen, setIsRecordItemOpen] = useState<boolean>(false);
 
   // recordId를 recordList에 추가하는 함수
@@ -48,19 +47,21 @@ const Records = () => {
       });
   }, [challengeId]);
 
-  // 각각의 인증 기록을 펼치는 핸들러
-  const handleStampClick = async (idx: number) => {
-    if (idx === -1) {
+  // 각각의 인증기록을 펼치는 핸들러
+  const handleStampClick = (recordId: number) => {
+    if (recordId === -1) {
+      // Stamp 안에서 분기 처리 되어 있긴 한데.
       setIsRecordItemOpen(false);
-      console.log('Closing record item');
+      console.log('Closed the record item');
     } else {
-      try {
-        const response = await getChallengeRecordDetail(idx);
-        setRecordDetails(response.data);
-        setIsRecordItemOpen(true);
-      } catch (error) {
-        console.error('Failed to fetch challenge record detail:', error);
-      }
+      getChallengeRecordDetails(recordId)
+        .then((res) => {
+          setRecordDetails(res);
+          setIsRecordItemOpen(true);
+        })
+        .catch((error) => {
+          console.error('Error fetching record details:', error);
+        });
     }
   };
 
@@ -117,13 +118,15 @@ const Records = () => {
         )}
       </StampBoard>
 
-      <Caution />
+      {recordDetails && (
+        <RecordItem
+          data={recordDetails}
+          isOpen={isRecordItemOpen}
+          onDragEnd={handleDragEnd}
+        />
+      )}
 
-      <RecordItem
-        data={recordDetails}
-        isOpen={isRecordItemOpen}
-        onDragEnd={handleDragEnd}
-      />
+      <Caution />
     </Wrapper>
   );
 };

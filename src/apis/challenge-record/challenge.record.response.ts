@@ -15,15 +15,10 @@ export type ChallengeRecordData = {
 };
 
 export type ChallengeRecordDetailData = {
-  result: string;
-  data: {
-    id: 0;
-    createdAt: string;
-    content: string;
-    imageUrl: string;
-  };
-  message: string;
-  errorCode: string;
+  id: 0;
+  createdAt: string;
+  content: string;
+  imageUrl: string;
 };
 
 export type CompleteChallengeData = {

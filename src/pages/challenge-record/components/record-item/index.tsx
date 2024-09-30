@@ -1,16 +1,12 @@
 import { motion, PanInfo } from 'framer-motion';
 
+import { ChallengeRecordDetailData } from '@/apis/challenge-record/challenge.record.response';
 import useBottomSheet from '@/hooks/useBottomSheet';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type RecordItemProps = {
-  data: {
-    id: 0;
-    createdAt: string;
-    content: string;
-    imageUrl: string;
-  } | null;
+  data: ChallengeRecordDetailData | null;
   isOpen: boolean;
   onDragEnd: (
     event: MouseEvent | TouchEvent | PointerEvent,

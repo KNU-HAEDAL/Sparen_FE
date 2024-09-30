@@ -60,11 +60,22 @@ export async function getChallengeRecordDetailorigin(
   return response.data.data;
 }
 
-export async function getChallengeRecordDetail(
+export async function getChallengeRecordDetails(
   recordId: number
 ): Promise<ChallengeRecordDetailData> {
-  const response = await axiosClient.get(`api/challenges/record/${recordId}`);
-  return response.data;
+  try {
+    const response = await axiosClient.get(`api/challenges/record/${recordId}`);
+    console.log('getChallengeRecordDetails response: ', response.data); // test
+    return response.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(
+        `getChallengeRecord error: ${error.response?.data.message || error.message}`
+      );
+    } else {
+      throw new Error('getChallengeRecord error: unexpected');
+    }
+  }
 }
 
 // GET: /api/user/challenges/completes
