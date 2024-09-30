@@ -124,10 +124,8 @@ const ReviewWrite = () => {
           </FlexBox>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            체감 난이도
-          </Text>
-          <Box as='ul' display='flex'>
+          <ItemTitle>체감 난이도</ItemTitle>
+          <Box as='ul' display='flex' margin='0 16px'>
             {difficultyList.map((d) => (
               <Chip
                 as='li'
@@ -141,10 +139,8 @@ const ReviewWrite = () => {
           </Box>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            성취감
-          </Text>
-          <Box as='ul' display='flex'>
+          <ItemTitle>성취감</ItemTitle>
+          <Box as='ul' display='flex' margin='0 16px'>
             {achievementList.map((a) => (
               <Chip
                 as='li'
@@ -158,9 +154,7 @@ const ReviewWrite = () => {
           </Box>
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            소감
-          </Text>
+          <ItemTitle>소감</ItemTitle>
           <Textarea
             placeholder='챌린지 완수 후 느낀 점을 적어주세요.'
             value={content}
@@ -170,10 +164,8 @@ const ReviewWrite = () => {
           />
         </FlexBox>
         <FlexBox flexDirection='column'>
-          <Text fontSize='var(--font-size-md)' fontWeight='600' lineHeight={10}>
-            리뷰 작성 시 주의 사항
-          </Text>
-          <Text fontSize='var(--font-size-sm)'>
+          <ItemTitle>리뷰 작성 시 주의 사항</ItemTitle>
+          <Text fontSize='var(--font-size-sm)' margin='0 16px'>
             해당 챌린지와 무관한 내용 또는 욕설, 도배 등의{' '}
             <Text as='span' color='var(--color-green-01)' fontWeight={600}>
               부적절한 내용은 삭제 조치
@@ -181,6 +173,7 @@ const ReviewWrite = () => {
             될 수 있습니다.
           </Text>
         </FlexBox>
+
         <CTAContainer>
           <CTA
             label='등록하기'
@@ -223,7 +216,13 @@ const Title = styled.div`
 
 const FlexBox = styled(Box)`
   display: flex;
-  padding: 0 16px;
+`;
+
+const ItemTitle = styled(Text)`
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 2.5;
+  margin: 0 16px;
 `;
 
 const Rating = styled.span`
