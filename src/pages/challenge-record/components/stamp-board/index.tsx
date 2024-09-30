@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import BottomSheet from '../bottom-sheet';
+import Caution from '../caution';
 import Stamp from '../stamp';
 import {
   getChallengeRecord,
@@ -125,27 +126,7 @@ const StampBoard = () => {
         <div />
       )}
 
-      <CautionWrapper>
-        <Text fontSize='var(--font-size-sm)' marginBottom='15px'>
-          유의사항
-        </Text>
-        <Text fontSize='var(--font-size-xs)' marginBottom='15px'>
-          별도의 규칙이 없는 한 스탬프는 하루 한개로 제한됩니다. (동일 챌린지에
-          하루 여러건 참여한 것은 인정되지 않습니다.)
-          <br />
-          모든 스탬프를 찍은 후 챌린지가 완료되며, 일부만 수행한 경우 챌린지가
-          완료로 표시되지 않습니다.
-          <br />
-          명시된 횟수를 초과한 경우 챌린지 완료로 인정되나 추가 인증에 대한
-          포인트는 제공되지 않습니다.
-          <br />
-          사진 조작, 타인의 계정 이용등의 부정행위가 적발될 시 해당 계정은 자동
-          탈퇴되며 추후 서비스 이용에 제한이 있을 수 있습니다.
-          <br />
-          스탬프가 정상 인증되지 않는경우 고객센터로 문의하세요
-          <br />
-        </Text>
-      </CautionWrapper>
+      <Caution />
 
       <BottomSheet
         data={record}
@@ -177,14 +158,6 @@ const StampBox = styled.div`
   padding: 10px 20px;
   background-color: var(--color-green-06);
   margin-bottom: calc(100% - 250px);
-`;
-
-const CautionWrapper = styled.div`
-  margin-bottom: 50px;
-  padding: 25px;
-  background-color: var(--color-grey-01);
-  color: var(--color-white);
-  text-align: left;
 `;
 
 const Item = styled.div<{ rowLength: number }>`

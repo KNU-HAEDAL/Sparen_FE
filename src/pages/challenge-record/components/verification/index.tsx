@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
 import { useParams } from 'react-router-dom';
 
+import Caution from '../caution';
 import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
@@ -127,6 +128,7 @@ const Verification = () => {
           />
           사진 업로드
         </AddImage>
+        <Caution />
       </Wrapper>
       <CTAContainer>
         <CTA
