@@ -65,6 +65,20 @@ const Records = () => {
     }
   };
 
+  // 바텀시트 열렸을 때 overflow-y 숨기기
+  useEffect(() => {
+    if (isRecordItemOpen) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = '';
+    }
+
+    // 컴포넌트 언마운트 시 기본 값으로 되돌리기
+    return () => {
+      document.body.style.overflowY = '';
+    };
+  }, [isRecordItemOpen]);
+
   // 인증기록 (RecordItem) 닫는 핸들러
   const handleDragEnd = (
     _event: MouseEvent | TouchEvent | PointerEvent,
@@ -140,7 +154,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  overflow-y: auto;
   scrollbar-color: transparent transparent;
   &::-webkit-scrollbar {
     display: none;

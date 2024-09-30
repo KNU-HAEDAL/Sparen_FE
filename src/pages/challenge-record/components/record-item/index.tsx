@@ -38,15 +38,15 @@ const RecordItem = ({
         animate={controls}
         transition={{
           type: 'spring',
-          damping: 40,
-          stiffness: 400,
+          damping: 50,
+          stiffness: 700,
         }}
         variants={{
           visible: { y: 0 },
           hidden: { y: '100%' },
         }}
         dragConstraints={{ top: 0 }}
-        dragElastic={0.2}
+        dragElastic={0.1}
       >
         <Handle>
           <HandleBar />
