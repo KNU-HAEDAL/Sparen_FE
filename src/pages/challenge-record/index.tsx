@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Records from './components/records';
-import Verification from './components/verification';
+import Records from './records';
+import Verification from './verification';
 import ChallengeTitle from '@/components/common/challenge-title';
 import { Tab, Tabs } from '@/components/common/tabs';
 import { TabPanel, TabPanels } from '@/components/common/tabs/tab-panels';

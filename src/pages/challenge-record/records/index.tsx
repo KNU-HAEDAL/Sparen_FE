@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import BottomSheet from '../bottom-sheet';
-import Caution from '../caution';
-import Stamp from '../stamp';
+import BottomSheet from '../components/bottom-sheet';
+import Caution from '../components/caution';
+import Stamp from '../components/stamp';
 import {
   getChallengeRecord,
   getChallengeRecordDetail,
