@@ -69,9 +69,8 @@ const Verification = () => {
 
   const handleSave = async () => {
     if (image) {
-      postVerification(18, image, content)
+      postVerification(18, content, image)
         .then(() => {
-          // console.log('응답: ', response);
           alert('챌린지 인증이 등록되었습니다!');
           handleSelectedTab(0); // 인증 기록 탭으로 이동
         })

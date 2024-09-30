@@ -9,23 +9,23 @@ import {
 
 // POST: /api/challenges/{challengeId}/verification
 export async function postVerification(
-  id: number,
-  image: File,
-  content: string
-): Promise<any> {
-  const formData = new FormData();
-  formData.append(
+  challengeId: number,
+  content: string,
+  image: File
+): Promise<void> {
+  const requestBody = new FormData();
+  requestBody.append(
     'body',
     new Blob([JSON.stringify({ content })], { type: 'application/json' })
   );
-  formData.append('image', image);
+  requestBody.append('image', image);
 
   const response = await multiPartClient.post<ChallengeVerificationData>(
-    `api/challenges/${id}/verifications`,
-    formData
+    `api/challenges/${challengeId}/verification`,
+    requestBody
   );
-  console.log('postVerification response: ', response.data);
-  return response.data;
+  console.log('postVerification response: ', response.data); // test
+  // return response.data;
 }
 
 // GET: /api/challenges/{challengeId}/record
