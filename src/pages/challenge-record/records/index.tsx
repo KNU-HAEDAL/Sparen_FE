@@ -122,6 +122,7 @@ const Records = () => {
       {recordDetails && (
         <RecordItem
           data={recordDetails}
+          recordIndex={recordIdList.indexOf(recordDetails.id) + 1}
           isOpen={isRecordItemOpen}
           onDragEnd={handleDragEnd}
         />
