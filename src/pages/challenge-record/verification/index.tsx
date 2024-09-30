@@ -144,6 +144,7 @@ const Verification = () => {
 export default Verification;
 
 const Wrapper = styled.form`
+  margin: 16px 0 0 0;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -151,23 +152,6 @@ const Wrapper = styled.form`
   &::-webkit-scrollbar {
     display: none;
   }
-`;
-
-const AddImage = styled.div`
-  box-sizing: border-box;
-  border: var(--color-green-01) 1px solid;
-  border-radius: 10px;
-  background-color: var(--color-white);
-  font-size: var(--font-size-md);
-  font-weight: 700;
-  color: var(--color-green-01);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 8px;
-  outline: none;
-  cursor: pointer;
-  margin: 16px 16px 32px;
 `;
 
 const PreviewImageContainer = styled.div`
@@ -188,4 +172,21 @@ const DeleteImageButton = styled.button`
   right: 8px;
   outline: none;
   color: var(--color-grey-02);
+`;
+
+const AddImage = styled.div`
+  box-sizing: border-box;
+  border: var(--color-green-01) 1px solid;
+  border-radius: 10px;
+  background-color: var(--color-white);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-green-01);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 8px;
+  outline: none;
+  cursor: pointer;
+  margin: 16px 16px 32px;
 `;

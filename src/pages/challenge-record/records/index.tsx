@@ -142,6 +142,7 @@ const Records = () => {
 export default Records;
 
 const Wrapper = styled.div`
+  margin: 16px 0 0 0;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -152,7 +153,7 @@ const Wrapper = styled.div`
 `;
 
 const StampBoard = styled.div`
-  margin: 0 16px;
+  margin: 0 16px 32px;
   padding: 16px;
   display: flex;
   flex-direction: column;
