@@ -20,12 +20,12 @@ const Records = () => {
   const { id } = useParams();
   const challengeId = Number(id);
 
-  const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
-  const [data, setData] = useState<ChallengeRecordData['data'] | null>(null);
+  const [data, setData] = useState<ChallengeRecordData | null>(null); // api 응답 데이터 전체
   const [items, setItems] = useState<number[]>([]);
   const [record, setRecord] = useState<
     ChallengeRecordDetailData['data'] | null
   >(null);
+  const [isBottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
 
   const setArray = (length: number, values: number[]) => {
     const array = new Array(length).fill(-1);
@@ -36,17 +36,14 @@ const Records = () => {
   };
 
   useEffect(() => {
-    const fetchChallengeRecord = async () => {
-      try {
-        const response = await getChallengeRecord(challengeId);
-        setData(response.data);
-        setArray(response.data.totalCount, response.data.recordIds);
-      } catch (error) {
-        console.error('Failed to fetch challenge record:', error);
-      }
-    };
-
-    fetchChallengeRecord();
+    getChallengeRecord(challengeId)
+      .then((res) => {
+        setData(res);
+        setArray(res.totalCount, res.recordIds);
+      })
+      .catch((error) => {
+        console.error('Error fetching records:', error);
+      });
   }, [challengeId]);
 
   const chunkItems = (arr: number[], chunkSize: number): number[][] => {
