@@ -146,7 +146,6 @@ export default Verification;
 const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 16px 16px 0 16px;
   text-align: left;
   overflow-y: auto;
   scrollbar-color: transparent transparent;
@@ -169,7 +168,7 @@ const AddImage = styled.div`
   padding: 10px 8px;
   outline: none;
   cursor: pointer;
-  margin: 16px 0;
+  margin: 16px 16px;
 `;
 
 const PreviewImageContainer = styled.div`

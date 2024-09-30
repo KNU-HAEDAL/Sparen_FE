@@ -30,7 +30,7 @@ const Textarea = ({
           fontSize='var(--font-size-xs)'
           color={valid ? `var(--color-grey-01)` : `var(--color-class-05)`}
           textAlign='right'
-          marginTop='8px'
+          margin='8px 16px 0'
         >
           {value.length} / 최소 {minValueLength}자
         </Text>
@@ -50,10 +50,10 @@ const StyledTextarea = styled.textarea<{ valid?: boolean }>`
       ? 'var(--color-grey-02) 1px solid'
       : 'var(--color-class-05) 1px solid'};
   padding: 12px;
-  width: 100%;
   height: 180px;
   resize: none;
   outline: none;
+  margin: 0 16px;
 
   &::placeholder {
     color: var(--color-grey-01);
