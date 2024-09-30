@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
+import { useParams } from 'react-router-dom';
 
 import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
@@ -10,6 +11,9 @@ import styled from '@emotion/styled';
 const MIN_CONTENT_LENGTH = 20;
 
 const Verification = () => {
+  const { id } = useParams();
+  const challengeId = Number(id);
+
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);
@@ -69,7 +73,7 @@ const Verification = () => {
 
   const handleSave = async () => {
     if (image) {
-      postVerification(, content, image)
+      postVerification(challengeId, content, image)
         .then(() => {
           alert('챌린지 인증이 등록되었습니다!');
           handleSelectedTab(0); // 인증 기록 탭으로 이동

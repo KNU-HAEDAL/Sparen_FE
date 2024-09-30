@@ -103,7 +103,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: RouterPath.record,
+        path: `:id/${RouterPath.record}`,
         element: (
           <ProtectedRoute>
             <ChallengeRecord />
