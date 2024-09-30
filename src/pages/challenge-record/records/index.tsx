@@ -65,6 +65,7 @@ const Records = () => {
     }
   };
 
+  // 인증기록 (RecordItem) 닫는 핸들러
   const handleDragEnd = (
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { x: number; y: number } }
