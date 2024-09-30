@@ -73,12 +73,8 @@ export const TotalTierGraph = styled.div<Type.ITierGraph>`
   align-items: center;
   width: ${(props) => props.width};
   height: ${(props) => props.height};
-  /* width: 100%;
-  height: 0.3125rem; */
   margin: 1rem 0;
   margin: ${(props) => props.mgColumn} ${(props) => props.mgRow};
-  /* padding-right: 1.625rem; */
-  /* border-radius: 0.125rem; */
   border-radius: ${(props) => props.radius};
   flex-shrink: 0;
   background: #000;
@@ -86,8 +82,6 @@ export const TotalTierGraph = styled.div<Type.ITierGraph>`
 `;
 
 export const CurrentTierGraph = styled.div<Type.ICurrentTierGraph>`
-  /* width: 1rem; */
-  /* height: 0.3125rem; */
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   flex-shrink: 0;

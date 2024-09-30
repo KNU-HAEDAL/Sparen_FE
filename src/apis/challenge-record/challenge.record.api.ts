@@ -65,7 +65,7 @@ export async function getChallengeRecordDetails(
 ): Promise<ChallengeRecordDetailData> {
   try {
     const response = await axiosClient.get(`api/challenges/record/${recordId}`);
-    console.log('getChallengeRecordDetails response: ', response.data); // test
+    // console.log('getChallengeRecordDetails response: ', response.data); // test
     return response.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {

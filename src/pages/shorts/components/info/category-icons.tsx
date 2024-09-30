@@ -31,7 +31,8 @@ export default CategoryIcon;
 
 const ShortsInfoIconBox = styled.div<{ borderColor: string }>`
   display: flex;
-  padding: 0.75rem;
+  width: 4rem;
+  height: 3.25rem;
   align-items: center;
   justify-content: center;
   border-radius: 100%;

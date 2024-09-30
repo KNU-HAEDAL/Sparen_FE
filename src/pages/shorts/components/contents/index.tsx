@@ -22,5 +22,5 @@ export default ShortsContents;
 const ShortsContentsBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem 1rem;
+  margin: 0.5rem 1rem;
 `;

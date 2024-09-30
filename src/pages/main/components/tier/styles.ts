@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const TierLayout = styled.div<{ height?: string }>`
-  height: 9.3125rem;
+  height: 10rem;
   flex-shrink: 0;
   margin: 1rem 1rem 3rem 1rem;
   border-radius: 1.25rem;

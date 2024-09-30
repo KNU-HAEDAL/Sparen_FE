@@ -1,20 +1,8 @@
-import ChallengeImg from '@/assets/challenge/Challenge-Img.png';
+import ChallengeImg from '@/assets/shorts/shorts-img.png';
 import { Image } from '@chakra-ui/react';
-import styled from '@emotion/styled';
 
 const ShortsImage = () => {
-  return (
-    <>
-      <ShortsImageBox>
-        <Image width='100%' src={ChallengeImg} />
-      </ShortsImageBox>
-    </>
-  );
+  return <Image objectFit='cover' src={ChallengeImg} />;
 };
 
 export default ShortsImage;
-
-export const ShortsImageBox = styled.div`
-  display: flex;
-  margin: 1rem 0;
-`;

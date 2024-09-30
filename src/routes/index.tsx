@@ -62,6 +62,14 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: RouterPath.shorts,
+        element: (
+          <ProtectedRoute>
+            <ShortsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: RouterPath.rank,
         element: (
           <ProtectedRoute>
@@ -120,10 +128,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: RouterPath.shorts,
-    element: <ShortsPage />,
-  },
+
   {
     path: RouterPath.login,
     element: <LoginPage />,

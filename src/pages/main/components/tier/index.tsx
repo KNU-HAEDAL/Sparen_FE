@@ -6,9 +6,10 @@ import ProfileImg from '@/assets/main/ZZAN-Profile.png';
 import { getTierDetails } from '@/constants/data/tierSchema';
 import { useInfoStore } from '@/store/useInfoStore';
 import * as Base from '@/styles/baseStyles';
+import { Box } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 
 const Tier = () => {
-  // const [userInfo, setUserInfo] = useState<UserData | null>(null);
   const { userInfo, setUserInfo } = useInfoStore();
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const Tier = () => {
         const response = await getUserInfo();
         const userData = response.data;
         setUserInfo(userData);
+        console.log(userData);
       } catch (error) {
         console.error('fetchUserInfo error: ', error);
       }
@@ -27,6 +29,10 @@ const Tier = () => {
   const tierDetails = userInfo?.tierInfo
     ? getTierDetails(userInfo?.tierInfo.tier)
     : { color: 'var(--color-class-02)' };
+
+  const currentExp = userInfo?.tierInfo.currentExp || 0;
+  const totalExp = userInfo?.tierInfo.totalExp || 1;
+  const expPercentage = (currentExp / totalExp) * 100;
 
   return (
     <>
@@ -61,29 +67,43 @@ const Tier = () => {
               <Base.Text color={tierDetails?.color} fontWeight='700'>
                 {userInfo?.tierInfo.tier}
               </Base.Text>
-              <Base.Text color={tierDetails?.color} fontWeight='1rem'>
-                {userInfo?.tierInfo.currentExp}
-              </Base.Text>
             </Base.Container>
           </Base.Container>
         </S.InfoContainer>
-        <Base.TotalTierGraph
-          width='100%'
-          mgColumn='1rem'
-          mgRow='0'
-          height='0.3125rem'
-          radius='0.125rem'
-        >
-          <Base.CurrentTierGraph
-            width='1rem'
-            height='0.3125rem'
-            radius='0.125rem'
-            bgColor={tierDetails?.color}
-          />
-        </Base.TotalTierGraph>
+        <Box margin={4} position='relative'>
+          <TotalGraph>
+            <CurrentGraph
+              width={`${expPercentage}%`}
+              backgroundColor={tierDetails?.color || '#000'}
+            />
+          </TotalGraph>
+        </Box>
       </S.TierLayout>
     </>
   );
 };
 
 export default Tier;
+
+const TotalGraph = styled(Box)`
+  position: 'relative';
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 1rem 0;
+  height: 1rem;
+  border-radius: 0.5rem;
+  background-color: #000;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+
+const CurrentGraph = styled(Box)<{ backgroundColor: string }>`
+  height: 1rem;
+  position: 'absolute';
+  border-radius: 0.25rem;
+  background-color: ${(props) => props.backgroundColor};
+  /* background-color: ${(props) =>
+    `linear-gradient(45deg, #4e4e4e 0%, ${props.backgroundColor} 50%)` ||
+    `linear-gradient(90deg, ${props.backgroundColor} 0%, #b28854 50%)`}; */
+  width: ${(props) => props.width};
+`;

@@ -10,9 +10,11 @@ type Info = {
 
 type Props = {
   info?: Info;
+  onClick: (id: number) => void;
+  id: number;
 };
 
-const ShortsInfo = ({ info }: Props) => {
+const ShortsInfo = ({ info, id, onClick }: Props) => {
   return (
     <>
       <ShortsInfoLayout>
@@ -36,7 +38,7 @@ const ShortsInfo = ({ info }: Props) => {
                 : '정보 없음'}
             </Text>
           </Box>
-          <ShortsStartBox>
+          <ShortsStartBox onClick={() => onClick(id)}>
             <Image width='1rem' height='1.25rem' src={StartIcon} />
           </ShortsStartBox>
         </ShortsInfoTextBox>
@@ -52,6 +54,7 @@ export const ShortsInfoLayout = styled.div`
   flex-direction: row;
   margin-left: 1rem;
   align-items: center;
+  padding: 2rem 0;
 `;
 
 export const ShortsInfoTextBox = styled.div`
@@ -69,7 +72,8 @@ export const ShortsStartBox = styled.div`
   align-items: center;
   text-align: center;
   border-radius: 100%;
-
+  width: 3rem;
+  height: 3rem;
   background-color: #5cc6ba;
-  padding: 1rem;
+  /* padding: 1rem; */
 `;

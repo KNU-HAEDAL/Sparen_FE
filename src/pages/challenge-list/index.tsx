@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Contents from './components/contents';
 import { useGetChallengeList } from '@/apis/challenge-list/getChallengeList.api';
@@ -23,12 +24,33 @@ const ChallengeList = () => {
   const [allData, setAllData] = useState<Challenge[]>([]);
   const [page, setPage] = useState(0);
 
-  const categoryList = [
-    { label: '건강', data: 'HEALTH' },
-    { label: '에코', data: 'ECHO' },
-    { label: '나눔', data: 'SHARE' },
-    { label: '봉사', data: 'VOLUNTEER' },
-  ];
+  const navigate = useNavigate();
+
+  const handleNavigate = (id: number) => {
+    navigate(`/challenge/${id}`);
+  };
+
+  const categoryList = useMemo(
+    () => [
+      { label: '에코', data: 'ECHO' },
+      { label: '나눔', data: 'SHARE' },
+      { label: '봉사', data: 'VOLUNTEER' },
+      { label: '건강', data: 'HEALTH' },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    const savedCategory = sessionStorage.getItem('category');
+    if (savedCategory) {
+      const tabIndex = categoryList.findIndex(
+        (category) => category.data === savedCategory
+      );
+      if (tabIndex !== -1) {
+        setActiveTab(tabIndex);
+      }
+    }
+  }, [categoryList]);
 
   const { data, isLoading } = useGetChallengeList(page, 20);
 
@@ -87,6 +109,8 @@ const ChallengeList = () => {
                     startDate={challenge.startDate}
                     endDate={challenge.endDate}
                     participantCount={challenge.participantCount}
+                    onClick={() => handleNavigate(challenge.id)}
+                    id={challenge.id}
                   />
                 ))}
               </>
@@ -107,10 +131,9 @@ const ChallengeListLayout = styled.div`
   align-items: center;
   justify-content: center;
   height: 100%;
-  margin: 0 1.5rem;
   padding-bottom: 6rem;
 `;
 
 const TabPanelsLayout = styled(Box)`
-  margin: 1rem 0;
+  margin: 1rem 1.5rem;
 `;

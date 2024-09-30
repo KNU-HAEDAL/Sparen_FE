@@ -2,18 +2,31 @@ import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
 import { Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const ListItem = () => {
+type Props = {
+  challengeTitle: string;
+  userNickname: string;
+  profileImageUrl?: string | null;
+  id: number;
+  onClick: (id: number) => void;
+};
+
+const ListItem = ({ challengeTitle, profileImageUrl, onClick, id }: Props) => {
+  const handleClick = () => {
+    onClick(id);
+  };
+
   return (
-    <ListItemLayout>
+    <ListItemLayout onClick={handleClick}>
       <ProfileContainer>
-        <Image src={ProfileImg} alt='profile' width='1.5rem' />
+        <Image
+          src={profileImageUrl || ProfileImg}
+          alt='profile'
+          width='1.5rem'
+        />
       </ProfileContainer>
-      <ListText maxWidth='150px' fontWeight='700' fontSize='1.125rem'>
-        쓰레기 줍기 챌린지
+      <ListText fontWeight='700' fontSize='1.125rem'>
+        {challengeTitle}
       </ListText>
-      <Text maxWidth='70px' fontSize='0.8rem'>
-        2024.08.05
-      </Text>
     </ListItemLayout>
   );
 };
@@ -25,10 +38,12 @@ const ListItemLayout = styled.div`
   flex-direction: row;
   width: 100%;
   gap: 20px;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
   margin: 0.2rem 1rem;
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -47,5 +62,4 @@ const ListText = styled(Text)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* max-width: 150px; */
 `;
