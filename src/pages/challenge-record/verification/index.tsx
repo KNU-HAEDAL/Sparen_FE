@@ -147,6 +147,7 @@ const Wrapper = styled.form`
   margin: 16px 0 0 0;
   display: flex;
   flex-direction: column;
+  flex: 1;
   overflow-y: auto;
   scrollbar-color: transparent transparent;
   &::-webkit-scrollbar {

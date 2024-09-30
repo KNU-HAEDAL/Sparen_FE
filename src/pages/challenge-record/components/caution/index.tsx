@@ -39,4 +39,5 @@ const Wrapper = styled.div`
   background-color: var(--color-class-01);
   color: var(--color-black);
   text-align: left;
+  margin-top: auto;
 `;

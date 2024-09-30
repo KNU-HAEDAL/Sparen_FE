@@ -27,19 +27,20 @@ export const TabPanel = ({ children, value, selectedIndex }: TabPanelProps) => {
 };
 
 export const StyledTabPanels = styled.div`
-  height: 100%;
   width: 100%;
   position: relative;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
 
 export const StyledTabPanel = styled.div<{
   active: boolean;
 }>`
   display: ${(p) => (p.active ? 'flex' : 'none')};
-  font-size: 2rem;
   flex-direction: column;
+  flex: 1;
   width: 100%;
-  height: 100%;
-  justify-content: center;
+  font-size: 2rem;
 `;

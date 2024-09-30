@@ -59,4 +59,7 @@ export default ChallengeRecord;
 
 const Wrapper = styled.div`
   min-height: calc(100vh - ${HEADER_HEIGHT});
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 `;
