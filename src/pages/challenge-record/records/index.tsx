@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
+// import { useParams } from 'react-router-dom';
 import Caution from '../components/caution';
 import RecordItem from '../components/record-item';
 import Stamp from '../components/stamp';
@@ -16,10 +16,9 @@ import { formatDate } from '@/utils/formatters';
 import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-const Records = () => {
-  const { id } = useParams();
-  const challengeId = Number(id);
+type RecordsProps = { challengeId: number };
 
+const Records = ({ challengeId }: RecordsProps) => {
   const [data, setData] = useState<ChallengeRecordData | null>(); // api 응답 데이터 전체
   const [recordIdList, setRecordIdList] = useState<number[]>([]);
   const [recordDetails, setRecordDetails] =

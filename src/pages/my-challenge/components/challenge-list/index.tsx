@@ -13,7 +13,7 @@ type ChallengeListProps = {
   color: string;
   BorderColor: string;
   challenges: {
-    id: number;
+    challengeId: number;
     title: string;
   }[];
 };
@@ -83,7 +83,9 @@ const ChallengeList = ({
                 cursor='pointer'
                 onClick={() => handleSaveTitle(challenge.title)}
               >
-                <Link to={RouterPath.write}>
+                <Link
+                  to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&title=${challenge.title}`}
+                >
                   <Text
                     fontSize='var(--font-size-sm)'
                     fontStyle='normal'

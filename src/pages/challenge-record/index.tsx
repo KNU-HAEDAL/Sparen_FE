@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Records from './records';
 import Verification from './verification';
@@ -8,10 +9,13 @@ import { TabPanel, TabPanels } from '@/components/common/tabs/tab-panels';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
 
-const SAMPLE_CATEGORY = '에코';
-const SAMPLE_TITLE = '환경 정화 활동';
-
 const ChallengeRecord = () => {
+  // ?id=:id&category=:category&title=:title
+  const [searchParams] = useSearchParams();
+  const challengeId = searchParams.get('id') || '';
+  const challengeCategory = searchParams.get('category') || '';
+  const challengeTitle = searchParams.get('title') || '';
+
   const [activeTab, setActiveTab] = useState<number>(() => {
     // 세션 스토리지에 저장된 값 | 기본값 0
     const savedTab = sessionStorage.getItem('activeTab');
@@ -20,11 +24,11 @@ const ChallengeRecord = () => {
   const tabsList = [
     {
       label: '인증 기록',
-      panel: <Records />,
+      panel: <Records challengeId={Number(challengeId)} />,
     },
     {
       label: '인증하기',
-      panel: <Verification />,
+      panel: <Verification challengeId={Number(challengeId)} />,
     },
   ];
 
@@ -37,7 +41,7 @@ const ChallengeRecord = () => {
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
       <Wrapper>
-        <ChallengeTitle category={SAMPLE_CATEGORY} title={SAMPLE_TITLE} />
+        <ChallengeTitle category={challengeCategory} title={challengeTitle} />
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (
             <Tab key={t.label} label={t.label} value={index} />
