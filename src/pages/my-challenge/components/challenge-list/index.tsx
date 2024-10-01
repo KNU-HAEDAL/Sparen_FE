@@ -93,7 +93,7 @@ const ChallengeList = ({
                     lineHeight='normal'
                     color={color}
                   >
-                    인증하기
+                    인증 기록
                   </Text>
                 </Link>
               </Box>

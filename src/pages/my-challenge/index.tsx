@@ -8,6 +8,8 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MyChallengePage = () => {
+  sessionStorage.setItem('activeTab', '0'); // 선택 탭 초기화
+
   const [listChallenges, setListChallenges] = useState<ChallengeData[]>([]);
 
   useEffect(() => {
