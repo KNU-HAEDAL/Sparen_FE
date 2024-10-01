@@ -15,7 +15,6 @@ const NavBar = () => {
 
   return (
     <Wrapper as='nav'>
-    <Wrapper as='nav'>
       {navBarData.map((item) => (
         <Tab as='a' key={item.title} onClick={() => handleNav(item.path)}>
           <IconImage src={item.icon} alt={item.title} />
