@@ -20,9 +20,13 @@ type Challenge = {
 };
 
 const ChallengeList = () => {
-  sessionStorage.setItem('challengeDetailActiveTab', '0');
+  sessionStorage.setItem('challengeDetailActiveTab', '0'); // 챌린지 디테일의 탭을 초기화
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<number>(() => {
+    // 세션 스토리지에 저장된 값 | 기본값 0
+    const savedTab = sessionStorage.getItem('challengeListActiveTab');
+    return savedTab ? Number(savedTab) : 0;
+  });
   const [allData, setAllData] = useState<Challenge[]>([]);
   const [page, setPage] = useState(0);
 
@@ -50,6 +54,7 @@ const ChallengeList = () => {
       );
       if (tabIndex !== -1) {
         setActiveTab(tabIndex);
+        // sessionStorage.setItem('challengeListActiveTab', String(tabIndex)); // 다른 페이지 갔다가 돌아올 때
       }
     }
   }, [categoryList]);
@@ -64,7 +69,7 @@ const ChallengeList = () => {
 
   const handleSelectedTab = (value: number) => {
     setActiveTab(value);
-    sessionStorage.setItem('activeTab', String(value));
+    sessionStorage.setItem('challengeListActiveTab', String(value));
   };
 
   const filteredData = allData.filter(
