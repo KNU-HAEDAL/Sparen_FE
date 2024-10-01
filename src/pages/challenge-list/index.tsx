@@ -20,6 +20,8 @@ type Challenge = {
 };
 
 const ChallengeList = () => {
+  sessionStorage.setItem('challengeDetailActiveTab', '0');
+
   const [activeTab, setActiveTab] = useState(0);
   const [allData, setAllData] = useState<Challenge[]>([]);
   const [page, setPage] = useState(0);

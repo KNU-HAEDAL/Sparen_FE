@@ -22,7 +22,7 @@ const ChallengeDetailPage = () => {
 
   const [activeTab, setActiveTab] = useState<number>(() => {
     // 세션 스토리지에 저장된 값 | 기본값 0
-    const savedTab = sessionStorage.getItem('activeTab');
+    const savedTab = sessionStorage.getItem('challengeDetailActiveTab');
     return savedTab ? Number(savedTab) : 0;
   });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
@@ -44,7 +44,7 @@ const ChallengeDetailPage = () => {
 
   const handleSelectedTab = (value: number) => {
     setActiveTab(value);
-    sessionStorage.setItem('activeTab', String(value));
+    sessionStorage.setItem('challengeDetailActiveTab', String(value));
   };
 
   useEffect(() => {
