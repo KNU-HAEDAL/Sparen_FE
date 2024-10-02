@@ -26,13 +26,13 @@ export default ChallengeRecord;
 
 const ChallengeRecordListButton = styled.a`
   display: flex;
-  padding: 0.75rem 6rem 0.5rem 6rem;
+  padding: 0.75rem 1rem 0.5rem 1rem;
   justify-content: center;
-  border-radius: 1.25rem;
+  border-radius: 100px;
   margin: 1rem 1rem 2rem 1rem;
   cursor: pointer;
   background-color: var(--color-green-01);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-md);
   color: #fff;
 `;

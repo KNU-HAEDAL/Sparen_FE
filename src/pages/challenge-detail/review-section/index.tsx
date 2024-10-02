@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
 import { type ReviewData } from '@/apis/review/review.response';
+import EmptyState from '@/components/common/empty-state';
 import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review/components/review-item';
 import { RouterPath } from '@/routes/path';
@@ -91,15 +92,14 @@ export const ReviewSection = ({ id, category, title }: ReviewSectionProps) => {
         </>
       ) : (
         // 리뷰 없을 때
-        <S.Text>
-          아직 리뷰가 없습니다.
-          <br />
-          챌린지를 완료하고{' '}
-          <S.Text fontWeight='600' color={`var(--color-green-01)`}>
-            첫 번째 리뷰어
-          </S.Text>
-          가 되어보세요!
-        </S.Text>
+        <EmptyState>
+          <span>
+            아직 리뷰가 없습니다.
+            <br />
+            챌린지를 완료하고 <span className='highlight'>첫 번째 리뷰어</span>
+            가 되어보세요!
+          </span>
+        </EmptyState>
       )}
     </S.Wrapper>
   );

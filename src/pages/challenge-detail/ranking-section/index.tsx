@@ -5,6 +5,7 @@ import { RankingItem } from '../components/ranking-item/';
 import * as S from './styles';
 import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.api';
 import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
+import EmptyState from '@/components/common/empty-state';
 import * as Base from '@/styles/baseStyles';
 
 type RankingSectionProps = {
@@ -67,16 +68,15 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
         </>
       ) : (
         // 랭킹 없을 때
-        <S.Text>
-          아직 챌린지를 성공한 유저가 없습니다. <br />
-          챌린지에 참여해{' '}
-          <S.Text fontWeight='600' color={`var(--color-green-01)`}>
-            첫 번째 완료자
-          </S.Text>
-          가 되어보세요!
-        </S.Text>
+        <EmptyState>
+          <span>
+            아직 챌린지를 성공한 유저가 없습니다. <br />
+            챌린지에 참여해 <span className='highlight'>첫 번째 완료자</span>가
+            되어보세요!
+          </span>
+        </EmptyState>
       )}
-      <S.Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</S.Text>
+      <EmptyState ref={ref}>{isFetching ? '로딩 중...' : ' '}</EmptyState>
     </S.Wrapper>
   );
 };

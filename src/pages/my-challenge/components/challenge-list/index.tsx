@@ -1,46 +1,35 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import NotChallenge from '@/assets/UserImage.svg';
 import FinishStamp from '@/assets/challenge/ZZAN-Black.png';
+import CTA from '@/components/common/cta';
+import EmptyState from '@/components/common/empty-state';
 import { ChallengeData } from '@/interface/apis/challenge';
 import { RouterPath } from '@/routes/path';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ChallengeListProps = {
-  BackgroundColor: string;
-  color: string;
-  BorderColor: string;
   challenges: ChallengeData[];
 };
 
-const ChallengeList = ({
-  BackgroundColor,
-  color,
-  BorderColor,
-  challenges,
-}: ChallengeListProps) => {
+const ChallengeList = ({ challenges }: ChallengeListProps) => {
+  const navigate = useNavigate();
+
   return (
     <>
       {challenges.length === 0 ? (
-        <Box
-          display='flex'
-          flexDirection='column'
-          marginTop='2rem'
-          alignItems='center'
-          justifyContent='space-between'
-          gap={10}
-        >
-          <Image opacity='0.5' width='8rem' src={NotChallenge} />
-          <Text
-            fontSize='var(--font-size-md)'
-            fontStyle='normal'
-            fontWeight='700'
-          >
-            진행 중인 챌린지가 없습니다.
-          </Text>
-        </Box>
+        <EmptyState>
+          <Image
+            opacity='0.5'
+            width='8rem'
+            src={NotChallenge}
+            margin='0 0 16px 0'
+          />
+          <p className='highlight'>진행 중인 챌린지가 없습니다.</p>
+          <p>마음에 드는 챌린지를 신청해보세요.</p>
+        </EmptyState>
       ) : (
         <ChallengeListBox>
           {challenges.map((challenge, index) => (
@@ -61,32 +50,15 @@ const ChallengeList = ({
               >
                 {challenge.title}
               </Text>
-              <Box
-                className='verify-button'
-                display='flex'
-                padding='1rem 0.625rem'
-                justifyContent='center'
-                alignItems='center'
-                height='1rem'
-                borderRadius='0.625rem'
-                backgroundColor={BackgroundColor}
-                borderColor={BorderColor}
-                cursor='pointer'
-              >
-                <Link
-                  to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&category=${challenge.category}&title=${challenge.title}`}
-                >
-                  <Text
-                    fontSize='var(--font-size-sm)'
-                    fontStyle='normal'
-                    fontWeight='700'
-                    lineHeight='normal'
-                    color={color}
-                  >
-                    인증 기록
-                  </Text>
-                </Link>
-              </Box>
+              <RecordButton
+                label='인증 기록'
+                display='block'
+                onClick={() =>
+                  navigate(
+                    `/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&category=${challenge.category}&title=${challenge.title}`
+                  )
+                }
+              />
             </ChallengeItem>
           ))}
         </ChallengeListBox>
@@ -118,3 +90,5 @@ const ChallengeItem = styled(Box)`
   gap: 10px;
   padding: 8px 0;
 `;
+
+const RecordButton = styled(CTA)``;
