@@ -51,7 +51,7 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
   }, [inView, hasNext, isFetching, id, page]);
 
   return (
-    <S.RankingWrapper>
+    <S.Wrapper>
       {rankingList.length > 0 ? (
         // 랭킹 있을 때
         <>
@@ -77,6 +77,6 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
         </S.Text>
       )}
       <S.Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</S.Text>
-    </S.RankingWrapper>
+    </S.Wrapper>
   );
 };
