@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         path: RouterPath.challenge,
         children: [
           {
-            index: true,
+            path: RouterPath.inProgress,
             element: (
               <ProtectedRoute>
                 <MyChallengePage />
