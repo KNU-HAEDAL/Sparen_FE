@@ -56,7 +56,7 @@ const Records = ({
       .catch((error) => {
         console.error('Error fetching records:', error);
       });
-  }, [challengeId]);
+  }, [challengeId, setSuccessCount, setTotalCount]);
 
   // 각각의 인증기록을 펼치는 핸들러
   const handleStampClick = (recordId: number) => {

@@ -97,7 +97,6 @@ const Verification = ({
           setImage(null);
           // 인증 기록 탭으로 변경 및 새로고침하여 데이터 새로 페칭
           setActiveTab(0);
-          window.location.reload();
         })
         .catch((error) => {
           // API에서 받은 오류 객체일 경우
