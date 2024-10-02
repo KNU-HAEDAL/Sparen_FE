@@ -29,7 +29,9 @@ const ChallengeRecord = () => {
     },
     {
       label: '인증하기',
-      panel: <Verification challengeId={challengeId} />,
+      panel: (
+        <Verification challengeId={challengeId} setActiveTab={setActiveTab} />
+      ),
     },
   ];
 

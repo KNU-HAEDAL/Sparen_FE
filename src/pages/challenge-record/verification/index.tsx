@@ -11,9 +11,12 @@ import styled from '@emotion/styled';
 
 const MIN_CONTENT_LENGTH = 20;
 
-type VerificationProps = { challengeId: number };
+type VerificationProps = {
+  challengeId: number;
+  setActiveTab: (value: number) => void;
+};
 
-const Verification = ({ challengeId }: VerificationProps) => {
+const Verification = ({ challengeId, setActiveTab }: VerificationProps) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);
@@ -80,7 +83,8 @@ const Verification = ({ challengeId }: VerificationProps) => {
           // 폼 내용 초기화
           setContent('');
           setImage(null);
-          handleSelectedTab(0); // 인증 기록 탭으로 이동
+          // 인증 기록 탭으로 이동
+          setActiveTab(0);
         })
         .catch((error) => {
           // API에서 받은 오류 객체일 경우
@@ -92,11 +96,6 @@ const Verification = ({ challengeId }: VerificationProps) => {
           }
         });
     }
-  };
-
-  const handleSelectedTab = (value: number) => {
-    // setActiveTab(value as 0 | 1);
-    sessionStorage.setItem('activeTab', String(value));
   };
 
   return (
