@@ -14,6 +14,8 @@ type Props = {
 };
 
 const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
+  sessionStorage.setItem('activeTab', '0'); // 선택 탭 초기화
+
   const navigate = useNavigate();
 
   const handleChallengeClick = (
