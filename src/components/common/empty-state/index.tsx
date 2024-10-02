@@ -20,6 +20,7 @@ export default EmptyState;
 // 스타일 정의
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex: 1;
