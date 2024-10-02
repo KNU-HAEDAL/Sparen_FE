@@ -7,6 +7,7 @@ import ChallengeTitle from '@/components/common/challenge-title';
 import { Tab, Tabs } from '@/components/common/tabs';
 import { TabPanel, TabPanels } from '@/components/common/tabs/tab-panels';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import { formatCategory } from '@/utils/formatters';
 import styled from '@emotion/styled';
 
 const ChallengeRecord = () => {
@@ -41,7 +42,10 @@ const ChallengeRecord = () => {
     <>
       <TopBar type='Page' title='챌린지 기록' backgroundColor='#fff' />
       <Wrapper>
-        <ChallengeTitle category={challengeCategory} title={challengeTitle} />
+        <ChallengeTitle
+          category={formatCategory(challengeCategory)}
+          title={challengeTitle}
+        />
         <Tabs selectedTab={activeTab} onChange={handleSelectedTab}>
           {tabsList.map((t, index) => (
             <Tab key={t.label} label={t.label} value={index} />

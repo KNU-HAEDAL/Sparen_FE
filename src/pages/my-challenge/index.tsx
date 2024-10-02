@@ -30,7 +30,7 @@ const MyChallengePage = () => {
     <>
       <TopBar type='Page' title='내 챌린지' backgroundColor='#fff' />
       <MyChallengeLayout>
-        <Text fontSize='var(--font-size-xxl)' fontWeight='700' margin='1rem'>
+        <Text fontSize='var(--font-size-xl)' fontWeight='700' margin='1rem'>
           참여 중인 챌린지
         </Text>
         <ChallengeListBox>

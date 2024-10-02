@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as S from './styles';
 import NotChallenge from '@/assets/UserImage.svg';
 import FinishStamp from '@/assets/challenge/ZZAN-Black.png';
+import { ChallengeData } from '@/interface/apis/challenge';
 import { RouterPath } from '@/routes/path';
 import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Image, Text } from '@chakra-ui/react';
@@ -12,10 +13,7 @@ type ChallengeListProps = {
   BackgroundColor: string;
   color: string;
   BorderColor: string;
-  challenges: {
-    challengeId: number;
-    title: string;
-  }[];
+  challenges: ChallengeData[];
 };
 
 const ChallengeList = ({
@@ -84,7 +82,7 @@ const ChallengeList = ({
                 onClick={() => handleSaveTitle(challenge.title)}
               >
                 <Link
-                  to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&title=${challenge.title}`}
+                  to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&category=${challenge.category}&title=${challenge.title}`}
                 >
                   <Text
                     fontSize='var(--font-size-sm)'
