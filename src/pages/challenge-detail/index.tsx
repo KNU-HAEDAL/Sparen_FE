@@ -38,7 +38,13 @@ const ChallengeDetailPage = () => {
     },
     {
       label: '리뷰',
-      panel: data ? <ReviewSection id={challengeGroupId} /> : null,
+      panel: data ? (
+        <ReviewSection
+          id={challengeGroupId}
+          category={data.category}
+          title={data.title}
+        />
+      ) : null,
     },
   ];
 
@@ -59,13 +65,6 @@ const ChallengeDetailPage = () => {
 
     fetchChallengeDetail();
   }, [challengeGroupId]);
-
-  // 챌린지 리뷰 페이지에 필요한 챌린지 제목 세션 스토리지에 저장
-  useEffect(() => {
-    if (data?.title) {
-      sessionStorage.setItem('challengeGroupTitle', data.title);
-    }
-  }, [data?.title]);
 
   return (
     <>

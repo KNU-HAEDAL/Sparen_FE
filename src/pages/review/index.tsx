@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useParams } from 'react-router-dom';
 
 import ReviewItem from './components/review-item';
 import ReviewRating from './components/review-rating';
@@ -9,12 +8,16 @@ import type { ReviewData } from '@/apis/review/review.response';
 import ChallengeTitle from '@/components/common/challenge-title';
 import TopBar from '@/components/features/layout/top-bar';
 import * as Base from '@/styles/baseStyles';
+import { formatCategory } from '@/utils/formatters';
+// import { formatCategory } from '@/utils/formatters';
 import styled from '@emotion/styled';
 
 const Review = () => {
-  const { id } = useParams();
-  const challengeGroupId = Number(id);
-  const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
+  // 쿼리 파라미터 추출
+  const searchParams = new URLSearchParams(location.search);
+  const challengeGroupId = Number(searchParams.get('id'));
+  const category = searchParams.get('category') || '';
+  const title = searchParams.get('title') || '';
 
   const DATA_SIZE = 10; // 한번에 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
@@ -55,7 +58,7 @@ const Review = () => {
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
       <Wrapper>
-        <ChallengeTitle category='' title={challengeGrouptitle || ''} />
+        <ChallengeTitle category={formatCategory(category)} title={title} />
         <ReviewRating challengeGroupId={challengeGroupId} />
         {reviewList.length > 0 ? (
           // 리뷰 있을 때
