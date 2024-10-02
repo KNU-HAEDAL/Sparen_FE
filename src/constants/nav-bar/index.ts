@@ -3,31 +3,32 @@ import DashboardIcon from '@/assets/nav-icon/DashBoard.svg';
 import MainIcon from '@/assets/nav-icon/Home.svg';
 import ChallengeIcon from '@/assets/nav-icon/My-Challenge.svg';
 import RankIcon from '@/assets/nav-icon/Ranking.svg';
+import { RouterPath } from '@/routes/path';
 
 export const navBarData = [
   {
     title: 'challenge',
     icon: ChallengeIcon,
-    path: '/challenge',
+    path: `/${RouterPath.challenge}/${RouterPath.myChallenge}`,
   },
   {
     title: 'shorts',
     icon: ShortsIcon,
-    path: '/shorts',
+    path: `/${RouterPath.shorts}`,
   },
   {
     title: 'main',
     icon: MainIcon,
-    path: '/',
+    path: `${RouterPath.root}`,
   },
   {
     title: 'rank',
     icon: RankIcon,
-    path: '/rank',
+    path: `/${RouterPath.rank}`,
   },
   {
     title: 'dashboard',
     icon: DashboardIcon,
-    path: '/dashboard',
+    path: `/${RouterPath.dashboard}`,
   },
 ];

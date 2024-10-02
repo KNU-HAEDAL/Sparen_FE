@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import * as S from './styles';
 import NotChallenge from '@/assets/UserImage.svg';
 import FinishStamp from '@/assets/challenge/ZZAN-Black.png';
+import { ChallengeData } from '@/interface/apis/challenge';
 import { RouterPath } from '@/routes/path';
-import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -12,10 +12,7 @@ type ChallengeListProps = {
   BackgroundColor: string;
   color: string;
   BorderColor: string;
-  challenges: {
-    id: number;
-    title: string;
-  }[];
+  challenges: ChallengeData[];
 };
 
 const ChallengeList = ({
@@ -24,12 +21,6 @@ const ChallengeList = ({
   BorderColor,
   challenges,
 }: ChallengeListProps) => {
-  const { setChallengeTitle } = useChallengeStore();
-
-  const handleSaveTitle = (title: string) => {
-    setChallengeTitle(title);
-  };
-
   return (
     <>
       {challenges.length === 0 ? (
@@ -81,9 +72,10 @@ const ChallengeList = ({
                 backgroundColor={BackgroundColor}
                 borderColor={BorderColor}
                 cursor='pointer'
-                onClick={() => handleSaveTitle(challenge.title)}
               >
-                <Link to={RouterPath.write}>
+                <Link
+                  to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&category=${challenge.category}&title=${challenge.title}`}
+                >
                   <Text
                     fontSize='var(--font-size-sm)'
                     fontStyle='normal'
@@ -91,7 +83,7 @@ const ChallengeList = ({
                     lineHeight='normal'
                     color={color}
                   >
-                    인증하기
+                    인증 기록
                   </Text>
                 </Link>
               </Box>

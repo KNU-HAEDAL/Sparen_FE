@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
 import ChallengeTitle from '@/components/common/challenge-title';
@@ -7,7 +6,6 @@ import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
-import { useChallengeStore } from '@/store/useChallengeStore';
 import {
   formatRating,
   formatDifficulty,
@@ -19,12 +17,11 @@ import styled from '@emotion/styled';
 const MIN_CONTENT_LENGTH = 20;
 
 const ReviewWrite = () => {
-  const { id } = useParams();
-  const challengeId = Number(id);
-  // const challengeGrouptitle = sessionStorage.getItem('challengeGroupTitle');
-  const categoryLabel = sessionStorage.getItem('categoryLabel');
-  const { challengeTitle } = useChallengeStore();
-  // const challengeGroupTitle = sessionStorage.getItem('challengeGroupTitle');
+  // 쿼리 파라미터 추출
+  const searchParams = new URLSearchParams(location.search);
+  const challengeId = Number(searchParams.get('id'));
+  const category = searchParams.get('category') || '';
+  const title = searchParams.get('title') || '';
 
   const [rating, setRating] = useState(0);
   const difficultyList = [1, 2, 3];
@@ -103,9 +100,8 @@ const ReviewWrite = () => {
     <>
       <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
       <Wrapper>
-        {categoryLabel && challengeTitle && (
-          <ChallengeTitle category={categoryLabel} title={challengeTitle} />
-        )}
+        <ChallengeTitle category={category} title={title} />
+
         <Inner>
           <FormItem alignItems='center' alignSelf='center'>
             <Box display='flex' flex-direction='row' alignItems='center'>

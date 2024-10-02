@@ -22,7 +22,7 @@ const ChallengeDetailPage = () => {
 
   const [activeTab, setActiveTab] = useState<number>(() => {
     // 세션 스토리지에 저장된 값 | 기본값 0
-    const savedTab = sessionStorage.getItem('activeTab');
+    const savedTab = sessionStorage.getItem('challengeDetailActiveTab');
     return savedTab ? Number(savedTab) : 0;
   });
   const [data, setData] = useState<ChallengeDetailData | undefined>(undefined);
@@ -38,13 +38,19 @@ const ChallengeDetailPage = () => {
     },
     {
       label: '리뷰',
-      panel: data ? <ReviewSection id={challengeGroupId} /> : null,
+      panel: data ? (
+        <ReviewSection
+          id={challengeGroupId}
+          category={data.category}
+          title={data.title}
+        />
+      ) : null,
     },
   ];
 
   const handleSelectedTab = (value: number) => {
     setActiveTab(value);
-    sessionStorage.setItem('activeTab', String(value));
+    sessionStorage.setItem('challengeDetailActiveTab', String(value));
   };
 
   useEffect(() => {
@@ -59,13 +65,6 @@ const ChallengeDetailPage = () => {
 
     fetchChallengeDetail();
   }, [challengeGroupId]);
-
-  // 챌린지 리뷰 페이지에 필요한 챌린지 제목 세션 스토리지에 저장
-  useEffect(() => {
-    if (data?.title) {
-      sessionStorage.setItem('challengeGroupTitle', data.title);
-    }
-  }, [data?.title]);
 
   return (
     <>

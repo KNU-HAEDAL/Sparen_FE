@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { MdDeleteForever } from 'react-icons/md';
-import { useParams } from 'react-router-dom';
 
+// import { useParams } from 'react-router-dom';
 import Caution from '../components/caution';
 import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
@@ -11,10 +11,9 @@ import styled from '@emotion/styled';
 
 const MIN_CONTENT_LENGTH = 20;
 
-const Verification = () => {
-  const { id } = useParams();
-  const challengeId = Number(id);
+type VerificationProps = { challengeId: number };
 
+const Verification = ({ challengeId }: VerificationProps) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);

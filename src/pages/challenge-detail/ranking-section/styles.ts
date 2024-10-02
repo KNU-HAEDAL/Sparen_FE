@@ -6,7 +6,7 @@ export const Text = styled.span<{ fontWeight?: string; color?: string }>`
   color: ${(props) => props.color || null};
 `;
 
-export const RankingWrapper = styled.div`
+export const Wrapper = styled.div`
   padding: 16px 16px;
   display: flex;
   flex-direction: column;

@@ -7,14 +7,17 @@ import { getReview, getChallegeAvgScore } from '@/apis/review/review.api';
 import { type ReviewData } from '@/apis/review/review.response';
 import { StarRating } from '@/components/common/star-rating';
 import ReviewItem from '@/pages/review/components/review-item';
+import { RouterPath } from '@/routes/path';
 import * as Base from '@/styles/baseStyles';
 import { formatToFixed, formatWithComma } from '@/utils/formatters';
 
-interface Props {
+interface ReviewSectionProps {
   id: number;
+  category: string;
+  title: string;
 }
 
-export const ReviewSection = ({ id }: Props) => {
+export const ReviewSection = ({ id, category, title }: ReviewSectionProps) => {
   const DATA_SIZE = 5; // 가져올 리뷰 개수
   const [reviewList, setReviewList] = useState<ReviewData[]>([]);
   const [avgRating, setAvgRating] = useState<number | undefined>();
@@ -63,7 +66,11 @@ export const ReviewSection = ({ id }: Props) => {
             <S.AvgRating>{formattedAvgRating}</S.AvgRating>
             {avgRating && <StarRating rating={avgRating} />}
             <S.AllReviewButton
-              onClick={() => navigate(`/challenge/${id}/review`)}
+              onClick={() =>
+                navigate(
+                  `/${RouterPath.challenge}/review?id=${id}&category=${category}&title=${title}`
+                )
+              }
             >
               {formattedTotalRatings}개 모두 보기{' '}
               <IoIosArrowForward style={{ marginLeft: '4px' }} />

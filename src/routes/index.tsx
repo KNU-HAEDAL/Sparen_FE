@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         path: RouterPath.challenge,
         children: [
           {
-            index: true,
+            path: RouterPath.myChallenge,
             element: (
               <ProtectedRoute>
                 <MyChallengePage />
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: `:id/${RouterPath.review}`,
+        path: `${RouterPath.review}`,
         element: (
           <ProtectedRoute>
             <Review />
@@ -111,7 +111,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: `:id/${RouterPath.record}`,
+        path: `${RouterPath.record}`,
         element: (
           <ProtectedRoute>
             <ChallengeRecord />
@@ -119,7 +119,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: `:id/${RouterPath.write}`,
+        path: `${RouterPath.write}`,
         element: (
           <ProtectedRoute>
             <ReviewWrite />

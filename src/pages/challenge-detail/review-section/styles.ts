@@ -16,9 +16,9 @@ export const Text = styled.span<{ fontWeight?: string; color?: string }>`
 `;
 
 export const Wrapper = styled.div`
+  padding: 16px 16px;
   display: flex;
   flex-direction: column;
-  height: auto;
 `;
 
 export const RatingContainer = styled.div`
