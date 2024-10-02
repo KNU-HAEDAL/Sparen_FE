@@ -95,7 +95,7 @@ const Verification = ({
           // 폼 내용 초기화
           setContent('');
           setImage(null);
-          // 인증 기록 탭으로 변경 및 새로고침하여 데이터 새로 페칭
+          // 인증 기록 탭으로 변경
           setActiveTab(0);
         })
         .catch((error) => {

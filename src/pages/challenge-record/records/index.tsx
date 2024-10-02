@@ -4,10 +4,7 @@ import { useState, useEffect } from 'react';
 import Caution from '../components/caution';
 import RecordItem from '../components/record-item';
 import Stamp from '../components/stamp';
-import {
-  getChallengeRecord,
-  getChallengeRecordDetails,
-} from '@/apis/challenge-record/challenge.record.api';
+import { getChallengeRecordDetails } from '@/apis/challenge-record/challenge.record.api';
 import {
   ChallengeRecordData,
   ChallengeRecordDetailData,
@@ -18,45 +15,16 @@ import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type RecordsProps = {
-  challengeId: number;
-  setSuccessCount: (count: number) => void;
-  setTotalCount: (count: number) => void;
-  setEndDate: (date: string) => void;
+  records: ChallengeRecordData;
+  recordIdList: number[];
 };
 
-const Records = ({
-  challengeId,
-  setSuccessCount,
-  setTotalCount,
-}: RecordsProps) => {
-  const [data, setData] = useState<ChallengeRecordData | null>(); // api 응답 데이터 전체
-  const [recordIdList, setRecordIdList] = useState<number[]>([]);
+const Records = ({ records, recordIdList }: RecordsProps) => {
+  // const [data, setData] = useState<ChallengeRecordData | null>(); // api 응답 데이터 전체
+  // const [recordIdList, setRecordIdList] = useState<number[]>([]);
   const [recordDetails, setRecordDetails] =
     useState<ChallengeRecordDetailData | null>(); // 인증기록 상세
   const [isRecordItemOpen, setIsRecordItemOpen] = useState<boolean>(false);
-
-  // recordId를 recordList에 추가하는 함수
-  const fillRecordList = (length: number, values: number[]) => {
-    const newRecordIdList = new Array(length).fill(-1); // 모두 -1로 초기화
-    for (let i = 0; i < values.length; i++) {
-      newRecordIdList[i] = values[i]; // recordId로 바꾸기
-    }
-    setRecordIdList(newRecordIdList);
-  };
-
-  // 기록 리스트 페칭
-  useEffect(() => {
-    getChallengeRecord(challengeId)
-      .then((res) => {
-        setData(res);
-        fillRecordList(res.totalCount, res.recordIds);
-        setSuccessCount(res.successCount);
-        setTotalCount(res.totalCount);
-      })
-      .catch((error) => {
-        console.error('Error fetching records:', error);
-      });
-  }, [challengeId, setSuccessCount, setTotalCount]);
 
   // 각각의 인증기록을 펼치는 핸들러
   const handleStampClick = (recordId: number) => {
@@ -112,44 +80,43 @@ const Records = ({
           <br />
           짠돌이가 응원해요
         </Text>
-        {data && (
-          <>
-            <InfoGrid>
-              {/* 참여 기간 */}
-              <Text>참여 기간</Text>
-              <span className='highlight'>
-                {formatDate(data.startDate)} ~ {formatDate(data.endDate)}
-              </span>
 
-              {/* 인증 횟수 */}
-              <Text>인증 횟수</Text>
-              <Text marginLeft='auto'>
-                <span className='highlight'>{data.successCount}</span>
-                &nbsp;/ {data.totalCount}회
-              </Text>
-            </InfoGrid>
+        <>
+          <InfoGrid>
+            {/* 참여 기간 */}
+            <Text>참여 기간</Text>
+            <span className='highlight'>
+              {formatDate(records.startDate)} ~ {formatDate(records.endDate)}
+            </span>
 
-            <StampGrid>
-              {recordIdList.map((recordId, index) =>
-                // 첫 번째 스탬프가 채워져있을 때 툴팁 표시
-                index === 0 && recordId !== -1 ? (
-                  <Tooltip key={index} content='스탬프를 클릭해보세요'>
-                    <Stamp
-                      id={recordId}
-                      onClick={() => handleStampClick(recordId)}
-                    />
-                  </Tooltip>
-                ) : (
+            {/* 인증 횟수 */}
+            <Text>인증 횟수</Text>
+            <Text marginLeft='auto'>
+              <span className='highlight'>{records.successCount}</span>
+              &nbsp;/ {records.totalCount}회
+            </Text>
+          </InfoGrid>
+
+          <StampGrid>
+            {recordIdList.map((recordId, index) =>
+              // 첫 번째 스탬프가 채워져있을 때 툴팁 표시
+              index === 0 && recordId !== -1 ? (
+                <Tooltip key={index} content='스탬프를 클릭해보세요'>
                   <Stamp
-                    key={index}
                     id={recordId}
                     onClick={() => handleStampClick(recordId)}
                   />
-                )
-              )}
-            </StampGrid>
-          </>
-        )}
+                </Tooltip>
+              ) : (
+                <Stamp
+                  key={index}
+                  id={recordId}
+                  onClick={() => handleStampClick(recordId)}
+                />
+              )
+            )}
+          </StampGrid>
+        </>
       </StampBoard>
 
       {recordDetails && (
