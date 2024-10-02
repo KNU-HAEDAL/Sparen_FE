@@ -12,6 +12,7 @@ import {
   ChallengeRecordData,
   ChallengeRecordDetailData,
 } from '@/apis/challenge-record/challenge.record.response';
+import Tooltip from '@/components/common/form/textarea/tooltip';
 import { formatDate } from '@/utils/formatters';
 import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -118,15 +119,23 @@ const Records = ({ challengeId }: RecordsProps) => {
             </InfoGrid>
 
             <StampGrid>
-              {recordIdList.map((recordId, index) => (
-                <Stamp
-                  key={index}
-                  id={recordId}
-                  onClick={() => {
-                    handleStampClick(recordId);
-                  }}
-                />
-              ))}
+              {recordIdList.map((recordId, index) =>
+                // 첫 번째 스탬프가 채워져있을 때 툴팁 표시
+                index === 0 && recordId !== -1 ? (
+                  <Tooltip key={index} content='스탬프를 클릭해보세요'>
+                    <Stamp
+                      id={recordId}
+                      onClick={() => handleStampClick(recordId)}
+                    />
+                  </Tooltip>
+                ) : (
+                  <Stamp
+                    key={index}
+                    id={recordId}
+                    onClick={() => handleStampClick(recordId)}
+                  />
+                )
+              )}
             </StampGrid>
           </>
         )}
