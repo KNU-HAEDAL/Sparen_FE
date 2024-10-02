@@ -76,6 +76,10 @@ const Verification = ({ challengeId }: VerificationProps) => {
       postVerification(challengeId, content, image)
         .then(() => {
           alert('챌린지 인증이 등록되었습니다!');
+
+          // 폼 내용 초기화
+          setContent('');
+          setImage(null);
           handleSelectedTab(0); // 인증 기록 탭으로 이동
         })
         .catch((error) => {
