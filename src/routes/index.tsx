@@ -119,7 +119,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: `:id/${RouterPath.write}`,
+        path: `${RouterPath.write}`,
         element: (
           <ProtectedRoute>
             <ReviewWrite />

@@ -43,8 +43,16 @@ const MyChallengeRecord = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loadMoreChallenges]);
 
-  const handleNavigate = (id: number) => {
-    navigate(`/challenge/${id}/review`);
+  const handleChallengeClick = (
+    challengeId: number,
+    title: string,
+    category?: string
+  ) => {
+    if (category) {
+      navigate(
+        `/challenge/write?id=${challengeId}&category=${category}&title=${title}`
+      );
+    } else navigate(`/challenge/write?id=${challengeId}&title=${title}`);
   };
 
   return (
@@ -67,7 +75,12 @@ const MyChallengeRecord = () => {
                 challengeTitle={challenge.challengeTitle}
                 userNickname={challenge.user.nickname}
                 profileImageUrl={challenge.user.profileImageUrl}
-                onClick={() => handleNavigate(challenge.challengeId)}
+                onClick={() =>
+                  handleChallengeClick(
+                    challenge.challengeId,
+                    challenge.challengeTitle
+                  )
+                }
               />
             ))
           ) : (
