@@ -5,7 +5,6 @@ import NotChallenge from '@/assets/UserImage.svg';
 import FinishStamp from '@/assets/challenge/ZZAN-Black.png';
 import { ChallengeData } from '@/interface/apis/challenge';
 import { RouterPath } from '@/routes/path';
-import { useChallengeStore } from '@/store/useChallengeStore';
 import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -22,12 +21,6 @@ const ChallengeList = ({
   BorderColor,
   challenges,
 }: ChallengeListProps) => {
-  const { setChallengeTitle } = useChallengeStore();
-
-  const handleSaveTitle = (title: string) => {
-    setChallengeTitle(title);
-  };
-
   return (
     <>
       {challenges.length === 0 ? (
@@ -79,7 +72,6 @@ const ChallengeList = ({
                 backgroundColor={BackgroundColor}
                 borderColor={BorderColor}
                 cursor='pointer'
-                onClick={() => handleSaveTitle(challenge.title)}
               >
                 <Link
                   to={`/${RouterPath.challenge}/${RouterPath.record}?id=${challenge.challengeId}&category=${challenge.category}&title=${challenge.title}`}
