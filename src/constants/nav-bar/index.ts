@@ -19,7 +19,7 @@ export const navBarData = [
   {
     title: 'main',
     icon: MainIcon,
-    path: `/${RouterPath.root}`,
+    path: `${RouterPath.root}`,
   },
   {
     title: 'rank',
