@@ -17,9 +17,18 @@ import { formatDate } from '@/utils/formatters';
 import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
-type RecordsProps = { challengeId: number };
+type RecordsProps = {
+  challengeId: number;
+  setSuccessCount: (count: number) => void;
+  setTotalCount: (count: number) => void;
+  setEndDate: (date: string) => void;
+};
 
-const Records = ({ challengeId }: RecordsProps) => {
+const Records = ({
+  challengeId,
+  setSuccessCount,
+  setTotalCount,
+}: RecordsProps) => {
   const [data, setData] = useState<ChallengeRecordData | null>(); // api 응답 데이터 전체
   const [recordIdList, setRecordIdList] = useState<number[]>([]);
   const [recordDetails, setRecordDetails] =
@@ -41,6 +50,8 @@ const Records = ({ challengeId }: RecordsProps) => {
       .then((res) => {
         setData(res);
         fillRecordList(res.totalCount, res.recordIds);
+        setSuccessCount(res.successCount);
+        setTotalCount(res.totalCount);
       })
       .catch((error) => {
         console.error('Error fetching records:', error);

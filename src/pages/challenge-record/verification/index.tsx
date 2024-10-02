@@ -5,8 +5,9 @@ import { IoClose } from 'react-icons/io5';
 import Caution from '../components/caution';
 import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
+import EmptyState from '@/components/common/empty-state';
 import Textarea from '@/components/common/form/textarea';
-import { Image } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MIN_CONTENT_LENGTH = 20;
@@ -14,14 +15,25 @@ const MIN_CONTENT_LENGTH = 20;
 type VerificationProps = {
   challengeId: number;
   setActiveTab: (value: number) => void;
+  successCount: number;
+  totalCount: number;
+  endDate: string;
 };
 
-const Verification = ({ challengeId, setActiveTab }: VerificationProps) => {
+const Verification = ({
+  challengeId,
+  setActiveTab,
+  successCount,
+  totalCount,
+  endDate,
+}: VerificationProps) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);
   const [image, setImage] = useState<File | null>(null);
   const [isUploadDisabled, setIsUploadDisabled] = useState(true);
+  const endDateInDate = new Date(endDate);
+  const todayDate = new Date();
 
   // 폼 유효성 검사 -> 버튼 상태 관리
   useEffect(() => {
@@ -102,35 +114,55 @@ const Verification = ({ challengeId, setActiveTab }: VerificationProps) => {
   return (
     <>
       <Wrapper>
-        <Textarea
-          placeholder='어떻게 챌린지를 수행했는지 기록을 남겨보세요.'
-          value={content}
-          onChange={handleContentChange}
-          minValueLength={MIN_CONTENT_LENGTH}
-          valid={isContentValid}
-        />
-        {image && (
-          <PreviewImageContainer>
-            <PreviewImage id='previewImage' src='' />
-            <DeleteImageButton onClick={handleDeleteImage}>
-              <IoClose size='24' />
-            </DeleteImageButton>
-          </PreviewImageContainer>
+        {successCount >= totalCount ? (
+          <EmptyState>
+            <span>
+              축하해요! <br />
+              챌린지 인증 횟수를 충족하여 <br />
+              <span className='highlight'>챌린지를 완수</span>하였습니다.
+            </span>
+          </EmptyState>
+        ) : endDateInDate > todayDate ? (
+          <EmptyState>
+            <span>
+              앗! <span className='highlight'>챌린지 참여 기간이 종료되어</span>{' '}
+              <br />더 이상 인증할 수 없습니다.
+            </span>
+          </EmptyState>
+        ) : (
+          <>
+            <Box height='16px' />
+            <Textarea
+              placeholder='어떻게 챌린지를 수행했는지 기록을 남겨보세요.'
+              value={content}
+              onChange={handleContentChange}
+              minValueLength={MIN_CONTENT_LENGTH}
+              valid={isContentValid}
+            />
+            {image && (
+              <PreviewImageContainer>
+                <PreviewImage id='previewImage' src='' />
+                <DeleteImageButton onClick={handleDeleteImage}>
+                  <IoClose size='24' />
+                </DeleteImageButton>
+              </PreviewImageContainer>
+            )}
+            <AddImage onClick={handleUploadImage}>
+              <input
+                type='file'
+                ref={fileInput}
+                accept='image/*'
+                style={{ display: 'none' }}
+                onChange={(e) => {
+                  if (e.target.files) {
+                    handleImage(e.target.files[0]);
+                  }
+                }}
+              />
+              사진 업로드
+            </AddImage>
+          </>
         )}
-        <AddImage onClick={handleUploadImage}>
-          <input
-            type='file'
-            ref={fileInput}
-            accept='image/*'
-            style={{ display: 'none' }}
-            onChange={(e) => {
-              if (e.target.files) {
-                handleImage(e.target.files[0]);
-              }
-            }}
-          />
-          사진 업로드
-        </AddImage>
         <Caution />
       </Wrapper>
       <CTAContainer>
@@ -147,7 +179,6 @@ const Verification = ({ challengeId, setActiveTab }: VerificationProps) => {
 export default Verification;
 
 const Wrapper = styled.form`
-  margin: 16px 0 0 0;
   display: flex;
   flex-direction: column;
   flex: 1;

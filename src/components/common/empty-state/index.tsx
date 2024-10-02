@@ -19,6 +19,11 @@ export default EmptyState;
 
 // 스타일 정의
 const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 0 16px;
   font-size: var(--font-size-md);
 
   .highlight {

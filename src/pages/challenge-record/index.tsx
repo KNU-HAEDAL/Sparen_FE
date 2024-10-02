@@ -22,15 +22,34 @@ const ChallengeRecord = () => {
     const savedTab = sessionStorage.getItem('activeTab');
     return savedTab ? Number(savedTab) : 0;
   });
+
+  // Records -> Verification으로 비동기 데이터 전달
+  const [successCount, setSuccessCount] = useState<number>(0);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [endDate, setEndDate] = useState<string>('');
+
   const tabsList = [
     {
       label: '인증 기록',
-      panel: <Records challengeId={challengeId} />,
+      panel: (
+        <Records
+          challengeId={challengeId}
+          setSuccessCount={setSuccessCount}
+          setTotalCount={setTotalCount}
+          setEndDate={setEndDate}
+        />
+      ),
     },
     {
       label: '인증하기',
       panel: (
-        <Verification challengeId={challengeId} setActiveTab={setActiveTab} />
+        <Verification
+          challengeId={challengeId}
+          setActiveTab={setActiveTab}
+          successCount={successCount}
+          totalCount={totalCount}
+          endDate={endDate}
+        />
       ),
     },
   ];
