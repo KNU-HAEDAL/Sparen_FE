@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MdDeleteForever } from 'react-icons/md';
+import { IoClose } from 'react-icons/io5';
 
 // import { useParams } from 'react-router-dom';
 import Caution from '../components/caution';
@@ -113,7 +113,7 @@ const Verification = ({ challengeId, setActiveTab }: VerificationProps) => {
           <PreviewImageContainer>
             <PreviewImage id='previewImage' src='' />
             <DeleteImageButton onClick={handleDeleteImage}>
-              <MdDeleteForever size='24' />
+              <IoClose size='24' />
             </DeleteImageButton>
           </PreviewImageContainer>
         )}
