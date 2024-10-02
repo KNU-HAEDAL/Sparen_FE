@@ -9,7 +9,7 @@ export const navBarData = [
   {
     title: 'challenge',
     icon: ChallengeIcon,
-    path: `/${RouterPath.challenge}/${RouterPath.inProgress}`,
+    path: `/${RouterPath.challenge}/${RouterPath.myChallenge}`,
   },
   {
     title: 'shorts',
