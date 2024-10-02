@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import ListItem from './components/list-item';
 import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
 import { ChallengeData } from '@/apis/my-challenge-record/getReview.response';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import { RouterPath } from '@/routes/path';
 import { Box, Spinner, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -50,22 +51,22 @@ const MyChallengeRecord = () => {
   ) => {
     if (category) {
       navigate(
-        `/challenge/write?id=${challengeId}&category=${category}&title=${title}`
+        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&category=${category}&title=${title}`
       );
-    } else navigate(`/challenge/write?id=${challengeId}&title=${title}`);
+    } else
+      navigate(
+        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&title=${title}`
+      );
   };
 
   return (
     <>
       <TopBar
         type='Page'
-        title='내 챌린지 기록'
+        title='완료한 챌린지'
         backgroundColor='var(--color-green-06)'
       />
       <MyChallengeRecordLayout>
-        <Box textAlign='center' marginY={3}>
-          <Text fontWeight='600'>챌린지 기록을 눌러 리뷰를 작성해보세요!</Text>
-        </Box>
         <ChallengeList>
           {allChallenges.length > 0 ? (
             allChallenges.map((challenge, index) => (
@@ -100,6 +101,9 @@ const MyChallengeRecord = () => {
 export default MyChallengeRecord;
 
 const MyChallengeRecordLayout = styled.div`
+  min-height: calc(
+    100vh - ${HEADER_HEIGHT}
+  ); // 부모가 block이므로 해당 요소에 직접 높이 지정
   display: flex;
   flex-direction: column;
   background-color: var(--color-green-06);
@@ -118,6 +122,7 @@ const ChallengeList = styled(Box)`
 
 const SpinnerContainer = styled.div`
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   height: 100vh;
