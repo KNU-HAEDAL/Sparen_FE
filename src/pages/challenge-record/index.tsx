@@ -13,7 +13,7 @@ import styled from '@emotion/styled';
 const ChallengeRecord = () => {
   // ?id=:id&category=:category&title=:title
   const [searchParams] = useSearchParams();
-  const challengeId = searchParams.get('id') || '';
+  const challengeId = Number(searchParams.get('id')) || 0;
   const challengeCategory = searchParams.get('category') || '';
   const challengeTitle = searchParams.get('title') || '';
 
@@ -25,11 +25,11 @@ const ChallengeRecord = () => {
   const tabsList = [
     {
       label: '인증 기록',
-      panel: <Records challengeId={Number(challengeId)} />,
+      panel: <Records challengeId={challengeId} />,
     },
     {
       label: '인증하기',
-      panel: <Verification challengeId={Number(challengeId)} />,
+      panel: <Verification challengeId={challengeId} />,
     },
   ];
 
