@@ -24,7 +24,7 @@ const ListItem = ({ challengeTitle, profileImageUrl, onClick, id }: Props) => {
           width='1.5rem'
         />
       </ProfileContainer>
-      <ListText fontWeight='700' fontSize='1.125rem'>
+      <ListText fontWeight='600' fontSize='1rem'>
         {challengeTitle}
       </ListText>
     </ListItemLayout>
@@ -37,25 +37,27 @@ const ListItemLayout = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  gap: 20px;
+  gap: 10px;
   align-items: center;
-  border-bottom: 1px solid #e0e0e0;
-  margin: 0.2rem 1rem;
+  border-bottom: 1px solid var(--color-green-06);
+  padding: 8px 0;
+
   &:last-child {
     border-bottom: none;
   }
 `;
 
 const ProfileContainer = styled.div`
+  width: 2.5rem;
+  aspect-ratio: 1 / 1;
   display: flex;
   border-radius: 50%;
-  border: 1px solid #5cc6ba;
+  border: 1px solid var(--color-green-01);
   border-style: solid;
   stroke-width: 1px;
-  stroke: var(--green--01, #5cc6ba);
+  stroke: var(--green--01, var(--color-green-01));
   filter: drop-shadow(2px 3px 5px rgba(80, 153, 145, 0.5));
   padding: 0.5rem;
-  margin-bottom: 0.25rem;
 `;
 
 const ListText = styled(Text)`

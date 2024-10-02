@@ -113,7 +113,7 @@ const MyChallengeRecordLayout = styled.div`
 const ChallengeList = styled(Box)`
   display: inline-flex;
   margin: 1rem 1rem;
-  padding: 0.625rem 1.5rem;
+  padding: 0 1rem;
   flex-direction: column;
   align-items: center;
   border-radius: 1.25rem;
