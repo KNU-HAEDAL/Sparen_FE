@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 type CTAProps = {
   label: string;
-  display: 'flex' | 'block';
+  display?: 'flex' | 'block';
   disabled?: boolean;
   onClick: () => void;
 };
