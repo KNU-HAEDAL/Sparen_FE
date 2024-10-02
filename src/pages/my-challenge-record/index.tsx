@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import ListItem from './components/list-item';
 import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
 import { ChallengeData } from '@/apis/my-challenge-record/getReview.response';
 import EmptyState from '@/components/common/empty-state';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
-import { RouterPath } from '@/routes/path';
 import { Box, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -14,7 +12,6 @@ const MyChallengeRecord = () => {
   const [page, setPage] = useState(0);
   const [allChallenges, setAllChallenges] = useState<ChallengeData[]>([]);
   const { data, isLoading } = useGetReview(page, 20);
-  const navigate = useNavigate();
 
   const loadMoreChallenges = useCallback(() => {
     if (data?.data.hasNext && !isLoading) {
@@ -45,21 +42,6 @@ const MyChallengeRecord = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loadMoreChallenges]);
 
-  const handleChallengeClick = (
-    challengeId: number,
-    title: string,
-    category?: string
-  ) => {
-    if (category) {
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&category=${category}&title=${title}`
-      );
-    } else
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&title=${title}`
-      );
-  };
-
   return (
     <>
       <TopBar
@@ -73,16 +55,10 @@ const MyChallengeRecord = () => {
             allChallenges.map((challenge, index) => (
               <ListItem
                 key={`${challenge.challengeId}-${index}`}
-                id={challenge.challengeId}
+                challengeId={challenge.challengeId}
                 challengeTitle={challenge.challengeTitle}
                 userNickname={challenge.user.nickname}
                 profileImageUrl={challenge.user.profileImageUrl}
-                onClick={() =>
-                  handleChallengeClick(
-                    challenge.challengeId,
-                    challenge.challengeTitle
-                  )
-                }
               />
             ))
           ) : (

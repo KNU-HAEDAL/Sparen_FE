@@ -1,22 +1,53 @@
+import { useNavigate } from 'react-router-dom';
+
 import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
-import { Image, Text } from '@chakra-ui/react';
+import CTA from '@/components/common/cta';
+import { RouterPath } from '@/routes/path';
+import { Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type Props = {
+  challengeId: number;
   challengeTitle: string;
   userNickname: string;
   profileImageUrl?: string | null;
-  id: number;
-  onClick: (id: number) => void;
 };
 
-const ListItem = ({ challengeTitle, profileImageUrl, onClick, id }: Props) => {
-  const handleClick = () => {
-    onClick(id);
+const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
+  const navigate = useNavigate();
+
+  const handleChallengeClick = (
+    challengeId: number,
+    title: string,
+    category?: string
+  ) => {
+    if (category) {
+      navigate(
+        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&category=${category}&title=${title}`
+      );
+    } else
+      navigate(
+        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&title=${title}`
+      );
+  };
+
+  const handleReviewWrite = (
+    challengeId: number,
+    title: string,
+    category?: string
+  ) => {
+    if (category) {
+      navigate(
+        `/${RouterPath.challenge}/${RouterPath.write}?id=${challengeId}&category=${category}&title=${title}`
+      );
+    } else
+      navigate(
+        `/${RouterPath.challenge}/${RouterPath.write}?id=${challengeId}&title=${title}`
+      );
   };
 
   return (
-    <ListItemLayout onClick={handleClick}>
+    <ListItemLayout>
       <ProfileContainer>
         <Image
           src={profileImageUrl || ProfileImg}
@@ -24,9 +55,16 @@ const ListItem = ({ challengeTitle, profileImageUrl, onClick, id }: Props) => {
           width='1.5rem'
         />
       </ProfileContainer>
-      <ListText fontWeight='600' fontSize='1rem'>
+      <ChallengeTitle
+        onClick={() => handleChallengeClick(challengeId, challengeTitle)}
+      >
         {challengeTitle}
-      </ListText>
+      </ChallengeTitle>
+      <ReviewWriteButton
+        label='리뷰 쓰기'
+        display='block'
+        onClick={() => handleReviewWrite(challengeId, challengeTitle)}
+      />
     </ListItemLayout>
   );
 };
@@ -60,8 +98,12 @@ const ProfileContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const ListText = styled(Text)`
+const ChallengeTitle = styled.button`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 600;
+  font-size: 1rem;
 `;
+
+const ReviewWriteButton = styled(CTA)``;

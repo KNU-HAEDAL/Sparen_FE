@@ -2,13 +2,14 @@ import styled from '@emotion/styled';
 
 type CTAProps = {
   label: string;
+  display: 'flex' | 'block';
   disabled?: boolean;
   onClick: () => void;
 };
 
-const CTA = ({ label, disabled, onClick }: CTAProps) => {
+const CTA = ({ label, display = 'flex', disabled, onClick }: CTAProps) => {
   return (
-    <StyledCTA disabled={disabled} onClick={onClick}>
+    <StyledCTA display={display} disabled={disabled} onClick={onClick}>
       {label}
     </StyledCTA>
   );
@@ -18,17 +19,34 @@ export default CTA;
 
 export const CTA_CONTAINER_HEIGHT = '4rem';
 
-const StyledCTA = styled.button<{ disabled?: boolean }>`
-  width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
+const StyledCTA = styled.button<{
+  display: 'flex' | 'block';
+  disabled?: boolean;
+}>`
   border: none;
   border-radius: 10px;
   background-color: var(--color-green-01);
   color: var(--color-white);
-  font-size: var(--font-size-md);
-  font-weight: bold;
   outline: none;
-  padding: 10px 8px;
-  margin: 0 auto;
+
+  ${({ display }) =>
+    display === 'flex' &&
+    `
+    width: calc(100% - 16px); // 부모 요소의 좌우 padding 빼고
+    margin: 0 auto;
+    padding: 10px 8px;
+    font-size: var(--font-size-md);
+    font-weight: bold;
+  `}
+
+  ${({ display }) =>
+    display === 'block' &&
+    `
+    margin: 0 0 0 auto;
+    padding: 6px 8px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  `}
 
   &:disabled {
     cursor: not-allowed;
