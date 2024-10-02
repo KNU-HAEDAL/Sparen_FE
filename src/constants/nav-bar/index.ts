@@ -14,21 +14,21 @@ export const navBarData = [
   {
     title: 'shorts',
     icon: ShortsIcon,
-    path: '/shorts',
+    path: `/${RouterPath.shorts}`,
   },
   {
     title: 'main',
     icon: MainIcon,
-    path: '/',
+    path: `/${RouterPath.root}`,
   },
   {
     title: 'rank',
     icon: RankIcon,
-    path: '/rank',
+    path: `/${RouterPath.rank}`,
   },
   {
     title: 'dashboard',
     icon: DashboardIcon,
-    path: '/dashboard',
+    path: `/${RouterPath.dashboard}`,
   },
 ];
