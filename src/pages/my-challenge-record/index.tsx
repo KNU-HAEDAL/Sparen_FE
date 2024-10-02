@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import ListItem from './components/list-item';
 import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
 import { ChallengeData } from '@/apis/my-challenge-record/getReview.response';
+import EmptyState from '@/components/common/empty-state';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { RouterPath } from '@/routes/path';
-import { Box, Spinner, Text } from '@chakra-ui/react';
+import { Box, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MyChallengeRecord = () => {
@@ -85,7 +86,15 @@ const MyChallengeRecord = () => {
               />
             ))
           ) : (
-            <Text>챌린지 기록이 존재하지 않습니다.</Text>
+            <EmptyState>
+              <span>
+                <span className='highlight'>
+                  완료한 챌린지가 존재하지 않습니다.
+                </span>
+                <br />
+                어서 챌린지를 인증하여 스탬프를 채워보세요!
+              </span>
+            </EmptyState>
           )}
         </ChallengeList>
         {isLoading && (
@@ -107,14 +116,14 @@ const MyChallengeRecordLayout = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--color-green-06);
-  padding-bottom: 5rem;
 `;
 
 const ChallengeList = styled(Box)`
   display: inline-flex;
-  margin: 1rem 1rem;
-  padding: 0 1rem;
   flex-direction: column;
+  flex: 1;
+  margin: 1rem 1rem 2rem 1rem;
+  padding: 0 1rem;
   align-items: center;
   border-radius: 1.25rem;
   background-color: #fff;
