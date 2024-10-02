@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 import styled from '@emotion/styled';
 
 interface EmptyStateProps {
-  children: React.ReactNode; // children의 타입 정의
+  children: React.ReactNode;
 }
 
 // ref를 전달하기 위해 forwardRef 사용
