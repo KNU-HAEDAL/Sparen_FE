@@ -6,9 +6,11 @@ import ReviewRating from './components/review-rating';
 import { getReview } from '@/apis/review/review.api';
 import type { ReviewData } from '@/apis/review/review.response';
 import ChallengeTitle from '@/components/common/challenge-title';
-import TopBar from '@/components/features/layout/top-bar';
+import EmptyState from '@/components/common/empty-state';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import * as Base from '@/styles/baseStyles';
 import { formatCategory } from '@/utils/formatters';
+import { Text } from '@chakra-ui/react';
 // import { formatCategory } from '@/utils/formatters';
 import styled from '@emotion/styled';
 
@@ -58,36 +60,37 @@ const Review = () => {
     <>
       <TopBar title='챌린지 리뷰' type='Page' backgroundColor='#fff' />
       <Wrapper>
-        <ChallengeTitle category={formatCategory(category)} title={title} />
-        <ReviewRating challengeGroupId={challengeGroupId} />
         {reviewList.length > 0 ? (
-          // 리뷰 있을 때
-          <ReviewList>
-            {reviewList.map((review, index) => (
-              <div key={index}>
-                <ReviewItem item={review} />
-                {index < reviewList.length - 1 && (
-                  <Base.HorizontalLine marginY={16} />
-                )}
-                {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
-              </div>
-            ))}
-          </ReviewList>
+          <>
+            {/* 리뷰 있을 때 */}
+            <ChallengeTitle category={formatCategory(category)} title={title} />
+            <ReviewRating challengeGroupId={challengeGroupId} />
+            <ReviewList>
+              {reviewList.map((review, index) => (
+                <div key={index}>
+                  <ReviewItem item={review} />
+                  {index < reviewList.length - 1 && (
+                    <Base.HorizontalLine marginY={16} />
+                  )}
+                  {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
+                </div>
+              ))}
+            </ReviewList>
+          </>
         ) : (
           // 리뷰 없을 때
           <EmptyState>
-            <Text>
-              아직 리뷰가 없습니다.
-              <br />
+            <p>아직 리뷰가 없습니다.</p>
+            <p>
               챌린지를 완료하고{' '}
-              <Text fontWeight='600' color={`var(--color-green-01)`}>
-                첫 번째 리뷰어
-              </Text>
-              가 되어보세요!
-            </Text>
+              <span className='highlight'>첫 번째 리뷰어</span>가 되어보세요!
+            </p>
           </EmptyState>
         )}
-        <Text ref={ref}>{isFetching ? '로딩 중...' : ' '}</Text>
+        {/* <div ref={ref}>{isFetching ? <Spinner /> : <></>}</div> */}
+        <Text fontSize='var(--font-size-md)' ref={ref}>
+          {isFetching ? '로딩 중...' : ' '}
+        </Text>
       </Wrapper>
     </>
   );
@@ -95,17 +98,12 @@ const Review = () => {
 
 export default Review;
 
-const Text = styled.span<{ fontWeight?: string; color?: string }>`
-  font-size: var(--font-size-md);
-  font-weight: ${(props) => props.fontWeight || null};
-  color: ${(props) => props.color || null};
-`;
-
 const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
+  min-height: calc(100vh - ${HEADER_HEIGHT});
 `;
 
 const ReviewList = styled.div`
@@ -114,8 +112,4 @@ const ReviewList = styled.div`
   flex-direction: column;
   padding: 16px 0;
   margin: 0 16px 0 16px;
-`;
-
-const EmptyState = styled.div`
-  padding: 16px 16px;
 `;

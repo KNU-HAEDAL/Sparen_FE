@@ -74,12 +74,15 @@ export const Tab = forwardRef<HTMLDivElement, TabProps>(
 // displayName 설정으로 경고 해결
 Tab.displayName = 'Tab';
 
+// 스타일 정의
+export const TABS_HEIGHT = '46px';
+
 export const StyledTabs = styled.div<{
   position?: string;
 }>`
   display: flex;
   position: relative;
-  height: 46px;
+  height: ${TABS_HEIGHT};
   margin: 0 16px;
   padding: 4px 0;
   border-radius: 10px;
@@ -95,7 +98,7 @@ export const TabSlider = styled.div<{
   top: 4px;
   left: 4px;
   width: ${({ width }) => `${width}px`};
-  height: 38px;
+  height: calc(${TABS_HEIGHT} - 8px);
   background-color: var(--color-white);
   border-radius: 10px;
 

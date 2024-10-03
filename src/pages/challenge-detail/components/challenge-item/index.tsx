@@ -6,7 +6,7 @@ import { type Challenge } from '@/apis/challenge-detail/challenge.detail.respons
 import { Chip } from '@/components/common/chip';
 import CTA from '@/components/common/cta';
 import { getDynamicPath } from '@/routes/protected-route';
-import { Box } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 type Props = {
   challenge: Challenge;
@@ -42,25 +42,22 @@ const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
   return (
     <S.Wrapper>
       <S.ContentGrid>
-        <S.BoldText>난이도</S.BoldText>
+        <S.BoldText alignSelf='flex-start'>난이도</S.BoldText>
         <S.DifficultyBox>
           <S.BarBox>
             <S.Bar width={difficultyRate} />
             <S.MaxBar />
           </S.BarBox>
-          <S.Text>
+          <Text as='span' fontSize='var(--font-size-sm)'>
             {challenge.difficulty}
-            <S.SubText>&nbsp;/ {maxDifficulty}</S.SubText>
-          </S.Text>
+            <S.SubText as='span'>&nbsp;/ {maxDifficulty}</S.SubText>
+          </Text>
         </S.DifficultyBox>
 
-        <S.BoldText>
-          참여 횟수 및
-          <br /> 기간
-        </S.BoldText>
-        <S.TimesPeriodContent>
+        <S.BoldText>참여 횟수 및 기간</S.BoldText>
+        <Text fontSize='var(--font-size-sm)' margin='0 0 0 auto'>
           {challenge.count}회 / {challenge.period}일
-        </S.TimesPeriodContent>
+        </Text>
 
         <S.BoldText>참여 경험치</S.BoldText>
         <Chip margin='0 0 0 auto' color='var(--color-green-05)'>

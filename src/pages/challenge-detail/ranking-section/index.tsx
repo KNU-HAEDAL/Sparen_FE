@@ -7,6 +7,7 @@ import { getChallengeRanking } from '@/apis/challenge-detail/challenge.ranking.a
 import { type ChallengeRankingData } from '@/apis/challenge-detail/challenge.ranking.response';
 import EmptyState from '@/components/common/empty-state';
 import * as Base from '@/styles/baseStyles';
+import { Text } from '@chakra-ui/react';
 
 type RankingSectionProps = {
   id: number;
@@ -55,7 +56,7 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
     <S.Wrapper>
       {rankingList.length > 0 ? (
         // 랭킹 있을 때
-        <>
+        <S.RankingList>
           {rankingList.map((item, index) => (
             <div key={item.ranking}>
               <RankingItem item={item} />
@@ -65,18 +66,21 @@ export const RankingSection = ({ id }: RankingSectionProps) => {
               {/* 마지막 요소 뒤에는 Line을 넣지 않음 */}
             </div>
           ))}
-        </>
+        </S.RankingList>
       ) : (
         // 랭킹 없을 때
         <EmptyState>
-          <span>
-            아직 챌린지를 성공한 유저가 없습니다. <br />
+          <p>아직 챌린지를 성공한 유저가 없습니다. </p>
+          <p>
             챌린지에 참여해 <span className='highlight'>첫 번째 완료자</span>가
             되어보세요!
-          </span>
+          </p>
         </EmptyState>
       )}
-      <EmptyState ref={ref}>{isFetching ? '로딩 중...' : ' '}</EmptyState>
+      {/* <div ref={ref}>{isFetching ? <Spinner /> : <></>}</div> */}
+      <Text fontSize='var(--font-size-md)' ref={ref}>
+        {isFetching ? '로딩 중...' : ' '}
+      </Text>
     </S.Wrapper>
   );
 };

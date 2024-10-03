@@ -1,3 +1,4 @@
+import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
@@ -12,21 +13,17 @@ export const Wrapper = styled.div`
 export const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 8px;
+  gap: 8px 16px;
   align-items: center;
 `;
 
-export const BoldText = styled.span`
+export const BoldText = styled(Text)`
   font-size: var(--font-size-sm);
   font-weight: 600;
   flex-shrink: 0;
 `;
 
-export const Text = styled.span`
-  font-size: var(--font-size-sm);
-`;
-
-export const SubText = styled.span`
+export const SubText = styled(Text)`
   font-size: var(--font-size-sm);
   color: var(--color-grey-02);
   flex-shrink: 0;
@@ -34,9 +31,9 @@ export const SubText = styled.span`
 
 export const DifficultyBox = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 `;
 
 export const BarBox = styled.div`
@@ -63,8 +60,4 @@ export const Bar = styled(MaxBar)<{ width: number }>`
   background: linear-gradient(90deg, #457a82, #5cc6ba);
   width: ${({ width }) => `${width}px`};
   z-index: 1;
-`;
-
-export const TimesPeriodContent = styled(Text)`
-  margin: 0 0 0 auto;
 `;

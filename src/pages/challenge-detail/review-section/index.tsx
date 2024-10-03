@@ -93,12 +93,11 @@ export const ReviewSection = ({ id, category, title }: ReviewSectionProps) => {
       ) : (
         // 리뷰 없을 때
         <EmptyState>
-          <span>
-            아직 리뷰가 없습니다.
-            <br />
+          <p>아직 리뷰가 없습니다.</p>
+          <p>
             챌린지를 완료하고 <span className='highlight'>첫 번째 리뷰어</span>
             가 되어보세요!
-          </span>
+          </p>
         </EmptyState>
       )}
     </S.Wrapper>
