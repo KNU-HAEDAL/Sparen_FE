@@ -60,7 +60,7 @@ const PageBarLayout = styled(Box)<{
   padding: 0.5rem;
   gap: 1rem;
   background-color: ${(props) => props.backgroundColor};
-  z-index: 1;
+  z-index: 10;
   position: sticky;
   top: ${({ show }) => (show ? '0' : '-100px')};
   transition: top 0.3s;

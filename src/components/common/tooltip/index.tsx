@@ -60,7 +60,7 @@ const TooltipBox = styled.div<{ direction: string }>`
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
-  z-index: 10;
+  z-index: 5;
   display: flex;
   align-items: center;
 
