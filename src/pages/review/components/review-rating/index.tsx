@@ -105,15 +105,15 @@ const RatingBox = styled(Box)`
   border-radius: 10px;
   background-color: var(--color-green-06);
   width: 100%;
-  padding: 20px 20px;
+  padding: 20px 0;
   justify-content: center;
 `;
 
 const AvgRatingWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
-  margin-right: 16px;
+  flex-shrink: 0; /* 고정 크기를 유지 */
+  padding: 0 16px 0 16px;
 `;
 
 const RatingGraphWrapper = styled.div`
@@ -122,7 +122,7 @@ const RatingGraphWrapper = styled.div`
   gap: 8px 12px;
   align-items: center;
   flex: 1;
-  padding-left: 16px;
+  padding: 0 16px 0 16px;
   border-left: #d7d7d7 solid 0.5px;
 `;
 
@@ -138,6 +138,6 @@ const Bar = styled.div<{ percentage: string }>`
     var(--color-green-01) ${(props) => props.percentage},
     #d7d7d7 ${(props) => props.percentage}
   );
-  min-width: 80px;
+  min-width: 60px;
   flex-shrink: 0;
 `;

@@ -25,6 +25,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
     <Wrapper>
       <ProfileImage size={2.5} src={item.user.profileImageUrl} />
       <ReviewItemBox>
+        {/* 닉네임, 티어, 작성일 */}
         <RowWrapper style={{ lineHeight: '2rem' }}>
           <Text fontSize='var(--font-size-sm)' fontWeight='600'>
             {item.user.nickname}
@@ -44,6 +45,7 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
             {formattedDate}
           </Text>
         </RowWrapper>
+        {/* 난이도 */}
         <RowWrapper>
           <Text
             fontSize='var(--font-size-xs)'
@@ -53,11 +55,13 @@ const ReviewItem = ({ item }: ReviewItemProps) => {
             난이도 {item.challengeDifficulty}
           </Text>
         </RowWrapper>
-        <RowWrapper style={{ margin: '12px 0' }}>
+        {/* 별점, 체감 난이도, 성취감 */}
+        <RowWrapper style={{ margin: '0 0 0.8rem 0' }}>
           <StarRating rating={rating} size={16} />
           <Chip>{formattedDifficulty}</Chip>
           <Chip>{formattedAchievement}</Chip>
         </RowWrapper>
+        {/* 소감 내용 */}
         <Text fontSize='var(--font-size-sm)'>{item.content}</Text>
       </ReviewItemBox>
     </Wrapper>

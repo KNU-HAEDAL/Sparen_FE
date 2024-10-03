@@ -10,7 +10,7 @@ import DefaultImage from '@/assets/Default-Image.svg';
 import ChallengeTitle from '@/components/common/challenge-title';
 import { Tabs, Tab } from '@/components/common/tabs';
 import { TabPanels, TabPanel } from '@/components/common/tabs/tab-panels';
-import TopBar from '@/components/features/layout/top-bar';
+import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { formatCategory } from '@/utils/formatters';
 import styled from '@emotion/styled';
 
@@ -106,6 +106,7 @@ export default ChallengeDetailPage;
 
 export const Wrapper = styled.div`
   width: 100%;
+  min-height: calc(100vh - ${HEADER_HEIGHT});
 `;
 
 export const ImageList = styled.div`

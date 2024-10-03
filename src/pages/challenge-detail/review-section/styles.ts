@@ -1,13 +1,6 @@
+import { TABS_HEIGHT } from '@/components/common/tabs';
+import { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import styled from '@emotion/styled';
-
-// export const Nickname = styled(Text)`
-//   font-size: var(--font-size-sm);
-// `;
-
-// export const Tier = styled(Text)`
-//   font-size: var(--font-size-xs);
-//   color: var() (--color-grey--02);
-// `;
 
 export const Text = styled.span<{ fontWeight?: string; color?: string }>`
   font-size: var(--font-size-md);
@@ -16,9 +9,11 @@ export const Text = styled.span<{ fontWeight?: string; color?: string }>`
 `;
 
 export const Wrapper = styled.div`
-  padding: 16px 16px;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  padding: 16px 0;
+  /* min-height: calc(100vh - ${HEADER_HEIGHT} - ${TABS_HEIGHT}); */
 `;
 
 export const RatingContainer = styled.div`
@@ -27,7 +22,7 @@ export const RatingContainer = styled.div`
   gap: 12px;
   flex: 1;
   /* width: 100%; */
-  margin: 16px;
+  margin: 0 16px;
 `;
 
 export const AvgRating = styled.p`
