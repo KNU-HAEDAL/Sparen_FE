@@ -11,13 +11,16 @@ interface StarRatingProps {
 export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
   const [ratingToPercent, setRatingToPercent] = useState<number>(0);
 
+  // rating 새로 전달받을 때마다 퍼센테이지 계산
   useEffect(() => {
     if (rating !== undefined) {
       setRatingToPercent((rating / 5) * 100);
     }
   }, [rating]);
 
-  const handleClick = (rating: number) => {
+  // 별점 클릭 핸들러
+  const handleClickStar = (rating: number, e: React.MouseEvent) => {
+    e.preventDefault();
     if (onClick) {
       onClick(rating + 1); // 클릭한 별점 값 전달 (1부터 시작)
     }
@@ -27,14 +30,20 @@ export const StarRating = ({ rating, size = 24, onClick }: StarRatingProps) => {
     <Wrapper size={size}>
       <FilledStars ratingToPercent={ratingToPercent}>
         {[...Array(5)].map((_, index) => (
-          <Star key={`fill-${index}`} onClick={() => handleClick(index)}>
+          <Star
+            key={`fill-${index}`}
+            onClick={(e) => handleClickStar(index, e)}
+          >
             ★
           </Star>
         ))}
       </FilledStars>
       <BaseStars>
         {[...Array(5)].map((_, index) => (
-          <Star key={`base-${index}`} onClick={() => handleClick(index)}>
+          <Star
+            key={`base-${index}`}
+            onClick={(e) => handleClickStar(index, e)}
+          >
             ★
           </Star>
         ))}
