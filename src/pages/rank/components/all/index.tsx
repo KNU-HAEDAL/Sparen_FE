@@ -25,7 +25,6 @@ const AllRank = () => {
       }));
       setUserRanks(allUserData);
       setLoading(false);
-      // console.log('rank data: ', allUserData);
     };
 
     fetchUserRanking();
