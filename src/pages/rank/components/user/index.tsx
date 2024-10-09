@@ -24,7 +24,6 @@ const UserRank: React.FC<UserRankProps> = ({ user, index }) => {
       <S.UserRankContainer>
         <Box
           display='flex'
-          // justifyContent='space-between'
           alignItems='center'
           textAlign='center'
           bgColor='#fff'
@@ -52,14 +51,14 @@ const UserRank: React.FC<UserRankProps> = ({ user, index }) => {
             gap='1rem'
           >
             <Text
-              maxWidth='150px'
+              maxWidth='170px'
               fontWeight='700'
               fontSize='0.8rem'
               color={tierColor}
             >
               {tierInfo}
             </Text>
-            <Text maxWidth='150px' fontSize='0.8rem' color={tierColor}>
+            <Text maxWidth='200px' fontSize='0.7rem' color={tierColor}>
               {currentExp}
             </Text>
           </Box>
