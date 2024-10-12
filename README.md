@@ -34,3 +34,20 @@ https://zzansuni-fe-vercel.vercel.app/
 그 결과 다양한 주제의 챌린지를 진행할 수 있는 '짠순이' 라는 서비스를 기획하게
 되었습니다.
 
+## 기술 스택
+
+- Frontend: `React`, `vite`, `typescript`, `@emotion/styled`, `@emotion/react`
+- Backend: `Spring`, `JPA`, `MySQL`, `S3`
+
+## 아키텍쳐
+![image](https://github.com/user-attachments/assets/e0bfee6d-4de3-448b-ae20-f78936a7074e)
+
+
+## ERD
+
+![image](https://github.com/user-attachments/assets/8cd2aa03-9bd1-4ee0-a511-451711da40bb)
+
+
+## CLASS DIAGRAM
+
+![image](https://github.com/user-attachments/assets/60e5ea66-eb87-4f9f-84bd-94eb2e70963e)
