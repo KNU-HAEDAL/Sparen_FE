@@ -11,14 +11,14 @@ import styled from '@emotion/styled';
 const MyChallengePage = () => {
   sessionStorage.setItem('activeTab', '0'); // 선택 탭 초기화
 
-  const [listChallenges, setListChallenges] = useState<ChallengeData[]>([]);
+  const [challengeList, setChallengeList] = useState<ChallengeData[]>([]);
 
   useEffect(() => {
     const fetchCurrentChallenges = async () => {
       try {
-        const challenges = await getCurrentChallengeList(0, 10);
-        setListChallenges(challenges.data.data);
-        console.log(challenges.data.data);
+        const response = await getCurrentChallengeList(0, 10);
+        setChallengeList(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error('Error fetching challenges:', error);
       }
@@ -35,7 +35,7 @@ const MyChallengePage = () => {
           참여 중인 챌린지
         </Text>
         <ChallengeListBox>
-          <ChallengeList challenges={listChallenges} />
+          <ChallengeList challengeList={challengeList} />
         </ChallengeListBox>
       </MyChallengeLayout>
     </>

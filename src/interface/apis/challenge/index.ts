@@ -1,4 +1,5 @@
 export interface ChallengeData {
+  challengeGroupId: number;
   challengeId: number;
   title: string;
   successCount: number;
