@@ -45,7 +45,7 @@ const MyChallengePage = () => {
 export default MyChallengePage;
 
 const MyChallengeLayout = styled(Box)`
-  min-height: calc(100vh - ${HEADER_HEIGHT});
+  min-height: calc(100vh - ${HEADER_HEIGHT} - ${NAVBAR_HEIGHT});
   display: flex;
   flex-direction: column;
 `;
