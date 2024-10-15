@@ -12,6 +12,12 @@ const Caution = () => {
         listStyleType='disc'
         listStylePosition='inside'
         fontSize='var(--font-size-xs)'
+        css={`
+          li {
+            padding-left: 1.4em; /* 들여쓰기 추가 */
+            text-indent: -1.4em; /* 첫 줄은 들여쓰지 않음 */
+          }
+        `}
       >
         <li>1일 인증 횟수에는 제한이 없습니다.</li>
         <li>모든 스탬프를 모으면 챌린지를 완료하게 됩니다.</li>
