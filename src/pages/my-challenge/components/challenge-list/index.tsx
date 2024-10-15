@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 import NotChallenge from '@/assets/UserImage.svg';
@@ -7,7 +7,7 @@ import CTA from '@/components/common/cta';
 import EmptyState from '@/components/common/empty-state';
 import { ChallengeData } from '@/interface/apis/challenge';
 import { RouterPath } from '@/routes/path';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ChallengeListProps = {
@@ -40,21 +40,14 @@ const ChallengeList = ({ challengeList }: ChallengeListProps) => {
                   src={FinishStamp}
                 />
               </S.ChallengeImgContainer>
-              <Link
-                to={`/${RouterPath.challenge}/${challenge.challengeGroupId}`}
+              <ChallengeTitle
+                as='a'
+                href={`/${RouterPath.challenge}/${challenge.challengeGroupId}`}
               >
-                <Text
-                  className='challenge-title'
-                  fontSize='var(--font-size-md)'
-                  fontStyle='normal'
-                  fontWeight='600'
-                  alignSelf='center'
-                  margin='0 auto 0 0'
-                >
-                  {challenge.title}
-                </Text>
-              </Link>
-              <RecordButton
+                {challenge.title}
+              </ChallengeTitle>
+              <CTA
+                theme='secondary'
                 label='인증 기록'
                 display='block'
                 onClick={() =>
@@ -88,6 +81,7 @@ const ChallengeListBox = styled(Box)`
 
 const ChallengeItem = styled(Box)`
   display: flex;
+  flex: 1;
   flex-direction: row;
   align-items: center;
   width: 100%;
@@ -95,4 +89,12 @@ const ChallengeItem = styled(Box)`
   padding: 8px 0;
 `;
 
-const RecordButton = styled(CTA)``;
+const ChallengeTitle = styled(Box)`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  display: flex;
+  flex: 1;
+`;

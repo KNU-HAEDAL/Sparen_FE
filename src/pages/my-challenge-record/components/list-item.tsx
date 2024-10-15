@@ -1,9 +1,9 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
 import CTA from '@/components/common/cta';
 import { RouterPath } from '@/routes/path';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type Props = {
@@ -51,10 +51,15 @@ const ListItem = ({ challengeId, challengeTitle }: Props) => {
       <ProfileContainer>
         <Image src={ProfileImg} alt='profile' width='1.5rem' />
       </ProfileContainer>
-      <Link to={`${RouterPath.challenge}/{challengeGroupId}`}>
-        <ChallengeTitle>{challengeTitle}</ChallengeTitle>
-      </Link>
-      <Box display='flex' margin='0 0 0 auto' gap='8px'>
+      <ChallengeTitle
+        display='flex'
+        flex='1'
+        as='a'
+        href={`${RouterPath.challenge}/{challengeGroupId}`}
+      >
+        {challengeTitle}
+      </ChallengeTitle>
+      <Box display='flex' gap='8px'>
         <CTA
           theme='secondary'
           label='인증 기록'
@@ -100,11 +105,12 @@ const ProfileContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const ChallengeTitle = styled(Text)`
+const ChallengeTitle = styled(Box)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: var(--font-size-md);
+  display: flex;
   flex: 1;
 `;
