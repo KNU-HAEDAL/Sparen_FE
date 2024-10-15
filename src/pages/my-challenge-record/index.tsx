@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import ListItem from './components/list-item';
-import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
-import { ChallengeData } from '@/apis/my-challenge-record/getReview.response';
+import { useGetChallengeCompletes } from '@/apis/challenge-completes/challenge-completes.api';
+import { ChallengeData } from '@/apis/challenge-completes/challenge-completes.response';
 import EmptyState from '@/components/common/empty-state';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { Box, Spinner } from '@chakra-ui/react';
@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 const MyChallengeRecord = () => {
   const [page, setPage] = useState(0);
   const [allChallenges, setAllChallenges] = useState<ChallengeData[]>([]);
-  const { data, isLoading } = useGetReview(page, 20);
+  const { data, isLoading } = useGetChallengeCompletes(page, 20);
 
   const loadMoreChallenges = useCallback(() => {
     if (data?.data.hasNext && !isLoading) {
@@ -54,11 +54,9 @@ const MyChallengeRecord = () => {
           {allChallenges.length > 0 ? (
             allChallenges.map((challenge, index) => (
               <ListItem
-                key={`${challenge.challengeId}-${index}`}
-                challengeId={challenge.challengeId}
-                challengeTitle={challenge.challengeTitle}
-                userNickname={challenge.user.nickname}
-                profileImageUrl={challenge.user.profileImageUrl}
+                key={`${challenge.id}-${index}`}
+                challengeId={challenge.challengeGroupId}
+                challengeTitle={challenge.title}
               />
             ))
           ) : (
