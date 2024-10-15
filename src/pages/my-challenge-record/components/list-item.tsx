@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
 import CTA from '@/components/common/cta';
 import { RouterPath } from '@/routes/path';
-import { Image } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type Props = {
@@ -18,7 +18,7 @@ const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
 
   const navigate = useNavigate();
 
-  const handleChallengeClick = (
+  const handleViewRecord = (
     challengeId: number,
     title: string,
     category?: string
@@ -57,16 +57,22 @@ const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
           width='1.5rem'
         />
       </ProfileContainer>
-      <ChallengeTitle
-        onClick={() => handleChallengeClick(challengeId, challengeTitle)}
-      >
-        {challengeTitle}
-      </ChallengeTitle>
-      <ReviewWriteButton
-        label='리뷰 쓰기'
-        display='block'
-        onClick={() => handleReviewWrite(challengeId, challengeTitle)}
-      />
+      <Link to={`${RouterPath.challenge}/{challengeGroupId}`}>
+        <ChallengeTitle>{challengeTitle}</ChallengeTitle>
+      </Link>
+      <Box display='flex' margin='0 0 0 auto' gap='8px'>
+        <CTA
+          theme='secondary'
+          label='인증 기록'
+          display='block'
+          onClick={() => handleViewRecord(challengeId, challengeTitle)}
+        />
+        <CTA
+          label='리뷰 쓰기'
+          display='block'
+          onClick={() => handleReviewWrite(challengeId, challengeTitle)}
+        />
+      </Box>
     </ListItemLayout>
   );
 };
@@ -100,12 +106,11 @@ const ProfileContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const ChallengeTitle = styled.button`
+const ChallengeTitle = styled(Text)`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
   font-size: 1rem;
+  flex: 1;
 `;
-
-const ReviewWriteButton = styled(CTA)``;
