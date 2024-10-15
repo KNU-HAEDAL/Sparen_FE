@@ -9,12 +9,10 @@ import styled from '@emotion/styled';
 type Props = {
   challengeId: number;
   challengeTitle: string;
-  userNickname: string;
-  profileImageUrl?: string | null;
 };
 
-const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
-  sessionStorage.setItem('activeTab', '0'); // 선택 탭 초기화
+const ListItem = ({ challengeId, challengeTitle }: Props) => {
+  sessionStorage.setItem('activeTab', '0');
 
   const navigate = useNavigate();
 
@@ -51,11 +49,7 @@ const ListItem = ({ challengeId, challengeTitle, profileImageUrl }: Props) => {
   return (
     <ListItemLayout>
       <ProfileContainer>
-        <Image
-          src={profileImageUrl || ProfileImg}
-          alt='profile'
-          width='1.5rem'
-        />
+        <Image src={ProfileImg} alt='profile' width='1.5rem' />
       </ProfileContainer>
       <Link to={`${RouterPath.challenge}/{challengeGroupId}`}>
         <ChallengeTitle>{challengeTitle}</ChallengeTitle>

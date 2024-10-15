@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { postReview } from '@/apis/review/review.api';
 import ChallengeTitle from '@/components/common/challenge-title';
@@ -6,6 +7,7 @@ import CTA, { CTAContainer } from '@/components/common/cta';
 import Textarea from '@/components/common/form/textarea';
 import { StarRating } from '@/components/common/star-rating';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
+import { RouterPath } from '@/routes/path';
 import {
   formatRating,
   formatDifficulty,
@@ -35,6 +37,7 @@ const ReviewWrite = () => {
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const handleDifficultyClick = (difficulty: number) => {
     setSelectedDifficulty(difficulty);
@@ -83,6 +86,7 @@ const ReviewWrite = () => {
     })
       .then(() => {
         alert('리뷰가 등록되었습니다!');
+        navigate(`/${RouterPath.challenge}/${RouterPath.myRecord}`);
       })
       .catch((error) => {
         // API에서 받은 오류 객체일 경우
@@ -242,6 +246,8 @@ const Chip = styled.button<{ isSelected: boolean }>`
   font-size: var(--font-size-sm);
   font-weight: 600;
   text-align: center;
+  cursor: pointer;
+  outline: none;
   ${({ isSelected }) =>
     isSelected &&
     `

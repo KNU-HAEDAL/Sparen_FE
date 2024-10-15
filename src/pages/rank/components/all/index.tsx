@@ -16,7 +16,7 @@ const AllRank = () => {
 
   useEffect(() => {
     const fetchUserRanking = async () => {
-      const response: UserRankingResponse = await getUserRanking(1, 10);
+      const response: UserRankingResponse = await getUserRanking(0, 10);
       const pageData = response.data;
       const allUserData: User[] = pageData.data.map((user: UserData) => ({
         ...user,

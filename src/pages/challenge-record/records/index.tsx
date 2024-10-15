@@ -9,7 +9,7 @@ import {
   ChallengeRecordData,
   ChallengeRecordDetailData,
 } from '@/apis/challenge-record/challenge.record.response';
-import Tooltip from '@/components/common/form/textarea/tooltip';
+import Tooltip from '@/components/common/tooltip';
 import { formatDate } from '@/utils/formatters';
 import { Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';

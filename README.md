@@ -16,6 +16,13 @@ https://zzansuni-fe-vercel.vercel.app/
 사용자들에게 챌린지에 대해 공유 할 수 있으며, 랭킹을 통해 서로 경쟁할 수
 있습니다.
 
+### 개발자 소개
+
+|                                           백엔드                                           |                                              백엔드                                              |                                        프론트엔드                                        |                                        프론트엔드                                        |                                          백엔드                                          |
+| :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------: |
+| [<img src="https://github.com/momnpa333.png" width="100px">](https://github.com/momnpa333) | [<img src="https://github.com/kwonssshyeon.png" width="100px">](https://github.com/kwonssshyeon) | [<img src="https://github.com/Dobbymin.png" width="100px">](https://github.com/Dobbymin) | [<img src="https://github.com/joojjang.png" width="100px">](https://github.com/joojjang) | [<img src="https://github.com/bayy1216.png" width="100px">](https://github.com/bayy1216) |
+|                                           권다운                                           |                                              권수현                                              |                                          김강민                                          |                                          김민주                                          |                                          손홍석                                          |
+
 ### 개발 동기
 
 기획 단계에서 팀원들과 다양한 아이디어에 대해 생각을 해 보았고, 공통적으로
@@ -27,3 +34,20 @@ https://zzansuni-fe-vercel.vercel.app/
 그 결과 다양한 주제의 챌린지를 진행할 수 있는 '짠순이' 라는 서비스를 기획하게
 되었습니다.
 
+## 기술 스택
+
+- Frontend: `React`, `vite`, `typescript`, `@emotion/styled`, `@emotion/react`
+- Backend: `Spring`, `JPA`, `MySQL`, `S3`
+
+## 아키텍쳐
+![image](https://github.com/user-attachments/assets/e0bfee6d-4de3-448b-ae20-f78936a7074e)
+
+
+## ERD
+
+![image](https://github.com/user-attachments/assets/8cd2aa03-9bd1-4ee0-a511-451711da40bb)
+
+
+## CLASS DIAGRAM
+
+![image](https://github.com/user-attachments/assets/60e5ea66-eb87-4f9f-84bd-94eb2e70963e)
