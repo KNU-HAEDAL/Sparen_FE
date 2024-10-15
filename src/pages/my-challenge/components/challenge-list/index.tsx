@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import * as S from './styles';
 import NotChallenge from '@/assets/UserImage.svg';
@@ -11,15 +11,15 @@ import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type ChallengeListProps = {
-  challenges: ChallengeData[];
+  challengeList: ChallengeData[];
 };
 
-const ChallengeList = ({ challenges }: ChallengeListProps) => {
+const ChallengeList = ({ challengeList }: ChallengeListProps) => {
   const navigate = useNavigate();
 
   return (
     <>
-      {challenges.length === 0 ? (
+      {challengeList.length === 0 ? (
         <EmptyState>
           <Image
             opacity='0.5'
@@ -32,7 +32,7 @@ const ChallengeList = ({ challenges }: ChallengeListProps) => {
         </EmptyState>
       ) : (
         <ChallengeListBox>
-          {challenges.map((challenge, index) => (
+          {challengeList.map((challenge, index) => (
             <ChallengeItem key={index}>
               <S.ChallengeImgContainer>
                 <Image
@@ -40,16 +40,20 @@ const ChallengeList = ({ challenges }: ChallengeListProps) => {
                   src={FinishStamp}
                 />
               </S.ChallengeImgContainer>
-              <Text
-                className='challenge-title'
-                fontSize='var(--font-size-md)'
-                fontStyle='normal'
-                fontWeight='600'
-                alignSelf='center'
-                margin='0 auto 0 0'
+              <Link
+                to={`/${RouterPath.challenge}/${challenge.challengeGroupId}`}
               >
-                {challenge.title}
-              </Text>
+                <Text
+                  className='challenge-title'
+                  fontSize='var(--font-size-md)'
+                  fontStyle='normal'
+                  fontWeight='600'
+                  alignSelf='center'
+                  margin='0 auto 0 0'
+                >
+                  {challenge.title}
+                </Text>
+              </Link>
               <RecordButton
                 label='인증 기록'
                 display='block'

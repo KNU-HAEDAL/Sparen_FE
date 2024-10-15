@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import ListItem from './components/list-item';
-import { useGetReview } from '@/apis/my-challenge-record/getReview.api';
-import { ChallengeData } from '@/apis/my-challenge-record/getReview.response';
+import { useGetChallengeCompletes } from '@/apis/challenge-completes/challenge-completes.api';
+import { ChallengeData } from '@/apis/challenge-completes/challenge-completes.response';
 import EmptyState from '@/components/common/empty-state';
+import { NAVBAR_HEIGHT } from '@/components/features/layout/nav-bar';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
 import { Box, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -11,7 +12,7 @@ import styled from '@emotion/styled';
 const MyChallengeRecord = () => {
   const [page, setPage] = useState(0);
   const [allChallenges, setAllChallenges] = useState<ChallengeData[]>([]);
-  const { data, isLoading } = useGetReview(page, 20);
+  const { data, isLoading } = useGetChallengeCompletes(page, 20);
 
   const loadMoreChallenges = useCallback(() => {
     if (data?.data.hasNext && !isLoading) {
@@ -54,22 +55,15 @@ const MyChallengeRecord = () => {
           {allChallenges.length > 0 ? (
             allChallenges.map((challenge, index) => (
               <ListItem
-                key={`${challenge.challengeId}-${index}`}
-                challengeId={challenge.challengeId}
-                challengeTitle={challenge.challengeTitle}
-                userNickname={challenge.user.nickname}
-                profileImageUrl={challenge.user.profileImageUrl}
+                key={`${challenge.id}-${index}`}
+                challengeId={challenge.challengeGroupId}
+                challengeTitle={challenge.title}
               />
             ))
           ) : (
             <EmptyState>
-              <span>
-                <span className='highlight'>
-                  완료한 챌린지가 존재하지 않습니다.
-                </span>
-                <br />
-                어서 챌린지를 인증하여 스탬프를 채워보세요!
-              </span>
+              <p className='highlight'>완료한 챌린지가 존재하지 않습니다.</p>
+              <p>어서 챌린지를 인증하여 스탬프를 채워보세요!</p>
             </EmptyState>
           )}
         </ChallengeList>
@@ -86,9 +80,8 @@ const MyChallengeRecord = () => {
 export default MyChallengeRecord;
 
 const MyChallengeRecordLayout = styled.div`
-  min-height: calc(
-    100vh - ${HEADER_HEIGHT}
-  ); // 부모가 block이므로 해당 요소에 직접 높이 지정
+  min-height: calc(100vh - ${HEADER_HEIGHT} - ${NAVBAR_HEIGHT});
+  // 부모가 block이므로 해당 요소에 직접 높이 지정
   display: flex;
   flex-direction: column;
   background-color: var(--color-green-06);

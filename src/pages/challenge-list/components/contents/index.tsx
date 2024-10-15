@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { formatDate } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -29,7 +30,7 @@ const Contents = ({
     onClick(id);
   };
 
-  const date = `${startDate} ~ ${endDate}`;
+  const period = `${formatDate(startDate)} ~ ${formatDate(endDate)}`;
 
   return (
     <ContentsBox onClick={handleBoxClick} isClicked={isClicked}>
@@ -50,9 +51,9 @@ const Contents = ({
       </FlexBox>
       <Box>
         <Text mb={1.5} fontSize='1.2rem' fontWeight='700'>
-          참여 가능 기간
+          챌린지 신청 가능 기간
         </Text>
-        <TextItem isClicked={isClicked}>{date}</TextItem>
+        <TextItem isClicked={isClicked}>{period}</TextItem>
       </Box>
     </ContentsBox>
   );

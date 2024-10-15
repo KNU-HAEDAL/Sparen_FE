@@ -1,15 +1,27 @@
 import styled from '@emotion/styled';
 
 type CTAProps = {
+  theme?: 'primary' | 'secondary';
   label: string;
   display?: 'flex' | 'block';
   disabled?: boolean;
   onClick: () => void;
 };
 
-const CTA = ({ label, display = 'flex', disabled, onClick }: CTAProps) => {
+const CTA = ({
+  theme = 'primary',
+  label,
+  display = 'flex',
+  disabled,
+  onClick,
+}: CTAProps) => {
   return (
-    <StyledCTA display={display} disabled={disabled} onClick={onClick}>
+    <StyledCTA
+      theme={theme}
+      display={display}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {label}
     </StyledCTA>
   );
@@ -20,13 +32,17 @@ export default CTA;
 export const CTA_CONTAINER_HEIGHT = '4rem';
 
 const StyledCTA = styled.button<{
+  theme: 'primary' | 'secondary';
   display: 'flex' | 'block';
   disabled?: boolean;
 }>`
-  border: none;
+  border: ${({ theme }) =>
+    theme === 'primary' ? `none` : `1px solid var(--color-green-01)`};
   border-radius: 10px;
-  background-color: var(--color-green-01);
-  color: var(--color-white);
+  background-color: ${({ theme }) =>
+    theme === 'primary' ? `var(--color-green-01)` : `var(--color-white)`};
+  color: ${({ theme }) =>
+    theme === 'primary' ? `var(--color-white)` : `var(--color-green-01)`};
   outline: none;
 
   ${({ display }) =>
@@ -42,7 +58,6 @@ const StyledCTA = styled.button<{
   ${({ display }) =>
     display === 'block' &&
     `
-    margin: 0 0 0 auto;
     padding: 6px 8px;
     font-size: var(--font-size-sm);
     font-weight: 600;

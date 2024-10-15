@@ -30,5 +30,6 @@ const Wrapper = styled.div`
   .highlight {
     font-weight: 600;
     color: var(--color-green-03);
+    text-align: center;
   }
 `;
