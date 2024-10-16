@@ -9,7 +9,8 @@ import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MyChallengePage = () => {
-  sessionStorage.setItem('activeTab', '0'); // 선택 탭 초기화
+  sessionStorage.setItem('activeTab', '0'); // (인증 기록) 탭 초기화
+  sessionStorage.setItem('challengeDetailActiveTab', '0'); // 챌린지 디테일의 탭을 초기화
 
   const [challengeList, setChallengeList] = useState<ChallengeData[]>([]);
 

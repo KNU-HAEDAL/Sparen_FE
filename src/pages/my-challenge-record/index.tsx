@@ -10,6 +10,8 @@ import { Box, Spinner } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MyChallengeRecord = () => {
+  sessionStorage.setItem('challengeDetailActiveTab', '0'); // 챌린지 디테일의 탭을 초기화
+
   const [page, setPage] = useState(0);
   const [allChallenges, setAllChallenges] = useState<ChallengeData[]>([]);
   const { data, isLoading } = useGetChallengeCompletes(page, 20);
