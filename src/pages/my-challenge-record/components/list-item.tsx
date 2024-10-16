@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
 import CTA from '@/components/common/cta';
 import { RouterPath } from '@/routes/path';
-import { formatCategory } from '@/utils/formatters';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
@@ -21,7 +20,6 @@ const ListItem = ({
   category,
 }: Props) => {
   sessionStorage.setItem('activeTab', '0');
-  const formattedCategory = formatCategory(category);
   const navigate = useNavigate();
 
   const handleViewRecord = (
@@ -70,7 +68,7 @@ const ListItem = ({
           label='리뷰 쓰기'
           display='block'
           onClick={() =>
-            handleReviewWrite(challengeId, challengeTitle, formattedCategory)
+            handleReviewWrite(challengeId, challengeTitle, category)
           }
         />
       </Box>

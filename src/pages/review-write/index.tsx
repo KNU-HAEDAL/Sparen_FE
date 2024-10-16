@@ -12,6 +12,7 @@ import {
   formatRating,
   formatDifficulty,
   formatAchievement,
+  formatCategory,
 } from '@/utils/formatters';
 import { Box, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
@@ -104,7 +105,7 @@ const ReviewWrite = () => {
     <>
       <TopBar title='리뷰 쓰기' backgroundColor='#fff' type='Page' />
       <Wrapper>
-        <ChallengeTitle category={category} title={title} />
+        <ChallengeTitle category={formatCategory(category)} title={title} />
 
         <Inner>
           <FormItem alignItems='center' alignSelf='center'>
