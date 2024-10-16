@@ -1,12 +1,18 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Logo from '@/assets/top-bar/ZZAN-Default.png';
+import CTA from '@/components/common/cta';
 import { RouterPath } from '@/routes/path.ts';
-import { Box, Image, Text, Button } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MainBar = ({ height, show }: { height: string; show: boolean }) => {
   const accessToken = localStorage.getItem('accessToken');
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate(RouterPath.auth);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -36,44 +42,19 @@ const MainBar = ({ height, show }: { height: string; show: boolean }) => {
       </Box>
 
       {accessToken ? (
-        <Button
-          borderRadius='0.5rem'
-          border='1.2px solid var(--color-green-01)'
-          width='3.5rem'
-          paddingX='5px'
-          textAlign='center'
-          alignItems='center'
+        <CTA
+          theme='secondary'
+          label='나가기'
+          display='block'
           onClick={handleLogout}
-          backgroundColor='#fff'
-        >
-          <Text
-            fontSize='var(--font-size-md)'
-            fontWeight='bold'
-            color='var(--color-green-01)'
-          >
-            나가기
-          </Text>
-        </Button>
+        />
       ) : (
-        <Button
-          borderRadius='0.5rem'
-          border='1.2px solid var(--color-green-01)'
-          width='3.5rem'
-          paddingX='5px'
-          textAlign='center'
-          alignItems='center'
-          backgroundColor='#fff'
-        >
-          <NavLink to={RouterPath.auth}>
-            <Text
-              fontSize='var(--font-size-md)'
-              fontWeight='bold'
-              color='var(--color-green-01)'
-            >
-              로그인
-            </Text>
-          </NavLink>
-        </Button>
+        <CTA
+          theme='secondary'
+          label='로그인'
+          display='block'
+          onClick={handleLogin}
+        />
       )}
     </MainBarLayout>
   );
@@ -89,8 +70,7 @@ const MainBarLayout = styled(Box)<{ show: boolean }>`
   justify-content: space-between;
   width: 100%;
   height: ${({ height }) => height};
-  padding: 0.5rem;
-  gap: 1rem;
+  padding: 0 16px;
   background-color: #fff;
   z-index: 1000;
   position: sticky;
