@@ -173,7 +173,7 @@ const Verification = ({
                   }
                 }}
               />
-              사진 업로드
+              {image ? '사진 변경' : '사진 업로드'}
             </AddImage>
           </>
         )}
