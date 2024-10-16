@@ -7,7 +7,7 @@ import { postVerification } from '@/apis/challenge-record/challenge.record.api';
 import CTA, { CTAContainer } from '@/components/common/cta';
 import EmptyState from '@/components/common/empty-state';
 import Textarea from '@/components/common/form/textarea';
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const MIN_CONTENT_LENGTH = 20;
@@ -28,6 +28,7 @@ const Verification = ({
   endDate,
 }: VerificationProps) => {
   const fileInput = useRef<HTMLInputElement | null>(null);
+  const [fileSizeInMB, setFileSizeInMB] = useState<number>(0);
   const [content, setContent] = useState('');
   const [isContentValid, setIsContentValid] = useState(true);
   const [image, setImage] = useState<File | null>(null);
@@ -51,6 +52,9 @@ const Verification = ({
 
   const handleImage = (fileBlob: File) => {
     setImage(fileBlob); // File 객체를 직접 설정합니다.
+
+    // 사진 용량을 바이트에서 MB로 변환
+    setFileSizeInMB(fileBlob.size / (1024 * 1024));
 
     // 미리보기를 위해 FileReader를 사용합니다.
     const reader = new FileReader();
@@ -140,12 +144,22 @@ const Verification = ({
               valid={isContentValid}
             />
             {image && (
-              <PreviewImageContainer>
-                <PreviewImage id='previewImage' src='' />
-                <DeleteImageButton onClick={handleDeleteImage}>
-                  <IoClose size='24' />
-                </DeleteImageButton>
-              </PreviewImageContainer>
+              <>
+                <PreviewImageContainer>
+                  <PreviewImage id='previewImage' src='' />
+                  <DeleteImageButton onClick={handleDeleteImage}>
+                    <IoClose size='24' />
+                  </DeleteImageButton>
+                </PreviewImageContainer>
+                <Text
+                  fontSize='var(--font-size-xs)'
+                  color='var(--color-grey-01)'
+                  textAlign='right'
+                  margin='8px 16px 0'
+                >
+                  사진 용량: {fileSizeInMB.toFixed(2)} MB
+                </Text>
+              </>
             )}
             <AddImage onClick={handleUploadImage}>
               <input
