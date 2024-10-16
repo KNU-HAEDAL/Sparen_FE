@@ -32,6 +32,7 @@ const Verification = ({
   const [isContentValid, setIsContentValid] = useState(true);
   const [image, setImage] = useState<File | null>(null);
   const [isUploadDisabled, setIsUploadDisabled] = useState(true);
+  const isComplete: boolean = successCount >= totalCount;
   const endDateInDate = new Date(endDate);
   const todayDate = new Date();
 
@@ -113,7 +114,7 @@ const Verification = ({
   return (
     <>
       <Wrapper>
-        {successCount >= totalCount ? (
+        {isComplete ? (
           <EmptyState>
             <span>
               축하해요! <br />
@@ -164,13 +165,15 @@ const Verification = ({
         )}
         <Caution />
       </Wrapper>
-      <CTAContainer>
-        <CTA
-          label='등록하기'
-          disabled={isUploadDisabled}
-          onClick={handleSave}
-        />
-      </CTAContainer>
+      {!isComplete && (
+        <CTAContainer>
+          <CTA
+            label='등록하기'
+            disabled={isUploadDisabled}
+            onClick={handleSave}
+          />
+        </CTAContainer>
+      )}
     </>
   );
 };
