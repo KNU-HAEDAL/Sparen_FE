@@ -22,10 +22,7 @@ const MyChallengeRecord = () => {
 
   useEffect(() => {
     if (data?.data.data) {
-      setAllChallenges((prevChallenges) => [
-        ...prevChallenges,
-        ...data.data.data,
-      ]);
+      setAllChallenges(data.data.data);
     }
   }, [data]);
 
