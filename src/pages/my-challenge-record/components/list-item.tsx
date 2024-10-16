@@ -3,32 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import ProfileImg from '@/assets/challenge/ZZAN-Green.png';
 import CTA from '@/components/common/cta';
 import { RouterPath } from '@/routes/path';
+import { formatCategory } from '@/utils/formatters';
 import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 type Props = {
   challengeId: number;
+  challengeGroupId: number;
   challengeTitle: string;
+  category: 'HEALTH' | 'ECHO' | 'SHARE' | 'VOLUNTEER';
 };
 
-const ListItem = ({ challengeId, challengeTitle }: Props) => {
+const ListItem = ({
+  challengeId,
+  challengeGroupId,
+  challengeTitle,
+  category,
+}: Props) => {
   sessionStorage.setItem('activeTab', '0');
-
+  const formattedCategory = formatCategory(category);
   const navigate = useNavigate();
 
   const handleViewRecord = (
     challengeId: number,
     title: string,
-    category?: string
+    category: string
   ) => {
-    if (category) {
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&category=${category}&title=${title}`
-      );
-    } else
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&title=${title}`
-      );
+    navigate(
+      `/${RouterPath.challenge}/${RouterPath.record}?id=${challengeId}&category=${category}&title=${title}`
+    );
   };
 
   const handleReviewWrite = (
@@ -36,14 +39,9 @@ const ListItem = ({ challengeId, challengeTitle }: Props) => {
     title: string,
     category?: string
   ) => {
-    if (category) {
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.write}?id=${challengeId}&category=${category}&title=${title}`
-      );
-    } else
-      navigate(
-        `/${RouterPath.challenge}/${RouterPath.write}?id=${challengeId}&title=${title}`
-      );
+    navigate(
+      `/${RouterPath.challenge}/${RouterPath.write}?id=${challengeId}&category=${category}&title=${title}`
+    );
   };
 
   return (
@@ -55,7 +53,7 @@ const ListItem = ({ challengeId, challengeTitle }: Props) => {
         display='flex'
         flex='1'
         as='a'
-        href={`${RouterPath.challenge}/{challengeGroupId}`}
+        href={`/${RouterPath.challenge}/${challengeGroupId}`}
       >
         {challengeTitle}
       </ChallengeTitle>
@@ -64,12 +62,16 @@ const ListItem = ({ challengeId, challengeTitle }: Props) => {
           theme='secondary'
           label='인증 기록'
           display='block'
-          onClick={() => handleViewRecord(challengeId, challengeTitle)}
+          onClick={() =>
+            handleViewRecord(challengeId, challengeTitle, category)
+          }
         />
         <CTA
           label='리뷰 쓰기'
           display='block'
-          onClick={() => handleReviewWrite(challengeId, challengeTitle)}
+          onClick={() =>
+            handleReviewWrite(challengeId, challengeTitle, formattedCategory)
+          }
         />
       </Box>
     </ListItemLayout>

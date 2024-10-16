@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import ListItem from './components/list-item';
 import { useGetChallengeCompletes } from '@/apis/challenge-completes/challenge-completes.api';
-import { ChallengeData } from '@/apis/challenge-completes/challenge-completes.response';
+import type { ChallengeData } from '@/apis/challenge-completes/challenge-completes.response';
 import EmptyState from '@/components/common/empty-state';
 import { NAVBAR_HEIGHT } from '@/components/features/layout/nav-bar';
 import TopBar, { HEADER_HEIGHT } from '@/components/features/layout/top-bar';
@@ -56,8 +56,10 @@ const MyChallengeRecord = () => {
             allChallenges.map((challenge, index) => (
               <ListItem
                 key={`${challenge.id}-${index}`}
-                challengeId={challenge.challengeGroupId}
+                challengeId={challenge.id}
+                challengeGroupId={challenge.challengeGroupId}
                 challengeTitle={challenge.title}
+                category={challenge.category}
               />
             ))
           ) : (

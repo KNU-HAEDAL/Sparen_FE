@@ -1,5 +1,5 @@
 import { axiosClient } from '../AxiosClient';
-import { ChallengeCompletesResponse } from './challenge-completes.response';
+import type { ChallengeCompletesResponse } from './challenge-completes.response';
 import { useQuery } from '@tanstack/react-query';
 
 export const challengeCompletesPath = () => '/api/user/challenges/completes';
