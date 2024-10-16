@@ -5,6 +5,7 @@ import { joinChallenge } from '@/apis/challenge-detail/challenge.detail.api';
 import { type Challenge } from '@/apis/challenge-detail/challenge.detail.response';
 import { Chip } from '@/components/common/chip';
 import CTA from '@/components/common/cta';
+import { RouterPath } from '@/routes/path';
 import { getDynamicPath } from '@/routes/protected-route';
 import { Box, Text } from '@chakra-ui/react';
 
@@ -20,7 +21,12 @@ const ChallengeItem = ({ challenge, maxDifficulty }: Props) => {
   const handleJoinChallenge = () => {
     joinChallenge(challenge.id)
       .then((res) => {
-        alert(res.message);
+        const answer = confirm(
+          `${res.message}\n참여 중인 챌린지를 조회하시겠습니까?`
+        );
+        if (answer === true) {
+          navigate(`/${RouterPath.challenge}/${RouterPath.myChallenge}`);
+        }
       })
       .catch((error) => {
         // API에서 받은 오류 객체일 경우
