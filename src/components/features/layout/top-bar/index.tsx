@@ -16,13 +16,6 @@ type TopBarProps = {
   backgroundColor: string;
 };
 
-/**
- * type : Main | Page,
- * title : Page Title,
- * backgroundColor : 배경색,
- * var(--color-green-06) or #fff
- */
-
 export const HEADER_HEIGHT = '3rem';
 
 const TopBar = ({ type, ...props }: TopBarProps) => {

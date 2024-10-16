@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import PrevIcon from '@/assets/top-bar/Prev-Icon.svg';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 
 const PageBar = ({
@@ -16,29 +16,26 @@ const PageBar = ({
   show: boolean;
 }) => {
   const navigate = useNavigate();
-  const handlerNavigate = () => {
+
+  const handleBack = () => {
     navigate(-1);
   };
+
   return (
     <PageBarLayout
       height={height}
       backgroundColor={backgroundColor}
       show={show}
     >
-      <PrevButtonBox onClick={handlerNavigate}>
-        <Image width='0.8rem' height='1.45rem' src={PrevIcon} alt='Prev Icon' />
-      </PrevButtonBox>
-      <TitleBox>
-        <Text
-          fontSize='var(--font-size-xl)'
-          fontWeight='700'
-          fontStyle='normal'
-          lineHeight='normal'
-        >
-          {title}
-        </Text>
-      </TitleBox>
-      <EmptyBox>&nbsp;</EmptyBox>
+      <PrevButton onClick={handleBack}>
+        <Image
+          width='1.25rem'
+          height='1.25rem'
+          src={PrevIcon}
+          alt='Prev Icon'
+        />
+      </PrevButton>
+      <Title>{title}</Title>
     </PageBarLayout>
   );
 };
@@ -51,14 +48,13 @@ const PageBarLayout = styled(Box)<{
   show: boolean;
 }>`
   display: flex;
-  align-items: center;
-  text-align: center;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  text-align: center;
   width: 100%;
   height: ${({ height }) => height};
-  padding: 0.5rem;
-  gap: 1rem;
+  padding: 0 16px;
   background-color: ${(props) => props.backgroundColor};
   z-index: 10;
   position: sticky;
@@ -66,29 +62,18 @@ const PageBarLayout = styled(Box)<{
   transition: top 0.3s;
 `;
 
-const TitleBox = styled(Box)`
+const PrevButton = styled.button`
   display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const EmptyBox = styled(Box)`
-  display: flex;
-  width: 2.8125rem;
-  height: 1.6875rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  outline: none;
 `;
 
-const PrevButtonBox = styled(Box)`
-  display: flex;
-  width: 2.0625rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  align-self: stretch;
-
-  border-radius: 0.625rem;
+const Title = styled.p`
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
 `;
