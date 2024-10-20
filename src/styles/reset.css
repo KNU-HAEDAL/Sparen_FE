@@ -6,6 +6,7 @@ html {
 }
 * {
   box-sizing: border-box;
+  word-break: keep-all;
 }
 body {
   margin: 0;

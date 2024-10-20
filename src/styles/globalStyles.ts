@@ -20,7 +20,7 @@ const colorGrey01 = '#797979';
 const colorGrey02 = '#B8B8B8';
 
 // 티어별 색상 정의
-const colorClass01 = '#C0C0C0C0';
+const colorClass01 = '#C0C0C0';
 const colorClass02 = '#B28753';
 const colorClass03 = '#74A3D1';
 const colorClass04 = '#D6B534';
