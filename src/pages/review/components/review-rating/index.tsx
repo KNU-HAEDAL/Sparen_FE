@@ -93,7 +93,7 @@ export default ReviewRating;
 const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   margin: 0 16px;
   gap: 8px;
 `;
